@@ -1,0 +1,21 @@
+---
+import childProcess from 'child_process';
+
+// get commit hash
+const hash = childProcess.execSync('git rev-parse --short HEAD').toString().trim();
+
+// reconstruct the commit url with the hash
+const repoUrl = 'https://github.com/nicosalm/salm.dev';
+const commitUrl = `${repoUrl}/commit/${hash}`;
+---
+
+<footer class="container mx-auto p-4 max-w-screen-xl flex justify-between items-center">
+  <p class="text-sm">&copy; {new Date().getFullYear()} Nico Salm</p>
+  <p class="text-sm">
+    Commit: 
+    <a href={commitUrl} target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+      {hash}
+    </a>
+  </p>
+</footer>
+
