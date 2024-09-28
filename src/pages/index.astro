@@ -2,9 +2,12 @@
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-iconify";
 import Layout from "../layouts/Layout.astro";
+
 let allPosts = await Astro.glob("./blog/**/index.mdx");
 allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+
 let recentPosts = allPosts.slice(0, 5);
+
 let socialMedia = [
      {
         url: "https://github.com/nicosalm/",
@@ -29,7 +32,7 @@ let socialMedia = [
 ];
 ---
 
-<Layout title="Nico Salm" description="Hello! I'm Nico. I'm a software engineer and quantum computing enthusiast. Check out my site!">
+<Layout title="Nico Salm" description="Hey! I'm Nico. I'm a software and data engineer studing at the University of Wisconsin-Madison. Check out my site!">
     <main class="mx-auto max-w-screen-xl xl:flex xl:p-0 p-4 pt-2">
         <!-- Main content (3/4 of the page) -->
         <div class="flex-grow xl:w-3/4 pb-4">
@@ -42,7 +45,7 @@ let socialMedia = [
                         <p class="pt-4 xl:text-lg">
                             I have a passion for solving complex problems and creating intuitive solutions.
                             I enjoy many aspects of computing, from ML and AI for predictive analytics to the intricacies of low-level systems, compilers, and computer science theory.
-                            My goal is to master the skills needed to become an exceptional software engineer.
+                            My goal is to master the skills needed become an exceptional software engineer and data scientist.
                         </p>
                     </div>
                     <!-- Social Media -->
@@ -50,7 +53,7 @@ let socialMedia = [
                         {
                         socialMedia.map((sm) => (
                         <a href={sm.url} target="_blank" class="xl:mr-4 mr-3 xl:p-4 md:p-3 p-2 rounded-full bg-base-100/50 hover:bg-base-200/50 transition-all backdrop-blur-md" title={sm.name}>
-                        <Icon name={sm.icon} class="xl:max-w-[2em] xl:h-8 md:max-w-[1.75em] md:h-7 max-w-[1.5em] h-6" />
+                            <Icon name={sm.icon} class="xl:max-w-[2em] xl:h-8 md:max-w-[1.75em] md:h-7 max-w-[1.5em] h-6" />
                         </a>
                         ))
                         }
@@ -84,7 +87,7 @@ let socialMedia = [
                             <div class="lg:grid-cols-1 grid sm:grid-cols-3 gap-4 mb-2 grid-cols-1">
                                 <div class="flex flex-col">
                                     <h3 class="text-lg font-medium leading-5 mb-1 group-hover:underline dark:text-blue-200">Languages</h3>
-                                    <p class="opacity-85 font-light leading-5 mb-1">Python, Go, C, C++, SQL (PostgreSQL, MySQL), JavaScript, HTML/CSS, Java, R</p>
+                                    <p class="opacity-85 font-light leading-5 mb-1">Python, Go, C, C++, SQL (PostgreSQL, MySQL), JavaScript, Java, R</p>
                                 </div>
                                 <div class="flex flex-col">
                                     <h3 class="text-lg font-medium leading-5 mb-1 group-hover:underline dark:text-blue-200">Frameworks/Runtimes</h3>
@@ -142,13 +145,13 @@ let socialMedia = [
                         recentPosts.map((post, index) => (
                         index < 5 && (
                         <a rel="prefetch" href={post.url} class="group">
-                        <h3 class="text-lg font-medium leading-5 mb-1 group-hover:underline dark:text-blue-200">{post.frontmatter.title}</h3>
-                        <p class="opacity-85 font-light leading-5 mb-1">{post.frontmatter.description}</p>
-                        <div class="flex flex-wrap opacity-80 items-center">
-                        <p class="text-sm font-normal leading-5">{new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })}</p>
-                        <span class="divider divider-horizontal mx-0" />
-                        <span class="badge badge-sm badge-outline">{post.frontmatter.minutesRead} min read</span>
-                        </div>
+                            <h3 class="text-lg font-medium leading-5 mb-1 group-hover:underline dark:text-blue-200">{post.frontmatter.title}</h3>
+                            <p class="opacity-85 font-light leading-5 mb-1">{post.frontmatter.description}</p>
+                            <div class="flex flex-wrap opacity-80 items-center">
+                                <p class="text-sm font-normal leading-5">{new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })}</p>
+                                <span class="divider divider-horizontal mx-0" />
+                                <span class="badge badge-sm badge-outline">{post.frontmatter.minutesRead} min read</span>
+                            </div>
                         </a>
                         )
                         ))
