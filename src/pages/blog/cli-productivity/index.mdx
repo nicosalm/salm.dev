@@ -2,32 +2,26 @@
 layout: ../../../layouts/BlogLayout.astro
 pubDate: 2024/04/24
 title: "Spotlight: CLI Productivity"
-description: "My command-line-centric workflow where I do my best work."
+description: "My Command-Line-Centric Workflow Where I Do My Best Work"
 ---
 
 import BlogPicture from '../../../components/BlogPicture.astro';
 
-# command line productivity
+*You can achieve peak productivity with nothing but the command line and your web browser. I will describe my minimal, focused, keyboard-centric workflow where I do my best work.*
 
-## Intro
+## Motivation
 
-You can achieve peak productivity with nothing but the command line and your web browser. I will describe my minimal, focused, keyboard-centric workflow where I do my best work.
+The purpose of this article isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to the tools that have worked well for me.
 
-The goal of this article is not to convince you to make monumental changes in your developer workflow overnight, nor is it a hit-job against “mainstream” editors and IDEs. My intention is to expose you to my perspective and the tools which work for me.
+In my view, there are two distinct areas of technical productivity:
 
-There are, in my mind, two distinct domains of technical productivity:
+On one side, you have foundational tools like Git and GitHub—vital systems that revolutionize how you manage projects. They’re your safety net when things go wrong and should be part of every developer's toolkit. However, they aren’t the focus of this article.
 
-On one hand, you have tools like Git and Github. They are essential overhauls to how you approach work. They save the day when things go awry, and should be used in every single case. They will not be the focus of this article.
+On the other side, there are tools designed to genuinely accelerate your coding process and task completion. That’s what I’ll be highlighting today.
 
-On the other hand, there are tools which genuinely increase the rate at which you produce code and complete tasks. This is what I am showcasing today.
+## Multiplexing
 
-Let's go!
-
----
-
-## tmux
-
-When you dedicate a lot of time in your terminal, I think you pretty quickly realize it can become cumbersome. In the web browser you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. And I guess there’s a parallel here – you can make a bunch of terminal windows, and that works… sort of. But you have to reopen everything with each new terminal instance.
+When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
 
 I found something much better. It does exactly what I want. It’s called [TMUX](https://tmuxcheatsheet.com/how-to-install-tmux/).
 
@@ -35,17 +29,15 @@ I found something much better. It does exactly what I want. It’s called [TMUX]
 
 <BlogPicture src="https://omniti.com/i/terminal_multiplexing_before_and_after-small.png" alt="Multiplexing Diagram" />
 
-A terminal multiplexer is a program which transparently “stands between” your active terminal connection and <i>K</i> spawned terminal sessions. With TMUX, you can start a session, open new windows and hotkey between them. You can detach and reattach to sessions at will. In other words, you can put a session down and pick it up later and it will be exactly how you left it. With a plugin, these sessions can even persist even across system restarts. 
+A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>K</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it. With a plugin, these sessions can even persist across system restarts.
 
-TMUX is really neat and if you plan on doing ANY work in the terminal, it saves an incredible amount of time. Install it.
+TMUX is incredibly useful, and if you plan on doing **any** serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.
 
-### customization
+### Customization
 
-When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. This single plain-text file is where you can set up and “rice out”[^2] your multiplexer. You begin by adding a plugin manager, [tpm](https://github.com/tmux-plugins/tpm), and then using it to load a couple plugins and a nice theme[^3]. 
+When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. This plain-text file is where you can configure and "rice out"[^2] your multiplexer. You’ll begin by adding a plugin manager, [tpm](https://github.com/tmux-plugins/tpm), and then use it to load a few plugins and a nice theme[^3].
 
----
-
-## Vim
+## Vim As Your Editor
 
 I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: `vim` (the program), or Vim Motions.
 
