@@ -1,7 +1,7 @@
 ---
 import { Picture } from '@astrojs/image/components';
 import Layout from '../layouts/Layout.astro';
-import {content} from '../layouts/BlogLayout.astro';
+import { content } from '../layouts/BlogLayout.astro';
 
 let allPosts = await Astro.glob('./blog/**/index.mdx');
 allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
@@ -12,6 +12,7 @@ await Promise.all(allPosts.map(async (post) => {
     post.frontmatter.hero = (await heroes[`.${post.url}/hero.png`]()).default;
 }));
 ---
+
 <Layout title="Nico Salm | Blog" description="Nico's Blog">
     <main class="container max-w-screen-xl mx-auto">
         <h1 class="text-5xl text-center pb-2 font-display">Blog</h1>
@@ -29,6 +30,18 @@ await Promise.all(allPosts.map(async (post) => {
                             <span class="badge badge-outline">{post.frontmatter.minutesRead} min read</span>
                         </div>
                         <p>{post.frontmatter.description}</p>
+                        <!-- only render tags if they exist -->
+                        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mt-4 items-center">
+                            <!-- FA tag icon -->
+                            <i class="fas fa-tag text-gray-600"></i>
+                            <!-- tags -->
+                            <span class="text-sm font-semibold">Tags:</span> 
+                            {post.frontmatter.tags.map(tag => (
+                                <span class="badge badge-ghost text-sm rounded-md ml-1">{tag}</span>
+                            ))}
+                        </div>
+                        )}
                     </div>
                 </a>
             </li>
@@ -36,3 +49,4 @@ await Promise.all(allPosts.map(async (post) => {
         </ul>
     </main>
 </Layout>
+
