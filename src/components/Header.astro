@@ -1,10 +1,95 @@
 ---
 import Theme from "./Theme.astro";
-
-const { blog } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
-
-<header class={`container mx-auto p-4 ${blog ? 'max-w-screen-md' : 'max-w-screen-xl'} flex justify-between items-center`}>
-  <a rel="prefetch" class="text-3xl font-display font-black hover:underline" href="/">salm.dev</a>
-  <div class="self-center"><Theme/></div>
+<header>
+  <div class="container">
+    <nav>
+      <a href="/" class="site-title">salm.dev</a>
+      <div class="nav-links">
+        <a href="/blog" class={`nav-item ${currentPath.startsWith('/blog') ? 'active' : ''}`}>Blog</a>
+        <Theme />
+      </div>
+    </nav>
+  </div>
 </header>
+
+<style>
+  header {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .site-title:hover {
+    color: var(--color-accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem; /* Increased gap */
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; /* Pill shape */
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--color-bg);
+    background-color: var(--color-accent);
+  }
+  /* Styles for the theme toggle */
+  :global(.nav-links .theme-toggle) {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  :global(.nav-links .theme-toggle:hover) {
+    background-color: var(--color-accent);
+  }
+  @media (max-width: 768px) {
+    .site-title {
+      font-size: 1.2rem;
+    }
+    .nav-links {
+      gap: 1rem;
+    }
+    .nav-links a {
+      padding: 0.4rem 0.8rem;
+    }
+    :global(.nav-links .theme-toggle) {
+      width: 2.2rem;
+      height: 2.2rem;
+      padding: 0.4rem;
+    }
+  }
+</style>

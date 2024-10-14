@@ -1,0 +1,122 @@
+/* Import a serif font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+
+  /* light mode colors */
+  --color-bg-light: #f8f4e9;
+  --color-text-light: #333333;
+  --color-primary-light: #4a4a4a;
+  --color-secondary-light: #6b6b6b;
+  --color-accent-light: #8b6b4a;
+  --color-border-light: #e0e0e0;
+
+  /* dark mode colors */
+  --color-bg-dark: #2b2b2b;
+  --color-text-dark: #e0e0e0;
+  --color-primary-dark: #c0c0c0;
+  --color-secondary-dark: #a0a0a0;
+  --color-accent-dark: #d4a76a;
+  --color-border-dark: #4a4a4a;
+
+  /* default to light mode */
+  --color-bg: var(--color-bg-light);
+  --color-text: var(--color-text-light);
+  --color-primary: var(--color-primary-light);
+  --color-secondary: var(--color-secondary-light);
+  --color-accent: var(--color-accent-light);
+  --color-border: var(--color-border-light);
+
+  --max-width: 850px;
+  --side-margin: max(calc((100% - var(--max-width)) / 2), 1rem);  /* Adjusted for better centering */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-bg: var(--color-bg-dark);
+    --color-text: var(--color-text-dark);
+    --color-primary: var(--color-primary-dark);
+    --color-secondary: var(--color-secondary-dark);
+    --color-accent: var(--color-accent-dark);
+    --color-border: var(--color-border-dark);
+  }
+}
+
+.dark {
+  --color-bg: var(--color-bg-dark);
+  --color-text: var(--color-text-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-border: var(--color-border-dark);
+}
+
+body {
+  font-family: var(--font-serif);
+  line-height: 1.8;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-size: 17px;
+  margin: 0;
+  padding: 0;
+}
+
+/* typography */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+/* layout */
+.container {
+  max-width: var(--max-width);
+  margin-left: var(--side-margin);
+  margin-right: var(--side-margin);
+  padding: 2rem 0;
+}
+
+/* header and footer */
+header, footer {
+  background-color: var(--color-bg);
+  padding: 1rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+footer {
+  border-top: 1px solid var(--color-border);
+  border-bottom: none;
+}
+
+/* main content area */
+main {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* utility classes */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 1rem; }
+

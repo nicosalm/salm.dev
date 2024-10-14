@@ -1,0 +1,57 @@
+---
+// this component is rendered on the client side
+---
+<nav class="table-of-contents">
+    <h2>Table of Contents</h2>
+    <ul id="toc"></ul>
+</nav>
+
+<script>
+    // generate table of contents
+    const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+    const toc = document.getElementById('toc');
+
+    headings.forEach((heading, index) => {
+        const link = document.createElement('a');
+        link.textContent = heading.textContent;
+        link.href = `#heading-${index}`;
+        
+        const li = document.createElement('li');
+        li.appendChild(link);
+        
+        if (heading.tagName === 'H3') {
+            li.style.marginLeft = '1rem';
+        }
+        
+        toc.appendChild(li);
+        
+        heading.id = `heading-${index}`;
+    });
+</script>
+
+<style>
+    .table-of-contents {
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-secondary);
+        border-radius: 0.25rem;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    .table-of-contents h2 {
+        margin-top: 0;
+    }
+    .table-of-contents ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .table-of-contents li {
+        margin-bottom: 0.5rem;
+    }
+    .table-of-contents a {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+    .table-of-contents a:hover {
+        text-decoration: underline;
+    }
+</style>

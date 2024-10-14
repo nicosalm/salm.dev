@@ -1,0 +1,54 @@
+---
+export interface Props {
+    tags: string[];
+    currentPostUrl: string;
+}
+
+const { tags, currentPostUrl } = Astro.props;
+
+const allPosts = await Astro.glob('../pages/blog/**/index.md');
+const relatedPosts = allPosts
+    .filter(post => post.url !== currentPostUrl)
+    .filter(post => post.frontmatter.tags?.some(tag => tags.includes(tag)))
+    .slice(0, 3);
+---
+
+{relatedPosts.length > 0 && (
+    <section class="related-posts">
+        <h2>Related Posts</h2>
+        <ul>
+            {relatedPosts.map(post => (
+                <li>
+                    <a href={post.url}>
+                        <h3>{post.frontmatter.title}</h3>
+                        <p>{post.frontmatter.description}</p>
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </section>
+)}
+
+<style>
+    .related-posts {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-secondary);
+    }
+    .related-posts ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .related-posts li {
+        margin-bottom: 1.5rem;
+    }
+    .related-posts h3 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    .related-posts p {
+        margin: 0.5rem 0 0;
+        font-size: 0.9rem;
+        color: var(--color-secondary);
+    }
+</style>

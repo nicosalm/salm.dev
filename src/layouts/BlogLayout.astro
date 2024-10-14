@@ -1,8 +1,7 @@
 ---
-import { Picture } from '@astrojs/image/components';
-import Layout from '../layouts/Layout.astro';
-import '../styles/blog.css';
-
+import Layout from './Layout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 export interface Props {
     content: {
         title: string;
@@ -14,74 +13,92 @@ export interface Props {
     }
 }
 const { content } = Astro.props as Props;
-const heroes = (await import.meta.glob("../pages/blog/**/hero.png"));
-const hero = (await heroes[`../pages${content.url}/hero.png`]()).default;
-
-export {content};
 ---
-
 <Layout title={content.title + ' - salm.dev'} description={content.description} blog={true}>
-    <main class="container mx-auto max-w-screen-md p-4 prose dark:prose-a:text-blue-400 prose-a:text-blue-600 prose-img:rounded-xl prose-img:shadow-lg">
-        <Picture formats={['avif', 'webp', 'jpeg']} class="w-full mt-0 mb-6 aspect-[16/9]" alt="" widths={[1600, 800]} sizes="(max-width: 800px) 100vw, 800px" aspectRatio="16:9" src={hero}/>
-        <div class="mb-2 not-prose">
-            <a rel="prefetch" class="link" href="/blog">← Go Back</a>
-        </div>  
-        <h1 class="font-display mb-0">{content.title}</h1>
-        <p class="text-xl mt-3 mb-4">{content.description}</p>
-        <div class="flex items-center pl-2 mb-8">
-            <span>{new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}</span>
-            <span class="divider divider-horizontal"/>
-            <span class="badge badge-outline">{content.minutesRead} min read</span>
-        </div>
-
-        <article>
+    <article class="blog-post">
+        <header>
+            <a href="/blog" class="back-link">← Back to Blog</a>
+            <h1>{content.title}</h1>
+            <p class="post-meta">
+                <time datetime={content.pubDate}>
+                    {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
+                </time>
+                <span class="reading-time">{content.minutesRead} min read</span>
+            </p>
+            <p class="description">{content.description}</p>
+        </header>
+        <TableOfContents />
+        <div class="post-content">
             <slot />
-        </article>
-
-        <!-- render tags section if there are tags -->
+        </div>
         {content.tags && content.tags.length > 0 && (
-            <div class="mt-8">
-                <h3 class="text-lg font-semibold">Tags:</h3> <!-- label at bottom -->
-                <div class="flex flex-wrap gap-2 mt-2">
+            <div class="tags">
+                <h3>Tags:</h3>
+                <ul>
                     {content.tags.map(tag => (
-                    <span class="badge badge-ghost text-sm rounded-md">{tag}</span>
+                        <li><a href={`/tags/${tag}`}>{tag}</a></li>
                     ))}
-                </div>
+                </ul>
             </div>
         )}
-    </main>
+        <RelatedPosts tags={content.tags} currentPostUrl={content.url} />
+    </article>
 </Layout>
 
-    <!-- footer -->
-    <style is:global>
-    article .heading-group {
-        position: relative;
+<style>
+    .blog-post {
+        max-width: 720px;
+        margin: 0 auto;
     }
-    .heading-group > a {
-        opacity: 0;
-        position: absolute;
-        right: 100%;
-        top: 0;
-        transition: opacity 0.15s ease;
-        padding-right: 0.5rem;
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1rem;
+        color: var(--color-secondary);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease;
     }
-    article .heading-group:hover a {
-        opacity: 1;
+    .back-link:hover {
+        border-bottom-color: var(--color-secondary);
     }
-    code {
-        background-color: hsl(var(--b2));
-        border-radius: 0.25rem !important;
+    .post-meta {
+        color: var(--color-secondary);
+        margin-bottom: 1rem;
     }
-    </style>
-    <style>
-    @font-face {
-        font-family: "FiraCode";
-        src: url("/fonts/FiraCode.ttf") format("ttf");
-        font-display: fallback;
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-            U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
-            U+2212, U+2215, U+FEFF, U+FFFD;
+    .reading-time {
+        margin-left: 1rem;
     }
-    </style>
-</Layout>
-
+    .description {
+        font-style: italic;
+        margin-bottom: 2rem;
+        color: var(--color-secondary);
+    }
+    .tags {
+        margin-top: 2rem;
+        border-top: 1px solid var(--color-secondary);
+        padding-top: 1rem;
+    }
+    .tags h3 {
+        margin-bottom: 0.5rem;
+    }
+    .tags ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .tags li a {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        background-color: var(--color-accent);
+        color: var(--color-bg);
+        border-radius: 0.25rem;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+    }
+    .tags li a:hover {
+        opacity: 0.8;
+    }
+</style>

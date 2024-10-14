@@ -1,0 +1,111 @@
+---
+layout: ../../../layouts/BlogLayout.astro
+pubDate: 2024/10/10
+title: "Spotlight: CLI Productivity"
+description: "My command-line-centric workflow where I do my best work."
+readingTime: "8 minutes"
+tags: ["productivity", "neovim", "tmux", "terminal efficiency"]
+minutesRead: "7"
+---
+
+_You can achieve peak productivity with nothing but the command line and your web browser. I will describe my minimal, focused, keyboard-centric workflow where I do my best work._
+
+## Motivation
+
+The purpose of this article isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to the tools that have worked well for me.
+
+In my view, there are two distinct areas of technical productivity:
+
+On one side, you have foundational tools like Git and GitHub—vital systems that revolutionize how you manage projects. They’re your safety net when things go wrong and should be part of every developer's toolkit. However, they aren’t the focus of this article.
+
+On the other side, there are tools designed to genuinely accelerate your coding process and task completion. That’s what I’ll be highlighting today.
+
+## Multiplexing
+
+When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
+
+I found something much better. It does exactly what I want. It’s called [TMUX](https://tmuxcheatsheet.com/how-to-install-tmux/).
+
+<br/>
+<figure>
+  <img src="https://img.salm.dev/u/pPAX2u.png" alt="Multiplexing Diagram" style="display: block; margin-left: auto; margin-right: auto; width: 80%;">
+</figure>
+
+<figcaption style="text-align: center;">
+    <i>A diagram showing how TMUX works.</i>
+</figcaption>
+<br/>
+
+A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>K</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it. With a plugin, these sessions can even persist across system restarts.
+
+TMUX is incredibly useful, and if you plan on doing **any** serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.
+
+```
+Arch Linux               pacman -S tmux
+Debian or Ubuntu         apt install tmux
+Fedora 	                dnf install tmux
+RHEL or CentOS 	        yum install tmux
+macOS (using Homebrew) 	brew install tmux
+macOS (using MacPorts) 	port install tmux
+openSUSE                 zypper install tmux
+```
+
+### Customization
+
+When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. This plain-text file is where you can configure and "rice out"[^2] your multiplexer. You’ll begin by adding a plugin manager, [tpm](https://github.com/tmux-plugins/tpm), and then use it to load a few plugins and a nice theme[^3].
+
+## Vim As Your Editor
+
+I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: `vim` (the program), or Vim Motions.
+
+### Vim Motions
+
+Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.
+
+### Vim
+
+Vim, by contrast, is a highly configurable, extensible text editor built to make creating and changing any kind of text very efficient.
+
+It was rather aptly put that: “Vim is the bliss of Ctrl C/V but applied to every facet of the text editor.” I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision.
+
+A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.
+
+I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly[^5]. Once you get the hang of things, and it clicks, it’s really, really fun to use.
+
+A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn’t do this, but it’s the path most people take. I’m a bit weird. I like to cold turkey and learn things from the ground up right away. But that’s a digression.
+
+### Neovim
+
+Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:
+
+> Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
+
+Neovim’s component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. You can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
+
+What’s more, since YOU configure Neovim, you’ll come away with a complete understanding of how each tool works, and how they interact with one another to create a complete ecosystem. By contrast, other editors and IDEs abstract this away.
+
+I know I just said a lot of words. The takeaway is this: With Neovim, you know exactly why everything works the way it does, and you can make it work exactly the way you want it to. The possibilities are, in fact, endless.
+
+Want functionality but there's no plugin for it? Your config is in Lua and everything in Lua is easy. Make it, maintain it, push it to the Neovim community! The Neovim community is vibrant and full of passionate creators and maintainers who work hard to support the editor they love.
+
+## Wrapping up
+
+In exploring the minimalist, keyboard-centric workflow of command line tools and editors like Vim and Neovim, we uncover a significant truth about productivity in software development: simplicity and customization can profoundly enhance efficiency. By adopting tools such as Tmux and Vim, developers are equipped to create a highly personalized development environment. This environment not only streamlines tasks but also keeps the focus on coding, reducing distractions inherent in more complex IDEs. Embracing these tools may involve a learning curve, but the long-term gains in speed, understanding, and adaptability make this investment worthwhile.
+
+For those willing to explore these command line utilities and text editors, the payoff is a more intuitive and efficient coding experience that aligns perfectly with the unique needs of each developer.
+
+And as always, remember:
+
+> Life is like Vim: There are a lot of shortcuts and you should take them.
+
+[^1]:
+    Many programs store their configuration files in plain text files. These
+    are usually (but not always) in your `~` or `~/.config/~` directories. Dotfiles
+    are configuration files for various programs. What sets them apart
+    from regular files and directories is their prefix: a dot (`.`).
+    Note: On Unix based systems, dotfiles are hidden by the OS by default.
+
+[^2]: Ricing is a process in which one customizes their OS or programs to improve the aesthetics or refine their workflow.
+[^3]: I highly reccommend [rose-pine](https://github.com/rose-pine/tmux) or [catppuccin](https://github.com/catppuccin/tmux) (mocha).
+[^4]: In the case of debugging, one might opt for `gdb`, the browser, or the python debugger, etc.
+[^5]: I'm paraphrasing [ThePrimeagen](https://github.com/ThePrimeagen), a Neovim enjoyer and popular streamer.

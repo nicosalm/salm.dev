@@ -1,0 +1,56 @@
+---
+import Layout from './Layout.astro';
+
+export interface Props {
+    tag: string;
+    posts: any[];
+}
+
+const { tag, posts } = Astro.props;
+---
+<Layout title={`Posts tagged "${tag}" - salm.dev`} description={`All blog posts tagged with "${tag}"`}>
+    <main class="container">
+        <h1>Posts tagged "{tag}"</h1>
+        <ul class="post-list">
+            {posts.map(post => (
+                <li>
+                    <a href={post.url}>
+                        <h2>{post.frontmatter.title}</h2>
+                        <p>{post.frontmatter.description}</p>
+                        <div class="post-meta">
+                            <time datetime={post.frontmatter.pubDate}>
+                                {new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
+                            </time>
+                            <span>{post.frontmatter.minutesRead} min read</span>
+                        </div>
+                    </a>
+                </li>
+            ))}
+        </ul>
+        <a href="/blog" class="back-link">← Back to all posts</a>
+    </main>
+</Layout>
+
+<style>
+    .post-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .post-list li {
+        margin-bottom: 2rem;
+    }
+    .post-list h2 {
+        margin-bottom: 0.5rem;
+    }
+    .post-meta {
+        color: var(--color-secondary);
+        font-size: 0.9rem;
+    }
+    .post-meta span {
+        margin-left: 1rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 2rem;
+    }
+</style>

@@ -1,52 +1,36 @@
 ---
-import { Picture } from '@astrojs/image/components';
 import Layout from '../layouts/Layout.astro';
-import { content } from '../layouts/BlogLayout.astro';
+import SearchBar from '../components/SearchBar.astro';
+import '../styles/blog.css';
 
-let allPosts = await Astro.glob('./blog/**/index.mdx');
+let allPosts = await Astro.glob('./blog/**/index.md');
 allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
-
-const heroes = (await import.meta.glob("./blog/**/hero.png"));
-
-await Promise.all(allPosts.map(async (post) => {
-    post.frontmatter.hero = (await heroes[`.${post.url}/hero.png`]()).default;
-}));
 ---
-
 <Layout title="Nico Salm | Blog" description="Nico's Blog">
-    <main class="container max-w-screen-xl mx-auto">
-        <h1 class="text-5xl text-center pb-2 font-display">Blog</h1>
-        <p class="text-center">Hot takes and cool things.</p>
-        <ul class="grid grid-cols-[repeat(auto-fit,_384px)] justify-center gap-8 p-8">
-            {allPosts.map((post, index) => (
-            <li class="card hover:shadow-lg transition-all shadow w-96 bg-base-100 dark:bg-neutral overflow-hidden group">
-                <a rel="prefetch" href={post.url} class="-outline-offset-4">
-                    <Picture formats={['avif', 'webp', 'jpeg']} class="w-full mt-0 aspect-[16/9]" alt="" loading={index < 3 ? 'eager' : 'lazy'} widths={[800, 400]} sizes="(max-width: 400px) 100vw, 400px" aspectRatio="16:9" src={post.frontmatter.hero}/>
-                    <div class="card-body p-6">
-                        <h2 class="font-display card-title line-clamp-2 group-hover:underline">{post.frontmatter.title}</h2>
-                        <div class="flex items-center">
-                            <span>{new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}</span>
-                            <span class="divider divider-horizontal mx-0"/>
-                            <span class="badge badge-outline">{post.frontmatter.minutesRead} min read</span>
-                        </div>
-                        <p>{post.frontmatter.description}</p>
-                        <!-- only render tags if they exist -->
-                        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                        <div class="flex flex-wrap gap-2 mt-4 items-center">
-                            <!-- FA tag icon -->
-                            <i class="fas fa-tag text-gray-600"></i>
-                            <!-- tags -->
-                            <span class="text-sm font-semibold">Tags:</span> 
-                            {post.frontmatter.tags.map(tag => (
-                                <span class="badge badge-ghost text-sm rounded-md ml-1">{tag}</span>
-                            ))}
-                        </div>
-                        )}
+    <main class="blog-container">
+        <h1>Blog</h1>
+        <p class="subtitle">Hot takes and cool things.</p>
+        <SearchBar />
+        <ul class="post-list">
+            {allPosts.map((post) => (
+            <li class="post-item">
+                <a href={post.url}>
+                    <h2>{post.frontmatter.title}</h2>
+                    <div class="post-meta">
+                        <span class="post-date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}</span>
+                        <span class="post-read-time">{post.frontmatter.minutesRead} min read</span>
                     </div>
+                    <p class="post-description">{post.frontmatter.description}</p>
+                    {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                    <div class="post-tags">
+                        {post.frontmatter.tags.map(tag => (
+                            <span class="tag">{tag}</span>
+                        ))}
+                    </div>
+                    )}
                 </a>
             </li>
             ))}
         </ul>
     </main>
 </Layout>
-

@@ -1,0 +1,145 @@
+---
+---
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="Search blog posts..." />
+  <div id="search-results"></div>
+</div>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+
+  // This will be populated with all blog posts
+  let allPosts = [];
+
+  // Fetch all blog posts
+  fetch('/search-index.json')
+    .then(response => response.json())
+    .then(posts => {
+      allPosts = posts;
+    });
+
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm.length < 3) {
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    const filteredPosts = allPosts.filter(post => 
+      post.title.toLowerCase().includes(searchTerm) ||
+      post.description.toLowerCase().includes(searchTerm) ||
+      post.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+    );
+
+    searchResults.innerHTML = filteredPosts.map(post => `
+      <div class="search-result">
+        <a href="${post.url}">
+          <h3>${post.title}</h3>
+          <p>${post.description}</p>
+        </a>
+      </div>
+    `).join('');
+  });
+</script>
+
+<style>
+  .search-container {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.35rem;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-serif);
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  #search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  #search-input::placeholder {
+    color: var(--color-secondary);
+    opacity: 0.7;
+  }
+
+  #search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 0.35rem 0.35rem;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .search-result {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s ease;
+  }
+
+  .search-result:hover {
+    background-color: var(--color-bg-hover);
+  }
+
+  .search-result:last-child {
+    border-bottom: none;
+  }
+
+  .search-result a {
+    text-decoration: none;
+    color: var(--color-text);
+    display: block;
+  }
+
+  .search-result h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+  }
+
+  .search-result p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+  }
+
+  /* Dark mode specific styles */
+  :root.dark #search-input {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    border-color: var(--color-border-dark);
+  }
+
+  :root.dark #search-results {
+    background-color: var(--color-bg-dark);
+    border-color: var(--color-border-dark);
+  }
+
+  :root.dark .search-result:hover {
+    background-color: var(--color-bg-hover-dark);
+  }
+
+  :root.dark .search-result h3 {
+    color: var(--color-accent-dark);
+  }
+
+  :root.dark .search-result p {
+    color: var(--color-secondary-dark);
+  }
+</style>
