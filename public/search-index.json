@@ -7,7 +7,9 @@
       "Hackathon",
       "Student Experience"
     ],
-    "url": "/blog/mit-iquhack-2024/"
+    "url": "/blog/mit-iquhack-2024/",
+    "pubDate": "2024/01/21",
+    "minutesRead": "7"
   },
   {
     "title": "Preserving my Future Self",
@@ -19,7 +21,9 @@
       "split keyboards",
       "colemak-dh"
     ],
-    "url": "/blog/ergonomics/"
+    "url": "/blog/ergonomics/",
+    "pubDate": "2024/08/18",
+    "minutesRead": "7"
   },
   {
     "title": "Spotlight: CLI Productivity",
@@ -30,6 +34,8 @@
       "tmux",
       "terminal efficiency"
     ],
-    "url": "/blog/cli-productivity/"
+    "url": "/blog/cli-productivity/",
+    "pubDate": "2024/10/10",
+    "minutesRead": "7"
   }
 ]

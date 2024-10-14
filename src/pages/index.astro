@@ -54,9 +54,9 @@ let socialMedia = [
             <div class="md:flex gap-8">
                 <div class="md:w-2/3">
                     <p class="mb-4">
-                        I grew up in Door County, Wisconsin – known for its bustling tourism and beautiful waters.
+                        I grew up in Door County, Wisconsin – known for bustling tourism and beautiful waters.
                         I study Computer and Data Science at the University of Wisconsin-Madison.
-                        While at UW, I helped to found the Wisconsin Quantum Computing Club, where I serve as the Vice President.
+                        While at UW, I've helped to found the Wisconsin Quantum Computing Club, where I serve as the Vice President.
                         I am a coordinator of the Undergraduate Projects Lab (UPL), where I develop cool things and help others do the same.
                         I like to read, write, and learn about the world around me.
                         I love realizing complex ideas and I am committed to continual innovation.
@@ -69,26 +69,26 @@ let socialMedia = [
             <h2>Recent Articles</h2>
             <ul class="article-list">
                 {recentPosts.map((post) => (
-                    <li class="article-item">
-                        <a href={post.url} class="article-link">
-                            <h3 class="article-title">{post.frontmatter.title}</h3>
-                            <p class="article-description">{post.frontmatter.description}</p>
-                            <div class="article-meta">
-                                <span class="article-date">{new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} &middot; </span>
-                                <span class="article-read-time">{post.frontmatter.minutesRead} min read</span>
-                            </div>
-                        </a>
-                    </li>
+                <li class="article-item">
+                    <a href={post.url} class="article-link">
+                        <h3 class="article-title">{post.frontmatter.title}</h3>
+                        <p class="article-description">{post.frontmatter.description}</p>
+                        <div class="article-meta">
+                            <span class="article-date">{new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · {post.frontmatter.minutesRead} min read</span>
+                        </div>
+                    </a>
+                </li>
                 ))}
             </ul>
             <a href="/blog" class="see-all-link">See all articles</a>
         </section>
+
     </main>
 </Layout>
 
 <style>
 .article-list {
-    list-style-type: none;
+    list-style-type: none;  /* This removes the bullet points */
     padding: 0;
     margin: 0;
 }
@@ -118,28 +118,21 @@ let socialMedia = [
 }
 
 .article-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin: 0 0 0.5rem 0;
     color: var(--color-accent);
     transition: color 0.2s ease;
 }
 
-/* Ensure no underline on hover */
-.article-link:hover {
-    text-decoration: none;
-}
 .article-description {
-}
-font-size: 0.9rem;
-margin: 0 0 0.5rem 0;
-color: var(--color-text);
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text);
 }
 
 .article-meta {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--color-secondary);
-    display: flex;
-    justify-content: space-between;
 }
 
 .see-all-link {

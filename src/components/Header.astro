@@ -45,7 +45,7 @@ const currentPath = Astro.url.pathname;
   }
   .nav-links {
     display: flex;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
     align-items: center;
   }
   .nav-links a {
@@ -54,13 +54,13 @@ const currentPath = Astro.url.pathname;
     font-weight: 500;
     transition: color 0.3s ease, background-color 0.3s ease;
     padding: 0.5rem 1rem;
-    border-radius: 9999px; /* Pill shape */
+      border-radius: 9999px; /* pill */
   }
   .nav-links a:hover, .nav-links a.active {
     color: var(--color-bg);
     background-color: var(--color-accent);
   }
-  /* Styles for the theme toggle */
+  /* styles for the theme toggle */
   :global(.nav-links .theme-toggle) {
     width: 2.5rem;
     height: 2.5rem;

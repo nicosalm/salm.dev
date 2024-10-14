@@ -1,27 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import '../../styles/global.css';
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ paginate }) {
     const allPosts = await Astro.glob('../blog/**/index.md');
-    const uniqueTags = [...new Set(allPosts.map(post => post.frontmatter.tags).flat())];
-    return uniqueTags.map(tag => {
-        const filteredPosts = allPosts.filter(post => post.frontmatter.tags.includes(tag));
-        return {
-            params: { tag },
-            props: { posts: filteredPosts },
-        };
-    });
+    allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+
+    return paginate(allPosts, { pageSize: 5 });
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { page } = Astro.props;
 ---
 
-<Layout title={`Posts tagged "${tag}" - salm.dev`} description={`All blog posts tagged with "${tag}"`}>
+<Layout title="Nico Salm | Blog" description="Nico's Blog">
     <main class="container">
-        <h1 class="page-title">Posts tagged "{tag}"</h1>
+        <h1 class="page-title">Blog</h1>
+        <p class="subtitle">Hot takes and cool things.</p>
+        <SearchBar />
         <ul class="article-list">
-            {posts.map((post) => (
+            {page.data.map((post) => (
                 <li class="article-item">
                     <a href={post.url} class="article-link">
                         <h2 class="article-title">{post.frontmatter.title}</h2>
@@ -35,7 +33,22 @@ const { posts } = Astro.props;
                 </li>
             ))}
         </ul>
-        <a href="/blog" class="see-all-link">← Back to all posts</a>
+
+        {(page.url.prev || page.url.next) && (
+            <nav class="pagination">
+                {page.url.prev && (
+                    <a href={page.url.prev} class="pagination-link">Previous</a>
+                )}
+                {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => (
+                    <a href={num === 1 ? `/blog` : `/blog/${num}`} class={`pagination-link ${page.currentPage === num ? 'active' : ''}`}>
+                        {num}
+                    </a>
+                ))}
+                {page.url.next && (
+                    <a href={page.url.next} class="pagination-link">Next</a>
+                )}
+            </nav>
+        )}
     </main>
 </Layout>
 
@@ -47,7 +60,12 @@ const { posts } = Astro.props;
     }
     .page-title {
         font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .subtitle {
+        color: var(--color-secondary);
         margin-bottom: 2rem;
+        font-size: 1.2rem;
     }
     .article-list {
         list-style-type: none;
@@ -55,9 +73,9 @@ const { posts } = Astro.props;
         margin: 0;
     }
     .article-item {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
         border-bottom: 1px solid var(--color-border);
-        padding-bottom: 1.5rem;
     }
     .article-item:last-child {
         border-bottom: none;
@@ -89,15 +107,22 @@ const { posts } = Astro.props;
         font-size: 0.9rem;
         color: var(--color-secondary);
     }
-    .see-all-link {
-        display: inline-block;
+    .pagination {
+        display: flex;
+        justify-content: center;
         margin-top: 2rem;
-        color: var(--color-accent);
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.2s ease;
     }
-    .see-all-link:hover {
+    .pagination-link {
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        text-decoration: none;
         color: var(--color-text);
+        transition: background-color 0.2s ease;
+    }
+    .pagination-link:hover, .pagination-link.active {
+        background-color: var(--color-accent);
+        color: var(--color-bg);
     }
 </style>
