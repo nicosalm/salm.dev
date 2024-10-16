@@ -1,24 +1,26 @@
 /* Import a serif font */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 :root {
-  --font-serif: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
 
   /* light mode colors */
   --color-bg-light: #f8f4e9;
   --color-text-light: #333333;
   --color-primary-light: #4a4a4a;
   --color-secondary-light: #6b6b6b;
-  --color-accent-light: #8b6b4a;
+  --color-accent-light: #d67424;
   --color-border-light: #e0e0e0;
+  --color-header-light: #D0C8C0;
 
   /* dark mode colors */
-  --color-bg-dark: #2b2b2b;
+  --color-bg-dark: #100a1a;
   --color-text-dark: #e0e0e0;
   --color-primary-dark: #c0c0c0;
   --color-secondary-dark: #a0a0a0;
-  --color-accent-dark: #d4a76a;
+  --color-accent-dark: #f9bd9c;
   --color-border-dark: #4a4a4a;
+  --color-header-dark: #040426;
 
   /* default to light mode */
   --color-bg: var(--color-bg-light);
@@ -27,9 +29,10 @@
   --color-secondary: var(--color-secondary-light);
   --color-accent: var(--color-accent-light);
   --color-border: var(--color-border-light);
+  --color-header: var(--color-header-light);
 
   --max-width: 850px;
-  --side-margin: max(calc((100% - var(--max-width)) / 2), 1rem);  /* Adjusted for better centering */
+  --side-margin: max(calc((100% - var(--max-width)) / 2), 1rem); /* Adjusted for better centering */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +43,7 @@
     --color-secondary: var(--color-secondary-dark);
     --color-accent: var(--color-accent-dark);
     --color-border: var(--color-border-dark);
+    --color-header: var(--color-header-dark);
   }
 }
 
@@ -50,6 +54,7 @@
   --color-secondary: var(--color-secondary-dark);
   --color-accent: var(--color-accent-dark);
   --color-border: var(--color-border-dark);
+  --color-header: var(--color-header-dark);
 }
 
 body {
@@ -63,19 +68,45 @@ body {
 }
 
 /* typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 2em;
   margin-bottom: 0.5em;
   line-height: 1.2;
   color: var(--color-primary);
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.75rem;
+}
+h4 {
+  font-size: 1.5rem;
+}
+h5 {
+  font-size: 1.25rem;
+}
+h6 {
+  font-size: 1rem;
+}
+
+#warpspeed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
 a {
   color: var(--color-accent);
@@ -93,12 +124,13 @@ a:hover {
   max-width: var(--max-width);
   margin-left: var(--side-margin);
   margin-right: var(--side-margin);
-  padding: 2rem 0;
+  padding: 6rem 0;
 }
 
 /* header and footer */
-header, footer {
-  background-color: var(--color-bg);
+header,
+footer {
+  /* background-color: var(--color-bg); */
   padding: 1rem 0;
   text-align: center;
   border-bottom: 1px solid var(--color-border);
@@ -116,7 +148,53 @@ main {
 }
 
 /* utility classes */
-.text-center { text-align: center; }
-.mb-1 { margin-bottom: 1rem; }
-.mt-1 { margin-top: 1rem; }
+.text-center {
+  text-align: center;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mt-1 {
+  margin-top: 1rem;
+}
 
+.article-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.article-item {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.article-item:last-child {
+  border-bottom: none;
+}
+.article-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.article-link:hover {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.article-title {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-accent);
+  transition: color 0.2s ease;
+}
+.article-description {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text);
+}
+.article-meta {
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}

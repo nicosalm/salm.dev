@@ -1,0 +1,29 @@
+---
+---
+
+<span class="obfuscated-email" data-name="nico" data-domain="salm.dev">Email</span>
+
+<script>
+  function deobfuscateEmail() {
+    const elements = document.querySelectorAll('.obfuscated-email');
+    elements.forEach(element => {
+      const name = element.getAttribute('data-name');
+      const domain = element.getAttribute('data-domain');
+      if (name && domain) {
+        const email = `${name}@${domain}`;
+        element.setAttribute('data-email', email);
+      }
+    });
+  }
+
+  // Run the deobfuscation after the page loads
+  window.addEventListener('load', deobfuscateEmail);
+</script>
+
+<style>
+  .obfuscated-email {
+    font-weight: inherit;
+    color: inherit;
+    text-decoration: none;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
 
 export async function getStaticPaths() {
     const allPosts = await Astro.glob('../blog/**/index.md');
@@ -48,46 +49,6 @@ const { posts } = Astro.props;
     .page-title {
         font-size: 2.5rem;
         margin-bottom: 2rem;
-    }
-    .article-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    .article-item {
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid var(--color-border);
-        padding-bottom: 1.5rem;
-    }
-    .article-item:last-child {
-        border-bottom: none;
-    }
-    .article-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-        padding: 0.5rem;
-        border-radius: 4px;
-    }
-    .article-link:hover {
-        transform: translateX(5px);
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-    .article-title {
-        font-size: 1.5rem;
-        margin: 0 0 0.5rem 0;
-        color: var(--color-accent);
-        transition: color 0.2s ease;
-    }
-    .article-description {
-        font-size: 1rem;
-        margin: 0 0 0.5rem 0;
-        color: var(--color-text);
-    }
-    .article-meta {
-        font-size: 0.9rem;
-        color: var(--color-secondary);
     }
     .see-all-link {
         display: inline-block;

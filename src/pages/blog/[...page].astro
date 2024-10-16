@@ -1,128 +1,96 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import SearchBar from '../../components/SearchBar.astro';
-import '../../styles/global.css';
+import Layout from "../../layouts/Layout.astro";
+import SearchBar from "../../components/SearchBar.astro";
 
 export async function getStaticPaths({ paginate }) {
-    const allPosts = await Astro.glob('../blog/**/index.md');
-    allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
+  const allPosts = await Astro.glob("../blog/**/index.md");
+  allPosts.sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf());
 
-    return paginate(allPosts, { pageSize: 5 });
+  return paginate(allPosts, { pageSize: 5 });
 }
 
 const { page } = Astro.props;
 ---
 
 <Layout title="Nico Salm | Blog" description="Nico's Blog">
-    <main class="container">
-        <h1 class="page-title">Blog</h1>
-        <p class="subtitle">Hot takes and cool things.</p>
-        <SearchBar />
-        <ul class="article-list">
-            {page.data.map((post) => (
-                <li class="article-item">
-                    <a href={post.url} class="article-link">
-                        <h2 class="article-title">{post.frontmatter.title}</h2>
-                        <p class="article-description">{post.frontmatter.description}</p>
-                        <div class="article-meta">
-                            <span class="article-date">
-                                {new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · {post.frontmatter.minutesRead} min read
-                            </span>
-                        </div>
-                    </a>
-                </li>
-            ))}
-        </ul>
+  <main class="container">
+    <h1 class="page-title">Blog</h1>
+    <p class="subtitle">Hot takes and cool things.</p>
+    <SearchBar />
+    <ul class="article-list">
+      {
+        page.data.map((post) => (
+          <li class="article-item">
+            <a href={post.url} class="article-link">
+              <h2 class="article-title">{post.frontmatter.title}</h2>
+              <p class="article-description">{post.frontmatter.description}</p>
+              <div class="article-meta">
+                <span class="article-date">
+                  {new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · {post.frontmatter.minutesRead} min read
+                </span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
 
-        {(page.url.prev || page.url.next) && (
-            <nav class="pagination">
-                {page.url.prev && (
-                    <a href={page.url.prev} class="pagination-link">Previous</a>
-                )}
-                {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => (
-                    <a href={num === 1 ? `/blog` : `/blog/${num}`} class={`pagination-link ${page.currentPage === num ? 'active' : ''}`}>
-                        {num}
-                    </a>
-                ))}
-                {page.url.next && (
-                    <a href={page.url.next} class="pagination-link">Next</a>
-                )}
-            </nav>
-        )}
-    </main>
+    {
+      (page.url.prev || page.url.next) && (
+        <nav class="pagination">
+          {page.url.prev && (
+            <a href={page.url.prev} class="pagination-link">
+              Previous
+            </a>
+          )}
+          {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => (
+            <a href={num === 1 ? `/blog` : `/blog/${num}`} class={`pagination-link ${page.currentPage === num ? "active" : ""}`}>
+              {num}
+            </a>
+          ))}
+          {page.url.next && (
+            <a href={page.url.next} class="pagination-link">
+              Next
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </main>
 </Layout>
 
 <style>
-    .container {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 2rem 0;
-    }
-    .page-title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-    .subtitle {
-        color: var(--color-secondary);
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-    }
-    .article-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    .article-item {
-        margin-bottom: 2rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--color-border);
-    }
-    .article-item:last-child {
-        border-bottom: none;
-    }
-    .article-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        transition: transform 0.2s ease, background-color 0.2s ease;
-        padding: 0.5rem;
-        border-radius: 4px;
-    }
-    .article-link:hover {
-        transform: translateX(5px);
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-    .article-title {
-        font-size: 1.5rem;
-        margin: 0 0 0.5rem 0;
-        color: var(--color-accent);
-        transition: color 0.2s ease;
-    }
-    .article-description {
-        font-size: 1rem;
-        margin: 0 0 0.5rem 0;
-        color: var(--color-text);
-    }
-    .article-meta {
-        font-size: 0.9rem;
-        color: var(--color-secondary);
-    }
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 2rem;
-    }
-    .pagination-link {
-        margin: 0 0.5rem;
-        padding: 0.5rem 1rem;
-        border: 1px solid var(--color-border);
-        border-radius: 4px;
-        text-decoration: none;
-        color: var(--color-text);
-        transition: background-color 0.2s ease;
-    }
-    .pagination-link:hover, .pagination-link.active {
-        background-color: var(--color-accent);
-        color: var(--color-bg);
-    }
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem var(--side-margin);
+}
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.subtitle {
+    color: var(--color-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.pagination-link {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: background-color 0.2s ease;
+}
+.pagination-link:hover,
+.pagination-link.active {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+}
 </style>

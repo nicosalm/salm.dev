@@ -2,12 +2,14 @@
 import Theme from "./Theme.astro";
 const currentPath = Astro.url.pathname;
 ---
+
 <header>
+  <div class="header-background"></div>
   <div class="container">
     <nav>
       <a href="/" class="site-title">salm.dev</a>
       <div class="nav-links">
-        <a href="/blog" class={`nav-item ${currentPath.startsWith('/blog') ? 'active' : ''}`}>Blog</a>
+        <a href="/blog" class={`nav-item ${currentPath.startsWith("/blog") ? "active" : ""}`}>Blog</a>
         <Theme />
       </div>
     </nav>
@@ -16,17 +18,31 @@ const currentPath = Astro.url.pathname;
 
 <style>
   header {
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding: 1rem 0;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 0;
     z-index: 1000;
   }
+
+  .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-header);
+    opacity: 0.80;
+    z-index: -1;
+    border-bottom: 1px solid rgba(var(--color-border-rgb), 0.3); /* More transparent border */
+  }
+
   .container {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 1rem;
+    position: relative;
   }
   nav {
     display: flex;
@@ -45,20 +61,18 @@ const currentPath = Astro.url.pathname;
   }
   .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: center;
   }
   .nav-links a {
     color: var(--color-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 0.5rem 1rem;
-      border-radius: 9999px; /* pill */
   }
-  .nav-links a:hover, .nav-links a.active {
-    color: var(--color-bg);
-    background-color: var(--color-accent);
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--color-accent);
+  }
+  .nav-links a.active {
+    font-weight: bold;
   }
   /* styles for the theme toggle */
   :global(.nav-links .theme-toggle) {

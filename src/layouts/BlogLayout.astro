@@ -15,51 +15,84 @@ export interface Props {
 const { content } = Astro.props as Props;
 ---
 <Layout title={content.title + ' - salm.dev'} description={content.description} blog={true}>
-    <article class="blog-post">
-        <header>
-            <a href="/blog" class="back-link">← Back to Blog</a>
-            <h1>{content.title}</h1>
-            <p class="post-meta">
-                <time datetime={content.pubDate}>
-                    {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
-                </time>
-                <span class="reading-time">{content.minutesRead} min read</span>
-            </p>
-            <p class="description">{content.description}</p>
-        </header>
-        <TableOfContents />
-        <div class="post-content">
-            <slot />
-        </div>
-        {content.tags && content.tags.length > 0 && (
-            <div class="tags">
-                <h3>Tags:</h3>
-                <ul>
-                    {content.tags.map(tag => (
-                        <li><a href={`/tags/${tag}`}>{tag}</a></li>
-                    ))}
-                </ul>
+    <main class="container">
+        <article class="blog-post">
+            <header>
+                <a href="/blog" class="back-link">Back to Blog</a>
+                <h1>{content.title}</h1>
+                <p class="post-meta">
+                    <time datetime={content.pubDate}>
+                        {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
+                    </time>
+                    <span class="reading-time">{content.minutesRead} min read</span>
+                </p>
+                <p class="description">{content.description}</p>
+            </header>
+            <TableOfContents />
+            <div class="post-content">
+                <slot />
             </div>
-        )}
-        <RelatedPosts tags={content.tags} currentPostUrl={content.url} />
-    </article>
+            {content.tags && content.tags.length > 0 && (
+                <div class="tags">
+                    <h3>Tags:</h3>
+                    <ul>
+                        {content.tags.map(tag => (
+                            <li><a href={`/tags/${tag}`}>{tag}</a></li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            <RelatedPosts tags={content.tags} currentPostUrl={content.url} />
+        </article>
+    </main>
 </Layout>
 
 <style>
+    .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 6rem var(--side-margin);
+    }
     .blog-post {
         max-width: 720px;
         margin: 0 auto;
     }
     .back-link {
         display: inline-block;
-        margin-bottom: 1rem;
         color: var(--color-secondary);
         text-decoration: none;
-        border-bottom: 1px solid transparent;
-        transition: border-color 0.3s ease;
+        font-weight: bold;
+        position: relative;
+        padding-left: 1.5em;
+        border-bottom: none;
+    }
+    .back-link::before {
+        content: "←";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.2s ease;
+    }
+    .back-link::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--color-secondary);
+        transform: scaleX(0);
+        transition: transform 0.2s ease;
+    }
+    .back-link:hover::after {
+        transform: scaleX(1);
+    }
+    .back-link:hover::before {
+        transform: translateY(-50%) translateX(-3px);
     }
     .back-link:hover {
-        border-bottom-color: var(--color-secondary);
+        border-bottom: none;
     }
     .post-meta {
         color: var(--color-secondary);

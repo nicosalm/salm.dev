@@ -1,44 +1,86 @@
 ---
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import '../styles/global.css'
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 export interface Props {
-    title: string
-    description: string
-    blog?: boolean
+  title: string;
+  description: string;
+  blog?: boolean;
+  isMainPage?: boolean;
 }
 
-const { title, description, blog } = Astro.props as Props
+const { title, description, blog, isMainPage = false } = Astro.props as Props;
 ---
 
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
         <meta name="description" content={description} />
         <script is:inline>
-            function getInitialTheme() {
-                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-                    return localStorage.getItem('theme');
-                }
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    return 'dark';
-                }
-                return 'light';
+        function getInitialTheme() {
+            if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+                return localStorage.getItem("theme");
             }
+            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                return "dark";
+            }
+            return "light";
+        }
 
-            const theme = getInitialTheme();
-            document.documentElement.classList.toggle("dark", theme === "dark");
-            window.localStorage.setItem('theme', theme);
+        const theme = getInitialTheme();
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        window.localStorage.setItem("theme", theme);
         </script>
     </head>
     <body>
         <Header blog={blog} />
-        <main class="container">
+        <main>
             <slot />
+            {isMainPage && <canvas id="warpspeed"></canvas>}
         </main>
         <Footer />
-    </body>
+        {isMainPage && (
+        <script>
+        function loadWarpspeedScript(theme) {
+            console.log('Loading warpspeed script for theme:', theme);
+            const existingScript = document.getElementById('warpspeed-script');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+          const script = document.createElement('script');
+          script.id = 'warpspeed-script';
+          script.src = theme === 'dark' ? '/scripts/warpspeed-dark.min.js' : '/scripts/warpspeed-light.min.js';
+          script.onload = initWarpspeed;
+          script.onerror = (e) => console.error(`Failed to load script: ${script.src}`, e);
+          document.body.appendChild(script);
+        }
+
+        function initWarpspeed() {
+          if (window.WarpSpeed) {
+            const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            const config = theme === 'dark' 
+              ? {"speed":3,"speedAdjFactor":0.01,"density":0.5,"shape":"circle","warpEffect":true,"warpEffectLength":5,"depthFade":true,"starSize":3,"backgroundColor":"hsl(263,45%,7%)","starColor":"#ffd096"}
+              : {"speed":3,"speedAdjFactor":0.01,"density":0.5,"shape":"circle","warpEffect":true,"warpEffectLength":5,"depthFade":true,"starSize":3,"backgroundColor":"hsl(44, 52%, 94%)","starColor":"#000000"};
+            
+            new window.WarpSpeed("warpspeed", config);
+          } else {
+            console.error('WarpSpeed is not defined');
+          }
+        }
+
+        // Initial load
+        loadWarpspeedScript(getInitialTheme());
+
+        // Listen for theme changes
+        document.addEventListener('themeChanged', (e) => {
+          loadWarpspeedScript(e.detail.theme);
+        });
+      </script>
+    )}
+  </body>
 </html>
