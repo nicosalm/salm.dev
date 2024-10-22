@@ -10,9 +10,13 @@ export interface Props {
         pubDate: string;
         minutesRead: string;
         tags: string[];
+        discussion?: string;
+        discussion_link?: string;
     }
 }
 const { content } = Astro.props as Props;
+const hasTags = content.tags && content.tags.length > 0;
+const hasDiscussion = content.discussion && content.discussion_link;
 ---
 <Layout title={content.title + ' - salm.dev'} description={content.description} blog={true}>
     <main class="container">
@@ -24,23 +28,31 @@ const { content } = Astro.props as Props;
                     <time datetime={content.pubDate}>
                         {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
                     </time>
-                    <span class="reading-time">{content.minutesRead} read</span>
+                    <span class="reading-time">{content.minutesRead} min read</span>
+                </p>                {hasDiscussion && (
+                <p class="discussion">
+                    <i class="fa-solid fa-comment"></i>
+                    Discussion:
+                    <a href={content.discussion_link} class="discussion-link" target="_blank" rel="noopener noreferrer">
+                        {content.discussion}
+                    </a>
                 </p>
+                )}
                 <p class="description">{content.description}</p>
             </header>
             <TableOfContents />
             <div class="post-content">
                 <slot />
             </div>
-            {content.tags && content.tags.length > 0 && (
-                <div class="tags">
-                    <h3>Tags:</h3>
-                    <ul>
-                        {content.tags.map(tag => (
-                            <li><a href={`/tags/${tag}`}>{tag}</a></li>
-                        ))}
-                    </ul>
-                </div>
+            {hasTags && (
+            <div class="tags">
+                <h3>Tags:</h3>
+                <ul>
+                    {content.tags.map(tag => (
+                    <li><a href={`/tags/${tag}`}>{tag}</a></li>
+                    ))}
+                </ul>
+            </div>
             )}
             <RelatedPosts tags={content.tags} currentPostUrl={content.url} />
         </article>
@@ -67,6 +79,28 @@ const { content } = Astro.props as Props;
         line-height: 1.2;
     }
 
+    .discussion {
+        text-align: center;
+        margin: 0.5rem 0 1rem 0;
+        font-size: 1rem;
+    }
+
+    .discussion i {
+        margin-right: 0.25rem;
+    }
+
+    .discussion-link {
+        color: var(--color-accent);
+        text-decoration: none;
+        border-bottom: none;
+        transition: color 0.3s ease;
+        margin-left: 0.25rem;
+    }
+
+    .discussion-link:hover {
+        color: var(--color-primary);
+        border-bottom: none;
+    }
     .back-link {
         display: inline-block;
         color: var(--color-secondary);

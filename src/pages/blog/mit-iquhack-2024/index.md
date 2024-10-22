@@ -3,8 +3,7 @@ layout: ../../../layouts/BlogLayout.astro
 pubDate: 2024/01/21
 title: "MIT's IQuHACK 2024"
 description: "We secured a Top 3 finish at MIT's quantum hackathon!" 
-tags: ["Quantum Computing", "Hackathon", "Student Experience"]
-minutesRead: "7"
+tags: ["quantum computing", "hackathon", "student experience"]
 ---
 
 ### Introduction

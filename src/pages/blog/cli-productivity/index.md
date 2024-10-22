@@ -4,7 +4,6 @@ pubDate: 2024/10/10
 title: "Spotlight: CLI Productivity"
 description: "My command-line-centric workflow where I do my best work."
 tags: ["productivity", "neovim", "tmux", "terminal efficiency"]
-minutesRead: "9"
 ---
 
 _You can achieve peak productivity with nothing but the command line and your web browser. I will describe my minimal, focused, keyboard-centric workflow where I do my best work._
