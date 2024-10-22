@@ -3,9 +3,8 @@ layout: ../../../layouts/BlogLayout.astro
 pubDate: 2024/10/10
 title: "Spotlight: CLI Productivity"
 description: "My command-line-centric workflow where I do my best work."
-readingTime: "8 minutes"
 tags: ["productivity", "neovim", "tmux", "terminal efficiency"]
-minutesRead: "7"
+minutesRead: "9"
 ---
 
 _You can achieve peak productivity with nothing but the command line and your web browser. I will describe my minimal, focused, keyboard-centric workflow where I do my best work._
@@ -40,14 +39,25 @@ A terminal multiplexer is a program that transparently “sits between” your a
 
 TMUX is incredibly useful, and if you plan on doing **any** serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.
 
+```bash title="TMUX Installation"
+pacman -S tmux # Arch Linux
+apt install tmux # Debian or Ubuntu
+dnf install tmux # Fedora
+yum install tmux # RHEL or CentOS
+brew install tmux # macOS (using Homebrew)
+port install tmux # macOS (using MacPorts)
+zypper install tmux # openSUSE
 ```
-Arch Linux               pacman -S tmux
-Debian or Ubuntu         apt install tmux
-Fedora 	                dnf install tmux
-RHEL or CentOS 	        yum install tmux
-macOS (using Homebrew) 	brew install tmux
-macOS (using MacPorts) 	port install tmux
-openSUSE                 zypper install tmux
+
+You can create a new session with `tmux new -s session_name`, detach with `CTRL-B D`, and reattach with `tmux attach -t session_name`.
+
+Some other useful commands include:
+```bash title="Additional TMUX Commands"
+tmux ls # list sessions
+tmux kill-session -t session_name # kill a session
+tmux kill-server # kill the server
+tmux a -t session_name # attach to a session
+tmux a # attach to the last session
 ```
 
 ### Customization
@@ -58,15 +68,46 @@ When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. Thi
 
 I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: `vim` (the program), or Vim Motions.
 
-### Vim Motions
-
-Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.
-
-### Vim
+Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.
 
 Vim, by contrast, is a highly configurable, extensible text editor built to make creating and changing any kind of text very efficient.
 
-It was rather aptly put that: “Vim is the bliss of Ctrl C/V but applied to every facet of the text editor.” I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision.
+### Vim Motions
+
+There is only one type of grammar in Vim: the grammar of Vim Motions. It’s a language that allows you to move around the text.
+
+Here's a quick reference of some common Vim Motions:
+
+<br/>
+
+| Category | Command | Description |
+|----------|---------|-------------|
+| motion   | h       | Left        |
+|          | j       | Down        |
+|          | k       | Up          |
+|          | l       | Right       |
+|          | w       | Move forward to the beginning of the next word |
+|          | }       | Jump to the next paragraph |
+|          | $       | Go to the end of the line |
+| operator | y       | Yank text (copy) |
+|          | d       | Delete text and save to register |
+|          | c       | Delete text, save to register, and start insert mode |
+
+<br/>
+
+More generally, the syntax looks like: `[count] + operator + motion`. For example, `3dw` would delete three words. `2yy` would yank two lines. `c$` would delete to the end of the line and start insert mode. `dap` would delete a paragraph.
+
+Notice how, for some, the phonetic sound of the command matches the action. `d` for delete, `y` for yank, `c` for change. This is a mnemonic device to help you remember the commands. Delete a paragraph? `dap`. Change a word? `caw`.
+
+### Vim (The Program)
+
+Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient.
+
+My friend [Lucas](https://scharenbroch.dev/) rather aptly put: 
+
+> “Vim is the bliss of Ctrl C/V but applied to every facet of the editor.” 
+
+I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
 
 A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.
 

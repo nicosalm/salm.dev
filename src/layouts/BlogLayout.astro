@@ -24,7 +24,7 @@ const { content } = Astro.props as Props;
                     <time datetime={content.pubDate}>
                         {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
                     </time>
-                    <span class="reading-time">{content.minutesRead} min read</span>
+                    <span class="reading-time">{content.minutesRead} read</span>
                 </p>
                 <p class="description">{content.description}</p>
             </header>
@@ -48,15 +48,25 @@ const { content } = Astro.props as Props;
 </Layout>
 
 <style>
-    .container {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 6rem var(--side-margin);
-    }
     .blog-post {
         max-width: 720px;
         margin: 0 auto;
     }
+
+    .blog-post header {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-top: 2rem;
+    }
+
+    .blog-post h1 {
+        text-align: center;
+        margin: 1rem 0;
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
     .back-link {
         display: inline-block;
         color: var(--color-secondary);
@@ -64,8 +74,11 @@ const { content } = Astro.props as Props;
         font-weight: bold;
         position: relative;
         padding-left: 1.5em;
+        margin-bottom: 2rem;
         border-bottom: none;
+        transition: color 0.3s ease;
     }
+
     .back-link::before {
         content: "←";
         position: absolute;
@@ -74,6 +87,7 @@ const { content } = Astro.props as Props;
         transform: translateY(-50%);
         transition: transform 0.2s ease;
     }
+
     .back-link::after {
         content: "";
         position: absolute;
@@ -85,35 +99,58 @@ const { content } = Astro.props as Props;
         transform: scaleX(0);
         transition: transform 0.2s ease;
     }
-    .back-link:hover::after {
-        transform: scaleX(1);
-    }
-    .back-link:hover::before {
-        transform: translateY(-50%) translateX(-3px);
-    }
+
     .back-link:hover {
+        color: var(--color-accent);
         border-bottom: none;
     }
+
+    .back-link:hover::after {
+        transform: scaleX(1);
+        background-color: var(--color-accent);
+    }
+
+    .back-link:hover::before {
+        transform: translate(-3px, -50%);
+    }
+
     .post-meta {
+        text-align: center;
         color: var(--color-secondary);
         margin-bottom: 1rem;
+        font-size: 1.1rem;
     }
+
     .reading-time {
         margin-left: 1rem;
     }
+
     .description {
+        text-align: center;
         font-style: italic;
         margin-bottom: 2rem;
         color: var(--color-secondary);
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
     }
+
+    .post-content {
+        margin-top: 3rem;
+    }
+
     .tags {
-        margin-top: 2rem;
-        border-top: 1px solid var(--color-secondary);
-        padding-top: 1rem;
+        margin-top: 3rem;
+        border-top: 1px solid var(--color-border);
+        padding-top: 2rem;
     }
+
     .tags h3 {
-        margin-bottom: 0.5rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
     }
+
     .tags ul {
         list-style: none;
         padding: 0;
@@ -121,17 +158,35 @@ const { content } = Astro.props as Props;
         flex-wrap: wrap;
         gap: 0.5rem;
     }
+
     .tags li a {
         display: inline-block;
-        padding: 0.25rem 0.5rem;
+        padding: 0.25rem 0.75rem;
         background-color: var(--color-accent);
         color: var(--color-bg);
         border-radius: 0.25rem;
         font-size: 0.9rem;
         text-decoration: none;
         transition: opacity 0.3s ease;
+        border-bottom: none;
     }
+
     .tags li a:hover {
         opacity: 0.8;
+        border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+        .blog-post h1 {
+            font-size: 2rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+        }
+
+        .post-meta {
+            font-size: 1rem;
+        }
     }
 </style>

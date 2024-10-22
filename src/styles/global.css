@@ -1,9 +1,11 @@
-/* Import a serif font */
+/* Import serif font */
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 :root {
   --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
-
+  --max-width: 850px;
+  --side-padding: 1rem;
+  
   /* light mode colors */
   --color-bg-light: #f8f4e9;
   --color-text-light: #333333;
@@ -30,11 +32,9 @@
   --color-accent: var(--color-accent-light);
   --color-border: var(--color-border-light);
   --color-header: var(--color-header-light);
-
-  --max-width: 850px;
-  --side-margin: max(calc((100% - var(--max-width)) / 2), 1rem); /* Adjusted for better centering */
 }
 
+/* Dark mode preferences */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     --color-bg: var(--color-bg-dark);
@@ -57,6 +57,7 @@
   --color-header: var(--color-header-dark);
 }
 
+/* Base styles */
 body {
   font-family: var(--font-serif);
   line-height: 1.8;
@@ -67,47 +68,35 @@ body {
   padding: 0;
 }
 
-/* typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Layout */
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 6rem var(--side-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
   margin-top: 2em;
   margin-bottom: 0.5em;
   line-height: 1.2;
   color: var(--color-primary);
 }
 
-h1 {
-  font-size: 2.5rem;
-}
-h2 {
-  font-size: 2rem;
-}
-h3 {
-  font-size: 1.75rem;
-}
-h4 {
-  font-size: 1.5rem;
-}
-h5 {
-  font-size: 1.25rem;
-}
-h6 {
-  font-size: 1rem;
-}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
 
-#warpspeed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
+/* Links */
 a {
   color: var(--color-accent);
   text-decoration: none;
@@ -119,58 +108,23 @@ a:hover {
   border-bottom-color: var(--color-accent);
 }
 
-/* layout */
-.container {
-  max-width: var(--max-width);
-  margin-left: var(--side-margin);
-  margin-right: var(--side-margin);
-  padding: 6rem 0;
-}
-
-/* header and footer */
-header,
-footer {
-  /* background-color: var(--color-bg); */
-  padding: 1rem 0;
-  text-align: center;
-  border-bottom: 1px solid var(--color-border);
-}
-
-footer {
-  border-top: 1px solid var(--color-border);
-  border-bottom: none;
-}
-
-/* main content area */
-main {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-/* utility classes */
-.text-center {
-  text-align: center;
-}
-.mb-1 {
-  margin-bottom: 1rem;
-}
-.mt-1 {
-  margin-top: 1rem;
-}
-
+/* Article styles */
 .article-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
+
 .article-item {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--color-border);
 }
+
 .article-item:last-child {
   border-bottom: none;
 }
+
 .article-link {
   text-decoration: none;
   color: inherit;
@@ -179,22 +133,41 @@ main {
   padding: 0.5rem;
   border-radius: 4px;
 }
+
 .article-link:hover {
   transform: translateX(5px);
   background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: none;
 }
+
 .article-title {
   font-size: 1.5rem;
   margin: 0 0 0.5rem 0;
   color: var(--color-accent);
-  transition: color 0.2s ease;
 }
+
 .article-description {
   font-size: 1rem;
   margin: 0 0 0.5rem 0;
   color: var(--color-text);
 }
+
 .article-meta {
   font-size: 0.9rem;
   color: var(--color-secondary);
 }
+
+/* Canvas */
+#warpspeed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 1rem; }

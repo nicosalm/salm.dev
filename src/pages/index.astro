@@ -31,7 +31,7 @@ let socialMedia = [
 ---
 
 <Layout title="Nico Salm" description="Hey! I'm Nico. I'm a software and data engineer studying at the University of Wisconsin-Madison. Check out my site!" isMainPage={true}>
-    <main class="container mx-auto px-4 py-8">
+    <main class="container">
         <section class="mb-16">
             <h1 class="text-4xl font-bold mb-4">Hey! I'm Nico.</h1>
             <h2 class="text-2xl mb-4">I'm a software and data engineer</h2>
@@ -106,58 +106,10 @@ let socialMedia = [
     });
     </script>
 </Layout>
+
 <style>
-.article-list {
-    list-style-type: none; /* This removes the bullet points */
-    padding: 0;
-    margin: 0;
-}
 
-  .article-item {
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 1.5rem;
-  }
-
-  .article-item:last-child {
-    border-bottom: none;
-  }
-
-  .article-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease;
-    padding: 0.5rem;
-    border-radius: 4px;
-  }
-
-  .article-link:hover {
-    transform: translateX(5px);
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-
-  .article-title {
-    font-size: 1.5rem;
-    margin: 0 0 0.5rem 0;
-    color: var(--color-accent);
-    transition: color 0.2s ease;
-  }
-
-  .article-description {
-    font-size: 1rem;
-    margin: 0 0 0.5rem 0;
-    color: var(--color-text);
-  }
-
-  .article-meta {
-    font-size: 0.9rem;
-    color: var(--color-secondary);
-  }
-
-  .see-all-link {
+.see-all-link {
     display: inline-block;
     margin-top: 1rem;
     color: var(--color-accent);
@@ -166,18 +118,18 @@ let socialMedia = [
     position: relative;
     padding-right: 1.5em; /* Space for the arrow */
     border-bottom: none; /* Override global styles */
-  }
+}
 
-  .see-all-link::after {
+.see-all-link::after {
     content: "→";
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.2s ease;
-  }
+}
 
-  .see-all-link::before {
+.see-all-link::before {
     content: "";
     position: absolute;
     width: 100%;
@@ -187,28 +139,28 @@ let socialMedia = [
     background-color: var(--color-accent);
     transform: scaleX(0);
     transition: transform 0.2s ease;
-  }
+}
 
-  .see-all-link:hover::before {
+.see-all-link:hover::before {
     transform: scaleX(1);
-  }
+}
 
-  .see-all-link:hover::after {
+.see-all-link:hover::after {
     transform: translateY(-50%) translateX(3px);
-  }
+}
 
-  .see-all-link:hover {
+.see-all-link:hover {
     border-bottom: none; /* Override global hover styles */
-  }
+}
 
-  .social-links {
+.social-links {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1.5rem;
-  }
+}
 
-  .social-link {
+.social-link {
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
@@ -217,14 +169,14 @@ let socialMedia = [
     border: 1px solid var(--color-accent);
     border-radius: 2rem;
     transition: all 0.3s ease;
-      text-decoration: none;
+    text-decoration: none;
     hover: pointer;
-  }
+}
 
-  .social-link:hover {
+.social-link:hover {
     background-color: var(--color-accent);
     color: var(--color-bg);
-  }
+}
 
 .social-link .icon {
     width: 1.5rem;
@@ -235,14 +187,14 @@ let socialMedia = [
 }
 
 .social-link {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-  .social-link :global(.obfuscated-email) {
-      font-weight: 500;
-  }
+.social-link :global(.obfuscated-email) {
+    font-weight: 500;
+}
 
-  .social-link:hover :global(.obfuscated-email) {
-      color: inherit;
-  }
-  </style>
+.social-link:hover :global(.obfuscated-email) {
+    color: inherit;
+}
+</style>

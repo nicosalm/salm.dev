@@ -4,7 +4,7 @@ pubDate: 2024/08/18
 title: "Preserving my Future Self"
 description: "I underwent an ergonomic overhaul to improve health and reduce strain."
 tags: ["ergonomics", "typing setup", "health", "split keyboards", "colemak-dh"]
-minutesRead: "7"
+minutesRead: "6"
 ---
 
 ### Motivation

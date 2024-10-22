@@ -2,10 +2,9 @@
 import Theme from "./Theme.astro";
 const currentPath = Astro.url.pathname;
 ---
-
 <header>
   <div class="header-background"></div>
-  <div class="container">
+  <div class="header-container">
     <nav>
       <a href="/" class="site-title">salm.dev</a>
       <div class="nav-links">
@@ -15,7 +14,6 @@ const currentPath = Astro.url.pathname;
     </nav>
   </div>
 </header>
-
 <style>
   header {
     position: fixed;
@@ -35,45 +33,59 @@ const currentPath = Astro.url.pathname;
     background-color: var(--color-header);
     opacity: 0.80;
     z-index: -1;
-    border-bottom: 1px solid rgba(var(--color-border-rgb), 0.3); /* More transparent border */
+    border-bottom: 1px solid rgba(var(--color-border-rgb), 0.3);
   }
 
-  .container {
+  .header-container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--side-padding);
     position: relative;
+    box-sizing: border-box;
+    width: 100%;
   }
+
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
   .site-title {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-primary);
     text-decoration: none;
     transition: color 0.3s ease;
+    border-bottom: none;
   }
+
   .site-title:hover {
     color: var(--color-accent);
+    border-bottom: none;
   }
+
   .nav-links {
     display: flex;
     gap: 2rem;
     align-items: center;
   }
+
   .nav-links a {
     color: var(--color-secondary);
+    border-bottom: none;
   }
+
   .nav-links a:hover,
   .nav-links a.active {
     color: var(--color-accent);
+    border-bottom: none;
   }
+
   .nav-links a.active {
     font-weight: bold;
   }
+
   /* styles for the theme toggle */
   :global(.nav-links .theme-toggle) {
     width: 2.5rem;
@@ -87,9 +99,11 @@ const currentPath = Astro.url.pathname;
     justify-content: center;
     transition: background-color 0.3s ease;
   }
+
   :global(.nav-links .theme-toggle:hover) {
     background-color: var(--color-accent);
   }
+
   @media (max-width: 768px) {
     .site-title {
       font-size: 1.2rem;
