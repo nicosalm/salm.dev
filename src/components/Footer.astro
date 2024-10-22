@@ -4,20 +4,21 @@ const hash = childProcess.execSync('git rev-parse --short HEAD').toString().trim
 const repoUrl = 'https://github.com/nicosalm/salm.dev';
 const commitUrl = `${repoUrl}/commit/${hash}`;
 ---
-
-<footer class="container mx-auto p-4 max-w-screen-xl flex justify-between items-center">
-  <p class="text-sm">&copy; {new Date().getFullYear()} Nico Salm</p>
-  <div class="flex items-center">
-    <a href="/rss.xml" class="rss-link mr-4 text-sm flex items-center" aria-label="RSS Feed">
-      <i class="fa-solid fa-square-rss mr-1"></i>
-      <span>RSS</span>
-    </a>
-    <p class="text-sm">
-      Commit: 
-      <a href={commitUrl} target="_blank" class="commit-link text-blue-600 hover:underline" rel="noopener noreferrer">
-        {hash}
+<footer class="container">
+  <div class="footer-content">
+    <p class="text-sm">&copy; {new Date().getFullYear()} Nico Salm</p>
+    <div class="footer-links">
+      <a href="/rss.xml" class="rss-link" aria-label="RSS Feed">
+        <i class="fa-solid fa-square-rss"></i>
+        <span>RSS</span>
       </a>
-    </p>
+      <p class="commit-text">
+        Commit: 
+        <a href={commitUrl} target="_blank" class="commit-link" rel="noopener noreferrer">
+          {hash}
+        </a>
+      </p>
+    </div>
   </div>
 </footer>
 
@@ -25,35 +26,52 @@ const commitUrl = `${repoUrl}/commit/${hash}`;
   footer {
     margin-top: 2rem;
     border-top: 1px solid var(--color-border);
+    padding: 1rem var(--side-padding);
   }
-  .rss-link, .commit-link {
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .rss-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.875rem;
+  }
+
+  .rss-link i {
+    font-size: 1rem;
+  }
+
+  .commit-text {
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .commit-link {
     color: var(--color-accent);
     text-decoration: none;
     transition: color 0.3s ease;
   }
-  .rss-link:hover, .commit-link:hover {
+
+  .rss-link:hover,
+  .commit-link:hover {
     color: var(--color-primary);
-  }
-  .rss-link i {
-    font-size: 1rem;
-    vertical-align: middle;
-  }
-  .flex {
-    display: flex;
-  }
-  .items-center {
-    align-items: center;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .mr-4 {
-    margin-right: 1rem;
-  }
-  .mr-1 {
-    margin-right: 0.25rem;
-  }
-  .text-sm {
-    font-size: 0.875rem;
   }
 </style>
