@@ -28,7 +28,7 @@ const hasDiscussion = content.discussion && content.discussion_link;
                     <time datetime={content.pubDate}>
                         {new Date(content.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
                     </time>
-                    <span class="reading-time">{content.minutesRead} min read</span>
+                    <span class="reading-time">{content.minutesRead}</span>
                 </p>                {hasDiscussion && (
                 <p class="discussion">
                     <i class="fa-solid fa-comment"></i>
