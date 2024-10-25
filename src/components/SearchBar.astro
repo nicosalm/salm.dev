@@ -26,7 +26,6 @@
     .then(response => response.json())
     .then(posts => {
       allPosts = posts;
-      // store the original content
       originalContent = articleList.innerHTML;
     });
 
@@ -34,7 +33,6 @@
     const searchTerm = searchInput.value.toLowerCase();
     
     if (searchTerm.length < 3) {
-      // restore original content
       articleList.innerHTML = originalContent;
       if (pagination) pagination.style.display = 'flex';
       return;
@@ -54,20 +52,22 @@
           <p class="article-description">${post.description}</p>
           <div class="article-meta">
             <span class="article-date">
-              ${new Date(post.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · ${post.minutesRead} min read
+              ${new Date(post.pubDate).toLocaleDateString("en-us", { 
+                year: "numeric", 
+                month: "short", 
+                day: "numeric" 
+              })}${post.minutesRead ? ` · ${post.minutesRead}` : ''}
             </span>
           </div>
         </a>
       </li>
     `).join('');
 
-    // hide pagination when showing search results
     if (pagination) {
       pagination.style.display = 'none';
     }
   });
 
-  // Restore original content when search is cleared
   searchInput.addEventListener('blur', () => {
     if (searchInput.value.length === 0) {
       articleList.innerHTML = originalContent;

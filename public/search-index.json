@@ -1,51 +1,28 @@
 [
   {
-    "title": "MIT's IQuHACK 2024",
-    "description": "We secured a Top 3 finish at MIT's quantum hackathon!",
+    "title": "Spotlight: CLI Productivity",
+    "description": "My command-line-centric workflow where I do my best work.",
     "tags": [
-      "Quantum Computing",
-      "Hackathon",
-      "Student Experience"
+      "productivity",
+      "neovim",
+      "tmux",
+      "terminal efficiency"
     ],
-    "url": "/blog/mit-iquhack-2024 copy 3/",
-    "pubDate": "2024/01/21",
-    "minutesRead": "7"
+    "url": "/blog/cli-productivity/",
+    "pubDate": "2024/10/10",
+    "minutesRead": "8 min read"
   },
   {
-    "title": "MIT's IQuHACK 2024",
-    "description": "We secured a Top 3 finish at MIT's quantum hackathon!",
+    "title": "Retrospective: The Hollow Path",
+    "description": "AI’s silent undoing of true mastery.",
     "tags": [
-      "Quantum Computing",
-      "Hackathon",
-      "Student Experience"
+      "personal growth",
+      "generative ai",
+      "education"
     ],
-    "url": "/blog/mit-iquhack-2024 copy 2/",
-    "pubDate": "2024/01/21",
-    "minutesRead": "7"
-  },
-  {
-    "title": "MIT's IQuHACK 2024",
-    "description": "We secured a Top 3 finish at MIT's quantum hackathon!",
-    "tags": [
-      "Quantum Computing",
-      "Hackathon",
-      "Student Experience"
-    ],
-    "url": "/blog/mit-iquhack-2024 copy/",
-    "pubDate": "2024/01/21",
-    "minutesRead": "7"
-  },
-  {
-    "title": "MIT's IQuHACK 2024",
-    "description": "We secured a Top 3 finish at MIT's quantum hackathon!",
-    "tags": [
-      "Quantum Computing",
-      "Hackathon",
-      "Student Experience"
-    ],
-    "url": "/blog/mit-iquhack-2024/",
-    "pubDate": "2024/01/21",
-    "minutesRead": "7"
+    "url": "/blog/the-hollow-path/",
+    "pubDate": "2024/09/28",
+    "minutesRead": "1 min read"
   },
   {
     "title": "Preserving my Future Self",
@@ -59,19 +36,18 @@
     ],
     "url": "/blog/ergonomics/",
     "pubDate": "2024/08/18",
-    "minutesRead": "7"
+    "minutesRead": "5 min read"
   },
   {
-    "title": "Spotlight: CLI Productivity",
-    "description": "My command-line-centric workflow where I do my best work.",
+    "title": "MIT's IQuHACK 2024",
+    "description": "We secured a Top 3 finish at MIT's quantum hackathon!",
     "tags": [
-      "productivity",
-      "neovim",
-      "tmux",
-      "terminal efficiency"
+      "quantum computing",
+      "hackathon",
+      "student experience"
     ],
-    "url": "/blog/cli-productivity/",
-    "pubDate": "2024/10/10",
-    "minutesRead": "7"
+    "url": "/blog/mit-iquhack-2024/",
+    "pubDate": "2024/01/21",
+    "minutesRead": "5 min read"
   }
 ]

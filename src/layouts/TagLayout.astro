@@ -21,7 +21,7 @@ const { tag, posts } = Astro.props;
                             <time datetime={post.frontmatter.pubDate}>
                                 {new Date(post.frontmatter.pubDate).toLocaleDateString('en-us', { year:"numeric", month:"long", day:"numeric"})}
                             </time>
-                            <span>{post.frontmatter.minutesRead} min read</span>
+                            <span>{post.frontmatter.minutesRead}</span>
                         </div>
                     </a>
                 </li>

@@ -29,7 +29,7 @@ const { posts } = Astro.props;
                         <p class="article-description">{post.frontmatter.description}</p>
                         <div class="article-meta">
                             <span class="article-date">
-                                {new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · {post.frontmatter.minutesRead} min read
+                                {new Date(post.frontmatter.pubDate).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" })} · {post.frontmatter.minutesRead}
                             </span>
                         </div>
                     </a>
