@@ -12,11 +12,17 @@
       if (name && domain) {
         const email = `${name}@${domain}`;
         element.setAttribute('data-email', email);
+
+        const socialLink = element.closest('.social-link');
+        if (socialLink) {
+          socialLink.addEventListener('click', () => {
+            window.location.href = `mailto:${email}`;
+          });
+        }
       }
     });
   }
 
-  // Run the deobfuscation after the page loads
   window.addEventListener('load', deobfuscateEmail);
 </script>
 

@@ -1,0 +1,182 @@
+---
+// src/pages/card.astro
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <title>Nico Salm | Card</title>
+        <meta name="description" content="Digital business card for Nico Salm" />
+    </head>
+    <body>
+        <main class="card">
+            <div class="card-content">
+                <h1>Nico Salm</h1>
+                <p class="title">Software & Data Engineer</p>
+                
+                <div class="qr-section">
+                    <img 
+                        src="/qr-code.png" 
+                        alt="QR Code to salm.dev" 
+                        class="qr-code"
+                    />
+                </div>
+
+                <div class="contact-links">
+                    <a href="https://salm.dev" class="contact-link" aria-label="Website">
+                        <i class="fa-solid fa-globe"></i>
+                    </a>
+                    <a href="https://github.com/nicosalm" class="contact-link" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/nicosalm" class="contact-link" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
+
+<style>
+    :root {
+        --color-bg: #100a1a;
+        --color-text: #e0e0e0;
+        --color-primary: #c0c0c0;
+        --color-secondary: #a0a0a0;
+        --color-accent: #f9bd9c;
+        --color-border: #4a4a4a;
+        --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-serif);
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+    }
+
+    .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 2rem;
+        max-width: 400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin: 0;
+        color: var(--color-primary);
+    }
+
+    .title {
+        color: var(--color-secondary);
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .qr-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
+        border-radius: 0.5rem;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: var(--color-accent);
+        color: var(--color-bg);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-link i {
+        font-size: 1.4rem;
+    }
+
+    /* Optimize spacing for shorter screens */
+    @media (max-height: 700px) {
+        .card {
+            padding: 1rem;
+        }
+        
+        .card-content {
+            gap: 1rem;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+        }
+
+        .title {
+            font-size: 1rem;
+        }
+
+        .contact-link {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .contact-link i {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Safe area insets for modern mobile browsers */
+    @supports (padding: max(0px)) {
+        .card {
+            padding: max(1rem, env(safe-area-inset-top))
+                     max(1rem, env(safe-area-inset-right))
+                     max(1rem, env(safe-area-inset-bottom))
+                     max(1rem, env(safe-area-inset-left));
+        }
+    }
+</style>
