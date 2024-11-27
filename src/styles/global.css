@@ -5,7 +5,7 @@
   --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
   --max-width: 850px;
   --side-padding: 1rem;
-  
+
   /* light mode colors */
   --color-bg-light: #f8f4e9;
   --color-text-light: #333333;
@@ -70,7 +70,7 @@ body {
 
 /* Layout */
 html {
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable both-edges;
 }
 
 .container {
