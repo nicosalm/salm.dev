@@ -1,0 +1,35 @@
+---
+import '../styles/fonts.css';
+import type { FontFamily } from '../types/fonts';
+import { getFontVariable } from '../utils/fonts';
+
+interface Props {
+    title: string;
+    defaultFont?: FontFamily;
+}
+
+const {
+    title,
+    defaultFont = 'Iosevka Fixed SS05 Extended'
+} = Astro.props;
+
+const defaultFontVar = `var(${getFontVariable(defaultFont)})`;
+---
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+<style define:vars={{ defaultFontVar }}>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--defaultFontVar), monospace;
+    }
+</style>
