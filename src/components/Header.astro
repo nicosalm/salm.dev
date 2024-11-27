@@ -9,13 +9,16 @@ const navItems = [
 
 interface Props {
     title?: string;
-    version?: string;
+    author?: string;
 }
 
 const {
     title = "salm.dev",
-    version = "© 2024 nicosalm"
+    author = "nicosalm"
 } = Astro.props;
+
+const currentYear = new Date().getFullYear();
+const version = `© ${currentYear} ${author}`;
 ---
 <header class="bg-neutral-800 px-4 py-2">
     <div class="px-2 mx-auto grid grid-cols-3 justify-between items-center">

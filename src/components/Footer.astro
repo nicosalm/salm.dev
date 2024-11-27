@@ -1,0 +1,27 @@
+---
+interface Props {
+    site?: string;
+    author?: string;
+}
+
+const {
+    site = "salm.dev",
+    author = "nicosalm"
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+<footer class="fixed bottom-0 w-full bg-black border-t border-neutral-800">
+    <div class="grid grid-cols-[1fr_auto_1fr] max-w-6xl mx-auto px-6 py-2">
+        <div class="flex items-center gap-2 text-neutral-500 font-mono text-sm col-start-2">
+            <a href="/" class="flex items-center gap-2 text-white hover:text-cyan-400 transition-colors duration-100">
+                <span>&#60;&#60;&#60;</span>
+                <span>{site}</span>
+            </a>
+            <span>/</span>
+            <span>©</span>
+            <span>{currentYear}</span>
+            <span>{author}</span>
+        </div>
+    </div>
+</footer>

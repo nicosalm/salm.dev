@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
+import Footer from '../components/Footer.astro';
 
 type Props = {
   post: CollectionEntry<'blog'>;
@@ -30,5 +31,6 @@ const { title, description, pubDate, author, tags } = post.data;
     <div class="prose prose-invert">
       <slot />
     </div>
-  </article>
+    </article>
+    <Footer />
 </Layout>
