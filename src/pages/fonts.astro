@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getFontVariable } from '../utils/fonts';
+---
+
+<Layout title="Font Demo">
+    <main class="max-w-[800px] mx-auto p-8">
+        <h1>Typography Demo</h1>
+
+        <section>
+            <h2>Iosevka Fixed SS05 Extended</h2>
+            <div class="font-iosevka my-4 p-4 border border-gray-300">
+                <p>Regular text in Iosevka Fixed SS05 Extended 123456790</p>
+                <p class="font-bold">Bold text in Iosevka Fixed SS05 Extended 123456790</p>
+                <p class="italic">Italic text in Iosevka Fixed SS05 Extended 123456790</p>
+                <p class="font-bold italic">Bold Italic text in Iosevka Fixed SS05 Extended 123456790</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>IBM Fonts</h2>
+            <div class="font-ibm-flexi my-4 p-4 border border-gray-300">
+                <p>IBM Flexi VGA True 123456790</p>
+            </div>
+            <div class="font-ibm-vga my-4 p-4 border border-gray-300">
+                <p>IBM VGA 8x16 123456790</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>BigBlue Terminal Plus</h2>
+            <div class="font-bigblue my-4 p-4 border border-gray-300">
+                <p>BigBlue Terminal Plus 123456790</p>
+            </div>
+        </section>
+    </main>
+</Layout>

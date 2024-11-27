@@ -1,76 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getFontVariable } from '../utils/fonts';
+import Header from '../components/Header.astro';
 ---
 
-<Layout title="Font Demo">
-    <main>
-        <h1>Typography Demo</h1>
-
-        <section>
-            <h2>Iosevka Fixed SS05 Extended</h2>
-            <div class="font-sample iosevka">
-                <p>Regular text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="bold">Bold text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="italic">Italic text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="bold italic">Bold Italic text in Iosevka Fixed SS05 Extended 123456790</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>IBM Fonts</h2>
-            <div class="font-sample ibm-flexi">
-                <p>IBM Flexi VGA True 123456790</p>
-            </div>
-            <div class="font-sample ibm-vga">
-                <p>IBM VGA 8x16 123456790</p>
-            </div>
-        </section>
-
-        <section>
-            <h2>BigBlue Terminal Plus</h2>
-            <div class="font-sample bigblue">
-                <p>BigBlue Terminal Plus 123456790</p>
-            </div>
-        </section>
-
-    </main>
+<Layout title="Home">
+  <div class="bg-black min-h-screen">
+    <Header />
+    {/* Rest of your content */}
+  </div>
 </Layout>
-
-<style>
-    main {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    .font-sample {
-        margin: 1rem 0;
-        padding: 1rem;
-        border: 1px solid #ccc;
-    }
-
-    .iosevka {
-        font-family: var(--font-iosevka);
-    }
-
-    .iosevka .bold {
-        font-weight: bold;
-    }
-
-    .iosevka .italic {
-        font-style: italic;
-    }
-
-    .ibm-flexi {
-        font-family: var(--font-ibm-flexi);
-    }
-
-    .ibm-vga {
-        font-family: var(--font-ibm-vga);
-    }
-
-    .bigblue {
-        font-family: var(--font-bigblue);
-    }
-</style>
