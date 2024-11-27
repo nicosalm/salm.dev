@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="Blog">
+  <main class="max-w-[800px] mx-auto p-8">
+    <h1 class="text-4xl mb-8">Blog Posts</h1>
+
+    <div class="space-y-8">
+      {sortedPosts.map(post => (
+        <article class="border border-gray-300 p-4">
+          <h2 class="text-2xl mb-2">
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </h2>
+          <div class="text-sm opacity-75">
+            <time>{post.data.pubDate.toLocaleDateString()}</time>
+            {post.data.author && <span> · {post.data.author}</span>}
+          </div>
+          {post.data.description && (
+            <p class="mt-2">{post.data.description}</p>
+          )}
+          {post.data.tags.length > 0 && (
+            <div class="mt-2">
+              {post.data.tags.map(tag => (
+                <span class="mr-2 text-sm">{tag}</span>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </main>
+</Layout>
