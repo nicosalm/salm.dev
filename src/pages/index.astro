@@ -6,21 +6,19 @@ import Header from '../components/Header.astro';
 <Layout title="Home">
     <div id="loading-container"></div>
 
-    <div class="bg-black min-h-screen" id="content">
+    <div class="bg-black min-h-screen hidden" id="content">
         <Header />
-        {/* Rest of your content */}
     </div>
 </Layout>
 
 <script>
     const hasVisited = sessionStorage.getItem('hasVisited');
+    const content = document.getElementById('content');
 
     if (!hasVisited) {
-        const content = document.getElementById('content');
         const loadingContainer = document.getElementById('loading-container');
 
         if (content && loadingContainer) {
-            content.classList.add('hidden');
             loadingContainer.innerHTML = `
                 <div class="fixed inset-0 bg-black flex items-center justify-center z-50 font-ibm-vga">
                     <div class="loading-text text-cyan-400">
@@ -71,30 +69,17 @@ import Header from '../components/Header.astro';
 
             window.addEventListener('loading:complete', () => {
                 const loading = document.querySelector('.loading-text')?.parentElement;
-
-                if (loading) {
-                    loading.classList.add('fade-out');
-                    content.classList.remove('hidden');
-
-                    setTimeout(() => {
-                        loading.remove();
-                    }, 200);
-                }
+                content.classList.remove('hidden');
+                loading?.remove();
             });
         }
+    } else {
+        // when returning to the page, show content immediately
+        content?.classList.remove('hidden');
     }
 </script>
 
 <style>
-    .fade-out {
-        animation: fadeOut 0.2s forwards;
-    }
-
-    @keyframes fadeOut {
-        from { opacity: 1; }
-        to { opacity: 0; }
-    }
-
     .blink {
         animation: blink 1s step-end infinite;
     }
