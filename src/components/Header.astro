@@ -1,5 +1,6 @@
 ---
 const navItems = [
+    ['ABOUT', '/about'],
     ['FONTS', '/fonts'],
     ['BLOG', '/blog'],
     ['TUBE', 'https://www.youtube.com/@nicosalm'],
@@ -20,7 +21,7 @@ const {
 const currentYear = new Date().getFullYear();
 const version = `© ${currentYear} ${author}`;
 ---
-<header class="bg-neutral-800 px-4 py-2">
+<header class="bg-neutral-800 px-4 py-1">
     <div class="px-2 mx-auto grid grid-cols-3 justify-between items-center">
         {/* leftmost items ~ grid[0] */}
         <div class="justify-self-start tracking-[.3em]">
@@ -42,6 +43,6 @@ const version = `© ${currentYear} ${author}`;
             ))}
         </nav>
         {/* rightmost items ~ grid[2] */}
-        <div class="justify-self-end text-xs text-cyan-400">{version}</div>
+        <div class="font-ibm-vga justify-self-end text-s text-cyan-400">{version}</div>
     </div>
 </header>
