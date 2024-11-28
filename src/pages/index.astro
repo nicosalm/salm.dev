@@ -4,8 +4,102 @@ import Header from '../components/Header.astro';
 ---
 
 <Layout title="Home">
-  <div class="bg-black min-h-screen">
-    <Header />
-    {/* Rest of your content */}
-  </div>
+    <div id="loading-container"></div>
+
+    <div class="bg-black min-h-screen" id="content">
+        <Header />
+        {/* Rest of your content */}
+    </div>
 </Layout>
+
+<script>
+    const hasVisited = sessionStorage.getItem('hasVisited');
+
+    if (!hasVisited) {
+        const content = document.getElementById('content');
+        const loadingContainer = document.getElementById('loading-container');
+
+        if (content && loadingContainer) {
+            content.classList.add('hidden');
+            loadingContainer.innerHTML = `
+                <div class="fixed inset-0 bg-black flex items-center justify-center z-50 font-ibm-vga">
+                    <div class="loading-text text-cyan-400">
+                        <div id="status">INITIALIZING SYSTEM...</div>
+                        <div class="mt-4">
+                            <span id="progress">[                    ] 0%</span>
+                        </div>
+                        <div class="mt-4">
+                            <span id="message">BOOT SEQUENCE STARTING</span><span class="blink">_</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            sessionStorage.setItem('hasVisited', 'true');
+
+            const messages = [
+                'BOOT SEQUENCE STARTING',
+                'LOADING MODULES',
+                'CHECKING MEMORY',
+                'LOADING RESOURCES',
+                'STARTING SERVICES',
+                'BOOT SEQUENCE COMPLETE'
+            ];
+
+            const progress = document.getElementById('progress');
+            const message = document.getElementById('message');
+            let currentBlock = 0;
+
+            const updateProgress = () => {
+                if (!progress || !message) return;
+
+                if (currentBlock < 20) {
+                    const blocks = '█'.repeat(currentBlock) + ' '.repeat(20 - currentBlock);
+                    const percent = currentBlock * 5;
+                    progress.textContent = `[${blocks}] ${percent}%`;
+                    message.textContent = messages[Math.floor(currentBlock/4)];
+                    currentBlock++;
+                    setTimeout(updateProgress, 50);
+                } else {
+                    progress.textContent = `[${'█'.repeat(20)}] 100%`;
+                    message.textContent = messages[messages.length - 1];
+                    window.dispatchEvent(new CustomEvent('loading:complete'));
+                }
+            };
+
+            updateProgress();
+
+            window.addEventListener('loading:complete', () => {
+                const loading = document.querySelector('.loading-text')?.parentElement;
+
+                if (loading) {
+                    loading.classList.add('fade-out');
+                    content.classList.remove('hidden');
+
+                    setTimeout(() => {
+                        loading.remove();
+                    }, 200);
+                }
+            });
+        }
+    }
+</script>
+
+<style>
+    .fade-out {
+        animation: fadeOut 0.2s forwards;
+    }
+
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+
+    .blink {
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>
