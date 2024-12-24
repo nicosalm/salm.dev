@@ -162,10 +162,8 @@ import Header from '../components/Header.astro';
     }
 
     function startTypingEffects() {
-        const elements = document.querySelectorAll('[class^="typing-effect-"]');
-        let delay = 0;
-
-        elements.forEach((element, index) => {
+        const elements = document.querySelectorAll<HTMLElement>('[class^="typing-effect-"]');
+        elements.forEach((element) => {
             element.style.opacity = '0';
             setTimeout(() => {
                 element.style.opacity = '1';
@@ -174,19 +172,20 @@ import Header from '../components/Header.astro';
             delay += 750;
         });
     }
+
 </script>
 
 <style>
-    .blink {
-        animation: blink 1s step-end infinite;
-    }
+.blink {
+    animation: blink 1s step-end infinite;
+}
 
-    @keyframes blink {
-        50% { opacity: 0; }
-    }
+@keyframes blink {
+50% { opacity: 0; }
+}
 
-    .fade-out {
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
-    }
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
 </style>
