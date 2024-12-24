@@ -1,38 +1,148 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Font Demo">
-    <main class="max-w-[800px] mx-auto p-8">
-        <h1>Typography Demo</h1>
+<Layout title="[nico@salm.dev ~/fonts]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
 
-        <section>
-            <h2>Iosevka Fixed SS05 Extended</h2>
-            <div class="font-iosevka my-4 p-4 border border-gray-300">
-                <p>Regular text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="font-bold">Bold text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="italic">Italic text in Iosevka Fixed SS05 Extended 123456790</p>
-                <p class="font-bold italic">Bold Italic text in Iosevka Fixed SS05 Extended 123456790</p>
+        <main class="max-w-4xl mx-auto px-4 py-16">
+            <div class="terminal-header mb-8">
+                <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                <span class="text-neutral-500 font-ibm-vga">:</span>
+                <span class="text-red-400 font-ibm-vga">~/fonts</span>
+                <span class="text-neutral-500 font-ibm-vga">$</span>
+                <span class="text-white font-ibm-vga"> cat font-samples.txt</span>
             </div>
-        </section>
 
-        <section>
-            <h2>IBM Fonts</h2>
-            <div class="font-ibm-flexi my-4 p-4 border border-gray-300">
-                <p>IBM Flexi VGA True 123456790</p>
-            </div>
-            <div class="font-ibm-vga my-4 p-4 border border-gray-300">
-                <p>IBM VGA 8x16 123456790</p>
-            </div>
-        </section>
+            {/* iosevka section */}
+            <section class="mb-16">
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-2xl font-ibm-vga text-white">Iosevka Fixed SS05 Extended</h2>
+                    <div class="h-px bg-red-500 flex-grow"></div>
+                </div>
 
-        <section>
-            <h2>BigBlue Terminal Plus</h2>
-            <div class="font-bigblue my-4 p-4 border border-gray-300">
-                <p>BigBlue Terminal Plus 123456790</p>
-            </div>
-        </section>
-    </main>
-    <Footer />
+                <div class="space-y-6">
+                    <div class="border border-neutral-800 bg-neutral-900/50 p-6">
+                        <div class="font-iosevka space-y-4">
+                            <p class="text-2xl text-white">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+                            <p class="text-2xl text-neutral-400">abcdefghijklmnopqrstuvwxyz</p>
+                            <p class="text-2xl text-cyan-400">0123456789!@#$%^&*()</p>
+                            <div class="h-px bg-neutral-800 my-4"></div>
+                            <p>The quick brown fox jumps over the lazy dog.</p>
+                            <p class="font-bold">The quick brown fox jumps over the lazy dog.</p>
+                            <p class="italic">The quick brown fox jumps over the lazy dog.</p>
+                            <p class="font-bold italic">The quick brown fox jumps over the lazy dog.</p>
+                        </div>
+                    </div>
+
+                    <div class="text-sm text-neutral-500 font-ibm-vga">
+                        ⓘ Primary content font, used for most text content.
+                    </div>
+                </div>
+            </section>
+
+            {/* IBM VGA section */}
+            <section class="mb-16">
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-2xl font-ibm-vga text-white">IBM VGA 8x16</h2>
+                    <div class="h-px bg-red-500 flex-grow"></div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border border-neutral-800 bg-neutral-900/50 p-6">
+                        <div class="font-ibm-vga space-y-4">
+                            <p class="text-2xl text-white">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+                            <p class="text-2xl text-neutral-400">abcdefghijklmnopqrstuvwxyz</p>
+                            <p class="text-2xl text-cyan-400">0123456789!@#$%^&*()</p>
+                            <div class="h-px bg-neutral-800 my-4"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <p class="text-red-400">Error: File not found</p>
+                                    <p class="text-green-400">Success: Build completed</p>
+                                    <p class="text-yellow-400">Warning: Low memory</p>
+                                    <p class="text-cyan-400">Info: System ready</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <p>← Previous</p>
+                                    <p>→ Next</p>
+                                    <p>↑ Up</p>
+                                    <p>↓ Down</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-sm text-neutral-500 font-ibm-vga">
+                        ⓘ Terminal-style font, used for headers and UI elements.
+                    </div>
+                </div>
+            </section>
+
+            {/* bigblue section */}
+            <section class="mb-16">
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-2xl font-ibm-vga text-white">BigBlue Terminal Plus</h2>
+                    <div class="h-px bg-red-500 flex-grow"></div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="border border-neutral-800 bg-neutral-900/50 p-6">
+                        <div class="font-bigblue space-y-4">
+                            <p class="text-2xl text-white">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+                            <p class="text-2xl text-neutral-400">abcdefghijklmnopqrstuvwxyz</p>
+                            <p class="text-2xl text-cyan-400">0123456789!@#$%^&*()</p>
+                            <div class="h-px bg-neutral-800 my-4"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <p>[✓] Option Enabled</p>
+                                <p>[✗] Option Disabled</p>
+                                <p>▶ Now Playing</p>
+                                <p>■ Stop</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-sm text-neutral-500 font-ibm-vga">
+                        ⓘ Alternative terminal font, used for special UI elements.
+                    </div>
+                </div>
+            </section>
+
+            {/* font stack demo */}
+            <section>
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-2xl font-ibm-vga text-white">Font Stack Demo</h2>
+                    <div class="h-px bg-red-500 flex-grow"></div>
+                </div>
+
+                <div class="border border-neutral-800 bg-neutral-900/50 p-6">
+                    <div class="grid grid-cols-[120px_1fr] gap-4 font-ibm-vga">
+                        <div class="text-cyan-400">HEADERS</div>
+                        <div class="font-ibm-vga">IBM VGA 8x16</div>
+
+                        <div class="text-cyan-400">CONTENT</div>
+                        <div class="font-iosevka">Iosevka Fixed SS05 Extended</div>
+
+                        <div class="text-cyan-400">UI</div>
+                        <div class="font-bigblue">BigBlue Terminal Plus</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </div>
 </Layout>
+
+<style>
+    .terminal-header::after {
+        content: "_";
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>

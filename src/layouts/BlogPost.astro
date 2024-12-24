@@ -1,36 +1,124 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 type Props = {
-  post: CollectionEntry<'blog'>;
+    post: CollectionEntry<'blog'>;
+    prevPost?: CollectionEntry<'blog'>;
+    nextPost?: CollectionEntry<'blog'>;
 };
 
-const { post } = Astro.props;
-const { title, description, pubDate, author, tags } = post.data;
+const { post, prevPost, nextPost } = Astro.props;
+const { title, pubDate, author, tags } = post.data;
+
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric'
+});
 ---
 
 <Layout title={title}>
-  <article class="max-w-[800px] mx-auto p-8">
-    <header class="mb-8">
-      <h1 class="text-4xl mb-2">{title}</h1>
-      <div class="text-sm opacity-75">
-        <time>{pubDate.toLocaleDateString()}</time>
-        {author && <span> · {author}</span>}
-      </div>
-      {tags.length > 0 && (
-        <div class="mt-2">
-          {tags.map(tag => (
-            <span class="mr-2 text-sm">{tag}</span>
-          ))}
-        </div>
-      )}
-    </header>
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
 
-    <div class="prose prose-invert">
-      <slot />
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            {/* Article Header */}
+            <header class="mb-12">
+                {/* Title & Date */}
+                <h1 class="text-4xl font-ibm-vga text-white mb-2">{title}</h1>
+                <div class="h-px bg-red-500 mb-4" />
+
+                <div class="flex items-center gap-4 text-neutral-500 font-ibm-vga mb-4">
+                    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+                    <span class="text-neutral-600">•</span>
+                    <span>{author}</span>
+                </div>
+
+                {/* Tags */}
+                {tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2">
+                        {tags.map(tag => (
+                            <span class="text-cyan-500 font-ibm-vga">#{tag}</span>
+                        ))}
+                    </div>
+                )}
+            </header>
+
+            {/* Article Content */}
+            <article class="prose prose-invert prose-cyan max-w-none mb-12 font-iosevka">
+                <slot />
+            </article>
+
+            {/* Post Navigation */}
+            <nav class="border-t border-neutral-800 pt-8 mt-12 font-ibm-vga">
+                <div class="flex justify-between">
+                    {prevPost && (
+                        <a href={`/blog/${prevPost.slug}`}
+                           class="flex flex-col text-neutral-400 hover:text-cyan-400">
+                            <span class="text-sm text-neutral-600">← Previous Post</span>
+                            <span class="mt-1">{prevPost.data.title}</span>
+                        </a>
+                    )}
+
+                    {nextPost && (
+                        <a href={`/blog/${nextPost.slug}`}
+                           class="flex flex-col text-right text-neutral-400 hover:text-cyan-400 ml-auto">
+                            <span class="text-sm text-neutral-600">Next Post →</span>
+                            <span class="mt-1">{nextPost.data.title}</span>
+                        </a>
+                    )}
+                </div>
+            </nav>
+        </main>
+
+        <Footer />
     </div>
-    </article>
-    <Footer />
 </Layout>
+
+<style is:global>
+    /* Custom styles for prose content */
+    .prose {
+        /* Headings */
+        h2, h3, h4, h5, h6 {
+            @apply font-ibm-vga text-white mt-8 mb-4;
+        }
+        h2 { @apply text-2xl; }
+        h3 { @apply text-xl; }
+
+        /* Links */
+        a {
+            @apply text-cyan-400 hover:text-cyan-300 no-underline;
+        }
+
+        /* Code blocks */
+        pre {
+            @apply bg-neutral-900 border border-neutral-800 rounded-none;
+        }
+
+        code {
+            @apply font-ibm-vga text-cyan-400 bg-neutral-900 px-1;
+        }
+
+        /* Lists */
+        ul, ol {
+            @apply my-4 pl-6;
+        }
+
+        li {
+            @apply mb-2;
+        }
+
+        /* Blockquotes */
+        blockquote {
+            @apply border-l-2 border-cyan-500 pl-4 italic;
+        }
+
+        /* Images */
+        img {
+            @apply max-w-full my-8;
+        }
+    }
+</style>

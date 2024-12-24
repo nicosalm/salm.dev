@@ -1,1 +1,98 @@
-About me
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="[nico@salm.dev ~/about]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+
+        <main class="max-w-4xl mx-auto px-4 py-16">
+            <section class="mb-12">
+                <div class="terminal-header mb-8">
+                    <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                    <span class="text-neutral-500 font-ibm-vga">:</span>
+                    <span class="text-red-400 font-ibm-vga">~/about</span>
+                    <span class="text-neutral-500 font-ibm-vga">$</span>
+                    <span class="text-white font-ibm-vga"> cat about.txt</span>
+                </div>
+
+                <div class="space-y-6 font-iosevka">
+                    <p class="text-lg">
+                        Hello! I'm Nico —
+                    </p>
+
+                    <p>
+                        I'm a software and data engineer with a passion for building things that matter.
+                        I work at the intersection of complex systems and data, focusing on creating
+                        intuitive solutions to challenging problems.
+                    </p>
+
+                    <div class="h-px bg-neutral-800 my-8"></div>
+
+                    <div class="grid grid-cols-[120px_1fr] gap-8 font-ibm-vga">
+                        <div class="text-cyan-400">INTERESTS</div>
+                        <div class="space-y-2">
+                            <p>• Machine Learning & AI for Predictive Analytics</p>
+                            <p>• Low-level Systems & Operating Systems</p>
+                            <p>• Computer Science Theory</p>
+                            <p>• Data Engineering & Analytics</p>
+                        </div>
+
+                        <div class="text-cyan-400">TOOLS</div>
+                        <div class="space-y-2">
+                            <p>• Languages: Python, TypeScript, SQL, Rust</p>
+                            <p>• Frameworks: FastAPI, React, Astro</p>
+                            <p>• Cloud: AWS, GCP</p>
+                            <p>• Data: Spark, Pandas, PyTorch</p>
+                        </div>
+
+                        <div class="text-cyan-400">FOCUS</div>
+                        <div>
+                            My goal is to master the skills needed to become an exceptional
+                            software engineer and data scientist, while contributing to
+                            projects that make a meaningful impact.
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-neutral-800 my-8"></div>
+
+                    <h2 class="text-2xl font-ibm-vga text-white mb-4">Current Projects</h2>
+                    <div class="space-y-4">
+                        <div class="border border-neutral-800 p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2">Personal Website</h3>
+                            <p>A digital garden built with Astro and MDX. Features a retro computing aesthetic
+                            inspired by old terminals and text interfaces.</p>
+                        </div>
+                        {/* add more projects here as i make them */}
+                    </div>
+
+                    <div class="h-px bg-neutral-800 my-8"></div>
+
+                    <h2 class="text-2xl font-ibm-vga text-white mb-4">Get in Touch</h2>
+                    <p>
+                        I'm always interested in discussing new opportunities, collaborating
+                        on interesting projects, or just chatting about technology. You can
+                        find me on <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
+                        or reach out via <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">email</a>.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+    /* blinking cursor animation */
+    .terminal-header::after {
+        content: "_";
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>
