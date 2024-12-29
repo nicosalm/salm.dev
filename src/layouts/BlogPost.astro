@@ -25,9 +25,9 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
         <Header />
 
         <main class="max-w-4xl mx-auto px-4 py-8">
-            {/* Article Header */}
+            {/* article header */}
             <header class="mb-12">
-                {/* Title & Date */}
+                {/* title, date */}
                 <h1 class="text-4xl font-ibm-vga text-white mb-2">{title}</h1>
                 <div class="h-px bg-red-500 mb-4" />
 
@@ -37,7 +37,7 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
                     <span>{author}</span>
                 </div>
 
-                {/* Tags */}
+                {/* tags */}
                 {tags.length > 0 && (
                     <div class="flex flex-wrap gap-2">
                         {tags.map(tag => (
@@ -47,13 +47,13 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
                 )}
             </header>
 
-            {/* Article Content */}
+            {/* content */}
             <article class="prose prose-invert prose-cyan max-w-none mb-12 font-iosevka">
                 <slot />
             </article>
 
-            {/* Post Navigation */}
-            <nav class="border-t border-neutral-800 pt-8 mt-12 font-ibm-vga">
+            {/* post navigation */}
+            <nav class="border-t border-neutral-800 pt-8 py-12 font-ibm-vga">
                 <div class="flex justify-between">
                     {prevPost && (
                         <a href={`/blog/${prevPost.slug}`}
@@ -79,21 +79,21 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
 </Layout>
 
 <style is:global>
-    /* Custom styles for prose content */
+    /* prose content */
     .prose {
-        /* Headings */
+        /* headings */
         h2, h3, h4, h5, h6 {
             @apply font-ibm-vga text-white mt-8 mb-4;
         }
         h2 { @apply text-2xl; }
         h3 { @apply text-xl; }
 
-        /* Links */
+        /* links */
         a {
             @apply text-cyan-400 hover:text-cyan-300 no-underline;
         }
 
-        /* Code blocks */
+        /* code */
         pre {
             @apply bg-neutral-900 border border-neutral-800 rounded-none;
         }
@@ -102,7 +102,7 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
             @apply font-ibm-vga text-cyan-400 bg-neutral-900 px-1;
         }
 
-        /* Lists */
+        /* lists */
         ul, ol {
             @apply my-4 pl-6;
         }
@@ -111,12 +111,12 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
             @apply mb-2;
         }
 
-        /* Blockquotes */
+        /* quotes */
         blockquote {
             @apply border-l-2 border-cyan-500 pl-4 italic;
         }
 
-        /* Images */
+        /* img */
         img {
             @apply max-w-full my-8;
         }
