@@ -1,0 +1,142 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../../../utils/readingTime';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Group posts by year
+const postsByYear = sortedPosts.reduce((acc, post) => {
+    const year = post.data.pubDate.getFullYear();
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+}, {} as Record<number, typeof posts>);
+
+const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title="[nico@salm.dev ~/blog/archive]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <nav class="mb-8 flex items-center justify-center space-x-16 font-ibm-vga">
+                <a href="/blog" class="text-red-500 hover:text-red-400 flex items-center gap-3">
+                    <span>◆</span>
+                    FEATURED
+                </a>
+                <a href="/blog/archive" class="text-red-500 hover:text-red-400 flex items-center gap-3">
+                    <span>◆</span>
+                    ARCHIVE
+                </a>
+                <a href="/blog/categories" class="text-red-500 hover:text-red-400 flex items-center gap-3">
+                    <span>◆</span>
+                    CATEGORIES
+                </a>
+                <a href="/rss.xml" class="text-red-500 hover:text-red-400 flex items-center gap-3">
+                    <span>◆</span>
+                    RSS
+                </a>
+            </nav>
+
+            <!-- Search Terminal -->
+            <div class="mb-8 font-ibm-vga">
+                <div class="flex items-center gap-2 text-neutral-500 mb-2">
+                    <span>nico@salm.dev:~/blog$</span>
+                    <span class="text-white">search_posts</span>
+                </div>
+                <div class="flex items-center gap-3 bg-neutral-900 border border-neutral-800 p-3">
+                    <span class="text-cyan-500">></span>
+                    <input
+                        type="text"
+                        id="search"
+                        class="bg-transparent border-none outline-none text-white w-full font-ibm-vga focus:ring-0"
+                        placeholder="Type to search posts..."
+                    />
+                </div>
+            </div>
+
+            <div class="space-y-8" id="posts-container">
+                {years.map(year => (
+                    <section class="post-section" data-year={year}>
+                        <div class="flex items-center gap-4 mb-3">
+                            <h2 class="text-2xl font-ibm-vga text-white">{year}</h2>
+                            <div class="h-px bg-red-500 flex-grow"></div>
+                            <span class="text-neutral-500 font-ibm-vga">
+                                {postsByYear[year].length} post{postsByYear[year].length !== 1 ? 's' : ''}
+                            </span>
+                        </div>
+                        <div class="pl-4 border-l border-neutral-800 font-ibm-vga space-y-2">
+                            {postsByYear[year].map(post => (
+                                <div class="flex items-baseline gap-4 post-item">
+                                    <span class="text-neutral-500 w-24">
+                                        {post.data.pubDate.toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: '2-digit'
+                                        })}
+                                    </span>
+                                    <div class="flex-grow">
+                                        <a href={`/blog/${post.slug}`}
+                                           class="text-white hover:text-cyan-400 searchable-title">
+                                            {post.data.title}
+                                        </a>
+                                    </div>
+                                    <span class="text-neutral-500">
+                                        ~/time: {calculateReadingTime(post.body)} min
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                ))}
+            </div>
+        </main>
+        <Footer />
+    </div>
+</Layout>
+
+<script>
+    const searchInput = document.getElementById('search') as HTMLInputElement;
+    const postsContainer = document.getElementById('posts-container');
+    const sections = document.querySelectorAll('.post-section');
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+
+        sections.forEach(section => {
+            let hasVisiblePosts = false;
+            const posts = section.querySelectorAll('.post-item');
+
+            posts.forEach(post => {
+                const title = post.querySelector('.searchable-title')?.textContent?.toLowerCase() || '';
+                if (title.includes(searchTerm)) {
+                    (post as HTMLElement).style.display = 'flex';
+                    hasVisiblePosts = true;
+                } else {
+                    (post as HTMLElement).style.display = 'none';
+                }
+            });
+
+            // Show/hide the entire year section
+            (section as HTMLElement).style.display = hasVisiblePosts ? 'block' : 'none';
+        });
+    });
+</script>
+
+<style>
+    input::placeholder {
+        color: #525252;
+    }
+
+    /* Remove default input styles */
+    input:focus {
+        outline: none;
+        box-shadow: none;
+        border: none;
+    }
+</style>

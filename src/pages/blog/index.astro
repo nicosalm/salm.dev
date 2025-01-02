@@ -3,17 +3,25 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../../utils/readingTime';
+
 const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredPosts = posts
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
 ---
 <Layout title="[nico@salm.dev ~/blog]$">
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
-        <main class="max-w-5xl mx-auto px-4 py-16"> <!-- Changed to py-16 to match about page -->
-            <nav class="mb-16 flex items-center justify-center space-x-16 font-ibm-vga">
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <nav class="mb-8 flex items-center justify-center space-x-16 font-ibm-vga">
                 <a href="/blog" class="text-red-500 hover:text-red-400 flex items-center gap-3">
                     <span>◆</span>
-                    ALL POSTS
+                    FEATURED
+                </a>
+                <a href="/blog/archive" class="text-red-500 hover:text-red-400 flex items-center gap-3">
+                    <span>◆</span>
+                    ARCHIVE
                 </a>
                 <a href="/blog/categories" class="text-red-500 hover:text-red-400 flex items-center gap-3">
                     <span>◆</span>
@@ -24,10 +32,11 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
                     RSS
                 </a>
             </nav>
-            <div class="space-y-20 max-w-4xl mx-auto">
-                {sortedPosts.map((post) => (
-                    <article class="grid grid-cols-[150px_1fr] gap-10">
-                        <div class="w-[150px] h-[150px] bg-neutral-800 border border-neutral-700">
+
+            <div class="space-y-12">
+                {featuredPosts.map((post) => (
+                    <article>
+                        <div class="w-full h-[240px] bg-neutral-800 border border-neutral-700 mb-4">
                             {post.data.image ? (
                                 <img
                                     src={post.data.image.url}
@@ -35,49 +44,56 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
                                     class="w-full h-full object-cover"
                                 />
                             ) : (
-                                <div class="w-full h-full flex items-center justify-center text-neutral-600 text-6xl font-ibm-vga">
-                                    ?
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <div class="text-neutral-600 text-6xl font-ibm-vga">?</div>
                                 </div>
                             )}
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-ibm-vga mb-2">
-                                <a href={`/blog/${post.slug}`} class="text-white hover:text-cyan-400">
-                                    {post.data.title}
-                                </a>
-                            </h2>
-                            <div class="h-px bg-red-500 mb-4" />
-                            <div class="flex items-center gap-4 text-red-500 mb-6 font-ibm-vga">
-                                <span>⌗</span>
-                                <time>
-                                    {post.data.pubDate.toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: '2-digit',
-                                        year: 'numeric'
-                                    })}
-                                </time>
-                            </div>
-                            <p class="text-neutral-400 mb-6 font-ibm-vga leading-relaxed">
-                                {post.data.description}
-                            </p>
-                            <div class="flex flex-wrap gap-3">
-                                {post.data.tags.map((tag) => (
-                                    <span class="text-cyan-500 font-ibm-vga">#{tag}</span>
-                                ))}
-                            </div>
+
+                        <h2 class="text-2xl font-ibm-vga mb-2">
+                            <a href={`/blog/${post.slug}`} class="text-white hover:text-cyan-400">
+                                {post.data.title}
+                            </a>
+                        </h2>
+
+                        <div class="h-px bg-red-500 mb-3" />
+
+                        <div class="flex items-center gap-4 text-red-500 mb-4 font-ibm-vga">
+                            <span>⌗</span>
+                            <time>
+                                {post.data.pubDate.toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: '2-digit',
+                                    year: 'numeric'
+                                })}
+                            </time>
+                            <span class="text-neutral-500">
+                                ~/time: {calculateReadingTime(post.body)} min
+                            </span>
+                        </div>
+
+                        <p class="text-neutral-400 mb-4 font-ibm-vga leading-relaxed">
+                            {post.data.description}
+                        </p>
+
+                        <div class="flex flex-wrap gap-3">
+                            {post.data.tags.map((tag) => (
+                                <span class="text-cyan-500 font-ibm-vga">#{tag}</span>
+                            ))}
                         </div>
                     </article>
                 ))}
+            </div>
+
+            <div class="flex justify-center mt-12 mb-4 font-ibm-vga">
+                <a href="/blog/archive" class="text-red-500 hover:text-red-400 group">
+                    <div class="flex items-center gap-3">
+                        <span>View all posts in the archive</span>
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                </a>
             </div>
         </main>
         <Footer />
     </div>
 </Layout>
-<style>
-    @media (max-width: 640px) {
-        article {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
-        }
-    }
-</style>
