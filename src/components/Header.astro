@@ -5,17 +5,14 @@ const navItems = [
     ['TUBE', 'https://www.youtube.com/@nicosalm'],
     ['CODE', 'https://github.com/nicosalm/']
 ] as const;
-
 interface Props {
     title?: string;
     author?: string;
 }
-
 const {
     title = "salm.dev",
     author = "nicosalm"
 } = Astro.props;
-
 const currentYear = new Date().getFullYear();
 const version = `© ${currentYear} ${author}`;
 ---
@@ -23,20 +20,20 @@ const version = `© ${currentYear} ${author}`;
     <div class="px-2 mx-auto grid grid-cols-3 justify-between items-center">
         {/* leftmost items ~ grid[0] */}
         <div class="justify-self-start tracking-[.3em]">
-            <a href="/" class="text-cyan-400 font-ibm-vga">{title}</a>
+            <a href="/" class="text-cyan-400 font-ibm-vga hover:text-cyan-300 transition-colors">{title}</a>
         </div>
         {/* center items ~ grid[1] */}
-        <nav class="flex justify-self-center items-center font-ibm-vga">
+        <nav class="flex justify-self-center items-center space-x-2 font-ibm-vga">
             {navItems.map(([text, href]) => (
             <a
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class="text-gray-400 hover:text-cyan-400 relative group px-5 py-1 transition-all duration-100"
+                class="flex items-center text-gray-400 hover:text-cyan-400 px-4 py-2 transition-colors group"
             >
-                <span class="absolute left-2 text-gray-600 group-hover:text-cyan-600 transition-all duration-100 group-hover:left-1">&#91;</span>
-                {text}
-                <span class="absolute right-2 text-gray-600 group-hover:text-cyan-600 transition-all duration-100 group-hover:right-1">&#93;</span>
+                <span class="text-gray-600 group-hover:text-cyan-600 mr-1 transition-transform group-hover:-translate-x-1">&#91;</span>
+                <span>{text}</span>
+                <span class="text-gray-600 group-hover:text-cyan-600 ml-1 transition-transform group-hover:translate-x-1">&#93;</span>
             </a>
             ))}
         </nav>

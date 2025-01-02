@@ -1,193 +1,146 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+// import Terminal from '../components/Terminal.astro';
+// import Terminal from '../components/Terminal';
+
 ---
 
-<Layout title="[nico@salm.dev ~]$">
-    <div id="loading-container"></div>
-    <div class="bg-black min-h-screen flex flex-col" id="content">
-        <div class="fixed top-0 w-full">
-            <Header />
-        </div>
+<Layout title="salm.dev">
+    <div class="relative min-h-screen overflow-hidden bg-black">
+        <!-- Animated checkered background -->
+        <div class="fixed inset-0 bg-checker animate-sway"></div>
 
-        <main class="flex-1 flex items-center justify-center p-4">
-            <div class="w-full max-w-4xl">
-                <div class="border border-neutral-800 bg-neutral-900/50 font-ibm-vga">
-                    <div class="border-b border-neutral-800 p-2 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        <!-- Content -->
+        <div class="relative z-20 min-h-screen flex flex-col">
+            <Header />
+
+            <!-- Main logo section -->
+            <main class="flex-1 flex flex-col items-center justify-center">
+                <!-- Wave container that extends beyond screen -->
+                <div class="absolute left-0 right-0 flex items-center justify-center h-48 pointer-events-none">
+                    <!-- Wave bars with extended width -->
+                    <div class="absolute w-screen max-w-none overflow-visible">
+                        <div class="space-y-[4px]">
+                            {Array.from({ length: 8 }).map((_, i) => (
+                                <div class={`h-[8px] wave-bar wave-delay-${i}`}></div>
+                            ))}
                         </div>
-                        <div class="text-neutral-500 text-sm">bash - nico@salm.dev</div>
-                        <div class="w-16"></div>
                     </div>
 
-                    <div class="p-6 space-y-4">
-                        <div>
-                            <span class="text-cyan-400">nico@salm.dev</span>
-                            <span class="text-neutral-500">:</span>
-                            <span class="text-red-400">~</span>
-                            <span class="text-neutral-500">$</span>
-                            <span class="text-white"> whoami</span>
-                        </div>
-
-                        <div class="text-neutral-300">
-                            Software Engineer and Data Scientist
-                        </div>
-
-                        <div class="h-4"></div>
-
-                        <div>
-                            <span class="text-cyan-400">nico@salm.dev</span>
-                            <span class="text-neutral-500">:</span>
-                            <span class="text-red-400">~</span>
-                            <span class="text-neutral-500">$</span>
-                            <span class="text-white"> ls projects/</span>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4 text-neutral-300">
-                            <div>
-                                <span class="text-cyan-400">→</span> Data Engineering
-                            </div>
-                            <div>
-                                <span class="text-red-400">→</span> ML/AI Development
-                            </div>
-                            <div>
-                                <span class="text-yellow-400">→</span> System Design
-                            </div>
-                            <div>
-                                <span class="text-green-400">→</span> Web Development
-                            </div>
-                        </div>
-
-                        <div class="h-4"></div>
-
-                        <div>
-                            <span class="text-cyan-400">nico@salm.dev</span>
-                            <span class="text-neutral-500">:</span>
-                            <span class="text-red-400">~</span>
-                            <span class="text-neutral-500">$</span>
-                            <span class="text-white"> cat contact.txt</span>
-                        </div>
-
-                        <div class="space-y-2 text-neutral-300">
-                            <div>• <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a></div>
-                            <div>• <a href="/blog" class="text-cyan-400 hover:text-cyan-300">Blog</a></div>
-                            <div>• <a href="/about" class="text-cyan-400 hover:text-cyan-300">More Info</a></div>
-                        </div>
-                        <div class="h-4"></div>
-
-                        <div>
-                            <span class="text-cyan-400">nico@salm.dev</span>
-                            <span class="text-neutral-500">:</span>
-                            <span class="text-red-400">~</span>
-                            <span class="text-neutral-500">$</span>
-                            <span class="blink text-white">_</span>
-                        </div>
+                    <!-- Floating ASCII Logo -->
+                    <div class="relative px-12 py-4 animate-float z-10">
+                        <pre class="text-2xl md:text-6xl font-ibm-vga leading-none whitespace-pre text-gradient ascii-shadow">
+█▀ ▄▀█ █   █▀▄▀█ ▄▄ █▀▄ █▀▀ █░█
+▄█ █▀█ █▄▄ █░▀░█ ░░ █▄▀ ██▄ ▀▄▀</pre>
                     </div>
                 </div>
-            </div>
-        </main>
+
+                <!-- Interactive Terminal -->
+                <!-- <div class="w-full px-4 mt-32"> -->
+                <!--     <Terminal client:load /> -->
+                <!-- </div> -->
+            </main>
+        </div>
     </div>
 </Layout>
-
-<script>
-    const hasVisited = sessionStorage.getItem('hasVisited');
-    const content = document.getElementById('content');
-
-    if (!hasVisited) {
-        const loadingContainer = document.getElementById('loading-container');
-
-        if (content && loadingContainer) {
-            loadingContainer.innerHTML = `
-                <div class="fixed inset-0 bg-black flex items-center justify-center z-50 font-ibm-vga">
-                    <div class="loading-text text-cyan-400">
-                        <div id="status">INITIALIZING SYSTEM...</div>
-                        <div class="mt-4">
-                            <span id="progress">[                    ] 0%</span>
-                        </div>
-                        <div class="mt-4">
-                            <span id="message">BOOT SEQUENCE STARTING</span><span class="blink">_</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            sessionStorage.setItem('hasVisited', 'true');
-
-            const messages = [
-                'BOOT SEQUENCE STARTING',
-                'LOADING MODULES',
-                'CHECKING MEMORY',
-                'LOADING RESOURCES',
-                'STARTING SERVICES',
-                'BOOT SEQUENCE COMPLETE'
-            ];
-
-            const progress = document.getElementById('progress');
-            const message = document.getElementById('message');
-            let currentBlock = 0;
-
-            const updateProgress = () => {
-                if (!progress || !message) return;
-
-                if (currentBlock < 20) {
-                    const blocks = '█'.repeat(currentBlock) + ' '.repeat(20 - currentBlock);
-                    const percent = currentBlock * 5;
-                    progress.textContent = `[${blocks}] ${percent}%`;
-                    message.textContent = messages[Math.floor(currentBlock/4)];
-                    currentBlock++;
-                    setTimeout(updateProgress, 50);
-                } else {
-                    progress.textContent = `[${'█'.repeat(20)}] 100%`;
-                    message.textContent = messages[messages.length - 1];
-                    window.dispatchEvent(new CustomEvent('loading:complete'));
-                }
-            };
-
-            updateProgress();
-
-            window.addEventListener('loading:complete', () => {
-                loadingContainer.classList.add('fade-out');
-                setTimeout(() => {
-                    loadingContainer.remove();
-                    startTypingEffects();
-                }, 500);
-            });
-        }
-    } else {
-        content?.classList.remove('hidden');
-        startTypingEffects();
-    }
-
-    function startTypingEffects() {
-        const elements = document.querySelectorAll<HTMLElement>('[class^="typing-effect-"]');
-        let delay = 0;
-
-        elements.forEach((element) => {
-            element.style.opacity = '0';
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.classList.add('typing');
-            }, delay);
-            delay += 750;
-        });
-    }
-
-</script>
-
 <style>
-.blink {
-    animation: blink 1s step-end infinite;
-}
+    .bg-checker {
+        background-image:
+            linear-gradient(45deg, #111 25%, transparent 25%),
+            linear-gradient(-45deg, #111 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, #111 75%),
+            linear-gradient(-45deg, transparent 75%, #111 75%);
+        background-size: 40px 40px;
+        background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+        background-color: #000;
+    }
 
-@keyframes blink {
-50% { opacity: 0; }
-}
+    @keyframes sway {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(30px); }
+    }
 
-.fade-out {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-}
+    .animate-sway {
+        animation: sway 2s ease-in-out infinite; /* Restored to original timing */
+    }
+
+    /* Wave bars animation and color change */
+    .wave-bar {
+        background: linear-gradient(90deg,
+            rgba(147, 51, 234, 0.6),
+            rgba(59, 130, 246, 0.8),
+            rgba(6, 182, 212, 0.6)
+        );
+        animation: waveMove 1.5s ease-in-out infinite, colorShift 1.5s linear infinite;
+        width: 150vw;
+        margin-left: -25vw;
+    }
+
+    @keyframes waveMove {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+
+    @keyframes colorShift {
+        0% {
+            background: linear-gradient(90deg,
+                rgba(147, 51, 234, 0.6),
+                rgba(59, 130, 246, 0.8),
+                rgba(6, 182, 212, 0.6)
+            );
+        }
+        50% {
+            background: linear-gradient(90deg,
+                rgba(59, 130, 246, 0.6),
+                rgba(6, 182, 212, 0.8),
+                rgba(147, 51, 234, 0.6)
+            );
+        }
+        100% {
+            background: linear-gradient(90deg,
+                rgba(147, 51, 234, 0.6),
+                rgba(59, 130, 246, 0.8),
+                rgba(6, 182, 212, 0.6)
+            );
+        }
+    }
+
+    /* Wave delay for each bar */
+    .wave-delay-0 { animation-delay: 0s, 0s; }
+    .wave-delay-1 { animation-delay: 0.075s, 0.075s; }
+    .wave-delay-2 { animation-delay: 0.15s, 0.15s; }
+    .wave-delay-3 { animation-delay: 0.225s, 0.225s; }
+    .wave-delay-4 { animation-delay: 0.3s, 0.3s; }
+    .wave-delay-5 { animation-delay: 0.375s, 0.375s; }
+    .wave-delay-6 { animation-delay: 0.45s, 0.45s; }
+    .wave-delay-7 { animation-delay: 0.525s, 0.525s; }
+
+    /* Logo floating animation */
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(3px, 3px); }
+        50% { transform: translate(-3px, -2px); }
+        75% { transform: translate(-2px, 3px); }
+    }
+
+    .animate-float {
+        animation: float 2s ease-in-out infinite;
+    }
+
+    /* Text gradient and shadow */
+    .text-gradient {
+        background: linear-gradient(180deg,
+            rgba(255,255,255,1) 0%,
+            rgba(255,255,255,0.9) 40%,
+            rgba(0,255,255,0.8) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .ascii-shadow {
+        filter: drop-shadow(0 2px 2px rgba(0,255,255,0.4));
+    }
 </style>
