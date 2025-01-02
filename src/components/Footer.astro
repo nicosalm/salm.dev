@@ -1,10 +1,8 @@
 ---
-import childProcess from "child_process";
+// Import the commit hash from the generated JSON file
+import commitData from '../data/commitHash.json';
 
-const hash = childProcess
-  .execSync("git rev-parse --short HEAD")
-  .toString()
-  .trim();
+const { hash } = commitData;
 
 const {
     site = "salm.dev",
@@ -27,7 +25,7 @@ const currentYear = new Date().getFullYear();
             <span>/</span>
             <a
                 class="commit-hash text-neutral-500 hover:text-custom-cyan transition-colors duration-100"
-                href={`https://github.com/{author}/website/commit/${hash}`}
+                href={`https://github.com/${author}/website/commit/${hash}`}
                 target="_blank"
                 aria-label="GitHub commit hash"
             >
@@ -45,18 +43,18 @@ const currentYear = new Date().getFullYear();
 
   .commit-hash {
     margin-left: 2px;
-      color: #808080;
-    text-decoration: underline;
-    font-size: 0.875rem;
-    transition: color 0.2s ease;
+    color: #808080; /* Default grey color */
+    text-decoration: none; /* Remove underline */
+    font-size: 0.875rem; /* Slightly smaller */
+    transition: color 0.2s ease; /* Smooth color transition */
   }
 
   .commit-hash:hover {
-    color: rgb(34, 211, 238);
+    color: rgb(34, 211, 238); /* Highlight with cyan on hover */
   }
 
   .commit-hash, .commit-hash + span {
-    margin-left: 0;
+    margin-left: 0; /* Remove extra space between commit hash and slash */
   }
 </style>
 

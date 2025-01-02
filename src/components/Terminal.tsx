@@ -1,5 +1,4 @@
-// Terminal.tsx
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface CommandHistory {
     command: string;
@@ -16,16 +15,116 @@ const Terminal = () => {
     const terminalRef = useRef<HTMLDivElement>(null);
     const historyRef = useRef<HTMLDivElement>(null);
 
-    const commands = {
-        help: () => `Available commands:
-• help - Show this help message
-• about - About me
-• clear - Clear terminal
-• projects - View my projects
-• skills - List my technical skills
-• contact - Get contact information
-• github - Open my GitHub profile`,
+    // Auto-focus when expanded
+    useEffect(() => {
+        if (isExpanded && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isExpanded]);
 
+    const commands = {
+        // Basic Commands
+        help: () => `Available commands:
+- help - Show this help message
+- clear - Clear terminal
+- projects - View my projects
+- skills - List my technical skills
+- contact - Get contact information
+- github - Open my GitHub profile
+
+Navigation:
+- ls - List directory contents
+- pwd - Print working directory
+- whoami - Display current user
+- date - Show current date/time
+
+Information:
+- education - View educational background
+- experience - View work experience
+- talks - List recent talks
+- stack - View tech stack
+- tools - List daily tools
+- config - View configs
+
+Social:
+- social - View social links
+- pgp - Display PGP key
+- newsletter - Newsletter info
+
+Fun:
+- weather - Check weather
+- joke - Tell a programming joke
+- coffee - Brew virtual coffee
+- matrix - Try to enter the Matrix`,
+
+        // Navigation & System
+        ls: () => `~/blog
+~/about
+~/contact`,
+
+        pwd: () => `/users/guest`,
+
+        date: () => new Date().toLocaleString(),
+
+        // Personal/Professional
+        education: () => `Education:
+- M.S. Computer Science - (coming soon)
+- B.S. Computer Science - University of Wisconsin, Madison`,
+
+        experience: () => `Experience:
+- Current: Software Engineer @ Company
+- Previous: Data Scientist @ Company
+- Intern: ML Engineer @ Company`,
+
+        // publications: () => `Recent publications and writings:
+        // - Paper Title 1 (2024)
+        // - Paper Title 2 (2023)`,
+
+        talks: () => `Recent talks and presentations:
+- Conference Talk 1
+- Workshop 2
+- Meetup Presentation 3`,
+
+        // Tech Stack
+        stack: () => `My current tech stack:
+Frontend: React, TypeScript, Tailwind
+Backend: Python, Go, Node.js
+Data: PyTorch, Pandas, PostgreSQL`,
+
+        tools: () => `Daily tools:
+            - Editor: Neovim
+            - Terminal: WezTerm
+            - Shell: zsh
+            - OS: macOS`,
+
+        config: () => `My dotfiles and configurations:
+                    Visit: github.com/nicosalm/dotfiles`,
+
+        // Fun/Interactive
+        weather: () => `Fetching weather for Cambridge, MA...
+                        🌤️  72°F | Partly Cloudy`,
+
+        joke: () => `Why do programmers prefer dark mode?
+                     Because light attracts bugs!`,
+
+        coffee: () => `☕ Brewing a virtual coffee...`,
+
+        matrix: () => `Loading the Matrix...
+                    Access Denied: You're not The One.`,
+
+        // Social/Contact
+        social: () => `Find me on:
+- Twitter: @nicosalm
+- LinkedIn: in/nicosalm
+- GitHub: @nicosalm`,
+
+        pgp: () => `My PGP Public Key:
+[Key Block]`,
+
+        newsletter: () => `Subscribe to my newsletter:
+newsletter.salm.dev`,
+
+        // Keep your existing commands
         about: () => `Hi! I'm a Software Engineer and Data Scientist passionate about building cool things.`,
 
         clear: () => {
@@ -34,21 +133,21 @@ const Terminal = () => {
         },
 
         projects: () => `Recent projects:
-• Data Engineering Pipeline
-• ML Model Deployment
-• System Architecture Design
-• This Website!`,
+- Data Engineering Pipeline
+- ML Model Deployment
+- System Architecture Design
+- This Website!`,
 
         skills: () => `Technical Skills:
-• Languages: Python, JavaScript, SQL
-• Frameworks: React, Node.js, FastAPI
-• Cloud: AWS, GCP
-• ML/AI: PyTorch, TensorFlow
-• Data: Pandas, NumPy, Scikit-learn`,
+- Languages: Python, JavaScript, SQL
+- Frameworks: React, Node.js, FastAPI
+- Cloud: AWS, GCP
+- ML/AI: PyTorch, TensorFlow
+- Data: Pandas, NumPy, Scikit-learn`,
 
         contact: () => `Feel free to reach out:
-• Email: hello@salm.dev
-• LinkedIn: in/nicosalm`,
+- Email: hello@salm.dev
+- LinkedIn: in/nicosalm`,
 
         github: () => {
             window.open('https://github.com/nicosalm', '_blank');
@@ -58,6 +157,12 @@ const Terminal = () => {
 
     const executeCommand = (cmd: string) => {
         const trimmedCmd = cmd.trim().toLowerCase();
+
+        // clear clears everything
+        if (trimmedCmd === 'clear') {
+            setDisplayHistory([]);
+            return;
+        }
 
         if (trimmedCmd) {
             setCommandHistory(prev => [...prev, cmd]);
@@ -117,55 +222,48 @@ const Terminal = () => {
 
     const toggleTerminal = () => {
         setIsExpanded(prev => !prev);
-        if (!isExpanded && inputRef.current) {
-            setTimeout(() => inputRef.current?.focus(), 0);
-        }
     };
 
     return (
         <div className="fixed bottom-4 right-4 z-50">
-            <div
-                className={`w-full max-w-2xl bg-black/90 border border-neutral-800 rounded font-ibm-vga transition-all duration-300 transform origin-bottom-right ${
-                    isExpanded ? 'scale-100' : 'scale-90 hover:scale-95'
-                }`}
-            >
+            <div className={`
+                w-full max-w-2xl bg-black border border-neutral-800
+                transition-all duration-300 transform origin-bottom-right
+                shadow-lg backdrop-blur-sm
+                ${isExpanded ? 'scale-100' : 'scale-90 hover:scale-95'}
+            `}>
+                {/* Terminal Header */}
                 <div
-                    className="border-b border-neutral-800 px-3 h-8 cursor-pointer relative flex items-center"
+                    className="flex items-center justify-between px-4 h-8 border-b border-neutral-800 cursor-pointer"
                     onClick={toggleTerminal}
                 >
-                    <div className={`absolute left-3 flex items-center gap-3 ${isExpanded ? '' : 'opacity-0'}`}>
-                        <div className="w-3 h-3 rounded-full bg-red-500" />
-                        <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                        <div className="w-3 h-3 rounded-full bg-green-500 mr-3" />
+                    <div className="flex items-center gap-2">
+                        <span className="text-red-500">◆</span>
+                        <span className="text-neutral-500 font-ibm-vga text-sm">guest@salm.dev</span>
                     </div>
-                    <div className={`text-neutral-500 text-sm w-full text-center pt-0.5 ${
-                        isExpanded ? 'pl-20' : ''
-                    }`}>
-                        bash - salm.dev
-                    </div>
+                    <span className="text-neutral-600 font-ibm-vga text-sm">~/terminal</span>
                 </div>
 
+                {/* Terminal Content */}
                 {isExpanded && (
                     <div
                         ref={terminalRef}
-                        className="p-4 h-96 overflow-y-auto"
+                        className="p-4 h-96 overflow-y-auto font-ibm-vga"
                         onClick={() => inputRef.current?.focus()}
                     >
                         <div className="text-cyan-400 mb-4">
                             Welcome to salm.dev terminal. Type 'help' for available commands.
                         </div>
 
-                        <div ref={historyRef}>
+                        <div ref={historyRef} className="space-y-2">
                             {displayHistory.map((item, index) => (
-                                <div key={index} className="mb-2">
-                                    <div className="flex">
-                                        <span className="text-cyan-400">guest@salm.dev</span>
-                                        <span className="text-red-400 mx-1">~</span>
-                                        <span className="text-neutral-500">$</span>
-                                        <span className="text-white ml-2">{item.command}</span>
+                                <div key={index}>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-red-500">»</span>
+                                        <span className="text-white">{item.command}</span>
                                     </div>
                                     {item.output && (
-                                        <div className={`mt-1 whitespace-pre-line ${
+                                        <div className={`mt-1 ml-6 whitespace-pre-line ${
                                             item.error ? 'text-red-400' : 'text-neutral-300'
                                         }`}>
                                             {item.output}
@@ -175,14 +273,12 @@ const Terminal = () => {
                             ))}
                         </div>
 
-                        <div className="flex">
-                            <span className="text-cyan-400">guest@salm.dev</span>
-                            <span className="text-red-400 mx-1">~</span>
-                            <span className="text-neutral-500">$</span>
+                        <div className="flex items-center gap-2 mt-2">
+                            <span className="text-red-500">»</span>
                             <input
                                 ref={inputRef}
                                 type="text"
-                                className="flex-1 ml-2 bg-transparent text-white outline-none border-none"
+                                className="flex-1 bg-transparent text-white outline-none border-none font-ibm-vga"
                                 spellCheck="false"
                                 autoComplete="off"
                                 onKeyDown={handleKeyDown}
