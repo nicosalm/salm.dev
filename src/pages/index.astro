@@ -1,25 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-// import Terminal from '../components/Terminal.astro';
-// import Terminal from '../components/Terminal';
-
+import Terminal from '../components/Terminal';
 ---
 
 <Layout title="salm.dev">
     <div class="relative min-h-screen overflow-hidden bg-black">
-        <!-- Animated checkered background -->
+        <!-- checkered background -->
         <div class="fixed inset-0 bg-checker animate-sway"></div>
 
-        <!-- Content -->
+        <!-- content -->
         <div class="relative z-20 min-h-screen flex flex-col">
             <Header />
 
-            <!-- Main logo section -->
+            <!-- logo -->
             <main class="flex-1 flex flex-col items-center justify-center">
-                <!-- Wave container that extends beyond screen -->
+                <!-- wave container -->
                 <div class="absolute left-0 right-0 flex items-center justify-center h-48 pointer-events-none">
-                    <!-- Wave bars with extended width -->
+                    <!-- wave bars -->
                     <div class="absolute w-screen max-w-none overflow-visible">
                         <div class="space-y-[4px]">
                             {Array.from({ length: 8 }).map((_, i) => (
@@ -28,7 +26,7 @@ import Header from '../components/Header.astro';
                         </div>
                     </div>
 
-                    <!-- Floating ASCII Logo -->
+                    <!-- ascii logo -->
                     <div class="relative px-12 py-4 animate-float z-10">
                         <pre class="text-2xl md:text-6xl font-ibm-vga leading-none whitespace-pre text-gradient ascii-shadow">
 █▀ ▄▀█ █   █▀▄▀█ ▄▄ █▀▄ █▀▀ █░█
@@ -36,10 +34,10 @@ import Header from '../components/Header.astro';
                     </div>
                 </div>
 
-                <!-- Interactive Terminal -->
-                <!-- <div class="w-full px-4 mt-32"> -->
-                <!--     <Terminal client:load /> -->
-                <!-- </div> -->
+                <!-- terminal -->
+                <div class="w-full px-4 mt-32">
+                    <Terminal client:load />
+                </div>
             </main>
         </div>
     </div>
@@ -65,7 +63,7 @@ import Header from '../components/Header.astro';
         animation: sway 2s ease-in-out infinite; /* Restored to original timing */
     }
 
-    /* Wave bars animation and color change */
+    /* wave bars animation & color change */
     .wave-bar {
         background: linear-gradient(90deg,
             rgba(147, 51, 234, 0.6),
@@ -106,7 +104,7 @@ import Header from '../components/Header.astro';
         }
     }
 
-    /* Wave delay for each bar */
+    /* wave delay for each bar */
     .wave-delay-0 { animation-delay: 0s, 0s; }
     .wave-delay-1 { animation-delay: 0.075s, 0.075s; }
     .wave-delay-2 { animation-delay: 0.15s, 0.15s; }
@@ -116,7 +114,7 @@ import Header from '../components/Header.astro';
     .wave-delay-6 { animation-delay: 0.45s, 0.45s; }
     .wave-delay-7 { animation-delay: 0.525s, 0.525s; }
 
-    /* Logo floating animation */
+    /* logo floating animation */
     @keyframes float {
         0%, 100% { transform: translate(0, 0); }
         25% { transform: translate(3px, 3px); }
@@ -128,7 +126,7 @@ import Header from '../components/Header.astro';
         animation: float 2s ease-in-out infinite;
     }
 
-    /* Text gradient and shadow */
+    /* text gradient and shadow */
     .text-gradient {
         background: linear-gradient(180deg,
             rgba(255,255,255,1) 0%,
