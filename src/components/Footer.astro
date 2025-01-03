@@ -19,13 +19,9 @@ const currentYear = new Date().getFullYear();
                 <span>{site}</span>
             </a>
             <span>/</span>
-            <span>©</span>
-            <span>{currentYear}</span>
-            <span>{author}</span>
-            <span>/</span>
             <a
                 class="commit-hash text-neutral-500 hover:text-custom-cyan transition-colors duration-100"
-                href={`https://github.com/${author}/website/commit/${hash}`}
+                href={`https://github.com/${author}/salm.dev/commit/${hash}`}
                 target="_blank"
                 aria-label="GitHub commit hash"
             >
@@ -43,18 +39,18 @@ const currentYear = new Date().getFullYear();
 
   .commit-hash {
     margin-left: 2px;
-    color: #808080; /* Default grey color */
-    text-decoration: none; /* Remove underline */
-    font-size: 0.875rem; /* Slightly smaller */
-    transition: color 0.2s ease; /* Smooth color transition */
+    color: #808080;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
   }
 
   .commit-hash:hover {
-    color: rgb(34, 211, 238); /* Highlight with cyan on hover */
+    color: rgb(34, 211, 238);
   }
 
   .commit-hash, .commit-hash + span {
-    margin-left: 0; /* Remove extra space between commit hash and slash */
+    margin-left: 0;
   }
 </style>
 
