@@ -13,21 +13,28 @@ import Footer from '../components/Footer.astro';
                 <div class="terminal-header mb-6">
                     <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
                     <span class="text-neutral-500 font-ibm-vga">:</span>
-                    <span class="text-red-400 font-ibm-vga">~/about</span>
+                    <span class="text-red-500 font-ibm-vga">~/about</span>
                     <span class="text-neutral-500 font-ibm-vga">$</span>
                     <span class="text-white font-ibm-vga"> cat about.txt</span>
                 </div>
 
                 <div class="space-y-4 font-iosevka">
-                    <p class="text-lg">
-                        Hello! I'm Nico —
-                    </p>
 
-                    <p>
-                        I'm a software and data engineer with a passion for building things that matter.
-                        I work at the intersection of complex systems and data, focusing on creating
-                        intuitive solutions to challenging problems.
-                    </p>
+                    <div class="flex gap-8 items-start">
+                        <div class="flex-1">
+                            <p class="text-lg">
+                                Hello! I'm Nico — a software engineer working at the intersection of systems, data, and ML.
+                                I build tools and infrastructure for complex data problems.
+                            </p>
+                        </div>
+                        <div class="w-32 h-32 flex-shrink-0 bg-neutral-800 border border-neutral-700">
+                            <img
+                                src="/images/me.jpeg"
+                                alt="Nico Salm"
+                                class="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
@@ -36,44 +43,46 @@ import Footer from '../components/Footer.astro';
                         <div class="space-y-2">
                             <p>• Machine Learning & AI for Predictive Analytics</p>
                             <p>• Low-level Systems & Operating Systems</p>
-                            <p>• Computer Science Theory</p>
                             <p>• Data Engineering & Analytics</p>
                         </div>
 
                         <div class="text-cyan-400">TOOLS</div>
                         <div class="space-y-2">
-                            <p>• Languages: Python, TypeScript, Go, C++, SQL</p>
-                            <p>• Frameworks: React, Next.js, Astro</p>
-                            <p>• Cloud & Infrastructure: AWS, GCP, Kafka, HDFS</p>
-                            <p>• Data: Spark, PyTorch, PostgreSQL, MongoDB</p>
-                        </div>
-                        <div class="text-cyan-400">FOCUS</div>
-                        <div>
-                            My goal is to master the skills needed to become an exceptional
-                            software engineer and data scientist, while contributing to
-                            projects that make a meaningful impact.
+                            <p>• Languages: Python, Go, Rust, C++, SQL</p>
+                            <p>• Cloud & Infrastructure: AWS, GCP, Kafka</p>
+                            <p>• Data: PyTorch, PostgreSQL, MongoDB</p>
                         </div>
                     </div>
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <h2 class="text-2xl font-ibm-vga text-white mb-3">Current Projects</h2>
+                    <h2 class="text-2xl font-ibm-vga text-white mb-3">Projects</h2>
                     <div class="space-y-3">
-                       <div class="border border-neutral-800 p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2">Personal Website</h3>
-                            <p>A digital garden built with Astro and MDX. Features a retro computing aesthetic
-                                inspired by old terminals and text interfaces.</p>
+                        <div class="border border-neutral-800 p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                                <a href="https://github.com/nicosalm/httpd" class="hover:text-cyan-300">httpd</a>
+                            </h3>
+                            <p>HTTP server implementation focusing on async networking and core protocol design.</p>
                         </div>
-                    </div>
-                    <div class="h-px bg-neutral-800 my-6"></div>
+                        <div class="border border-neutral-800 p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                                <a href="https://github.com/nicosalm/kvstore" class="hover:text-cyan-300">kvstore</a>
+                            </h3>
+                            <p>Distributed key-value store exploring consensus and replication patterns.</p>
+                        </div>
+                        <div class="border border-neutral-800 p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                                <a href="https://github.com/nicosalm/netcat" class="hover:text-cyan-300">netcat</a>
+                            </h3>
+                            <p>Network protocol analyzer implementing packet capture and traffic analysis systems.</p>
+                        </div>
+                    </div>                    <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <h2 class="text-2xl font-ibm-vga text-white mb-3">Get in Touch</h2>
-                    <p>
-                        I'm always interested in discussing new opportunities, collaborating
-                        on projects, or just chatting about technology. You can
-                        find me on <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
-                        or reach out via <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">email</a>.
-                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
+                        <span class="text-neutral-500">◆</span>
+                        <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">Email</a>
+                    </div>
                 </div>
             </section>
         </main>
@@ -83,7 +92,6 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-    /* blinking cursor animation */
     .terminal-header::after {
         content: "_";
         animation: blink 1s step-end infinite;

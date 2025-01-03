@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="[nico@salm.dev ~/404]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <section class="mb-8">
+                <div class="terminal-header mb-6">
+                    <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                    <span class="text-neutral-500 font-ibm-vga">:</span>
+                    <span class="text-red-500 font-ibm-vga">~/404</span>
+                    <span class="text-neutral-500 font-ibm-vga">$</span>
+                    <span class="text-white font-ibm-vga"> cat error.txt</span>
+                </div>
+
+                <div class="space-y-8 font-ibm-vga">
+                    <div class="space-y-4">
+                        <h1 class="text-2xl text-white">Error: Page not found</h1>
+                    </div>
+
+                    <div class="h-px bg-neutral-800"></div>
+
+                    <div class="text-neutral-400 space-y-4">
+                        <p>The requested file could not be found. Here are some suggestions:</p>
+                        <ul class="space-y-2">
+                            <li class="flex gap-2">
+                                <span class="text-red-500">»</span>
+                                <span>Check the URL for typos</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-red-500">»</span>
+                                <span>Return to the <a href="/" class="text-cyan-400 hover:text-cyan-300">homepage</a></span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-red-500">»</span>
+                                <span>Try searching in the <a href="/blog/archive" class="text-cyan-400 hover:text-cyan-300">archive</a></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="h-px bg-neutral-800"></div>
+
+                    <div class="flex items-center gap-2 text-neutral-500">
+                        <span class="text-red-500">⚠</span>
+                        Exit code: 404
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+    /* blinking cursor animation */
+    .terminal-header::after {
+        content: "_";
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>

@@ -70,6 +70,20 @@ const readingTime = calculateReadingTime(post.body);
                 <slot />
             </article>
 
+            {/* Support Section */}
+            <div class="border border-neutral-800 p-4 mb-12 text-center font-ibm-vga flex items-center justify-center gap-4">
+                <span>Like what you read?</span>
+                <a
+                    href="https://github.com/sponsors/nicosalm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300"
+                >
+                    <span>♥</span>
+                    <span>Support my work</span>
+                </a>
+            </div>
+
             {/* Post Navigation */}
             <nav class="border-t border-neutral-800 pt-6 pb-12 font-ibm-vga">
                 <div class="flex justify-between items-start gap-4 mb-8">
