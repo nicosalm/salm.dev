@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="[nico@salm.dev ~/tools]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <section class="mb-8">
+                <div class="terminal-header mb-6">
+                    <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                    <span class="text-neutral-500 font-ibm-vga">:</span>
+                    <span class="text-red-500 font-ibm-vga">~/tools</span>
+                    <span class="text-neutral-500 font-ibm-vga">$</span>
+                    <span class="text-white font-ibm-vga"> cat tools.txt</span>
+                </div>
+
+                <div class="space-y-4 font-iosevka">
+                    <p class="text-lg">Open Source Developer Tools</p>
+                    <p class="text-neutral-400">Tools and scripts I've built that make life easier - now they're yours too!</p>
+
+                    <div class="h-px bg-neutral-800 my-6"></div>
+
+
+                    <div class="grid grid-cols-3 gap-12">
+                        <div class="border border-neutral-800 flex flex-col w-full">
+                            <a href="https://github.com/nicosalm/tool1"
+                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <img src="/images/tools/1.png" alt="tool1 Screenshot" class="w-full h-full object-cover" />
+                            </a>
+                            <div class="p-4 space-y-4 flex flex-col flex-1">
+                                <h2 class="text-xl font-ibm-vga text-white">tool1</h2>
+                                <p class="text-sm text-neutral-400 flex-1">Coming soon!</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-neutral-500">Rust</span>
+                                        <a href="/docs/tool1" class="text-cyan-400 hover:text-cyan-300">Docs</a>
+                                    </div>
+                                    <span class="text-neutral-500 text-sm">v1.0.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-neutral-800 flex flex-col w-full">
+                            <a href="https://github.com/nicosalm/tool2"
+                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <img src="/images/tools/2.png" alt="tool2 Screenshot" class="w-full h-full object-cover" />
+                            </a>
+                            <div class="p-4 space-y-4 flex flex-col flex-1">
+                                <h2 class="text-xl font-ibm-vga text-white">tool2</h2>
+                                <p class="text-sm text-neutral-400 flex-1">Coming relatively soon!</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-neutral-500">Go</span>
+                                        <a href="/docs/tool2" class="text-cyan-400 hover:text-cyan-300">Docs</a>
+                                    </div>
+                                    <span class="text-neutral-500 text-sm">v0.2.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-neutral-800 flex flex-col w-full">
+                            <a href="https://github.com/nicosalm/tool3"
+                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <img src="/images/tools/3.png" alt="tool3 Screenshot" class="w-full h-full object-cover" />
+                            </a>
+                            <div class="p-4 space-y-4 flex flex-col flex-1">
+                                <h2 class="text-xl font-ibm-vga text-white">tool3</h2>
+                                <p class="text-sm text-neutral-400 flex-1">Coming later! (Is it obvious these are placeholders yet?)</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-neutral-500">Rust</span>
+                                        <a href="/docs/tool3" class="text-cyan-400 hover:text-cyan-300">Docs</a>
+                                    </div>
+                                    <span class="text-neutral-500 text-sm">v1.2.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-neutral-800 my-6"></div>
+
+                    <div class="flex gap-4">
+                        <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
+                        <span class="text-neutral-500">◆</span>
+                        <a href="https://github.com/sponsors/nicosalm" class="text-cyan-400 hover:text-cyan-300">Sponsor</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+.terminal-header::after {
+    content: "_";
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+50% { opacity: 0; }
+}
+</style>
