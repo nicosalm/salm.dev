@@ -23,42 +23,43 @@ const Terminal = () => {
     }, [isExpanded]);
 
     const commands = {
-        // Basic Commands
-        help: () => `Available commands:
-- help - Show this help message
-- clear - Clear terminal
-- projects - View my projects
-- skills - List my technical skills
-- contact - Get contact information
-- github - Open my GitHub profile
+        help: () =>
+            `Available commands:
+[Basic]
+help        Show this help message
+clear       Clear terminal
+projects    View my projects
+skills      List technical skills
+contact     Get contact info
+github      Open GitHub profile
 
-Navigation:
-- ls - List directory contents
-- pwd - Print working directory
-- whoami - Display current user
-- date - Show current date/time
+[Navigation]
+ls          List directory contents
+pwd         Print working directory
+whoami      Display current user
+date        Show current date/time
 
-Information:
-- education - View educational background
-- experience - View work experience
-- talks - List recent talks
-- stack - View tech stack
-- tools - List daily tools
-- config - View configs
+[Information]
+education   View education
+experience  View work experience
+talks       List recent talks
+stack       View tech stack
+tools       List daily tools
+config      View configs
 
-Social:
-- social - View social links
-- pgp - Display PGP key
-- newsletter - Newsletter info
+[Social]
+social      View social links
+pgp         Display PGP key
+newsletter  Subscribe info
 
-Fun:
-- weather - Check weather
-- joke - Tell a programming joke
-- coffee - Brew virtual coffee
-- matrix - Try to enter the Matrix`,
+[Fun]
+weather     Check weather
+joke        Tell a joke
+coffee      Brew coffee
+matrix      Enter the Matrix`,
 
-        // Navigation & System
-        ls: () => `~/blog
+        ls: () =>
+            `~/blog
 ~/about
 ~/contact`,
 
@@ -66,87 +67,104 @@ Fun:
 
         date: () => new Date().toLocaleString(),
 
-        // Personal/Professional
-        education: () => `Education:
+        education: () =>
+            `Education:
 - M.S. Computer Science - (coming soon)
 - B.S. Computer Science - University of Wisconsin, Madison`,
 
-        experience: () => `Experience:
+        experience: () =>
+            `Experience:
 - Current: Software Engineer @ Company
 - Previous: Data Scientist @ Company
 - Intern: ML Engineer @ Company`,
 
-        // publications: () => `Recent publications and writings:
-        // - Paper Title 1 (2024)
-        // - Paper Title 2 (2023)`,
-
-        talks: () => `Recent talks and presentations:
+        talks: () =>
+            `Recent talks and presentations:
 - Conference Talk 1
 - Workshop 2
 - Meetup Presentation 3`,
 
-        // Tech Stack
-        stack: () => `My current tech stack:
-Frontend: React, TypeScript, Tailwind
-Backend: Python, Go, Node.js
-Data: PyTorch, Pandas, PostgreSQL`,
+        stack: () =>
+            `My current tech stack:
+Frontend
+- React, TypeScript, Tailwind
 
-        tools: () => `Daily tools:
-            - Editor: Neovim
-            - Terminal: WezTerm
-            - Shell: zsh
-            - OS: macOS`,
+Backend
+- Python, Go, Node.js
 
-        config: () => `My dotfiles and configurations:
-                    Visit: github.com/nicosalm/dotfiles`,
+Data
+- PyTorch, Pandas, PostgreSQL`,
 
-        // Fun/Interactive
-        weather: () => `Fetching weather for Cambridge, MA...
-                        🌤️  72°F | Partly Cloudy`,
+        tools: () =>
+            `Daily tools:
+Editor:   Neovim
+Terminal: WezTerm
+Shell:    zsh
+OS:       macOS`,
 
-        joke: () => `Why do programmers prefer dark mode?
-                     Because light attracts bugs!`,
+        config: () =>
+            `My dotfiles and configurations:
+Visit: github.com/nicosalm/dotfiles`,
+
+        weather: () =>
+            `Fetching weather for Cambridge, MA...
+🌤️  72°F | Partly Cloudy`,
+
+        joke: () =>
+            `Why do programmers prefer dark mode?
+Because light attracts bugs!`,
 
         coffee: () => `☕ Brewing a virtual coffee...`,
 
-        matrix: () => `Loading the Matrix...
-                    Access Denied: You're not The One.`,
+        matrix: () =>
+            `Loading the Matrix...
+Access Denied: You're not The One.`,
 
-        // Social/Contact
-        social: () => `Find me on:
-- Twitter: @nicosalm
+        social: () =>
+            `Find me on:
+- Twitter:  @nicosalm
 - LinkedIn: in/nicosalm
-- GitHub: @nicosalm`,
+- GitHub:   @nicosalm`,
 
-        pgp: () => `My PGP Public Key:
+        pgp: () =>
+            `My PGP Public Key:
 [Key Block]`,
 
-        newsletter: () => `Subscribe to my newsletter:
+        newsletter: () =>
+            `Subscribe to my newsletter:
 newsletter.salm.dev`,
 
-        // Keep your existing commands
-        about: () => `Hi! I'm a Software Engineer and Data Scientist passionate about building cool things.`,
+        about: () =>
+            `Hi! I'm a Software Engineer and Data Scientist passionate about building cool things.`,
 
         clear: () => {
             setDisplayHistory([]);
             return null;
         },
 
-        projects: () => `Recent projects:
+        projects: () =>
+            `Recent projects:
 - Data Engineering Pipeline
 - ML Model Deployment
 - System Architecture Design
 - This Website!`,
 
-        skills: () => `Technical Skills:
-- Languages: Python, JavaScript, SQL
-- Frameworks: React, Node.js, FastAPI
-- Cloud: AWS, GCP
-- ML/AI: PyTorch, TensorFlow
-- Data: Pandas, NumPy, Scikit-learn`,
+        skills: () =>
+            `Technical Skills:
+Languages
+- Python, JavaScript, SQL
 
-        contact: () => `Feel free to reach out:
-- Email: hello@salm.dev
+Frameworks
+- React, Node.js, FastAPI
+
+Cloud & Data
+- AWS, GCP
+- PyTorch, TensorFlow
+- Pandas, NumPy, Scikit-learn`,
+
+        contact: () =>
+            `Feel free to reach out:
+- Email:    hello@salm.dev
 - LinkedIn: in/nicosalm`,
 
         github: () => {
@@ -154,6 +172,9 @@ newsletter.salm.dev`,
             return 'Opening GitHub profile...';
         }
     };
+
+
+
 
     const executeCommand = (cmd: string) => {
         const trimmedCmd = cmd.trim().toLowerCase();
@@ -224,17 +245,18 @@ newsletter.salm.dev`,
         setIsExpanded(prev => !prev);
     };
 
-    return (
-        <div className="fixed bottom-4 right-4 z-50">
+
+return (
+        <div className="fixed bottom-0 right-0 sm:bottom-4 sm:right-4 z-50 w-full sm:w-auto">
             <div className={`
-                w-full max-w-2xl bg-black border border-neutral-800
+                w-full sm:max-w-2xl bg-black border-t sm:border border-neutral-800
                 transition-all duration-300 transform origin-bottom-right
                 shadow-lg backdrop-blur-sm
-                ${isExpanded ? 'scale-100' : 'scale-90 hover:scale-95'}
+                ${isExpanded ? 'scale-100' : 'sm:scale-90 sm:hover:scale-95'}
             `}>
                 {/* Terminal Header */}
                 <div
-                    className="flex items-center justify-between px-4 h-8 border-b border-neutral-800 cursor-pointer"
+                    className="flex items-center justify-between px-4 h-10 sm:h-8 border-b border-neutral-800 cursor-pointer"
                     onClick={toggleTerminal}
                 >
                     <div className="flex items-center gap-2">
@@ -248,14 +270,14 @@ newsletter.salm.dev`,
                 {isExpanded && (
                     <div
                         ref={terminalRef}
-                        className="p-4 h-96 overflow-y-auto font-ibm-vga"
+                        className="p-4 h-[50vh] sm:h-96 overflow-y-auto font-ibm-vga"
                         onClick={() => inputRef.current?.focus()}
                     >
-                        <div className="text-cyan-400 mb-4">
+                        <div className="text-cyan-400 mb-4 text-sm sm:text-base">
                             Welcome to salm.dev terminal. Type 'help' for available commands.
                         </div>
 
-                        <div ref={historyRef} className="space-y-2">
+                        <div ref={historyRef} className="space-y-2 text-sm sm:text-base">
                             {displayHistory.map((item, index) => (
                                 <div key={index}>
                                     <div className="flex items-center gap-2">
@@ -278,7 +300,7 @@ newsletter.salm.dev`,
                             <input
                                 ref={inputRef}
                                 type="text"
-                                className="flex-1 bg-transparent text-white outline-none border-none font-ibm-vga"
+                                className="flex-1 bg-transparent text-white outline-none border-none font-ibm-vga text-sm sm:text-base"
                                 spellCheck="false"
                                 autoComplete="off"
                                 onKeyDown={handleKeyDown}
@@ -291,4 +313,4 @@ newsletter.salm.dev`,
     );
 };
 
-export default Terminal;
+export { Terminal };

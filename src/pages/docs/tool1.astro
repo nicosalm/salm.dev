@@ -1,0 +1,200 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { marked } from 'marked';
+
+// Project configuration
+const PROJECT = {
+    name: 'bytebasket',
+    displayName: 'ByteBasket',
+    version: 'v1.0.0',
+    language: 'Rust',
+    github: 'nicosalm/bytebasket'
+};
+
+// Fetch README from GitHub
+const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${PROJECT.github}/main/README.md`;
+const response = await fetch(GITHUB_RAW_URL);
+const readmeContent = await response.text();
+
+// Function to process the markdown content
+function processMarkdown(content: string) {
+    const lines = content.split('\n');
+    let startIndex = 0;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line === '') continue;
+        if (line.startsWith('# ')) continue;
+        if (line.startsWith('[![')) continue;
+        startIndex = i;
+        break;
+    }
+    return lines.slice(startIndex).join('\n');
+}
+
+// Process and parse markdown
+const processedContent = processMarkdown(readmeContent);
+const parsedContent = marked(processedContent);
+---
+
+<Layout title={`[nico@salm.dev ~/docs/${PROJECT.name}]$`}>
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <section class="mb-8">
+                <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
+                    <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                    <span class="text-neutral-500 font-ibm-vga">:</span>
+                    <span class="text-red-500 font-ibm-vga">~/docs/{PROJECT.name}</span>
+                    <span class="text-neutral-500 font-ibm-vga">$</span>
+                    <span class="text-white font-ibm-vga"> cat README.md</span>
+                </div>
+
+                <div class="space-y-8 font-ibm-vga">
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl text-white mb-4">{PROJECT.displayName}</h1>
+                        <div class="flex flex-wrap gap-4 text-sm sm:text-base">
+                            <span class="text-neutral-500">{PROJECT.version}</span>
+                            <span class="text-neutral-500">|</span>
+                            <span class="text-neutral-500">{PROJECT.language}</span>
+                            <span class="text-neutral-500">|</span>
+                            <a href={`https://github.com/${PROJECT.github}`} class="text-cyan-400 hover:text-cyan-300">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-neutral-800"></div>
+
+                    <div class="prose prose-invert max-w-none">
+                        <Fragment set:html={parsedContent} />
+                    </div>
+
+                    <div class="h-px bg-neutral-800"></div>
+
+                    <div class="flex flex-wrap gap-4 text-sm sm:text-base justify-center sm:justify-start">
+                        <a href={`https://github.com/${PROJECT.github}`} class="text-cyan-400 hover:text-cyan-300">GitHub</a>
+                        <span class="text-neutral-500">◆</span>
+                        <a href={`https://github.com/${PROJECT.github}/issues`} class="text-cyan-400 hover:text-cyan-300">Issues</a>
+                        <span class="text-neutral-500">◆</span>
+                        <a href="https://github.com/sponsors/nicosalm" class="text-cyan-400 hover:text-cyan-300">Sponsor</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </div>
+</Layout>
+
+<style is:global>
+    /* Base cursor animation */
+    .terminal-header::after {
+        content: "_";
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    /* Style the rendered markdown content */
+    .prose {
+        @apply text-sm sm:text-base;
+    }
+
+    .prose h1 {
+        @apply text-2xl sm:text-3xl text-white mt-8 mb-4 font-ibm-vga;
+    }
+
+    .prose h2 {
+        @apply text-xl sm:text-2xl text-white mt-8 mb-4 font-ibm-vga;
+    }
+
+    .prose h3 {
+        @apply text-lg sm:text-xl text-white mt-6 mb-3 font-ibm-vga;
+    }
+
+    .prose p {
+        @apply text-neutral-400 mb-4;
+    }
+
+    .prose code {
+        @apply text-cyan-400 bg-neutral-900 px-1.5 py-0.5 rounded;
+    }
+
+    .prose pre {
+        @apply bg-neutral-900 p-4 border border-neutral-800 overflow-x-auto mb-4 rounded;
+    }
+
+    .prose pre code {
+        @apply bg-transparent p-0 text-white;
+    }
+
+    .prose ul {
+        @apply list-none space-y-2 ml-4 mb-4;
+    }
+
+    .prose ul li {
+        @apply flex gap-2 text-neutral-400;
+    }
+
+    .prose ul li::before {
+        content: "»";
+        @apply text-cyan-400;
+    }
+
+    .prose a {
+        @apply text-cyan-400 hover:text-cyan-300;
+    }
+
+    .prose blockquote {
+        @apply border-l-2 border-neutral-800 pl-4 my-4 text-neutral-500;
+    }
+
+    .prose table {
+        @apply w-full border-collapse mb-4;
+    }
+
+    .prose table th {
+        @apply text-white text-left p-2 border-b border-neutral-800;
+    }
+
+    .prose table td {
+        @apply p-2 border-b border-neutral-800;
+    }
+
+    /* Add styles for detailed markdown elements */
+    .prose img {
+        @apply max-w-full h-auto my-4;
+    }
+
+    .prose hr {
+        @apply border-neutral-800 my-8;
+    }
+
+    .prose strong {
+        @apply text-white;
+    }
+
+    .prose em {
+        @apply text-neutral-300;
+    }
+
+    .prose del {
+        @apply text-neutral-500;
+    }
+
+    .prose ol {
+        @apply list-decimal list-inside space-y-2 ml-4 mb-4 text-neutral-400;
+    }
+
+    .prose :not(pre) > code {
+        @apply text-cyan-400 bg-neutral-900 px-1.5 py-0.5 rounded text-sm;
+    }
+
+    /* Style for mermaid diagrams if present */
+    .prose .mermaid {
+        @apply flex justify-center my-8 bg-neutral-900 p-4 rounded;
+    }
+</style>
