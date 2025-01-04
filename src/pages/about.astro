@@ -10,7 +10,7 @@ import Footer from '../components/Footer.astro';
 
         <main class="max-w-4xl mx-auto px-4 py-8">
             <section class="mb-8">
-                <div class="terminal-header mb-6">
+                <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
                     <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
                     <span class="text-neutral-500 font-ibm-vga">:</span>
                     <span class="text-red-500 font-ibm-vga">~/about</span>
@@ -19,15 +19,15 @@ import Footer from '../components/Footer.astro';
                 </div>
 
                 <div class="space-y-4 font-iosevka">
-
-                    <div class="flex gap-8 items-start">
-                        <div class="flex-1">
-                            <p class="text-lg">
+                    {/* header section */}
+                    <div class="flex flex-col-reverse sm:flex-row sm:gap-8 items-center sm:items-start">
+                        <div class="flex-1 mt-4 sm:mt-0">
+                            <p class="text-base sm:text-lg text-center sm:text-left">
                                 Hello! I'm Nico — a software engineer working at the intersection of systems, data, and ML.
                                 I build tools and infrastructure for complex data problems.
                             </p>
                         </div>
-                        <div class="w-32 h-32 flex-shrink-0 bg-neutral-800 border border-neutral-700">
+                        <div class="w-40 h-40 sm:w-32 sm:h-32 flex-shrink-0 bg-neutral-800 border border-neutral-700">
                             <img
                                 src="/images/me.jpeg"
                                 alt="Nico Salm"
@@ -38,16 +38,17 @@ import Footer from '../components/Footer.astro';
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <div class="grid grid-cols-[120px_1fr] gap-6 font-ibm-vga">
+                    {/* grid section */}
+                    <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-4 sm:gap-6 font-ibm-vga">
                         <div class="text-cyan-400">INTERESTS</div>
-                        <div class="space-y-2">
+                        <div class="space-y-2 text-sm sm:text-base">
                             <p>• Machine Learning & AI for Predictive Analytics</p>
                             <p>• Low-level Systems & Operating Systems</p>
                             <p>• Data Engineering & Analytics</p>
                         </div>
 
-                        <div class="text-cyan-400">TOOLS</div>
-                        <div class="space-y-2">
+                        <div class="text-cyan-400 mt-4 sm:mt-0">TOOLS</div>
+                        <div class="space-y-2 text-sm sm:text-base">
                             <p>• Languages: Python, Go, Rust, C++, SQL</p>
                             <p>• Cloud & Infrastructure: AWS, GCP, Kafka</p>
                             <p>• Data: PyTorch, PostgreSQL, MongoDB</p>
@@ -56,30 +57,30 @@ import Footer from '../components/Footer.astro';
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <h2 class="text-2xl font-ibm-vga text-white mb-3">Projects</h2>
+                    <h2 class="text-xl sm:text-2xl font-ibm-vga text-white mb-3">Projects</h2>
                     <div class="space-y-3">
-                        <div class="border border-neutral-800 p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                        <div class="border border-neutral-800 p-3 sm:p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
                                 <a href="https://github.com/nicosalm/httpd" class="hover:text-cyan-300">httpd</a>
                             </h3>
-                            <p>HTTP server implementation focusing on async networking and core protocol design.</p>
+                            <p class="text-sm sm:text-base">HTTP server implementation focusing on async networking and core protocol design.</p>
                         </div>
-                        <div class="border border-neutral-800 p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                        <div class="border border-neutral-800 p-3 sm:p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
                                 <a href="https://github.com/nicosalm/kvstore" class="hover:text-cyan-300">kvstore</a>
                             </h3>
-                            <p>Distributed key-value store exploring consensus and replication patterns.</p>
+                            <p class="text-sm sm:text-base">Distributed key-value store exploring consensus and replication patterns.</p>
                         </div>
-                        <div class="border border-neutral-800 p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2">
+                        <div class="border border-neutral-800 p-3 sm:p-4">
+                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
                                 <a href="https://github.com/nicosalm/netcat" class="hover:text-cyan-300">netcat</a>
                             </h3>
-                            <p>Network protocol analyzer implementing packet capture and traffic analysis systems.</p>
+                            <p class="text-sm sm:text-base">Network protocol analyzer implementing packet capture and traffic analysis systems.</p>
                         </div>
                     </div>
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 justify-center sm:justify-start">
                         <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
                         <span class="text-neutral-500">◆</span>
                         <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">Email</a>

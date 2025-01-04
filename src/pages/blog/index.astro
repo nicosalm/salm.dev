@@ -14,7 +14,8 @@ const featuredPosts = posts
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
         <main class="max-w-4xl mx-auto px-4 py-8">
-            <nav class="mb-8 flex items-center justify-center space-x-16 font-ibm-vga">
+            {/* navigation */}
+            <nav class="mb-8 flex flex-col sm:flex-row items-center justify-center sm:space-x-16 space-y-4 sm:space-y-0 font-ibm-vga">
                 <a href="/blog" class="text-red-500 hover:text-red-400 flex items-center gap-3">
                     <span>◆</span>
                     FEATURED
@@ -36,7 +37,7 @@ const featuredPosts = posts
             <div class="space-y-12">
                 {featuredPosts.map((post) => (
                     <article>
-                        <div class="w-full h-[240px] bg-neutral-800 border border-neutral-700 mb-4">
+                        <div class="w-full h-[200px] sm:h-[240px] bg-neutral-800 border border-neutral-700 mb-4">
                             {post.data.image ? (
                                 <img
                                     src={post.data.image.url}
@@ -45,12 +46,12 @@ const featuredPosts = posts
                                 />
                             ) : (
                                 <div class="w-full h-full flex items-center justify-center">
-                                    <div class="text-neutral-600 text-6xl font-ibm-vga">?</div>
+                                    <div class="text-neutral-600 text-4xl sm:text-6xl font-ibm-vga">?</div>
                                 </div>
                             )}
                         </div>
 
-                        <h2 class="text-2xl font-ibm-vga mb-2">
+                        <h2 class="text-xl sm:text-2xl font-ibm-vga mb-2">
                             <a href={`/blog/${post.slug}`} class="text-white hover:text-cyan-400">
                                 {post.data.title}
                             </a>
@@ -58,7 +59,7 @@ const featuredPosts = posts
 
                         <div class="h-px bg-red-500 mb-3" />
 
-                        <div class="flex items-center gap-4 text-red-500 mb-4 font-ibm-vga">
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-red-500 mb-4 font-ibm-vga text-sm sm:text-base">
                             <span>⌗</span>
                             <time>
                                 {post.data.pubDate.toLocaleDateString('en-US', {
@@ -72,13 +73,13 @@ const featuredPosts = posts
                             </span>
                         </div>
 
-                        <p class="text-neutral-400 mb-4 font-ibm-vga leading-relaxed">
+                        <p class="text-neutral-400 mb-4 font-ibm-vga leading-relaxed text-sm sm:text-base">
                             {post.data.description}
                         </p>
 
-                        <div class="flex flex-wrap gap-3">
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
                             {post.data.tags.map((tag) => (
-                                <span class="text-cyan-500 font-ibm-vga">#{tag}</span>
+                                <span class="text-cyan-500 font-ibm-vga text-sm sm:text-base">#{tag}</span>
                             ))}
                         </div>
                     </article>
@@ -87,7 +88,7 @@ const featuredPosts = posts
 
             <div class="flex justify-center mt-12 mb-4 font-ibm-vga">
                 <a href="/blog/archive" class="text-red-500 hover:text-red-400 group">
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 text-sm sm:text-base">
                         <span>View all posts in the archive</span>
                         <span class="group-hover:translate-x-1 transition-transform">→</span>
                     </div>

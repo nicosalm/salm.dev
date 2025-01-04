@@ -3,13 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
-
 <Layout title="[nico@salm.dev ~/404]$">
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
         <main class="max-w-4xl mx-auto px-4 py-8">
             <section class="mb-8">
-                <div class="terminal-header mb-6">
+                {/* terminal header */}
+                <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
                     <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
                     <span class="text-neutral-500 font-ibm-vga">:</span>
                     <span class="text-red-500 font-ibm-vga">~/404</span>
@@ -17,33 +17,34 @@ import Footer from '../components/Footer.astro';
                     <span class="text-white font-ibm-vga"> cat error.txt</span>
                 </div>
 
-                <div class="w-full h-[360px] bg-neutral-800 border border-neutral-700 mb-8">
-                                <img
-                                    src="/images/library.jpeg"
-                                    alt="A grand library and a mysterious person with a lantern"
-                                    class="w-full h-full object-cover"
-                                />
+                {/* image container */}
+                <div class="w-full h-[240px] sm:h-[360px] bg-neutral-800 border border-neutral-700 mb-6 sm:mb-8">
+                    <img
+                        src="/images/library.jpeg"
+                        alt="A grand library and a mysterious person with a lantern"
+                        class="w-full h-full object-cover"
+                    />
                 </div>
 
-                <div class="space-y-8 font-ibm-vga">
+                <div class="space-y-6 sm:space-y-8 font-ibm-vga">
                     <div class="space-y-4">
-                        <h1 class="text-2xl text-white">Error: Page not found</h1>
+                        <h1 class="text-xl sm:text-2xl text-white">Error: Page not found</h1>
                     </div>
 
                     <div class="h-px bg-neutral-800"></div>
 
-                    <div class="text-neutral-400 space-y-4">
+                    <div class="text-neutral-400 space-y-4 text-sm sm:text-base">
                         <p>The requested file could not be found. Here are some suggestions:</p>
-                        <ul class="space-y-2">
-                            <li class="flex gap-2">
+                        <ul class="space-y-3 sm:space-y-2">
+                            <li class="flex gap-2 items-start">
                                 <span class="text-red-500">»</span>
                                 <span>Check the URL for typos</span>
                             </li>
-                            <li class="flex gap-2">
+                            <li class="flex gap-2 items-start">
                                 <span class="text-red-500">»</span>
                                 <span>Return to the <a href="/" class="text-cyan-400 hover:text-cyan-300">homepage</a></span>
                             </li>
-                            <li class="flex gap-2">
+                            <li class="flex gap-2 items-start">
                                 <span class="text-red-500">»</span>
                                 <span>Try searching in the <a href="/blog/archive" class="text-cyan-400 hover:text-cyan-300">archive</a></span>
                             </li>
@@ -52,7 +53,7 @@ import Footer from '../components/Footer.astro';
 
                     <div class="h-px bg-neutral-800"></div>
 
-                    <div class="flex items-center gap-2 text-neutral-500">
+                    <div class="flex items-center gap-2 text-neutral-500 text-sm sm:text-base">
                         <span class="text-red-500">⚠</span>
                         Exit code: 404
                     </div>
@@ -64,7 +65,6 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-    /* blinking cursor animation */
     .terminal-header::after {
         content: "_";
         animation: blink 1s step-end infinite;

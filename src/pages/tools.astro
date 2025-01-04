@@ -10,7 +10,7 @@ import Footer from '../components/Footer.astro';
 
         <main class="max-w-4xl mx-auto px-4 py-8">
             <section class="mb-8">
-                <div class="terminal-header mb-6">
+                <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
                     <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
                     <span class="text-neutral-500 font-ibm-vga">:</span>
                     <span class="text-red-500 font-ibm-vga">~/tools</span>
@@ -19,69 +19,69 @@ import Footer from '../components/Footer.astro';
                 </div>
 
                 <div class="space-y-4 font-iosevka">
-                    <p class="text-lg">Open Source Developer Tools</p>
-                    <p class="text-neutral-400">Tools and scripts I've built that make life easier - now they're yours too!</p>
+                    <p class="text-base sm:text-lg">Open Source Developer Tools</p>
+                    <p class="text-neutral-400 text-sm sm:text-base">Tools and scripts I've built that make life easier - now they're yours too!</p>
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-
-                    <div class="grid grid-cols-3 gap-12">
+                    {/* grid */}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
                         <div class="border border-neutral-800 flex flex-col w-full">
                             <a href="https://github.com/nicosalm/tool1"
-                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                class="h-40 sm:h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 <img src="/images/tools/1.png" alt="tool1 Screenshot" class="w-full h-full object-cover" />
                             </a>
-                            <div class="p-4 space-y-4 flex flex-col flex-1">
-                                <h2 class="text-xl font-ibm-vga text-white">tool1</h2>
-                                <p class="text-sm text-neutral-400 flex-1">Coming soon!</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-4">
+                            <div class="p-3 sm:p-4 space-y-3 sm:space-y-4 flex flex-col flex-1">
+                                <h2 class="text-lg sm:text-xl font-ibm-vga text-white">tool1</h2>
+                                <p class="text-xs sm:text-sm text-neutral-400 flex-1">Coming soon!</p>
+                                <div class="flex items-center justify-between text-xs sm:text-sm">
+                                    <div class="flex items-center gap-2 sm:gap-4">
                                         <span class="text-neutral-500">Rust</span>
                                         <a href="/docs/tool1" class="text-cyan-400 hover:text-cyan-300">Docs</a>
                                     </div>
-                                    <span class="text-neutral-500 text-sm">v1.0.0</span>
+                                    <span class="text-neutral-500">v1.0.0</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="border border-neutral-800 flex flex-col w-full">
                             <a href="https://github.com/nicosalm/tool2"
-                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                class="h-40 sm:h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 <img src="/images/tools/2.png" alt="tool2 Screenshot" class="w-full h-full object-cover" />
                             </a>
-                            <div class="p-4 space-y-4 flex flex-col flex-1">
-                                <h2 class="text-xl font-ibm-vga text-white">tool2</h2>
-                                <p class="text-sm text-neutral-400 flex-1">Coming relatively soon!</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-4">
+                            <div class="p-3 sm:p-4 space-y-3 sm:space-y-4 flex flex-col flex-1">
+                                <h2 class="text-lg sm:text-xl font-ibm-vga text-white">tool2</h2>
+                                <p class="text-xs sm:text-sm text-neutral-400 flex-1">Coming relatively soon!</p>
+                                <div class="flex items-center justify-between text-xs sm:text-sm">
+                                    <div class="flex items-center gap-2 sm:gap-4">
                                         <span class="text-neutral-500">Go</span>
                                         <a href="/docs/tool2" class="text-cyan-400 hover:text-cyan-300">Docs</a>
                                     </div>
-                                    <span class="text-neutral-500 text-sm">v0.2.0</span>
+                                    <span class="text-neutral-500">v0.2.0</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="border border-neutral-800 flex flex-col w-full">
                             <a href="https://github.com/nicosalm/tool3"
-                                class="h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
+                                class="h-40 sm:h-48 bg-neutral-800 border-b border-neutral-700 transition-opacity hover:opacity-80"
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 <img src="/images/tools/3.png" alt="tool3 Screenshot" class="w-full h-full object-cover" />
                             </a>
-                            <div class="p-4 space-y-4 flex flex-col flex-1">
-                                <h2 class="text-xl font-ibm-vga text-white">tool3</h2>
-                                <p class="text-sm text-neutral-400 flex-1">Coming later! (Is it obvious these are placeholders yet?)</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-4">
+                            <div class="p-3 sm:p-4 space-y-3 sm:space-y-4 flex flex-col flex-1">
+                                <h2 class="text-lg sm:text-xl font-ibm-vga text-white">tool3</h2>
+                                <p class="text-xs sm:text-sm text-neutral-400 flex-1">Coming later! (Is it obvious these are placeholders yet?)</p>
+                                <div class="flex items-center justify-between text-xs sm:text-sm">
+                                    <div class="flex items-center gap-2 sm:gap-4">
                                         <span class="text-neutral-500">Rust</span>
                                         <a href="/docs/tool3" class="text-cyan-400 hover:text-cyan-300">Docs</a>
                                     </div>
-                                    <span class="text-neutral-500 text-sm">v1.2.0</span>
+                                    <span class="text-neutral-500">v1.2.0</span>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@ import Footer from '../components/Footer.astro';
 
                     <div class="h-px bg-neutral-800 my-6"></div>
 
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 justify-center sm:justify-start">
                         <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
                         <span class="text-neutral-500">◆</span>
                         <a href="https://github.com/sponsors/nicosalm" class="text-cyan-400 hover:text-cyan-300">Sponsor</a>
@@ -109,6 +109,6 @@ import Footer from '../components/Footer.astro';
 }
 
 @keyframes blink {
-50% { opacity: 0; }
+    50% { opacity: 0; }
 }
 </style>
