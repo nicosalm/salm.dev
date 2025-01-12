@@ -1,0 +1,59 @@
+---
+title: "Nico's Reading List"
+description: "I recommend my favorite reads for programmers."
+pubDate: 2025-01-12
+author: "nicosalm"
+tags: ["books", "learning"]
+image:
+  url: "/images/blog/4-booklist-programming/banner.jpeg"
+  alt: "Open book symbolizing massive knowledge"
+---
+import BookList from '../../components/blog_components/BookList';
+import FeaturedBook from '../../components/blog_components/FeaturedBook';
+
+
+*These are some of my favorite programming and computer science books that have significantly influenced my understanding and approach to software development.*
+## Featured Book
+<FeaturedBook
+  book={{
+    title: "Operating Systems: Three Easy Pieces",
+    author: "Remzi H. Arpaci-Dusseau, Andrea C. Arpaci-Dusseau",
+    rating: 5,
+    year: 2018,
+    tags: ["cs", "operating-systems"],
+    description: "A modern, comprehensive introduction to operating systems, broken into three fundamental pieces: virtualization, concurrency, and persistence.",
+    link: "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    image: {
+      url: "/images/blog/4-booklist-programming/ostep.jpeg",
+      alt: "Operating Systems: Three Easy Pieces book cover"
+    }
+  }}
+client:load
+/>
+# Nico's Bookshelf
+<div className="flex items-center gap-4 my-4">
+    <svg viewBox="0 0 800 24" className="w-full max-w-3xl">
+        <text x="0" y="16" fill="#EAB308" fontFamily="monospace" fontSize="14">[★★★★★]</text>
+        <text x="75" y="16" fill="#E5E5E5" fontFamily="monospace" fontSize="14">exceptional</text>
+
+        <text x="200" y="16" fill="#EF4444" fontFamily="monospace" fontSize="14">[★★★★]</text>
+        <text x="265" y="16" fill="#E5E5E5" fontFamily="monospace" fontSize="14">great</text>
+
+        <text x="340" y="16" fill="#EF4444" fontFamily="monospace" fontSize="14">[★★★]</text>
+        <text x="395" y="16" fill="#E5E5E5" fontFamily="monospace" fontSize="14">good</text>
+
+        <text x="470" y="16" fill="#EF4444" fontFamily="monospace" fontSize="14">[★★]</text>
+        <text x="515" y="16" fill="#E5E5E5" fontFamily="monospace" fontSize="14">dated</text>
+
+        <text x="590" y="16" fill="#EF4444" fontFamily="monospace" fontSize="14">[★]</text>
+        <text x="620" y="16" fill="#E5E5E5" fontFamily="monospace" fontSize="14">obsolete</text>
+    </svg>
+</div>
+
+<small className="text-neutral-400 italic">Key: Ratings reflect modern relevance and practical value in tech. 5=exceptional & timeless, 4=still highly relevant, 3=good but needs updating, 2=significantly dated but has useful elements, 1=historically important but largely obsolete; better modern alternatives exist.</small>
+
+<br/><br/>
+
+<BookList client:load />
+
+
