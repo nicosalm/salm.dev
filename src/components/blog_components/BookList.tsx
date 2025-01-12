@@ -60,7 +60,7 @@ const initialBooks: Book[] = [
 ];
 
 const BookList: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>(initialBooks);
+  const [books] = useState<Book[]>(initialBooks);
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>(initialBooks);
   const [currentSort, setCurrentSort] = useState<'title' | 'rating' | 'year'>('title');
   const [searchTerm, setSearchTerm] = useState('');
@@ -112,43 +112,33 @@ const BookList: React.FC = () => {
       />
 
       {/* sort controls */}
-      <div className="flex gap-4 font-ibm-vga">
-        {[
-          { key: 'title' as const, label: 'TITLE' },
-          { key: 'rating' as const, label: 'RATING' },
-          { key: 'year' as const, label: 'YEAR' }
-        ].map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setCurrentSort(key)}
-            className={`
-              relative px-4 py-1 transition-all duration-200
-              ${currentSort === key
-                ? 'text-cyan-400 border border-cyan-400'
-                : 'text-neutral-400 border border-transparent'}
-              hover:text-cyan-400 hover:border-cyan-400
-            `}
-          >
-            <span className="relative z-10">
-              [{label}]
-            </span>
-            {currentSort === key && (
-              <div className="absolute inset-0 bg-cyan-400/10 animate-glow"></div>
-            )}
-          </button>
-        ))}
-      </div>
+<div className="flex gap-4 font-ibm-vga">
+  {[
+    { key: 'title' as const, label: 'TITLE' },
+    { key: 'rating' as const, label: 'RATING' },
+    { key: 'year' as const, label: 'YEAR' }
+  ].map(({ key, label }) => (
+    <button
+      key={key}
+      onClick={() => setCurrentSort(key)}
+      className={`
+        relative px-4 py-1 transition-all duration-200
+        ${currentSort === key
+          ? 'text-cyan-400 border border-cyan-400'
+          : 'text-neutral-400 border border-transparent'}
+        hover:text-cyan-400 hover:border-cyan-400
+      `}
+    >
+      <span className="relative z-10">
+        [{label}]
+      </span>
+      {currentSort === key && (
+        <div className="absolute inset-0 bg-cyan-400/10 animate-pulse"></div>
+      )}
+    </button>
+  ))}
 
-      <style jsx>{`
-        @keyframes glow {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 0.3; }
-        }
-        .animate-glow {
-          animation: glow 2s ease-in-out infinite;
-        }
-      `}</style>
-
+</div>
       {/* list */}
       <div className="space-y-12">
         {displayedBooks.map((book, index) => (
