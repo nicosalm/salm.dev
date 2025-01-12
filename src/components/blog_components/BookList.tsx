@@ -59,46 +59,55 @@ const initialBooks: Book[] = [
   }
 ];
 
+
 const BookList: React.FC = () => {
-  const [books] = useState<Book[]>(initialBooks);
-  const [displayedBooks, setDisplayedBooks] = useState<Book[]>(initialBooks);
-  const [currentSort, setCurrentSort] = useState<'title' | 'rating' | 'year'>('title');
-  const [searchTerm, setSearchTerm] = useState('');
+    const [books] = useState<Book[]>(initialBooks);
+    const [displayedBooks, setDisplayedBooks] = useState<Book[]>(initialBooks);
+    const [currentSort, setCurrentSort] = useState<'title' | 'rating' | 'year' | 'chaos'>('title');
+    const [searchTerm, setSearchTerm] = useState('');
+    const sortBooks = (booksToSort: Book[], sortType: typeof currentSort) => {
+        const sorted = [...booksToSort];
+        switch (sortType) {
+            case 'title':
+                return sorted.sort((a, b) => a.title.localeCompare(b.title));
+            case 'rating':
+                return sorted.sort((a, b) => b.rating - a.rating);
+            case 'year':
+                return sorted.sort((a, b) => a.year - b.year);
+            case 'chaos':
+                // https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
+                for (let i = sorted.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
+                }
+                return sorted;
+            default:
+                return sorted;
+        }
+    };
 
-  useEffect(() => {
-    let filtered = [...books];
+    useEffect(() => {
+        let filtered = [...books];
 
-    if (searchTerm) {
-      filtered = filtered.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
+        if (searchTerm) {
+            filtered = filtered.filter(book =>
+                book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    book.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+        }
 
-    switch (currentSort) {
-      case 'title':
-        filtered.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'year':
-        filtered.sort((a, b) => a.year - b.year);
-        break;
-    }
+        setDisplayedBooks(sortBooks(filtered, currentSort));
+    }, [searchTerm, currentSort, books]);
 
-    setDisplayedBooks(filtered);
-  }, [searchTerm, currentSort, books]);
-
-  const renderStars = (rating: number) => {
-    const stars = "★".repeat(rating);
-    return (
-      <span className={rating === 5 ? "text-yellow-500" : "text-red-500"}>
-        [{stars}]
-      </span>
-    );
-  };
+    const renderStars = (rating: number) => {
+        const stars = "★".repeat(rating);
+        return (
+            <span className={rating === 5 ? "text-yellow-500" : "text-red-500"}>
+                [{stars}]
+            </span>
+        );
+    };
 
   return (
     <div className="space-y-8 font-iosevka">
@@ -114,29 +123,37 @@ const BookList: React.FC = () => {
       {/* sort controls */}
 <div className="flex gap-4 font-ibm-vga">
   {[
-    { key: 'title' as const, label: 'TITLE' },
-    { key: 'rating' as const, label: 'RATING' },
-    { key: 'year' as const, label: 'YEAR' }
-  ].map(({ key, label }) => (
-    <button
-      key={key}
-      onClick={() => setCurrentSort(key)}
-      className={`
-        relative px-4 py-1 transition-all duration-200
-        ${currentSort === key
-          ? 'text-cyan-400 border border-cyan-400'
-          : 'text-neutral-400 border border-transparent'}
-        hover:text-cyan-400 hover:border-cyan-400
-      `}
-    >
-      <span className="relative z-10">
-        [{label}]
-      </span>
-      {currentSort === key && (
-        <div className="absolute inset-0 bg-cyan-400/10 animate-pulse"></div>
-      )}
-    </button>
-  ))}
+  { key: 'title' as const, label: 'TITLE' },
+  { key: 'rating' as const, label: 'RATING' },
+  { key: 'year' as const, label: 'YEAR' },
+  { key: 'chaos' as const, label: 'CHAOS' }
+].map(({ key, label }) => (
+  <button
+    key={key}
+    onClick={() => {
+      // if clicking 'chaos' when it's already selected, re-shuffle
+      if (key === 'chaos' && currentSort === 'chaos') {
+        setDisplayedBooks(sortBooks([...displayedBooks], 'chaos'));
+      } else {
+        setCurrentSort(key);
+      }
+    }}
+    className={`
+      relative px-4 py-1 transition-all duration-200
+      ${currentSort === key
+        ? 'text-cyan-400 border border-cyan-400'
+        : 'text-neutral-400 border border-transparent'}
+      hover:text-cyan-400 hover:border-cyan-400
+    `}
+  >
+    <span className="relative z-10">
+      [{label}]
+    </span>
+    {currentSort === key && (
+      <div className="absolute inset-0 bg-cyan-400/10 animate-pulse"></div>
+    )}
+  </button>
+))}
 
 </div>
       {/* list */}
