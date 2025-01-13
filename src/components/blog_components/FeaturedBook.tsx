@@ -23,8 +23,8 @@ const FeaturedBook: React.FC<FeaturedBookProps> = ({ book }) => {
     return (
         <div className="border border-neutral-800 bg-neutral-900/50 p-6 my-8">
             <div className="flex flex-col sm:flex-row gap-6">
-                {/* Image section */}
-                <div className="sm:w-48 flex-shrink-0 bg-neutral-800 border border-neutral-700 flex items-center">
+                {/* image section */}
+                <div className="sm:w-48 flex-shrink-0 flex items-center">
                     <img
                         src={book.image.url}
                         alt={book.image.alt}
@@ -63,7 +63,7 @@ const FeaturedBook: React.FC<FeaturedBookProps> = ({ book }) => {
                         ))}
                     </div>
 
-                    {/* go to book site button */}
+                    {/* go to book site link */}
                     {book.link && (
                         <div className="pt-2">
                             <a

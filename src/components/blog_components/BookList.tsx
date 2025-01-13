@@ -18,7 +18,7 @@ const initialBooks: Book[] = [
     rating: 5,
     year: 2018,
     tags: ["cs", "operating-systems"],
-    description: "A modern, comprehensive introduction to operating systems, broken into three fundamental pieces: virtualization, concurrency, and persistence.",
+    description: "A modern, comprehensive introduction to operating systems, broken into three fundamental pieces: virtualization, concurrency, and persistence. I read this for OS at UW-Madison (where the authors are from!)",
     link: "https://pages.cs.wisc.edu/~remzi/OSTEP/"
   },
   {
