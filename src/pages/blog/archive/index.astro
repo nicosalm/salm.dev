@@ -3,31 +3,47 @@ import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
-import { calculateReadingTime } from '../../../utils/readingTime';
-import type { CollectionEntry } from 'astro:content';
+import ArchiveFilter from '../../../components/ArchiveFilter';
+
+interface ProcessedPost {
+  slug: string;
+  data: {
+    title: string;
+    description?: string;
+    pubDate: string;
+  };
+  body: string;
+}
 
 const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-type PostsByYear = Record<string, CollectionEntry<'blog'>[]>;
-
-const postsByYear = sortedPosts.reduce((acc: PostsByYear, post) => {
+// process posts into the format expected by ArchiveFilter
+const postsByYear = posts.reduce((acc, post) => {
     const year = post.data.pubDate.getFullYear().toString();
     if (!acc[year]) {
         acc[year] = [];
     }
-    acc[year].push(post);
-    return acc;
-}, {});
 
-const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+    // transform post to format
+    const processedPost: ProcessedPost = {
+        slug: post.slug,
+        data: {
+            title: post.data.title,
+            description: post.data.description,
+            pubDate: post.data.pubDate.toISOString()
+        },
+        body: post.body
+    };
+
+    acc[year].push(processedPost);
+    return acc;
+}, {} as Record<string, ProcessedPost[]>);
 ---
 
 <Layout title="[nico@salm.dev ~/blog/archive]$">
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
         <main class="max-w-4xl mx-auto px-4 py-8">
-            {/* navigation */}
             <nav class="mb-8 flex flex-col sm:flex-row items-center justify-center sm:space-x-16 space-y-4 sm:space-y-0 font-ibm-vga">
                 <a href="/blog" class="text-red-500 hover:text-red-400 flex items-center gap-3">
                     <span>◆</span>
@@ -47,88 +63,14 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
                 </a>
             </nav>
 
-            {/* search terminal */}
-            <div class="mb-8 font-ibm-vga">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-2 text-neutral-500 mb-2">
-                    <span class="text-sm sm:text-base whitespace-nowrap">nico@salm.dev:~/blog$</span>
-                    <span class="text-white text-sm sm:text-base">search_posts</span>
-                </div>
-                <div class="flex items-center gap-3 bg-neutral-900 border border-neutral-800 p-3">
-                    <span class="text-cyan-500">></span>
-                    <input
-                        type="text"
-                        id="search"
-                        class="bg-transparent border-none outline-none text-white w-full font-ibm-vga focus:ring-0 text-sm sm:text-base"
-                        placeholder="Type to search posts..."
-                    />
-                </div>
-            </div>
-
-            {/* posts container */}
-            <div class="space-y-8" id="posts-container">
-                {years.map(year => (
-                    <section class="post-section" data-year={year}>
-                        <div class="flex items-center gap-4 mb-3">
-                            <h2 class="text-xl sm:text-2xl font-ibm-vga text-white">{year}</h2>
-                            <div class="h-px bg-red-500 flex-grow"></div>
-                            <span class="text-neutral-500 font-ibm-vga text-sm sm:text-base">
-                                {postsByYear[year].length} post{postsByYear[year].length !== 1 ? 's' : ''}
-                            </span>
-                        </div>
-                        <div class="pl-2 sm:pl-4 border-l border-neutral-800 font-ibm-vga space-y-3 sm:space-y-2">
-                            {postsByYear[year].map((post) => (
-                                <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 post-item">
-                                    <span class="text-neutral-500 text-sm sm:text-base sm:w-24">
-                                        {post.data.pubDate.toLocaleDateString('en-US', {
-                                            month: 'short',
-                                            day: '2-digit'
-                                        })}
-                                    </span>
-                                    <div class="flex-grow">
-                                        <a href={`/blog/${post.slug}`}
-                                           class="text-white hover:text-cyan-400 searchable-title text-sm sm:text-base">
-                                            {post.data.title}
-                                        </a>
-                                    </div>
-                                    <span class="text-neutral-500 text-sm sm:text-base">
-                                        ~/time: {calculateReadingTime(post.body)} min
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-                ))}
-            </div>
+            <ArchiveFilter
+                client:load
+                postsByYear={postsByYear}
+            />
         </main>
         <Footer />
     </div>
 </Layout>
-
-<script>
-    const searchInput = document.getElementById('search') as HTMLInputElement;
-    const sections = document.querySelectorAll('.post-section');
-
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-
-        sections.forEach(section => {
-            let hasVisiblePosts = false;
-            const posts = section.querySelectorAll('.post-item');
-
-            posts.forEach(post => {
-                const title = post.querySelector('.searchable-title')?.textContent?.toLowerCase() || '';
-                if (title.includes(searchTerm)) {
-                    (post as HTMLElement).style.display = 'flex';
-                    hasVisiblePosts = true;
-                } else {
-                    (post as HTMLElement).style.display = 'none';
-                }
-            });
-
-            (section as HTMLElement).style.display = hasVisiblePosts ? 'block' : 'none';
-        });
-    });
-</script>
 
 <style>
     input::placeholder {

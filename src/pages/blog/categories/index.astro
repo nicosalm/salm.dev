@@ -3,9 +3,23 @@ import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import CategoryFilter from '../../../components/CategoryFilter';
+import type { CollectionEntry } from 'astro:content';
+
+interface ProcessedPost {
+  slug: string;
+  data: {
+    title: string;
+    description?: string;
+    pubDate: string;
+    tags: string[];
+  };
+  body: string;
+}
 
 const posts = await getCollection('blog');
 
+// process posts into the format expected by CategoryFilter
 const tagCounts = posts.reduce((acc, post) => {
     post.data.tags.forEach(tag => {
         if (!acc[tag]) {
@@ -15,24 +29,29 @@ const tagCounts = posts.reduce((acc, post) => {
             };
         }
         acc[tag].count++;
-        acc[tag].posts.push(post);
+
+        // transform the post into the expected format
+        const processedPost: ProcessedPost = {
+            slug: post.slug,
+            data: {
+                title: post.data.title,
+                description: post.data.description,
+                pubDate: post.data.pubDate.toISOString(),
+                tags: post.data.tags
+            },
+            body: post.body
+        };
+
+        acc[tag].posts.push(processedPost);
     });
     return acc;
-}, {} as Record<string, { count: number, posts: typeof posts }>);
-
-const sortedTags = Object.entries(tagCounts).sort((a, b) => {
-    if (b[1].count === a[1].count) {
-        return a[0].localeCompare(b[0]);
-    }
-    return b[1].count - a[1].count;
-});
+}, {} as Record<string, { count: number, posts: ProcessedPost[] }>);
 ---
 
 <Layout title="[nico@salm.dev ~/blog/categories]$">
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
         <main class="max-w-4xl mx-auto px-4 py-8">
-            {/* navigation */}
             <nav class="mb-8 flex flex-col sm:flex-row items-center justify-center sm:space-x-16 space-y-4 sm:space-y-0 font-ibm-vga">
                 <a href="/blog" class="text-red-500 hover:text-red-400 flex items-center gap-3">
                     <span>◆</span>
@@ -52,44 +71,7 @@ const sortedTags = Object.entries(tagCounts).sort((a, b) => {
                 </a>
             </nav>
 
-            <div class="space-y-8 mb-8">
-                {sortedTags.map(([tag, { count, posts }]) => (
-                    <section>
-                        <div class="flex items-center gap-4 mb-3">
-                            <h2 class="text-xl sm:text-2xl font-ibm-vga text-white">#{tag}</h2>
-                            <div class="h-px bg-red-500 flex-grow"></div>
-                            <span class="text-neutral-500 font-ibm-vga text-sm sm:text-base">
-                                {count} post{count !== 1 ? 's' : ''}
-                            </span>
-                        </div>
-                        <div class="space-y-4 sm:space-y-2 pl-2 sm:pl-4 border-l border-neutral-800">
-                            {posts
-                                .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-                                .map(post => (
-                                    <article class="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-2 sm:gap-4 font-ibm-vga">
-                                        <time class="text-neutral-500 text-sm sm:text-base">
-                                            {post.data.pubDate.toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: '2-digit',
-                                                year: 'numeric'
-                                            })}
-                                        </time>
-                                        <div>
-                                            <a href={`/blog/${post.slug}`}
-                                               class="text-white hover:text-cyan-400 text-sm sm:text-base">
-                                                {post.data.title}
-                                            </a>
-                                            {post.data.description && (
-                                                <p class="mt-1 text-xs sm:text-sm text-neutral-400">{post.data.description}</p>
-                                            )}
-                                        </div>
-                                    </article>
-                                ))
-                            }
-                        </div>
-                    </section>
-                ))}
-            </div>
+            <CategoryFilter client:load initialCategories={tagCounts} />
         </main>
         <Footer />
     </div>
