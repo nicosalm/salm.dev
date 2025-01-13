@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 try {
     // get the git hash
-    const hash = execSync('git rev-parse HEAD').toString().trim();
+    const hash = execSync('git rev-parse --short HEAD').toString().trim();
 
     // create the JSON content
     const content = JSON.stringify({ hash });
