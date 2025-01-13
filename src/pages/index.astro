@@ -1,146 +1,66 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-// Import Terminal component with correct client directive
-import { Terminal } from '../components/Terminal';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="salm.dev">
-    <div class="relative min-h-screen overflow-hidden bg-black">
-        <!-- checkered background -->
-        <div class="fixed inset-0 bg-checker animate-sway"></div>
-
-        <!-- content -->
-        <div class="relative z-20 min-h-screen flex flex-col">
-            <Header />
-
-            <!-- logo -->
-            <main class="flex-1 flex flex-col items-center justify-center">
-                <!-- wave container -->
-                <div class="absolute left-0 right-0 flex items-center justify-center h-48 pointer-events-none">
-                    <!-- wave bars -->
-                    <div class="absolute w-screen max-w-none overflow-visible">
-                        <div class="space-y-[4px]">
-                            {Array.from({ length: 8 }).map((_, i) => (
-                                <div class={`h-[8px] wave-bar wave-delay-${i}`}></div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <!-- ascii logo -->
-                    <div class="relative px-12 py-4 animate-float z-10">
-                        <pre class="text-2xl md:text-6xl font-ibm-vga leading-none whitespace-pre text-gradient ascii-shadow">
-█▀ ▄▀█ █   █▀▄▀█ ▄▄ █▀▄ █▀▀ █░█
-▄█ █▀█ █▄▄ █░▀░█ ░░ █▄▀ ██▄ ▀▄▀</pre>
-                    </div>
+<Layout title="[nico@salm.dev ~]$">
+    <div class="min-h-screen bg-black text-gray-300">
+        <Header />
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            {/* terminal intro */}
+            <section class="mb-8">
+                <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
+                    <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
+                    <span class="text-neutral-500 font-ibm-vga">:</span>
+                    <span class="text-red-500 font-ibm-vga">~</span>
+                    <span class="text-neutral-500 font-ibm-vga">$</span>
+                    <span class="text-white font-ibm-vga"> tree /home/nico</span>
                 </div>
 
-                <!-- terminal -->
-                <div class="w-full px-4 mt-32">
-                    <Terminal client:only="react" />
+                <div class="space-y-1 font-ibm-vga">
+                    <p class="text-white">/home/nico</p>
+                    <p class="ml-4">
+                        <span class="text-neutral-500">├── about/</span>
+                        <span class="text-base ml-2 font-iosevka">software engineer</span>
+                    </p>
+                    <p class="ml-4"><span class="text-neutral-500">├── links/</span></p>
+                    <p class="ml-8">
+                        <span class="text-neutral-500">├── </span>
+                        <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">github</a>
+                    </p>
+                    <p class="ml-8">
+                        <span class="text-neutral-500">└── </span>
+                        <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">email</a>
+                    </p>
+                    <p class="ml-4">
+                        <span class="text-neutral-500">├── projects/</span>
+                    </p>
+                    <p class="ml-8">
+                        <span class="text-neutral-500">├── </span>
+                        <a href="/blog" class="text-white hover:text-cyan-400">writing/</a>
+                        <span class="text-neutral-400 ml-2 text-sm">thoughts on software and systems</span>
+                    </p>
+                    <p class="ml-8">
+                        <span class="text-neutral-500">└── </span>
+                        <a href="/tools" class="text-white hover:text-cyan-400">tools/</a>
+                        <span class="text-neutral-400 ml-2 text-sm">things I've built</span>
+                    </p>
+                    <p class="ml-4"><span class="text-neutral-500">└── docs/</span></p>
                 </div>
-            </main>
-        </div>
+            </section>
+        </main>
+        <Footer />
     </div>
 </Layout>
 
 <style>
-    .bg-checker {
-        background-image:
-            linear-gradient(45deg, #111 25%, transparent 25%),
-            linear-gradient(-45deg, #111 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, #111 75%),
-            linear-gradient(-45deg, transparent 75%, #111 75%);
-        background-size: 40px 40px;
-        background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-        background-color: #000;
+    .terminal-header::after {
+        content: "_";
+        animation: blink 1s step-end infinite;
     }
 
-    @keyframes sway {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(30px); }
-    }
-
-    .animate-sway {
-        animation: sway 2s ease-in-out infinite; /* Restored to original timing */
-    }
-
-    /* wave bars animation & color change */
-    .wave-bar {
-        background: linear-gradient(90deg,
-            rgba(147, 51, 234, 0.6),
-            rgba(59, 130, 246, 0.8),
-            rgba(6, 182, 212, 0.6)
-        );
-        animation: waveMove 1.5s ease-in-out infinite, colorShift 1.5s linear infinite;
-        width: 150vw;
-        margin-left: -25vw;
-    }
-
-    @keyframes waveMove {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
-    }
-
-    @keyframes colorShift {
-        0% {
-            background: linear-gradient(90deg,
-                rgba(147, 51, 234, 0.6),
-                rgba(59, 130, 246, 0.8),
-                rgba(6, 182, 212, 0.6)
-            );
-        }
-        50% {
-            background: linear-gradient(90deg,
-                rgba(59, 130, 246, 0.6),
-                rgba(6, 182, 212, 0.8),
-                rgba(147, 51, 234, 0.6)
-            );
-        }
-        100% {
-            background: linear-gradient(90deg,
-                rgba(147, 51, 234, 0.6),
-                rgba(59, 130, 246, 0.8),
-                rgba(6, 182, 212, 0.6)
-            );
-        }
-    }
-
-    /* wave delay for each bar */
-    .wave-delay-0 { animation-delay: 0s, 0s; }
-    .wave-delay-1 { animation-delay: 0.075s, 0.075s; }
-    .wave-delay-2 { animation-delay: 0.15s, 0.15s; }
-    .wave-delay-3 { animation-delay: 0.225s, 0.225s; }
-    .wave-delay-4 { animation-delay: 0.3s, 0.3s; }
-    .wave-delay-5 { animation-delay: 0.375s, 0.375s; }
-    .wave-delay-6 { animation-delay: 0.45s, 0.45s; }
-    .wave-delay-7 { animation-delay: 0.525s, 0.525s; }
-
-    /* logo floating animation */
-    @keyframes float {
-        0%, 100% { transform: translate(0, 0); }
-        25% { transform: translate(3px, 3px); }
-        50% { transform: translate(-3px, -2px); }
-        75% { transform: translate(-2px, 3px); }
-    }
-
-    .animate-float {
-        animation: float 2s ease-in-out infinite;
-    }
-
-    /* text gradient and shadow */
-    .text-gradient {
-        background: linear-gradient(180deg,
-            rgba(255,255,255,1) 0%,
-            rgba(255,255,255,0.9) 40%,
-            rgba(0,255,255,0.8) 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .ascii-shadow {
-        filter: drop-shadow(0 2px 2px rgba(0,255,255,0.4));
+    @keyframes blink {
+        50% { opacity: 0; }
     }
 </style>
