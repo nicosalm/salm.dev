@@ -23,9 +23,13 @@ On the other side, there are tools designed to genuinely accelerate your coding 
 
 When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
 
-I found something much better. It does exactly what I want. It’s called [TMUX](https://tmuxcheatsheet.com/how-to-install-tmux/).
+I found something much better. It does exactly what I want. It’s called [TMUX](https://tmuxcheatsheet.com/how-to-install-tmux/):
 
-A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>K</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it. With a plugin, these sessions can even persist across system restarts.
+![TMUX](https://img.salm.dev/u/TrkDLO.png)
+
+A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>K</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
+
+With a plugin, these sessions can even persist across system restarts.
 
 TMUX is incredibly useful, and if you plan on doing **any** serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.
 
@@ -111,6 +115,11 @@ A lot of people recommend learning Vim Motions on your current editor first befo
 Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:
 
 > Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
+
+<figure style={{ width: "50%", margin: "0 auto" }}>
+  <img src="https://img.salm.dev/u/iaOsYr.png" alt="The Neovim Pyramid" />
+  <figcaption style={{ textAlign: "center" }}>The Neovim Pyramid</figcaption>
+</figure>
 
 Neovim’s component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. You can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
 
