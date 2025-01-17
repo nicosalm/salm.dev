@@ -43,15 +43,15 @@ import Footer from '../components/Footer.astro';
                         <div class="text-cyan-400">INTERESTS</div>
                         <div class="space-y-2 text-sm sm:text-base">
                             <p>• Machine Learning & AI for Predictive Analytics</p>
-                            <p>• Low-level Systems & Operating Systems</p>
+                            <p>• Low-level Systems, Operating Systems, and UNIX</p>
                             <p>• Data Engineering & Analytics</p>
                         </div>
 
                         <div class="text-cyan-400 mt-4 sm:mt-0">TOOLS</div>
                         <div class="space-y-2 text-sm sm:text-base">
-                            <p>• Languages: Python, Go, Rust, C++, SQL</p>
-                            <p>• Cloud & Infrastructure: AWS, GCP, Kafka</p>
-                            <p>• Data: PyTorch, PostgreSQL, MongoDB</p>
+                            <p>• Languages: Python, Go, Rust, C++, SQL (<a href="https://wakatime.com/@nicosalm" class="text-cyan-400 hover:text-cyan-300">among others</a>)</p>
+                            <p>• Cloud, Infra, and DevOps: AWS, GCP, Kafka, Docker</p>
+                            <p>• Data: PyTorch, PostgreSQL, MongoDB, Pandas, Apache Spark, Hadoop</p>
                         </div>
                     </div>
 
@@ -59,26 +59,24 @@ import Footer from '../components/Footer.astro';
 
                     <h2 class="text-xl sm:text-2xl font-ibm-vga text-white mb-3">Projects</h2>
                     <div class="space-y-3">
-                        <div class="border border-neutral-800 p-3 sm:p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
-                                <a href="https://github.com/nicosalm/httpd" class="hover:text-cyan-300">httpd</a>
-                            </h3>
-                            <p class="text-sm sm:text-base">HTTP server implementation focusing on async networking and core protocol design.</p>
-                        </div>
-                        <div class="border border-neutral-800 p-3 sm:p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
-                                <a href="https://github.com/nicosalm/kvstore" class="hover:text-cyan-300">kvstore</a>
-                            </h3>
-                            <p class="text-sm sm:text-base">Distributed key-value store exploring consensus and replication patterns.</p>
-                        </div>
-                        <div class="border border-neutral-800 p-3 sm:p-4">
-                            <h3 class="text-cyan-400 font-ibm-vga mb-2 text-sm sm:text-base">
-                                <a href="https://github.com/nicosalm/netcat" class="hover:text-cyan-300">netcat</a>
-                            </h3>
-                            <p class="text-sm sm:text-base">Network protocol analyzer implementing packet capture and traffic analysis systems.</p>
-                        </div>
+                        View my <a href="https://github.com/stars/nicosalm/lists/my-projects" class="text-cyan-400 hover:text-cyan-300">complete projects list</a> on GitHub! (pardon the redirect)
                     </div>
                     <div class="h-px bg-neutral-800 my-6"></div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-4 sm:gap-6 font-ibm-vga">
+                        <div class="text-cyan-400">QUICK TIDBITS</div>
+                        <div class="space-y-2 text-sm sm:text-base">
+                            <p>• My primary code editor is Neovim (<a href="/blog/3-cli-productivity" class="text-cyan-400 hover:text-cyan-300">blog post</a> / <a href="https://github.com/nicosalm/nvim" class="text-cyan-400 hover:text-cyan-300">config</a>)</p>
+                            <p>• I use <code>:colorscheme elflord</code></p>
+                            <p>• Reading is fun</p>
+                            <p>• I <a href="https://en.wikipedia.org/wiki/Dungeon_Master" class="text-cyan-400 hover:text-cyan-300">DM</a> for tabletop games & build fantasy worlds</p>
+                            <p>• I enjoy deep / purposeful conversations but I'm not very good at smalltalk
+                            <p>• Email me for my discord :)</p>
+                            <br/>
+                            <p> <i>If you read this section now you know a bit about me. Wow! ✨</i> </p>
+                                <br/>
+                        </div>
+                    </div>
 
                     <div class="flex gap-4 justify-center sm:justify-start">
                         <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
@@ -101,5 +99,13 @@ import Footer from '../components/Footer.astro';
 
     @keyframes blink {
         50% { opacity: 0; }
+    }
+
+    :not(pre) > code {
+        @apply font-ibm-vga text-cyan-400 bg-neutral-900 px-1.5 py-0.5 font-normal;
+        @apply whitespace-normal break-words;
+        &::before, &::after {
+            content: none;
+        }
     }
 </style>
