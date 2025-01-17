@@ -143,28 +143,35 @@ const readingTime = calculateReadingTime(post.body);
         @apply font-ibm-vga text-sm overflow-x-auto p-4;
     }
 
-    /* Remove any syntax highlighting from our CSS since Shiki handles it */
     pre > code {
         @apply block;
     }
 
-    /* inline code */
+    /* Inline code - with forceful removal of quotes */
     :not(pre) > code {
         @apply font-ibm-vga text-cyan-400 bg-neutral-900 px-1.5 py-0.5 font-normal;
         @apply whitespace-normal break-words;
-        &::before, &::after {
-            content: none;
-        }
+        quotes: none;
     }
 
+    /* Extra specific selectors to remove quotes */
+    :not(pre) > code::before,
+    :not(pre) > code::after,
+    :not(pre) > code:before,
+    :not(pre) > code:after {
+        content: "" !important;
+        content: none !important;
+        quotes: none !important;
+        display: none !important;
+    }
 
     /* Lists */
-    ul, .footnotes ol {
+    ul {
         @apply my-4 pl-6 space-y-2;
         list-style-type: none;
     }
 
-    ul li, .footnotes ol li {
+    ul li {
         @apply relative;
     }
 
@@ -174,23 +181,26 @@ const readingTime = calculateReadingTime(post.body);
         @apply text-red-500 absolute -left-4;
     }
 
-    /* Footnote bullets - remove any extra punctuation */
-    .footnotes ol li::before {
-        content: "•";
-        @apply text-red-500 absolute -left-4;
-    }
-
-    /* Hide default footnote numbers */
+    /* Footnotes */
     .footnotes ol {
-        list-style: none;
+        @apply my-4 pl-6 space-y-2;
+        list-style-type: none;
+        counter-reset: footnote;
     }
 
-    /* Remove the period that appears after the bullet */
-    .footnotes ol li p {
-        @apply ml-0;
-        &::before {
-            content: none;
-        }
+    .footnotes ol li {
+        @apply relative;
+        counter-increment: footnote;
+    }
+
+    .footnotes ol li::before {
+        content: counter(footnote) ".";
+        @apply text-red-500 absolute -left-6 font-ibm-vga;
+    }
+
+    /* Remove bullets from footnotes */
+    .footnotes ol li::after {
+        content: none;
     }
 
     /* Blockquotes */
