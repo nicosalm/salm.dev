@@ -17,53 +17,99 @@ const {
 const currentYear = new Date().getFullYear();
 const version = `© ${currentYear} ${author}`;
 ---
-<header class="bg-neutral-800 px-4 py-3 md:py-1 relative z-50">
-    <div class="px-2 mx-auto grid grid-cols-2 md:grid-cols-3 justify-between items-center relative">
-
-        {/* leftmost items ~ grid[0] */}
-        <div class="justify-self-start tracking-[.3em]">
+<header class="bg-neutral-800 px-4 py-3 lg:py-1 relative z-50">
+    <div class="mx-auto flex justify-between items-center lg:grid lg:grid-cols-3 relative">
+        <div class="tracking-[.3em]">
             <a href="/" class="text-cyan-400 font-ibm-vga hover:text-cyan-300 transition-colors">{title}</a>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-            id="mobile-menu-button"
-            class="md:hidden justify-self-end text-gray-400 hover:text-cyan-400 text-2xl"
-            aria-label="Toggle menu"
-        >
-            ☰
+        <button id="mobile-menu-button" class="lg:hidden text-red-500 font-ibm-vga flex items-center gap-2" aria-label="Toggle menu">
+            <span id="menu-icon">$</span>
+            <span>MENU</span>
         </button>
 
-        {/* center items ~ grid[1] */}
-        <nav class="hidden md:flex absolute md:static top-full left-0 right-0 bg-neutral-800 md:bg-transparent
-            justify-self-center items-center md:space-x-2 font-ibm-vga
-            flex-col md:flex-row w-full md:w-auto py-2 md:py-0
-            shadow-lg md:shadow-none"
-            id="nav-menu"
-        >
-            {navItems.map(([text, href]) => (
-            <a
-                href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class="flex items-center text-gray-400 hover:text-cyan-400 px-4 py-2 transition-colors group w-full md:w-auto text-center"
-            >
-                <span class="text-gray-600 group-hover:text-cyan-600 mr-1 transition-transform group-hover:-translate-x-1">&#91;</span>
-                <span>{text}</span>
-                <span class="text-gray-600 group-hover:text-cyan-600 ml-1 transition-transform group-hover:translate-x-1">&#93;</span>
-            </a>
-            ))}
-        </nav>
-        {/* rightmost items ~ grid[2] */}
-        <div class="hidden md:block font-ibm-vga justify-self-end text-s text-cyan-400">{version}</div>
+        <div id="nav-menu" class="hidden lg:block fixed lg:static inset-x-0 bottom-0 top-auto lg:top-auto lg:bottom-auto bg-black lg:bg-transparent z-40 transform transition-transform duration-300">
+            <div class="lg:hidden w-full bg-neutral-800 border-t border-neutral-700 p-4">
+                <div class="flex items-center justify-between text-red-500">
+                    <div class="flex items-center gap-2">
+                        <span>$</span>
+                        <span>NAVIGATION</span>
+                    </div>
+                    <button id="close-menu-button" class="text-red-500">[ESC]</button>
+                </div>
+            </div>
+            <nav class="flex flex-col lg:flex-row justify-center items-center lg:space-x-2 font-ibm-vga w-full lg:w-auto bg-black lg:bg-transparent p-4 lg:p-0 max-h-[70vh] lg:max-h-none overflow-y-auto">
+                {navItems.map(([text, href]) => <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} class="flex items-center text-gray-400 hover:text-cyan-400 px-4 py-2 transition-colors group w-full lg:w-auto text-center"><span class="text-gray-600 group-hover:text-cyan-600 mr-1 transition-transform group-hover:-translate-x-1">&#91;</span><span>{text}</span><span class="text-gray-600 group-hover:text-cyan-600 ml-1 transition-transform group-hover:translate-x-1">&#93;</span></a>)}
+            </nav>
+        </div>
+
+        <div class="hidden lg:block font-ibm-vga justify-self-end text-s text-cyan-400">{version}</div>
     </div>
 </header>
+
+<style>
+@media (max-width: 768px) {
+    #nav-menu {
+        transform: translateY(100%);
+    }
+    #nav-menu.active {
+        transform: translateY(0);
+    }
+}
+</style>
 
 <script>
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const navMenu = document.getElementById('nav-menu');
+const menuIcon = document.getElementById('menu-icon');
+const closeMenuButton = document.getElementById('close-menu-button');
 
-mobileMenuButton?.addEventListener('click', () => {
-    navMenu?.classList.toggle('hidden');
+function handleCloseMenu() {
+    navMenu?.classList.remove('active');
+    setTimeout(() => {
+        navMenu?.classList.add('hidden');
+    }, 300);
+    if (menuIcon) {
+        menuIcon.textContent = '$';
+    }
+}
+
+function handleOpenMenu() {
+    navMenu?.classList.remove('hidden');
+    setTimeout(() => {
+        navMenu?.classList.add('active');
+    }, 0);
+    if (menuIcon) {
+        menuIcon.textContent = '×';
+    }
+}
+
+function toggleMenu() {
+    if (navMenu?.classList.contains('active')) {
+        handleCloseMenu();
+    } else {
+        handleOpenMenu();
+    }
+}
+
+mobileMenuButton?.addEventListener('click', toggleMenu);
+closeMenuButton?.addEventListener('click', handleCloseMenu);
+
+// Close menu on scroll
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > lastScroll && navMenu?.classList.contains('active')) {
+        handleCloseMenu();
+    }
+    lastScroll = currentScroll;
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('#nav-menu') && !target.closest('#mobile-menu-button') && navMenu?.classList.contains('active')) {
+        handleCloseMenu();
+    }
 });
 </script>

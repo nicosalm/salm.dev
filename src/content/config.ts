@@ -1,4 +1,6 @@
 import { defineCollection, z } from 'astro:content';
+import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
 
 const blog = defineCollection({
   type: 'content',
@@ -19,3 +21,12 @@ const blog = defineCollection({
 export const collections = {
   blog: blog
 };
+
+export default defineConfig({
+  integrations: [
+    mdx({
+      syntaxHighlight: 'shiki',
+      shikiConfig: { theme: 'min-dark' },
+    })
+  ]
+});
