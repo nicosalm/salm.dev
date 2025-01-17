@@ -8,10 +8,10 @@ export default {
         'ibm-flexi': ['var(--font-ibm-flexi)'],
         'ibm-vga': ['var(--font-ibm-vga)'],
         'bigblue': ['var(--font-bigblue)'],
-      },
+      }
     },
   },
   plugins: [
-        require('@tailwindcss/typography'),
-    ],
+    require('@tailwindcss/typography'),
+  ],
 }
