@@ -3,60 +3,69 @@ import React, { useState, useEffect } from 'react';
 import type { Book } from '../../types/books';
 
 const initialBooks: Book[] = [
-  {
-    title: "Designing Data-Intensive Applications",
-    author: "Martin Kleppmann",
-    rating: 4,
-    year: 2017,
-    tags: ["distributed-systems", "databases"],
-    description: "A deep dive into the principles and practicalities of modern data systems, covering distributed systems, databases, and scalability.",
-    link: "https://dataintensive.net/"
-  },
-  {
-    title: "Operating Systems: Three Easy Pieces",
-    author: "Remzi H. Arpaci-Dusseau, Andrea C. Arpaci-Dusseau",
-    rating: 5,
-    year: 2018,
-    tags: ["cs", "operating-systems"],
-    description: "A modern, comprehensive introduction to operating systems, broken into three fundamental pieces: virtualization, concurrency, and persistence. I read this for OS at UW-Madison (where the authors are from!)",
-    link: "https://pages.cs.wisc.edu/~remzi/OSTEP/"
-  },
-  {
-    title: "Structure and Interpretation of Computer Programs",
-    author: "Harold Abelson, Gerald Jay Sussman",
-    rating: 2,
-    year: 1985,
-    tags: ["cs", "programming"],
-    description: "A fundamental text on principles of programming and computer science.",
-    link: "https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"
-  },
-  {
-    title: "Cracking the Coding Interview",
-    author: "Gayle Laakmann McDowell",
-    rating: 2,
-    year: 2015,
-    tags: ["interviews", "algorithms", "career"],
-    description: "A comprehensive guide to technical interviews, featuring algorithm problems, behavioral interview preparation, and general career advice. While the behavioral content remains valuable, some technical content has become dated post-COVID.",
-    link: "https://www.crackingthecodinginterview.com/"
-  },
-  {
-    title: "The Pragmatic Programmer",
-    author: "Andrew Hunt, David Thomas",
-    rating: 4,
-    year: 1999,
-    tags: ["software-engineering", "programming", "best-practices"],
-    description: "A collection of practical programming wisdom covering topics from basic tools to software design, emphasizing pragmatic approaches to development.",
-    link: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/"
-  },
-  {
-    title: "The Soul of a New Machine",
-    author: "Tracy Kidder",
-    rating: 4,
-    year: 1981,
-    tags: ["history", "hardware", "technology"],
-    description: "A Pulitzer Prize-winning account of the development of a new computer at Data General Corporation, offering a compelling narrative about technology, innovation, and the people behind it.",
-    link: "https://www.littlebrown.com/titles/tracy-kidder/the-soul-of-a-new-machine/9780316491976/"
-  }
+    {
+        title: "Designing Data-Intensive Applications",
+        author: "Martin Kleppmann",
+        rating: 4,
+        year: 2017,
+        tags: ["distributed-systems", "databases"],
+        description: "A deep dive into the principles and practicalities of modern data systems, covering distributed systems, databases, and scalability.",
+        link: "https://dataintensive.net/"
+    },
+    {
+        title: "Operating Systems: Three Easy Pieces",
+        author: "Remzi H. Arpaci-Dusseau, Andrea C. Arpaci-Dusseau",
+        rating: 5,
+        year: 2018,
+        tags: ["cs", "operating-systems"],
+        description: "An introduction to operating systems, broken into three fundamental pieces: virtualization, concurrency, and persistence. I read this for OS at UW-Madison (where the authors teach!)",
+        link: "https://pages.cs.wisc.edu/~remzi/OSTEP/"
+    },
+    {
+        title: "Structure and Interpretation of Computer Programs",
+        author: "Harold Abelson, Gerald Jay Sussman",
+        rating: 2,
+        year: 1985,
+        tags: ["cs", "programming"],
+        description: "A fundamental text on principles of programming and computer science.",
+        link: "https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"
+    },
+    {
+        title: "Cracking the Coding Interview",
+        author: "Gayle Laakmann McDowell",
+        rating: 2,
+        year: 2015,
+        tags: ["interviews", "algorithms", "career"],
+        description: "A comprehensive guide to technical interviews, featuring algorithm problems, behavioral interview preparation, and general career advice. While the behavioral content remains valuable, some technical content has become dated post-COVID.",
+        link: "https://www.crackingthecodinginterview.com/"
+    },
+    {
+        title: "The Pragmatic Programmer",
+        author: "Andrew Hunt, David Thomas",
+        rating: 4,
+        year: 1999,
+        tags: ["software-engineering", "programming", "best-practices"],
+        description: "A collection of practical programming wisdom covering topics from basic tools to software design, emphasizing pragmatic approaches to development.",
+        link: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/"
+    },
+    {
+        title: "The Soul of a New Machine",
+        author: "Tracy Kidder",
+        rating: 4,
+        year: 1981,
+        tags: ["history", "hardware", "technology"],
+        description: "A Pulitzer Prize-winning account of the development of a new computer at Data General Corporation, offering a compelling narrative about technology, innovation, and the people behind it.",
+        link: "https://www.littlebrown.com/titles/tracy-kidder/the-soul-of-a-new-machine/9780316491976/"
+    },
+    {
+        title: "Introduction to Algorithms (CLRS)",
+        author: "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
+        rating: 5,
+        year: 2009,
+        tags: ["algorithms", "cs", "math"],
+        description: "The canonical reference text for algorithms and data structures in computer science, offering rigorous analysis and implementation details for fundamental to advanced algorithms.",
+        link: "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
+    }
 ];
 
 
