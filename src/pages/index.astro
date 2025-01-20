@@ -7,61 +7,96 @@ import Footer from '../components/Footer.astro';
 <Layout title="[nico@salm.dev ~]$">
     <div class="min-h-screen bg-black text-gray-300">
         <Header />
+
         <main class="max-w-4xl mx-auto px-4 py-8">
-            {/* terminal intro */}
             <section class="mb-8">
                 <div class="terminal-header mb-6 text-sm sm:text-base overflow-x-auto whitespace-nowrap">
                     <span class="text-cyan-400 font-ibm-vga">nico@salm.dev</span>
                     <span class="text-neutral-500 font-ibm-vga">:</span>
                     <span class="text-red-500 font-ibm-vga">~</span>
                     <span class="text-neutral-500 font-ibm-vga">$</span>
-                    <span class="text-white font-ibm-vga"> tree /home/nico</span>
+                    <span class="text-white font-ibm-vga"> cat README.md</span>
                 </div>
 
-                <div class="space-y-1 font-ibm-vga">
-                    <p class="text-white">/home/nico</p>
-                    <p class="ml-4">
-                        <span class="text-neutral-500">├── </span>
-                        <a href="/about" class="text-white hover:text-cyan-400">about/</a>
-                        <span class="text-neutral-400 ml-2 text-sm">whois Nico</span>
-                    </p>
-                    <p class="ml-4"><span class="text-neutral-500">├── links/</span></p>
-                    <p class="ml-8">
-                        <span class="text-neutral-500">├── </span>
-                        <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">github</a>
-                    </p>
-                    <p class="ml-8">
-                        <span class="text-neutral-500">└── </span>
-                        <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">email</a>
-                    </p>
-                    <p class="ml-4">
-                        <span class="text-neutral-500">├── projects/</span>
-                    </p>
-                    <p class="ml-8">
-                        <span class="text-neutral-500">├── </span>
-                        <a href="/blog" class="text-white hover:text-cyan-400">writing/</a>
-                        <span class="text-neutral-400 ml-2 text-sm">hot takes and cool things</span>
-                    </p>
-                    <p class="ml-8">
-                        <span class="text-neutral-500">└── </span>
-                        <a href="/tools" class="text-white hover:text-cyan-400">tools/</a>
-                        <span class="text-neutral-400 ml-2 text-sm">things I've built</span>
-                    </p>
-                    <p class="ml-4"><span class="text-neutral-500">└── docs/</span></p>
-                </div>
-            </section>
-        </main>
-        <Footer />
-    </div>
+                <div class="space-y-4 font-iosevka">
+                    <div class="flex flex-col-reverse sm:flex-row sm:items-start sm:gap-8">
+                        <div class="space-y-4 mt-6 sm:mt-0">
+                            <p class="text-lg text-center sm:text-left">
+                                Hi, I'm Nico. Welcome to my website! I'm studying Computer Sciences and Data Science at UW-Madison.
+                            </p>
+                            <p class="text-center sm:text-left">
+                                I split my time between systems programming projects and data engineering work. Currently taking
+                                Operating Systems and Game Theory, while exploring build systems, networking protocols, and data pipelines.
+                            </p>
+                        </div>
+                        <img
+                            src="/images/me.jpeg"
+                            alt="Nico Salm"
+                            class="w-40 h-40 sm:w-32 sm:h-32 mx-auto sm:mx-0 object-cover bg-neutral-800 border border-neutral-700"
+                        />
+                    </div>
+                    <div class="h-px bg-neutral-800 my-8"></div>
+
+                    <div class="grid grid-cols-[120px_1fr] gap-6 font-ibm-vga">
+                       <div class="text-cyan-400">WORK</div>
+                       <div class="space-y-2">
+                           <p>• Data Systems & ML Infrastructure</p>
+                           <p>• Python, Go, Rust | AWS, GCP</p>
+                           <p>• <a href="https://github.com/stars/nicosalm/lists/my-projects" class="text-cyan-400 hover:text-cyan-300">Projects</a> & <a href="/blog" class="text-cyan-400 hover:text-cyan-300">Writing</a></p>
+                       </div>
+
+                       <div class="text-cyan-400">INTERESTS</div>
+                       <div class="space-y-2">
+                           <p>• Systems Programming & UNIX</p>
+                           <p>• ML for Predictive Analytics</p>
+                           <p>• <a href="/blog/3-cli-productivity" class="text-cyan-400 hover:text-cyan-300">Neovim</a> (<code>:colorscheme elflord</code>)</p>
+                       </div>
+
+                       <div class="text-cyan-400">BEYOND CODE</div>
+                       <div class="space-y-2">
+                           <p>• Reading & Writing (<a href="/blog/4-bookshelf" class="text-cyan-400 hover:text-cyan-300">bookshelf</a>)</p>
+                           <p>• Tabletop RPG Design & World Building</p>
+                           <p>• Deep conversations > small talk</p>
+                       </div>
+                   </div>
+
+                   <div class="h-px bg-neutral-800"></div>
+
+                   <div class="flex gap-4">
+                       <a href="https://github.com/nicosalm" class="text-cyan-400 hover:text-cyan-300">GitHub</a>
+                       <span class="text-neutral-500">◆</span>
+                       <a href="mailto:nico@salm.dev" class="text-cyan-400 hover:text-cyan-300">Email</a>
+                       <span class="text-neutral-500">◆</span>
+                       <a href="https://linkedin.com/in/nicosalm" class="text-cyan-400 hover:text-cyan-300">LinkedIn</a>
+                   </div>
+
+                   <p class="text-neutral-400 text-sm">
+                       <i>If you read this, you now know a bit about me. Wow! ✨</i>
+                   </p>
+               </div>
+           </section>
+       </main>
+
+       <Footer />
+   </div>
 </Layout>
 
 <style>
-    .terminal-header::after {
-        content: "_";
-        animation: blink 1s step-end infinite;
-    }
+   .terminal-header::after {
+       content: "_";
+       animation: blink 1s step-end infinite;
+   }
 
-    @keyframes blink {
-        50% { opacity: 0; }
-    }
+   @keyframes blink {
+       50% { opacity: 0; }
+   }
+
+   :not(pre) > code {
+       @apply font-ibm-vga text-cyan-400 bg-neutral-900 px-1.5 py-0.5 font-normal;
+       @apply whitespace-normal break-words;
+       &::before, &::after {
+           content: none;
+       }
+   }
 </style>
+
