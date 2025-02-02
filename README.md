@@ -73,7 +73,6 @@ rating: 5
 tags: ["Category One", "Category Two"]
 review: "Book review text"
 links:
-  goodreads: "https://goodreads.com/..."
   personalSite: "https://example.com"
 ---
 ```
