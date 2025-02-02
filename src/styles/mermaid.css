@@ -1,0 +1,13 @@
+.mermaid rect {
+    rx: 8px;
+    ry: 8px;
+}
+
+.mermaid path[d*="M 0,0"] {
+    rx: 8px;
+    ry: 8px;
+}
+
+.mermaid svg {
+    shape-rendering: geometricPrecision;
+}

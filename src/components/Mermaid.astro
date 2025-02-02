@@ -1,0 +1,27 @@
+---
+const { diagram } = Astro.props;
+---
+
+<div class="mermaid">{diagram}</div>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+    fontFamily: 'IBM Plex Serif',
+  });
+
+  const observer = new MutationObserver(() => {
+    mermaid.initialize({
+      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default'
+    });
+    mermaid.init();
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>

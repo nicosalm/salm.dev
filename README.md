@@ -1,48 +1,87 @@
-# Astro Starter Kit: Basics
+# salm.dev
 
-```sh
-npm create astro@latest -- --template basics
+Personal website and blog built with Astro.
+
+## Acknowledgements
+- [@davidteather](https://github.com/davidteather): His guides on adding [interactive charts](https://dteather.com/blogs/astro-interactive-charts/) and [diagrams](https://dteather.com/blogs/astro-uml-diagrams/) were helpful.
+
+## Acknowledgements
+
+- [@davidteather](https://github.com/davidteather): His guides on adding [interactive charts](https://dteather.com/blogs/astro-interactive-charts/) and [diagrams](https://dteather.com/blogs/astro-uml-diagrams/) were helpful.
+
+## Stack
+
+- [Astro](https://astro.build) - Static site generator
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [MDX](https://mdxjs.com) - Enhanced markdown for blog posts ([Why MDX?](https://www.codemotion.com/magazine/frontend/how-to-create-an-mdx-blog-in-typescript-with-next-js/#:~:text=Typically%2C%20MDX%20is%20used%20for,to%20achieve%20with%20simple%20Markdown.))
+- [KaTeX](https://katex.org) - Math typesetting
+- [Mermaid](https://mermaid.js.org) - Diagrams
+- [Recharts](https://recharts.org) - Interactive charts
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npx astro dev
+
+# Build for production
+npx astro build
+
+# Preview production build
+npx astro preview
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Project Structure
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+├── components/         # Reusable components
+│   ├── Chart.astro     # Interactive chart component
+│   ├── Mermaid.astro   # Diagram component
+│   └── ...
+├── content/            # Content collections
+│   ├── blog/           # Blog posts in MDX
+│   └── books/          # Reading list entries
+├── layouts/            # Page layouts
+│   ├── BlogPost.astro  # Blog post template
+│   └── Layout.astro    # Base site layout
+├── pages/              # Route pages
+│   ├── blog/           # Blog pages
+│   ├── books.astro     # Reading list
+│   └── ...
+└── styles/            # Global styles
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Content Collections
 
-## 🧞 Commands
+### Blog Posts
+```markdown
+---
+title: "Post Title"
+date: "2024-02-01"
+description: "Post description"
+---
+```
 
-All commands are run from the root of the project, from a terminal:
+### Books
+```markdown
+---
+title: "Book Title"
+author: "Author Name"
+dateRead: "2024-02-01"
+rating: 5
+tags: ["Category One", "Category Two"]
+review: "Book review text"
+links:
+  goodreads: "https://goodreads.com/..."
+  personalSite: "https://example.com"
+---
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## License
 
-## 👀 Want to learn more?
+MIT
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

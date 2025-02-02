@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  prevPost: CollectionEntry<'blog'> | null;
+  nextPost: CollectionEntry<'blog'> | null;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+<nav class="mt-16 border-t border-gray-200 dark:border-gray-800 pt-8">
+  <div class="grid grid-cols-2 gap-8">
+    {prevPost && (
+      <a
+        href={`/blog/${prevPost.slug}`}
+        class="group flex flex-col space-y-2"
+      >
+        <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+          ← Previous Post
+        </span>
+        <span class="text-lg font-serif group-hover:underline line-clamp-2">
+          {prevPost.data.title}
+        </span>
+      </a>
+    )}
+
+    <div class={prevPost ? "" : "col-start-2"}>
+      {nextPost && (
+        <a
+          href={`/blog/${nextPost.slug}`}
+          class="group flex flex-col space-y-2 text-right"
+        >
+          <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+            Next Post →
+          </span>
+          <span class="text-lg font-serif group-hover:underline line-clamp-2">
+            {nextPost.data.title}
+          </span>
+        </a>
+      )}
+    </div>
+  </div>
+</nav>

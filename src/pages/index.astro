@@ -1,11 +1,38 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { Image } from 'astro:assets';
+import profileImage from '../assets/images/me.jpeg';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Nico Salm">
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="order-2 md:order-1">
+            <h1 class="font-serif font-normal text-3xl mb-6">About Me</h1>
+
+            <div class="font-serif space-y-6">
+                <p>
+                    Hi, I'm Nico. Welcome to my website! I'm studying Computer Sciences and Data Science at UW-Madison. I'm a developer passionate about building elegant solutions to complex problems.
+                </p>
+
+                <p>
+                    I focus on systems programming and data engineering, while exploring Operating Systems, Game Theory, and distributed systems.
+                </p>
+            </div>
+        </div>
+
+        <div class="order-1 md:order-2">
+            <div class="aspect-square max-w-md mx-auto">
+                <Image
+                    src={profileImage}
+                    alt="Profile picture"
+                    class="rounded-lg object-cover w-full h-full"
+                    width={400}
+                    height={400}
+                    format="webp"
+                    quality={90}
+                />
+
+            </div>
+        </div>
+    </div>
 </Layout>

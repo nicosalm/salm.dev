@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../utils/readingTime';
+import CollectionCard from '../components/CollectionCard.astro';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const collections = Object.entries(posts.reduce((acc, post) => {
+    if (post.data.collection) {
+        const slug = post.data.collection.toLowerCase().replace(/\s+/g, '-');
+        if (!acc[slug]) {
+            acc[slug] = {
+                title: post.data.collection,
+                description: post.data.collectionDescription || '',
+                posts: []
+            };
+        }
+        acc[slug].posts.push(post);
+    }
+    return acc;
+}, {})).sort((a, b) => b[1].posts.length - a[1].posts.length);
+
+const topCollections = collections.slice(0, 2);
+const hasMoreCollections = collections.length > 2;
+---
+
+<Layout title="Nico's Blog">
+    <div class="max-w-2xl mx-auto">
+        {collections.length > 0 && (
+        <section class="mb-12">
+            <h1 class="text-3xl font-normal mb-4">Writing</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-8">
+                Hot takes and cool things.
+            </p>
+            <h2 class="text-2xl font-normal mb-4">Collections</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {topCollections.map(([slug, collection]) => (
+                <CollectionCard
+                    title={collection.title}
+                    description={collection.description}
+                    slug={slug}
+                    postCount={collection.posts.length}
+                />
+                ))}
+            </div>
+
+            {hasMoreCollections && (
+            <div class="mt-4">
+                <button
+                    id="collections-toggle"
+                    class="mx-auto block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                    aria-expanded="false"
+                    aria-controls="additional-collections"
+                >
+                    <span class="flex items-center gap-2">
+                        <span class="toggle-text">Show more collections</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 transform transition-transform duration-200"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </span>
+                </button>
+
+                <div id="additional-collections" class="hidden mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {collections.slice(2).map(([slug, collection]) => (
+                    <CollectionCard
+                        title={collection.title}
+                        description={collection.description}
+                        slug={slug}
+                        postCount={collection.posts.length}
+                    />
+                    ))}
+                </div>
+            </div>
+            )}
+        </section>
+        )}
+
+        <section>
+            <h2 class="text-2xl font-normal mb-4">All Posts</h2>
+            <div class="space-y-6">
+                {sortedPosts.map(post => (
+                <article class="border-b dark:border-gray-800 pb-6 last:border-0">
+                    <a href={`/blog/${post.slug}`} class="block group">
+                        <h3 class="text-lg group-hover:underline">{post.data.title}</h3>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 gap-4 mt-1">
+                            <time datetime={post.data.date}>
+                                {new Date(post.data.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                                })}
+                            </time>
+                            <span class="inline-flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                </svg>
+                                {calculateReadingTime(post.body)} min read
+                            </span>
+                        </div>
+                        {post.data.description && (
+                        <p class="mt-2 text-gray-700 dark:text-gray-300 text-sm">
+                            {post.data.description}
+                        </p>
+                        )}
+                    </a>
+                </article>
+                ))}
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<script>
+const toggleButton = document.getElementById('collections-toggle');
+const additionalCollections = document.getElementById('additional-collections');
+
+if (toggleButton && additionalCollections) {
+    toggleButton.addEventListener('click', () => {
+        const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+
+        additionalCollections.classList.toggle('hidden');
+
+        toggleButton.setAttribute('aria-expanded', (!isExpanded).toString());
+
+        const textElement = toggleButton.querySelector('.toggle-text');
+        const iconElement = toggleButton.querySelector('svg');
+
+        if (textElement) {
+            textElement.textContent = isExpanded ? 'Show more collections' : 'Show fewer collections';
+        }
+
+        if (iconElement) {
+            iconElement.style.transform = isExpanded ? '' : 'rotate(180deg)';
+        }
+    });
+}
+</script>

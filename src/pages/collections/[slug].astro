@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime } from '../../utils/readingTime';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    const collections = posts.reduce((acc, post) => {
+        if (post.data.collection) {
+            const slug = post.data.collection.toLowerCase().replace(/\s+/g, '-');
+            if (!acc[slug]) {
+                acc[slug] = {
+                    title: post.data.collection,
+                    description: post.data.collectionDescription,
+                    posts: []
+                };
+            }
+            acc[slug].posts.push(post);
+        }
+        return acc;
+    }, {});
+
+    return Object.entries(collections).map(([slug, collection]) => ({
+        params: { slug },
+        props: { collection }
+    }));
+}
+
+const { collection } = Astro.props;
+const sortedPosts = collection.posts.sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title={`${collection.title} - Collections`}>
+    <div class="max-w-2xl mx-auto">
+        <header class="mb-8">
+            <a
+                href="/blog"
+                class="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 mb-4 group"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2 transform transition-transform group-hover:-translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                    />
+                </svg>
+                Back to all posts
+            </a>
+            <h1 class="text-3xl font-normal mb-2">{collection.title}</h1>
+            {collection.description && (
+            <p class="text-gray-600 dark:text-gray-400">{collection.description}</p>
+            )}
+        </header>
+
+        <div class="space-y-6">
+            {sortedPosts.map(post => (
+            <article class="border-b dark:border-gray-800 pb-6 last:border-0">
+                <a href={`/blog/${post.slug}`} class="block group">
+                    <h2 class="text-lg group-hover:underline">{post.data.title}</h2>
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 gap-4 mt-1">
+                        <time datetime={post.data.date}>
+                            {new Date(post.data.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                            })}
+                        </time>
+                        <span class="inline-flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                            </svg>
+                            {calculateReadingTime(post.body)} min read
+                        </span>
+                    </div>
+                    {post.data.description && (
+                    <p class="mt-2 text-gray-700 dark:text-gray-300 text-sm">
+                        {post.data.description}
+                    </p>
+                    )}
+                </a>
+            </article>
+            ))}
+        </div>
+    </div>
+</Layout>

@@ -1,0 +1,87 @@
+---
+interface Props {
+    updates?: {
+        date: string | Date;
+        text: string;
+        section?: string;
+    }[];
+}
+
+const { updates = [] } = Astro.props;
+---
+
+<aside class="updates-banner hidden lg:block" aria-label="Post Updates">
+    <div class="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Updates</h2>
+        {updates.length > 0 ? (
+            <ul class="space-y-4">
+                {updates.map(update => (
+                    <li
+                        class="border-l-2 border-blue-500 dark:border-blue-400 pl-4"
+                        data-section={update.section}
+                        class:list={[
+                            update.section && "cursor-pointer hover:border-blue-600 dark:hover:border-blue-300"
+                        ]}
+                    >
+                        <time class="text-xs text-gray-500 dark:text-gray-400">
+                            {new Date(update.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            })}
+                        </time>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            {update.text}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p class="text-sm text-gray-500 dark:text-gray-400 italic">No updates yet</p>
+        )}
+    </div>
+</aside>
+
+<style>
+    .updates-banner {
+        width: 16rem;
+        position: fixed;
+        right: max(2rem, calc((100vw - 65ch - 32rem) / 2));
+        transform: translateX(100%);
+        padding-left: 2rem;
+    }
+
+    /* Adjust position when screen gets smaller */
+    @media (max-width: 1400px) {
+        .updates-banner {
+            right: 2rem;
+            transform: none;
+            padding-left: 1rem;
+            width: 14rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .updates-banner {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.updates-banner li[data-section]').forEach(item => {
+        item.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-section');
+            if (!sectionId) return;
+
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                history.pushState(null, '', `#${sectionId}`);
+            }
+        });
+    });
+</script>

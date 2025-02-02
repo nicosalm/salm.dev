@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className
+} = Astro.props;
+---
+
+<figure class="my-8">
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class={`rounded-lg w-full ${className || ''}`}
+    loading="lazy"
+    decoding="async"
+  />
+  {alt && (
+    <figcaption class="text-sm text-center text-gray-600 dark:text-gray-400 mt-2">
+      {alt}
+    </figcaption>
+  )}
+</figure>

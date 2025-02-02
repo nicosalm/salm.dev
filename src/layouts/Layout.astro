@@ -1,22 +1,96 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import { execSync } from 'child_process';
+import '../styles/fonts.css';
+import '../styles/code.css';
+import '../styles/mermaid.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = "A minimal personal site" } = Astro.props;
+
+let commitHash = '';
+try {
+    commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+} catch (error) {
+    commitHash = 'development';
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+        <title>{title}</title>
+
+        <script is:inline>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+        </script>
+
+    </head>
+    <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-serif">
+        <div class="max-w-2xl mx-auto px-4 py-8">
+            <header class="mb-8 border-b dark:border-gray-800 pb-4">
+                <div class="flex justify-between items-center mb-4">
+                    <nav class="flex items-center space-x-6">
+                        <a href="/" class="w-8 h-8 mr-4">
+                            <img src="/hero-black.svg" alt="Site logo" class="w-full h-full block dark:hidden" />
+                            <img src="/hero-white.svg" alt="Site logo" class="w-full h-full hidden dark:block" />
+                        </a>
+
+                        <a href="/blog" class="hover:underline">Blog</a>
+                        <a href="/books" class="hover:underline">Books</a>
+                        <a href="https://github.com/nicosalm" class="hover:underline">Code</a>
+                        <a href="/rss.xml" class="hover:underline hidden md:inline">RSS</a>
+                    </nav>
+
+                    <button
+                        id="theme-toggle"
+                        class="p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                        aria-label="Toggle dark mode"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path class="hidden dark:block" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
+                            <path class="dark:hidden" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                    </button>
+
+                </div>
+            </header>
+            <main class="min-h-[70vh]">
+                <slot />
+            </main>
+
+            <footer class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-600 dark:text-gray-400">
+                <div class="flex justify-between items-center">
+                    <p>© {new Date().getFullYear()} Nico Salm</p>
+                    <a
+                        href={`https://github.com/nicosalm/website/commit/${commitHash}`}
+                        class="hover:underline font-mono"
+                    >
+                        {commitHash}
+                    </a>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle?.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+        });
+        </script>
+    </body>
+</html>

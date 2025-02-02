@@ -1,0 +1,30 @@
+pre {
+  @apply p-4 rounded-lg overflow-x-auto border border-gray-800 bg-gray-900;
+}
+
+pre > code {
+  @apply grid;
+  counter-reset: line;
+}
+
+pre > code > .line {
+  @apply px-4 min-h-[1rem] py-0.5;
+}
+
+pre > code > .line::before {
+  @apply text-gray-500 mr-4 inline-block w-4 text-right;
+  counter-increment: line;
+  content: counter(line);
+}
+
+pre > code > .line.highlighted {
+  @apply bg-gray-800 border-l-2 border-blue-500;
+}
+
+:not(pre) > code {
+  @apply px-1.5 py-0.5 rounded text-sm bg-gray-100 dark:bg-gray-800 font-normal;
+}
+
+.word {
+  @apply bg-blue-500/20 rounded;
+}
