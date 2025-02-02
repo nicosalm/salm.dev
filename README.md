@@ -3,9 +3,6 @@
 Personal website and blog built with Astro.
 
 ## Acknowledgements
-- [@davidteather](https://github.com/davidteather): His guides on adding [interactive charts](https://dteather.com/blogs/astro-interactive-charts/) and [diagrams](https://dteather.com/blogs/astro-uml-diagrams/) were helpful.
-
-## Acknowledgements
 
 - [@davidteather](https://github.com/davidteather): His guides on adding [interactive charts](https://dteather.com/blogs/astro-interactive-charts/) and [diagrams](https://dteather.com/blogs/astro-uml-diagrams/) were helpful.
 
