@@ -43,29 +43,28 @@ const { updates = [] } = Astro.props;
 </aside>
 
 <style>
+.updates-banner {
+    width: 16rem;
+    position: fixed;
+    right: max(2rem, calc((100vw - 60ch - 28rem) / 2));
+    transform: translateX(100%);
+    padding-left: 2rem;
+}
+
+@media (max-width: 1300px) {
     .updates-banner {
-        width: 16rem;
-        position: fixed;
-        right: max(2rem, calc((100vw - 65ch - 32rem) / 2));
-        transform: translateX(100%);
-        padding-left: 2rem;
+        right: 2rem;
+        transform: none;
+        padding-left: 1rem;
+        width: 14rem;
     }
+}
 
-    /* Adjust position when screen gets smaller */
-    @media (max-width: 1400px) {
-        .updates-banner {
-            right: 2rem;
-            transform: none;
-            padding-left: 1rem;
-            width: 14rem;
-        }
+@media (max-width: 1024px) {
+    .updates-banner {
+        display: none;
     }
-
-    @media (max-width: 1024px) {
-        .updates-banner {
-            display: none;
-        }
-    }
+}
 </style>
 
 <script>

@@ -34,29 +34,28 @@ const filteredHeadings = headings.filter(heading => heading.depth <= 3);
 </nav>
 
 <style>
-  .toc {
+.toc {
     width: 16rem;
     position: fixed;
-    left: max(2rem, calc((100vw - 65ch - 32rem) / 2));
+    left: max(2rem, calc((100vw - 60ch - 28rem) / 2));
     transform: translateX(-100%);
     padding-right: 2rem;
-  }
+}
 
-  /* Adjust position when screen gets smaller */
-  @media (max-width: 1400px) {
+@media (max-width: 1300px) {
     .toc {
-      left: 2rem;
-      transform: none;
-      padding-right: 1rem;
-      width: 14rem;
+        left: 2rem;
+        transform: none;
+        padding-right: 1rem;
+        width: 14rem;
     }
-  }
+}
 
-  @media (max-width: 1024px) {
+@media (max-width: 1024px) {
     .toc {
-      display: none;
+        display: none;
     }
-  }
+}
 </style>
 
 <script>
