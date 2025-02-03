@@ -2,7 +2,6 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
-
 const parser = new MarkdownIt();
 
 async function postContent(post) {
@@ -14,15 +13,18 @@ async function postContent(post) {
 
 export async function GET(context) {
   const posts = await getCollection('blog');
-  const feed = [];
+  const sortedPosts = posts.sort((a, b) => b.data.date - a.data.date);
 
-  for (const post of posts) {
+  const feed = [];
+  for (const post of sortedPosts) {
     feed.push({
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.description,
       link: `/blog/${post.slug}/`,
       content: await postContent(post),
+      author: post.data.author,
+      categories: post.data.tags || [],
     });
   }
 
@@ -31,6 +33,7 @@ export async function GET(context) {
     description: 'Hot takes and cool things',
     site: context.site,
     items: feed,
+    language: 'en',
     customData: `
       <image>
         <url>${context.site}favicon.svg</url>
