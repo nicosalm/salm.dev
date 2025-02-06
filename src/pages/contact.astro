@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<Layout title="Contact · Nico Salm">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-normal mb-4">Contact</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+            Have a question or want to get in touch? Feel free to reach out.
+        </p>
+
+        <form id="contact-form" action="/api/contact" method="POST" class="space-y-6">
+            <div>
+                <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                />
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                />
+            </div>
+
+            <div>
+                <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    required
+                    class="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 resize-none"
+                ></textarea>
+            </div>
+
+            <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark"></div>
+
+            <div id="form-error" class="text-red-500 dark:text-red-400 text-sm hidden"></div>
+
+            <div>
+                <button
+                    type="submit"
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors duration-200"
+                >
+                    Send Message
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <h2 class="text-xl font-normal mb-4">Other Ways to Connect</h2>
+            <div class="space-y-2 text-gray-600 dark:text-gray-400">
+                <p>
+                    Find me on <a href="https://github.com/nicosalm" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200">GitHub</a>
+                    or <a href="https://twitter.com/salmdotdev" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200">Twitter</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+const form = document.getElementById('contact-form') as HTMLFormElement;
+const errorDiv = document.getElementById('form-error');
+
+form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (errorDiv) errorDiv.classList.add('hidden');
+
+    const formData = new FormData(form);
+    const turnstileResponse = turnstile.getResponse();
+
+    if (!turnstileResponse) {
+        if (errorDiv) {
+            errorDiv.textContent = 'Please complete the CAPTCHA';
+            errorDiv.classList.remove('hidden');
+        }
+        return;
+    }
+
+    formData.append('cf-turnstile-response', turnstileResponse);
+
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            form.reset();
+            turnstile.reset();
+            alert('Message sent successfully!');
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        if (errorDiv) {
+            errorDiv.textContent = 'Failed to send message. Please try again.';
+            errorDiv.classList.remove('hidden');
+        }
+    }
+});
+
+// handle dark mode for Turnstile
+const updateTurnstileTheme = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    const turnstileFrame = document.querySelector('iframe[src*="challenges.cloudflare.com"]');
+    if (turnstileFrame) {
+        turnstileFrame.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    }
+};
+
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+            updateTurnstileTheme();
+        }
+    });
+});
+
+observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+});
+</script>

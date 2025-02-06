@@ -5,23 +5,17 @@ import profileImage from '../assets/images/me.jpeg';
 ---
 
 <Layout title="Nico Salm">
-    <div class="grid md:grid-cols-2 gap-8 mb-12">
-        <div class="order-2 md:order-1">
-            <h1 class="font-serif font-normal text-3xl mb-6">About Me</h1>
-
-            <div class="font-serif space-y-6">
-                <p>
-                    Hi, I'm Nico. Welcome to my website! I'm studying Computer Sciences and Data Science at UW-Madison. I'm a developer passionate about building elegant solutions to complex problems.
-                </p>
-
-                <p>
-                    I focus on data engineering and systems programming, while exploring Operating Systems, Game Theory, and distributed systems.
-                </p>
+    <div class="grid md:grid-cols-5 gap-8">
+        <div class="md:col-span-3 order-2 md:order-1 flex flex-col justify-center">
+            <h1 class="font-serif font-normal text-3xl mb-4">About Me</h1>
+            <div class="font-serif space-y-4">
+                <p>Hi, I'm Nico. Welcome to my website! I'm studying Computer Sciences and Data Science at UW-Madison. I'm a developer passionate about building elegant solutions to complex problems.</p>
+                <p>I'm interested in Data Systems and Game Theory, particularly their intersection in distributed systems and consensus protocols.</p>
             </div>
         </div>
 
-        <div class="order-1 md:order-2">
-            <div class="aspect-square max-w-md mx-auto">
+        <div class="md:col-span-2 order-1 md:order-2">
+            <div class="aspect-square w-full max-w-md mx-auto">
                 <Image
                     src={profileImage}
                     alt="Profile picture"
@@ -31,7 +25,6 @@ import profileImage from '../assets/images/me.jpeg';
                     format="webp"
                     quality={90}
                 />
-
             </div>
         </div>
     </div>

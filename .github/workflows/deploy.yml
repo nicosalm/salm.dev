@@ -15,6 +15,10 @@ permissions:
 
 jobs:
   build:
+    env:
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+      PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git

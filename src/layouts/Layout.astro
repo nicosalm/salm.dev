@@ -5,17 +5,17 @@ import '../styles/code.css';
 import '../styles/mermaid.css';
 
 interface Props {
-    title: string;
-    description?: string;
+title: string;
+description?: string;
 }
 
 const { title, description = "A minimal personal site" } = Astro.props;
 
 let commitHash = '';
 try {
-    commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+commitHash = execSync('git rev-parse --short HEAD').toString().trim();
 } catch (error) {
-    commitHash = 'development';
+commitHash = 'development';
 }
 ---
 
@@ -38,6 +38,8 @@ try {
         }
         </script>
 
+        <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     </head>
     <body class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-serif">
         <div class="max-w-2xl mx-auto px-4 py-8">
@@ -51,8 +53,8 @@ try {
 
                         <a href="/blog" class="hover:underline">Blog</a>
                         <a href="/books" class="hover:underline">Books</a>
+                        <a href="/projects" class="hover:underline">Projects</a>
                         <a href="https://github.com/nicosalm" class="hover:underline">Code</a>
-                        <a href="/rss.xml" class="hover:underline hidden md:inline">RSS</a>
                     </nav>
 
                     <button
@@ -75,15 +77,23 @@ try {
             <footer class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-600 dark:text-gray-400">
                 <div class="flex justify-between items-center">
                     <p>© {new Date().getFullYear()} Nico Salm</p>
-                    <a
-                        href={`https://github.com/nicosalm/salm.dev/commit/${commitHash}`}
-                        class="hover:underline font-mono"
-                    >
-                        commit {commitHash}
-                    </a>
+                    <div class="space-x-4">
+                        <a href="/contact" class="hover:underline font-mono">contact</a>
+
+                        <a href="/rss.xml" class="hover:underline font-mono">rss</a>
+                        <a
+                            href={`https://github.com/nicosalm/salm.dev/commit/${commitHash}`}
+                            class="hover:underline font-mono"
+                        >repo</a>
+                        <a
+                            href={`https://status.salm.dev/`}
+                            class="hover:underline font-mono"
+                        >
+                            status
+                        </a>
+                    </div>
                 </div>
-            </footer>
-        </div>
+            </footer>        </div>
 
         <script>
         const themeToggle = document.getElementById('theme-toggle');

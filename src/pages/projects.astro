@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import OptimizedImage from '../components/OptimizedImage.astro';
+import raftImage from '../assets/images/projects/placeholder.jpeg';
+import incentivesImage from '../assets/images/projects/placeholder.jpeg';
+import project3Image from '../assets/images/projects/placeholder.jpeg';
+import project4Image from '../assets/images/projects/placeholder.jpeg';
+---
+
+<Layout title="Nico's Projects">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-normal mb-4">Projects</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+            Building elegant solutions to complex problems.
+        </p>
+
+        <div class="space-y-12">
+            <!-- Raft Project -->
+            <article class="border-b dark:border-gray-800 pb-8 last:border-0">
+                <div class="space-y-4">
+                    <OptimizedImage
+                        src={raftImage}
+                        alt="Interactive visualization of the Raft consensus protocol in action"
+                        class="aspect-video object-cover"
+                    />
+                    <div>
+                        <h2 class="text-xl font-medium mb-2">Raft Consensus Implementation</h2>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                            A Rust implementation of the Raft consensus protocol, featuring interactive visualizations of the algorithm in action. Built to understand distributed systems fundamentals through practical implementation.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">rust</span>
+                            <a href="https://github.com/nicosalm/raft" class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded">github</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Economic Incentives Project -->
+            <article class="border-b dark:border-gray-800 pb-8 last:border-0">
+                <div class="space-y-4">
+                    <OptimizedImage
+                        src={incentivesImage}
+                        alt="Simulation dashboard showing economic incentives in consensus protocols"
+                        class="aspect-video object-cover"
+                    />
+                    <div>
+                        <h2 class="text-xl font-medium mb-2">Consensus Economics</h2>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                            Simulation framework exploring how economic incentives influence node behavior in distributed consensus protocols. Investigating the intersection of game theory and distributed systems.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">python</span>
+                            <a href="#" class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded">github</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="border-b dark:border-gray-800 pb-8 last:border-0">
+                <div class="space-y-4">
+                    <OptimizedImage
+                        src={project3Image}
+                        alt="Overview of project features and architecture"
+                        class="aspect-video object-cover"
+                    />
+                    <div>
+                        <h2 class="text-xl font-medium mb-2">Project Title</h2>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                            Brief description of the project and its key features or outcomes. Explain the problem being solved and the approach taken.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">typescript</span>
+                            <a href="#" class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded">github</a>
+                            <a href="#" class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded">demo</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="border-b dark:border-gray-800 pb-8 last:border-0">
+                <div class="space-y-4">
+                    <OptimizedImage
+                        src={project4Image}
+                        alt="Demonstration of project functionality"
+                        class="aspect-video object-cover"
+                    />
+                    <div>
+                        <h2 class="text-xl font-medium mb-2">Project Title</h2>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                            Brief description of the project and its key features or outcomes. Explain the problem being solved and the approach taken.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">go</span>
+                            <a href="#" class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 rounded">github</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</Layout>
