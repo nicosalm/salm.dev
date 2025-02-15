@@ -53,7 +53,7 @@ commitHash = 'development';
 
                         <a href="/blog" class="hover:underline">Blog</a>
                         <a href="/books" class="hover:underline">Books</a>
-                        <a href="/projects" class="hover:underline">Projects</a>
+                        {/*<a href="/projects" class="hover:underline">Projects</a>*/}
                         <a href="https://github.com/nicosalm" class="hover:underline">Code</a>
                     </nav>
 
@@ -82,15 +82,13 @@ commitHash = 'development';
 
                         <a href="/rss.xml" class="hover:underline font-mono">rss</a>
                         <a
-                            href={`https://github.com/nicosalm/salm.dev/commit/${commitHash}`}
-                            class="hover:underline font-mono"
-                        >repo</a>
-                        <a
                             href={`https://status.salm.dev/`}
                             class="hover:underline font-mono"
-                        >
-                            status
-                        </a>
+                        >status</a>
+                        <a
+                            href={`https://github.com/nicosalm/salm.dev/commit/${commitHash}`}
+                            class="hover:underline font-mono"
+                        >{commitHash}</a>
                     </div>
                 </div>
             </footer>        </div>

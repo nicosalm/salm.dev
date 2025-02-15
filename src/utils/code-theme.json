@@ -18,40 +18,41 @@
         "entity.name.constant",
         "variable.other.constant",
         "variable.other.enummember",
-        "variable.language"
+        "variable.language",
+        "support.constant"
       ],
       "settings": {
         "foreground": "#79c0ff"
       }
     },
     {
-      "scope": ["entity.name", "entity.name.tag"],
+      "scope": ["entity.name", "entity.name.tag", "support.class"],
       "settings": {
         "foreground": "#7ee787"
       }
     },
     {
-      "scope": "variable.parameter.function",
+      "scope": ["variable.parameter.function", "variable.parameter"],
       "settings": {
-        "foreground": "#c9d1d9"
+        "foreground": "#ffa657"
       }
     },
     {
-      "scope": ["entity.name.tag", "meta.tag.sgml"],
-      "settings": {
-        "foreground": "#7ee787"
-      }
-    },
-    {
-      "scope": "keyword",
+      "scope": ["storage.type", "storage.modifier"],
       "settings": {
         "foreground": "#ff7b72"
       }
     },
     {
-      "scope": ["string", "punctuation.definition.string"],
+      "scope": ["string", "punctuation.definition.string", "string.template"],
       "settings": {
         "foreground": "#a5d6ff"
+      }
+    },
+    {
+      "scope": ["punctuation", "meta.brace"],
+      "settings": {
+        "foreground": "#c9d1d9"
       }
     }
   ]

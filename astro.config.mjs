@@ -39,15 +39,5 @@ export default defineConfig({
             wrap: true
         }
     },
-    server: {
-        headers: {
-            'Content-Security-Policy':
-                "default-src 'self'; " +
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; " +
-                "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; " +
-                "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; " +
-                "frame-src https://challenges.cloudflare.com;"
-        }
-    }
 });
 

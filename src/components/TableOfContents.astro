@@ -5,25 +5,52 @@ interface Props {
     slug: string;
     text: string;
   }[];
+  maxDepth?: number;
+  className?: string;
 }
 
-const { headings } = Astro.props;
+const {
+  headings,
+  maxDepth = 3,
+  className = ''
+} = Astro.props;
 
-const filteredHeadings = headings.filter(heading => heading.depth <= 3);
+const filteredHeadings = headings.filter(heading => heading.depth <= maxDepth);
+
+const depthClasses = {
+  1: 'pl-0',
+  2: 'pl-4',
+  3: 'pl-8',
+  4: 'pl-12'
+};
 ---
 
-<nav class="toc hidden lg:block" aria-label="Table of Contents">
-  <div class="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
-    <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Table of Contents</h2>
+<nav
+  class:list={[
+    'toc hidden lg:block',
+    className
+  ]}
+  aria-label="Table of Contents"
+>
+  <div class="sticky top-8 bottom-16 max-h-[calc(100vh-8rem)] overflow-y-auto pb-8 pr-2">
+    <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+      Table of Contents
+    </h2>
     <ul class="space-y-2 text-sm">
       {filteredHeadings.map(heading => (
-        <li class={`pl-${(heading.depth - 1) * 4}`}>
-          <a
+        <li class={depthClasses[heading.depth]}>
+<a
             href={`#${heading.slug}`}
-            class={`
-              block py-1 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200
-              ${heading.depth === 1 ? 'font-medium' : 'font-normal'}
-            `}
+            class:list={[
+              'toc-item block py-1 transition-colors duration-150',
+              'text-gray-600 dark:text-gray-400',
+              'hover:text-gray-900 dark:hover:text-gray-200',
+              {
+                'font-medium': heading.depth === 1,
+                'font-normal': heading.depth > 1
+              }
+            ]}
+            data-heading={heading.slug}
           >
             {heading.text}
           </a>
@@ -35,50 +62,116 @@ const filteredHeadings = headings.filter(heading => heading.depth <= 3);
 
 <style>
 .toc {
-    width: 16rem;
-    position: fixed;
-    left: max(2rem, calc((100vw - 60ch - 28rem) / 2));
-    transform: translateX(-100%);
-    padding-right: 2rem;
+  width: clamp(14rem, 16rem, 20vw);
+  position: fixed;
+  left: max(2rem, calc((100vw - 60ch - 28rem) / 2));
+  transform: translateX(-100%);
+  padding-right: 2rem;
 }
 
 @media (max-width: 1300px) {
-    .toc {
-        left: 2rem;
-        transform: none;
-        padding-right: 1rem;
-        width: 14rem;
-    }
+  .toc {
+    left: 2rem;
+    transform: none;
+    padding-right: 1rem;
+    width: 14rem;
+  }
 }
 
 @media (max-width: 1024px) {
-    .toc {
-        display: none;
-    }
+  .toc {
+    display: none;
+  }
+}
+
+.toc div::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc div::-webkit-scrollbar-thumb {
+  background-color: rgb(156 163 175 / 0.2);
+  border-radius: 3px;
+}
+
+:global(.dark) .toc div::-webkit-scrollbar-thumb {
+  background-color: rgb(75 85 99 / 0.3);
+}
+
+.toc div::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(156 163 175 / 0.3);
+}
+
+:global(.dark) .toc div::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(75 85 99 / 0.4);
+}
+
+/* Active state styling */
+.toc-item.active {
+  @apply text-blue-600 dark:text-blue-400 font-medium;
 }
 </style>
 
 <script>
-const observerOptions = {
-  root: null,
-  rootMargin: '0px',
-  threshold: 1.0
-};
+function updateActiveHeading() {
+  const headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
+  const tocItems = document.querySelectorAll('.toc-item');
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    const id = entry.target.getAttribute('id');
-    if (entry.isIntersecting) {
-      document.querySelector(`nav.toc a[href="#${id}"]`)
-        ?.classList.add('text-blue-600', 'dark:text-blue-400');
-    } else {
-      document.querySelector(`nav.toc a[href="#${id}"]`)
-        ?.classList.remove('text-blue-600', 'dark:text-blue-400');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleHeadings = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => {
+          return a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top;
+        });
+
+      if (visibleHeadings.length > 0) {
+        const activeHeading = visibleHeadings[0];
+        tocItems.forEach(item => item.classList.remove('active'));
+
+        const activeItem = document.querySelector(
+          `.toc-item[data-heading="${activeHeading.target.id}"]`
+        );
+        if (activeItem) {
+          activeItem.classList.add('active');
+        }
+      }
+    },
+    {
+      rootMargin: '-64px 0px -70% 0px',
+      threshold: [0, 1]
+    }
+  );
+
+  headings.forEach(heading => observer.observe(heading));
+  return () => observer.disconnect();
+}
+
+updateActiveHeading();
+document.addEventListener('astro:after-swap', updateActiveHeading);
+
+document.querySelectorAll('.toc-item').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href')?.slice(1);
+    if (targetId) {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const headerOffset = 32;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+
+        history.pushState(null, '', `#${targetId}`);
+      }
     }
   });
-}, observerOptions);
-
-document.querySelectorAll('h1[id], h2[id], h3[id]').forEach((header) => {
-  observer.observe(header);
 });
 </script>

@@ -1,5 +1,19 @@
 pre {
-  @apply p-4 rounded-lg overflow-x-auto border border-gray-800 bg-gray-900;
+  @apply relative p-4 rounded-lg overflow-x-auto border border-gray-800 bg-gray-900;
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f2937;
+}
+
+pre::-webkit-scrollbar {
+  @apply h-2 w-2;
+}
+
+pre::-webkit-scrollbar-track {
+  @apply bg-gray-800 rounded-full;
+}
+
+pre::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
 }
 
 pre > code {
@@ -8,17 +22,17 @@ pre > code {
 }
 
 pre > code > .line {
-  @apply px-4 min-h-[1rem] py-0.5;
+  @apply px-4 min-h-[1.4rem] py-0.5 border-l-2 border-transparent;
 }
 
 pre > code > .line::before {
-  @apply text-gray-500 mr-4 inline-block w-4 text-right;
+  @apply text-gray-500 mr-4 inline-block w-5 text-right select-none;
   counter-increment: line;
   content: counter(line);
 }
 
 pre > code > .line.highlighted {
-  @apply bg-gray-800 border-l-2 border-blue-500;
+  @apply bg-blue-500/10 border-l-2 border-blue-500;
 }
 
 :not(pre) > code {
@@ -26,5 +40,19 @@ pre > code > .line.highlighted {
 }
 
 .word {
-  @apply bg-blue-500/20 rounded;
+  @apply bg-blue-500/20 rounded px-1;
+}
+
+/* Copy button */
+.code-header {
+  @apply absolute right-2 top-2 flex items-center gap-2;
+}
+
+.copy-button {
+  @apply p-2 text-gray-400 hover:text-gray-300 rounded-lg
+         bg-gray-800/50 hover:bg-gray-800 transition-colors;
+}
+
+.copy-button[data-copied="true"] {
+  @apply text-green-400;
 }

@@ -15,7 +15,12 @@ const allTags = [...new Set(books.flatMap(book => book.data.tags))].sort();
 const stats = {
     totalBooks: books.length,
     currentlyReading: books.filter(book => book.data.currentlyReading).length,
-    avgRating: books.reduce((acc, book) => { if (book.data.rating && book.data.rating > 0) { return acc + book.data.rating; } return acc; }, 0) / books.filter(book => book.data.rating && book.data.rating > 0).length,
+    avgRating: Number((books.reduce((acc, book) => {
+        if (book.data.rating && book.data.rating > 0) {
+            return acc + book.data.rating;
+        }
+        return acc;
+    }, 0) / books.filter(book => book.data.rating && book.data.rating > 0).length)).toFixed(1)
 };
 ---
 
@@ -30,7 +35,7 @@ const stats = {
                 <div class="text-sm text-gray-600 dark:text-gray-400">Books Read</div>
             </div>
             <div>
-                <div class="text-2xl mb-1">{stats.avgRating.toFixed(1)}</div>
+                <div class="text-2xl mb-1">{stats.avgRating}</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Avg Rating</div>
             </div>
             <div>
@@ -77,11 +82,36 @@ const stats = {
                         <div class="flex items-center mb-3 relative">
                             <div class="relative">
                                 <div class="flex">
-                                    {Array.from({ length: 5 }).map((_, i) => (
-                                    <svg class={`w-4 h-4 ${book.data.rating === 0 ? 'text-gray-300 dark:text-gray-700' : i < book.data.rating ? 'text-yellow-500' : 'text-gray-300 dark:text-gray-700'}`} fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    ))}
+                                    {Array.from({ length: 5 }).map((_, i) => {
+                                    const fullStar = i < Math.floor(book.data.rating);
+                                    const halfStar = !fullStar && (i < Math.ceil(book.data.rating)) && (book.data.rating % 1 !== 0);
+                                    return (
+                                    <div class="w-4 h-4">
+                                        {fullStar ? (
+                                        // Full star
+                                        <svg class="w-full h-full text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        ) : halfStar ? (
+                                        // Half star
+                                        <svg class="w-full h-full text-yellow-500" viewBox="0 0 20 20">
+                                            <defs>
+                                                <linearGradient id="half-star-gradient">
+                                                    <stop offset="50%" stop-color="currentColor"/>
+                                                    <stop offset="50%" stop-color="rgb(209 213 219)"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path fill="url(#half-star-gradient)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        ) : (
+                                        // Empty star
+                                        <svg class="w-full h-full text-gray-300 dark:text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        )}
+                                    </div>
+                                    );
+                                    })}
                                 </div>
                                 {book.data.rating === 0 && (
                                 <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-gray-900/50">
@@ -90,7 +120,7 @@ const stats = {
                                 )}
                             </div>
                         </div>
-                        )}
+)}
 
                         {book.data.tags.length > 0 && (
                         <div class="flex flex-wrap gap-2 mb-3">

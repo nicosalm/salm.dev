@@ -5,25 +5,38 @@ interface Props {
         text: string;
         section?: string;
     }[];
+    className?: string;
 }
 
-const { updates = [] } = Astro.props;
+const { updates = [], className = '' } = Astro.props;
 ---
 
-<aside class="updates-banner hidden lg:block" aria-label="Post Updates">
-    <div class="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+<aside
+    class:list={[
+        'updates-banner hidden lg:block',
+        className
+    ]}
+    aria-label="Post Updates"
+>
+    <div class="sticky top-8 bottom-16 max-h-[calc(100vh-8rem)] overflow-y-auto pb-8 pr-2">
         <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Updates</h2>
         {updates.length > 0 ? (
             <ul class="space-y-4">
                 {updates.map(update => (
                     <li
-                        class="border-l-2 border-blue-500 dark:border-blue-400 pl-4"
-                        data-section={update.section}
                         class:list={[
-                            update.section && "cursor-pointer hover:border-blue-600 dark:hover:border-blue-300"
+                            'border-l-2 border-blue-500 dark:border-blue-400 pl-4',
+                            'transition-colors duration-150',
+                            {
+                                'cursor-pointer hover:border-blue-600 dark:hover:border-blue-300': update.section
+                            }
                         ]}
+                        data-section={update.section}
                     >
-                        <time class="text-xs text-gray-500 dark:text-gray-400">
+                        <time
+                            class="text-xs text-gray-500 dark:text-gray-400"
+                            datetime={new Date(update.date).toISOString()}
+                        >
                             {new Date(update.date).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'short',
@@ -44,7 +57,7 @@ const { updates = [] } = Astro.props;
 
 <style>
 .updates-banner {
-    width: 16rem;
+    width: clamp(14rem, 16rem, 20vw);
     position: fixed;
     right: max(2rem, calc((100vw - 60ch - 28rem) / 2));
     transform: translateX(100%);
@@ -65,22 +78,58 @@ const { updates = [] } = Astro.props;
         display: none;
     }
 }
+
+.updates-banner div::-webkit-scrollbar {
+  width: 6px;
+}
+
+.updates-banner div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.updates-banner div::-webkit-scrollbar-thumb {
+  background-color: rgb(156 163 175 / 0.2);
+  border-radius: 3px;
+}
+
+:global(.dark) .updates-banner div::-webkit-scrollbar-thumb {
+  background-color: rgb(75 85 99 / 0.3);
+}
+
+.updates-banner div::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(156 163 175 / 0.3);
+}
+
+:global(.dark) .updates-banner div::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(75 85 99 / 0.4);
+}
 </style>
 
 <script>
+const initializeUpdateLinks = () => {
     document.querySelectorAll('.updates-banner li[data-section]').forEach(item => {
         item.addEventListener('click', () => {
             const sectionId = item.getAttribute('data-section');
             if (!sectionId) return;
 
             const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                history.pushState(null, '', `#${sectionId}`);
-            }
+            if (!section) return;
+
+            const headerOffset = 32;
+            const elementPosition = section.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            history.pushState(null, '', `#${sectionId}`);
         });
     });
+};
+
+initializeUpdateLinks();
+
+document.addEventListener('astro:after-swap', initializeUpdateLinks);
 </script>

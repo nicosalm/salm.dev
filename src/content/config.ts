@@ -23,7 +23,7 @@ const books = defineCollection({
         author: z.string(),
         cover: z.string().optional(),
         dateRead: z.string().transform((str) => new Date(str)),
-        rating: z.number().min(0).max(5).optional(),
+        rating: z.number().min(0).max(5).step(0.5).optional(),
         review: z.string().optional(),
         tags: z.array(z.string()).default([]),
         links: z.object({
