@@ -247,7 +247,7 @@ At first glance, the numbers seem to favor Python. Here are some quick stats:
 
 Reality is, of course, more complex.
 
-Organizations that pursue wholesale Python rewrites often face "sticker shock" – real costs frequently exceed $200k[^11]. Not only must teams write new code, they have to rebuild and validate existing statistical workflows, transfer deep domain knowledge, survive production system downtime, and often sacrifice statistical optimizations that were custom-built for their specific needs.
+Organizations that pursue wholesale Python rewrites often face "sticker shock" – real costs often cost much more than expected. Not only must teams write new code, they have to rebuild and validate existing statistical workflows, transfer deep domain knowledge, survive production system downtime, and often sacrifice statistical optimizations that were custom-built for their specific needs.
 
 Oftentimes, this ends up being a months-long organizational challenge.
 
@@ -290,22 +290,7 @@ CMD ["python3", "api.py"]
 
 Play to each language's strengths while maintaining clean interfaces between them. Let your architecture reflect your team's expertise and your problem domain, not the other way around.
 
-## Zooming Out
-
-Instead of picking sides, we need to focus on what actually matters: the trade-offs. Here's how R and Python really compare in production environments:
-
-| Dimension | R | Python | Real-World Impact |
-|-----------|---|--------|-------------------|
-| Development Workflow | Statistical heritage, specialized for analytics | "Native" cloud tools, general-purpose foundation | Infrastructure choices often matter more than language features |
-| Package Ecosystem | CRAN's strict validation, focused statistical packages (e.g., tidyverse, ggplot2) | PyPI's rapid releases, vast library count (380,000+), broader scope | Choose based on stability needs vs. development speed |
-| Statistical Computing | Domain-specific advantages, optimized for statistical analysis | General-purpose tools with strong numerical libraries | Let your specific problem domain guide the choice |
-| Team Dynamics | Specialized expertise, strong in academic/research settings | Wider talent pool, popular among developers | Consider existing team skills and hiring pipeline |
-| Production Support | Growing cloud presence, strong RStudio integration | Extensive SDKs, native cloud support | Modern tools bridge most gaps |
-| Data Handling | Strong support for statistical datasets, direct import from statistical software (SPSS, Minitab) | Versatile data handling, strong in web scraping and SQL integration | Choose based on your data sources and processing needs |
-| IDE Support | RStudio dominance, specialized statistical tools | Multiple robust options (Spyder, PyCharm, Jupyter) | Development environment preferences matter less than team workflow |
-| Primary Use Case | Statistical analysis, research, data visualization | General programming, web development, ML/AI | Consider your project's primary focus |
-
-But these comparisons miss the larger point. When someone suggests a rewrite, they're often trying to solve the <i>wrong</i> problem. Success in production depends more on how the greater system is architected:
+When someone suggests a rewrite, they're often trying to solve the <i>wrong</i> problem. Zoom out, define the problem you are trying to solve, and define a clear and efficient architecture:
 
 <figure>
 <Mermaid diagram={`
@@ -378,8 +363,6 @@ Next time the rewrite discussion comes up, dig deeper. The answer usually reveal
 [^9]: Netflix Tech Blog, "<a href="https://netflixtechblog.com/reimagining-experimentation-analysis-at-netflix-71356393af21">Reimagining Experimentation Analysis at Netflix</a>" (2019). Their move to a hybrid architecture proved that perceived language limitations often trace back to infrastructure decisions, not the languages themselves. Worth a read.
 
 [^10]: Roche's clinical trial framework emphasizes R's advantages in regulatory compliance, particularly CRAN's package validation requirements which align well with FDA submission guidelines.
-
-[^11]: Complete rewrites typically cost 2-3x initial estimates when accounting for all factors including knowledge transfer and system validation.
 
 [^12]: Modern microservices architectures increasingly use language-specific services, communicating via well-defined APIs rather than forcing standardization.
 
