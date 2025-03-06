@@ -7,6 +7,9 @@ import rehypeKatex from 'rehype-katex';
 import codeTheme from './src/utils/code-theme.json';
 
 export default defineConfig({
+    prefetch: {
+        prefetchAll: true
+    },
     site: 'https://salm.dev',
     integrations: [
         tailwind(),

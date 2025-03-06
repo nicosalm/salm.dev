@@ -2,46 +2,36 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { calculateReadingTime } from '../utils/readingTime';
-
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) =>
     new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
-
 <Layout title="Blog">
     <div class="max-w-2xl mx-auto">
-        <section class="mb-12">
-            <h1 class="text-3xl font-normal mb-4">Writing</h1>
-            <p class="text-gray-600 dark:text-gray-400 mb-8">
+        <section class="mb-8">
+            <h1 class="text-3xl font-normal mb-2">Writing</h1>
+            <p class="text-gray-600 dark:text-gray-400">
                 Hot takes and cool things.
             </p>
         </section>
-
         <section>
-            <h2 class="text-2xl font-normal mb-4">All Posts</h2>
-            <div class="space-y-6">
+            <div class="space-y-4">
                 {sortedPosts.map(post => (
-                <article class="border-b dark:border-gray-800 pb-6 last:border-0">
+                <article class="border-b dark:border-gray-800 pb-4 last:border-0">
                     <a href={`/blog/${post.slug}`} class="block group">
-                        <h3 class="text-lg group-hover:underline">{post.data.title}</h3>
-                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 gap-4 mt-1">
-                            <time datetime={post.data.date}>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                            <h3 class="text-lg group-hover:underline">{post.data.title}</h3>
+                            <time datetime={post.data.date} class="text-sm text-gray-600 dark:text-gray-400">
                                 {new Date(post.data.date).toLocaleDateString('en-US', {
                                 year: 'numeric',
-                                month: 'long',
+                                month: 'short',
                                 day: 'numeric'
                                 })}
                             </time>
-                            <span class="inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                                </svg>
-                                {calculateReadingTime(post.body)} min read
-                            </span>
                         </div>
                         {post.data.description && (
-                        <p class="mt-2 text-gray-700 dark:text-gray-300 text-sm">
+                        <p class="mt-1 text-gray-700 dark:text-gray-300 text-sm">
                             {post.data.description}
                         </p>
                         )}
