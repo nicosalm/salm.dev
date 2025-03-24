@@ -1,0 +1,11 @@
+dist/
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
+*.log
+*.tmp
+.env
+/target
+/src/writing/ideas.txt
