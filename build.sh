@@ -31,6 +31,15 @@ setup_directories() {
   cp src/assets/favicon.svg dist/assets/
 }
 
+has_math_content() {
+  local file="$1"
+  grep -q -E '(^|[[:space:][:punct:]])\$[^\$\n]{1,100}\$' "$file" && return 0
+  grep -q -E '\$\$[^$\n]+\$\$' "$file" && return 0
+  grep -q -E '\\begin\{(equation|align|math|displaymath)\*?\}' "$file" && return 0
+  grep -q -E '\\[\(\)\[\]]' "$file" && return 0
+  return 1
+}
+
 process_post() {
   local dir="$1"
   local name=$(basename "$dir")
@@ -51,8 +60,14 @@ process_post() {
 
   POSTS+=("$date|$date_rfc|$title|$name|$desc")
 
+  local math_flag=""
+  if has_math_content "$mdfile"; then
+      math_flag="-V has_math=true"
+      echo "Math content detected in $name"
+  fi
+
   pandoc "$mdfile" --standalone --template=src/templates/post.html --mathjax \
-      -o "dist/writing/$name/index.html" -V title="$title" -V date="$date"
+    -o "dist/writing/$name/index.html" -V title="$title" -V date="$date" $math_flag
 
   if [ -d "${dir}images" ]; then
       mkdir -p "dist/writing/$name/images"
