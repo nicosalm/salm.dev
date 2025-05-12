@@ -71,18 +71,43 @@ generate_posts_index() {
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>writing | salm.dev</title>
+    <style>
+        .post-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .post-link[data-description]:hover::after {
+            content: attr(data-description);
+            position: absolute;
+            left: 0;
+            top: 100%;
+            margin-top: 5px;
+            z-index: 1;
+            width: 320px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
     <div>
         <header><a href="/">home</a> / writing</header>
-        <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
+        <h1>writing (<a href="../rss.xml">RSS</a>)</h1>
+        <p>My programming adventures, unfiltered thoughts, and current obsessions.</p>
         <ul>
 HTML
-
-  (IFS=$'\n'; sort -r <<<"${POSTS[*]}") | while IFS="|" read -r date _ title name _; do
-    echo "<li>$date :: <a href=\"/writing/$name/\">$title</a></li>" >> dist/writing/index.html
+  (IFS=$'\n'; sort -r <<<"${POSTS[*]}") | while IFS="|" read -r date date_rfc title name desc; do
+    local escaped_desc=$(escape "$desc")
+    echo "<li>$date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>" >> dist/writing/index.html
   done
-
   cat >> dist/writing/index.html << HTML
         </ul>
     </div>
