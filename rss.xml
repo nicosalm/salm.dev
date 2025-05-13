@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>salm.dev</title>
+  <link>https://salm.dev</link>
+  <description>Hot takes and cool things</description>
+  <language>en-us</language>
+  <lastBuildDate>Tue, 13 May 2025 17:10:03 +0000</lastBuildDate>
+  <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title>Winning Pokémon Showdown (w/ Game Theory!)</title>
+    <link>https://salm.dev/writing/winning-pokemon-showdown-with-game-theory/</link>
+    <guid>https://salm.dev/writing/winning-pokemon-showdown-with-game-theory/</guid>
+    <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+    <description><![CDATA[ We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. Funny enough, they perfectly matched what our friend with 5000+ hours in the game already knew. ]]></description>
+  </item>
+  <item>
+    <title>Dungeons, Dragons &amp; Development</title>
+    <link>https://salm.dev/writing/dungeons-dragons-and-development/</link>
+    <guid>https://salm.dev/writing/dungeons-dragons-and-development/</guid>
+    <pubDate>Mon, 21 Apr 2025 00:00:00 +0000</pubDate>
+    <description><![CDATA[ Creating custom (&quot;homebrew&quot;) D&amp;D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected &quot;worlds&quot; which must remain cohesive while evolving over time. ]]></description>
+  </item>
+  <item>
+    <title>Beyond Language Wars</title>
+    <link>https://salm.dev/writing/beyond-language-wars/</link>
+    <guid>https://salm.dev/writing/beyond-language-wars/</guid>
+    <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
+    <description><![CDATA[ The debate between programming languages in data science is usually a red herring that masks fundamental architectural challenges. I look into when rewrites make sense, and when they actually mask deeper problems. ]]></description>
+  </item>
+  <item>
+    <title>Command Line Productivity</title>
+    <link>https://salm.dev/writing/command-line-productivity/</link>
+    <guid>https://salm.dev/writing/command-line-productivity/</guid>
+    <pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+    <description><![CDATA[ I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim. ]]></description>
+  </item>
+  <item>
+    <title>Preserving My Future Self</title>
+    <link>https://salm.dev/writing/preserving-my-future-self/</link>
+    <guid>https://salm.dev/writing/preserving-my-future-self/</guid>
+    <pubDate>Sun, 18 Aug 2024 00:00:00 +0000</pubDate>
+    <description><![CDATA[ I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got a new, expensive keyboard that got sawed in half. Either way, it was an adventure worth sharing. ]]></description>
+  </item>
+</channel></rss>

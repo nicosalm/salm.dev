@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Winning Pokémon Showdown (w/ Game Theory!) | salm.dev</title>
+    </head>
+<body>
+    <div>
+        <header>
+            <a href="/">home</a> / <a href="/writing/">writing</a>
+        </header>
+        <article>
+            <h1 id="winning-pokémon-showdown-w-game-theory">Winning
+            Pokémon Showdown (w/ Game Theory!)</h1>
+            <p>Date: 2025-05-11</p>
+            <blockquote>
+            <p>We analyzed Pokémon Showdown battles using game theory
+            and found the mathematically optimal strategies. Funny
+            enough, they perfectly matched what our friend with 5000+
+            hours in the game already knew.</p>
+            </blockquote>
+            <h2 id="premise">Premise</h2>
+            In <a href="https://pokemonshowdown.com/">Pokémon
+            Showdown</a>, you build a team of Pokémon and battle. In the
+            1v1 format, you bring a team of three Pokémon. A game
+            consists of a “choosing” phase (left) and a “battling” phase
+            (right):
+            <table style="margin: 0 auto; border-collapse: collapse;">
+            <tr>
+            <td style="padding: 10px; text-align: center;">
+            <img src="./images/choosing-phase.png" alt="choosing phase">
+            </td>
+            <td style="padding: 10px; text-align: center;">
+            <img src="./images/battle-phase.png" alt="battling phase">
+            </td>
+            </tr>
+            </table>
+            <p>When a player’s Pokemon’s HP reaches 0, the other player
+            wins:</p>
+            <p><img src="./images/outcome.gif" alt="Battle outcome GIF" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;"></p>
+            <h2 id="the-seven-pokémon-we-analyzed">The Seven Pokémon We
+            Analyzed</h2>
+            <p>For our project, my friends and I focused on seven of the
+            most commonly used Pokémon in the January 2021 Pokémon
+            Showdown 1v1 leaderboard:</p>
+            <img src="./images/top-7.png" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Primarina, Sylveon, Heatran, Urshifu, Rillaboom, Garchomp,
+            and Zapdos
+            </p>
+            <p>Each Pokémon has its own unique typing, movesets, and
+            stats that create diverse strategic matchups. For
+            consistency, we used the most popular standard moveset for
+            each Pokémon according to <a
+            href="https://www.smogon.com/dex/ss/pokemon/">Smogon’s
+            Strategy Dex</a>.</p>
+            <h2 id="our-approach">Our Approach</h2>
+            <p>This is where Game Theory comes into play. Pokémon
+            battles are naturally <a
+            href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum
+            games</a>: one player’s win is the other player’s loss. Each
+            turn, both players select moves simultaneously, which
+            creates an interesting strategic dynamic perfect for game
+            theory analysis.</p>
+            <p>We modeled these battles in two key stages:</p>
+            <h2
+            id="the-battling-phase-finding-optimal-move-strategies">The
+            Battling Phase (Finding Optimal Move Strategies)</h2>
+            <p>First, we needed to understand how each Pokémon matchup
+            would play out when both players use optimal strategies.
+            This required us to create turn-based payoff matrices for
+            each possible matchup (a <a
+            href="https://en.wikipedia.org/wiki/Normal-form_game">normal
+            form game</a> representation of the strategic interactions),
+            calculating the expected damage and effects of every
+            possible move combination with Showdown’s <a
+            href="https://calc.pokemonshowdown.com/">Pokémon Damage
+            Calculator</a>.</p>
+            <img src="./images/single-turn-payoff.png" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            This payoff matrix shows damage ranges between Garchomp and
+            Sylveon’s moves
+            </p>
+            <p>Pokémon battles have numerous random elements: move
+            accuracy, critical hits, and damage ranges. To handle this,
+            we built <a
+            href="https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html">expectimax
+            trees</a> (a variant of <a
+            href="https://en.wikipedia.org/wiki/Extensive-form_game">extensive
+            form games</a>) that calculated the expected outcome of each
+            decision.</p>
+            <img src="./images/example-game-tree.png" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Example of a battle decision tree showing Hyper Beam
+            outcomes between Primarina and Sylveon
+            </p>
+            <p>Some moves like <em>Sucker Punch</em> (which only works
+            if the opponent uses an attacking move) create
+            rock-paper-scissors style mind games that required <a
+            href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy">mixed
+            strategy Nash equilibria</a>. For particularly complex
+            scenarios, we put together a reinforcement learning
+            algorithm to discover optimal mixed strategies that wouldn’t
+            be obvious through direct calculation.</p>
+            <img src="./images/sucker-punch.png" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Sucker Punch move
+            </p>
+            <h3 id="the-math-behind-nash-equilibrium">The Math Behind
+            Nash Equilibrium</h3>
+            <p>Here’s a simplified example of how we computed Nash
+            equilibrium strategies for a zero-sum game using <a
+            href="https://en.wikipedia.org/wiki/Linear_programming">linear
+            programming</a>:</p>
+            <div class="sourceCode" id="cb1"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_nash_equilibrium(payoff_matrix):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute the Nash equilibrium for a zero-sum game using linear programming.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">        payoff_matrix: A numpy array where A[i,j] is the payoff when player 1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">                      plays strategy i and player 2 plays strategy j</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        tuple (p1_strategy, p2_strategy, value) containing optimal mixed strategies</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    num_rows, num_cols <span class="op">=</span> payoff_matrix.shape</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player 1&#39;s linear program </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> np.zeros(num_rows <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    c[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>  <span class="co"># maximize v (game value)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Constraints ensuring expected payoff is at least v against any opponent strategy</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    A_ub <span class="op">=</span> np.zeros((num_cols, num_rows <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_cols):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        A_ub[j, :<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span>payoff_matrix[:, j]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        A_ub[j, <span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    b_ub <span class="op">=</span> np.zeros(num_cols)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Constraint that probabilities sum to 1</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    A_eq <span class="op">=</span> np.zeros((<span class="dv">1</span>, num_rows <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    A_eq[<span class="dv">0</span>, :<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    b_eq <span class="op">=</span> np.ones(<span class="dv">1</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    bounds <span class="op">=</span> [(<span class="dv">0</span>, <span class="dv">1</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_rows)] <span class="op">+</span> [(<span class="va">None</span>, <span class="va">None</span>)]</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve the linear program</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    res1 <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                   bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">&#39;highs&#39;</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract player 1&#39;s strategy and game value</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    p1_strategy <span class="op">=</span> res1.x[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="op">-</span>res1.fun</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player 2&#39;s linear program (omitted for brevity)</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p1_strategy, p2_strategy, v</span></code></pre></div>
+            <p>The code above computes the mathematically optimal mixed
+            strategy for each player. For example, in the <em>Rillaboom
+            vs. Urshifu</em> matchup, this approach identified that the
+            optimal strategy for Urshifu in turns 3+ was to use a
+            perfectly balanced mixed strategy of <em>Sucker Punch</em>
+            50% of the time and <em>Wicked Blow</em> 50% of the time,
+            while Rillaboom should adaptively choose between <em>Swords
+            Dance</em> and <em>Grassy Glide</em> based on battle
+            conditions (a result that expert players had intuitively
+            discovered through experience!)</p>
+            <h2 id="the-choosing-phase-team-selection-strategies">The
+            Choosing Phase (Team Selection Strategies)</h2>
+            <p>After simulating over 1 million battles for each possible
+            matchup, we created a comprehensive payoff matrix of win
+            probabilities:</p>
+            <img src="./images/payoff-matrix-full.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Matchup win probability matrix
+            </p>
+            <p>Using this matrix, we could then solve for Nash
+            equilibria in the team selection phase, applying <a
+            href="https://en.wikipedia.org/wiki/Minimax_theorem">minimax
+            theorem</a> principles.</p>
+            <h3 id="analyzing-team-performance">Analyzing Team
+            Performance</h3>
+            <p>We analyzed all 35 possible team combinations using our 7
+            selected Pokémon, evaluating a total of 595 unique matchups.
+            Here’s how we calculated the average win rates:</p>
+            <div class="sourceCode" id="cb2"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_matchup(team_a, team_b, win_probabilities):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Analyze a Pokémon matchup and return the game value (win probability for team_a).</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create payoff matrix where A[i,j] = win probability when Pokémon i faces Pokémon j</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    payoff_matrix <span class="op">=</span> create_payoff_matrix(team_a, team_b, win_probabilities)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute Nash equilibrium</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    _, _, game_value <span class="op">=</span> compute_nash_equilibrium(payoff_matrix)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> game_value</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate win rates for all teams</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>team_results <span class="op">=</span> {}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> team <span class="kw">in</span> all_team_combinations:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    total_win_rate <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    total_matchups <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> opponent_team <span class="kw">in</span> all_team_combinations:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> team <span class="op">!=</span> opponent_team:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            win_rate <span class="op">=</span> analyze_matchup(team, opponent_team, win_probabilities)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            total_win_rate <span class="op">+=</span> win_rate</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            total_matchups <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    team_results[team] <span class="op">=</span> total_win_rate <span class="op">/</span> total_matchups</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort teams by average win rate</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>best_teams <span class="op">=</span> <span class="bu">sorted</span>(team_results.items(), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+            <img src="./images/team-performance-ranking.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Team performance ranking based on average win rates
+            </p>
+            <h2 id="key-findings">Key Findings</h2>
+            <p>Our analysis revealed that the strongest team composition
+            was Heatran, Sylveon, and Zapdos with a solid 62.4% average
+            win rate across all matchups! The combination of Garchomp,
+            Heatran, and Urshifu struggled significantly with just a
+            29.7% win rate. Among individual Pokémon, Sylveon proved to
+            be the most versatile performer, maintaining a 55.3% win
+            rate across all team compositions.</p>
+            <img src="./images/avg-winrate.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Best and worst performing Pokémon based on Nash equilibrium
+            calculations
+            </p>
+            <p>Teams containing Sylveon and Zapdos generally performed
+            well in our simulations, while teams pairing Heatran with
+            Urshifu tended to underperform. The most successful teams
+            generally featured complementary types that effectively
+            covered each other’s weaknesses.</p>
+            <h2 id="cool-matchup-examples">Cool Matchup Examples</h2>
+            <h3 id="heatran-vs.-garchomp">Heatran vs. Garchomp</h3>
+            <p>One of the simpler matchups we analyzed was <em>Heatran
+            vs. Garchomp</em>. Despite Garchomp’s fearsome reputation,
+            our models determined Heatran should win 81.7% of the time
+            when both players use optimal strategies.</p>
+            <img src="./images/matchup-heatran-garchomp.png" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Battle setup and outcome for Heatran vs. Garchomp
+            </p>
+            <p>The optimal strategy for Heatran is to use
+            <em>Will-O-Wisp</em> on turn 1 (to burn and halve Garchomp’s
+            attack), then switch to <em>Dragon Pulse</em> for subsequent
+            turns. Garchomp should use <em>Stone Edge</em> despite its
+            80% accuracy, as it offers the highest expected damage
+            output.</p>
+            <h3 id="rillaboom-vs.-urshifu">Rillaboom vs. Urshifu</h3>
+            <p>The strategic mind games in the <em>Rillaboom
+            vs. Urshifu</em> were where things began to get interesting.
+            <em>Sucker Punch</em>, which only works against attacking
+            moves, creates a complicated decision matrix where neither
+            Pokémon can rely on a single dominant strategy.</p>
+            <img src="./images/payoff-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Payoff matrix for Rillaboom vs. Urshifu involving the move
+            Sucker Punch
+            </p>
+            <p>Crunching the numbers reveals Urshifu should employ a
+            perfect 50/50 split between Sucker Punch and Wicked Blow
+            after turn 2, while Rillaboom adapts based on battle
+            conditions:</p>
+            <img src="./images/matchup-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Battle setup and outcome for Rillaboom vs. Urshifu
+            </p>
+            <p>Despite optimal play from both sides, Rillaboom maintains
+            a 69.5% win rate – at the end of the day, some matchup just
+            favor certain Pokémon regardless of strategic choices.</p>
+            <h2 id="an-interesting-convergence">An Interesting
+            Convergence</h2>
+            <p>Jake, our Pokémon expert (with over 5000 hours?!),
+            predicted almost identical strategies to our mathematical
+            model. This convergence demonstrates that formal game theory
+            often confirms what skilled players discover through
+            experience. In other words, the mathematically optimal
+            strategy frequently matches strategies already employed by
+            those with deep game understanding.</p>
+            <h2 id="nash-equilibria-in-team-selection">Nash Equilibria
+            in Team Selection</h2>
+            <p>Some team matchups resulted in <a
+            href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Pure_and_mixed_strategies">pure
+            Nash equilibria</a> with dominant strategies:</p>
+            <img src="./images/pne.png" alt="Pure Nash Equilibrium" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Example of a pure Nash equilibrium in team selection
+            </p>
+            <p>While others required mixed strategies, creating a
+            Rock-Paper-Scissors dynamic:</p>
+            <img src="./images/mixed.png" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">
+            Example of a mixed Nash equilibrium in team selection
+            </p>
+            <p>Interestingly, when we analyzed the direct matchup
+            between our best team (Heatran, Sylveon, Zapdos) and worst
+            team (Garchomp, Heatran, Urshifu), the win rate was only
+            50.5% in favor of the best team. We believe this makes
+            sense, because team composition effectiveness depends
+            greatly on the broader metagame, not simply individual
+            matchups.<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a></p>
+            <h2 id="challenges-limitations">Challenges &amp;
+            Limitations</h2>
+            <p>Our biggest challenge was handling Pokémon’s inherent
+            randomness. With 16 possible damage rolls per move and
+            battles lasting multiple turns, we needed high-iteration
+            simulations rather than pure expectimax trees to get
+            reliable win rates.<a href="#fn2" class="footnote-ref"
+            id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+            <p>We also faced balance issues: initially, Rillaboom
+            dominated with no bad matchups (worst case: 50% win rate
+            against itself), creating boring results. Adding Zapdos and
+            Garchomp created a more interesting strategic landscape.
+            This led to boring games with repetitive outcomes, so we
+            added Zapdos and Garchomp to make games more even and
+            interesting to model.</p>
+            <p>One limitation was our decision to use fixed movesets. In
+            competitive play, moveset variation is crucial, with Pokémon
+            like Iron Valiant (<a
+            href="https://www.smogon.com/stats/">currently #1 in
+            1v1</a>) being powerful precisely because of its
+            unpredictable moveset options.<a href="#fn3"
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a></p>
+            <h2 id="conclusion-future-work">Conclusion &amp; Future
+            Work</h2>
+            <p>This project successfully modeled optimal strategies in
+            Pokémon battles using game theory, revealing team
+            compositions and move selections that aligned surprisingly
+            well with expert players’ intuitions.</p>
+            <p>The computational complexity of our approach grows
+            exponentially with each additional Pokémon we analyze. With
+            just 7 Pokémon, we had to evaluate 595 unique matchups.
+            Expanding to 50 Pokémon would require analyzing over 230,000
+            team combinations and millions of potential matchups. The
+            mathematics becomes daunting: for n Pokémon, we’d need to
+            analyze approximately O(n² + (n choose 3)²) matchups when
+            accounting for both individual and team battles. The
+            combinatorial explosion in Pokémon battles creates a
+            mathematical sweet spot where optimal strategies remain
+            theoretically solvable yet practically challenging to
+            discover due to their enormous state space. That said, it
+            <em>is</em> possible! (We might just have to rewrite our
+            Python to Rust…)</p>
+            <p>Looking ahead, we’d like to expand beyond our 7 Pokémon
+            to analyze the top 50 in the current meta. This expansion
+            would involve incorporating <a
+            href="https://en.wikipedia.org/wiki/Bayesian_game">Bayesian
+            game</a> principles to account for incomplete information
+            (like unknown opponent movesets) and <a
+            href="https://en.wikipedia.org/wiki/Stochastic_game">stochastic
+            (Markov) game</a> modeling to handle the probabilistic
+            nature of Pokémon battles. We also aim to incorporate
+            moveset variations into our model and tackle the
+            substantially more complex 6v6 format with switching (5
+            switch options + the 4 move options on each turn).</p>
+            <p>Our <a
+            href="https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf">paper</a>
+            and <a
+            href="https://github.com/nicosalm/pokemon-expectimax/tree/main">code</a>
+            are available on GitHub if you’d like to explore our methods
+            or build upon our work. Special thanks to Professor Manolis
+            Vlatakis for being an encouraging mentor through this
+            process! This project spawned out of his graduate class at
+            UW-Madison: Game Theory, Optimization, and Learning (in
+            Spring ’25).</p>
+            <h2 id="footnotes">Footnotes</h2>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>This demonstrates the “<a
+            href="https://en.wikipedia.org/wiki/Intransitivity">intransitivity</a>”
+            property in Pokémon team selection – just because Team A
+            beats Team B and Team B beats Team C doesn’t necessarily
+            mean Team A beats Team C. This creates a complex competitive
+            landscape where no single team dominates everything. This
+            situation is also similar to the <a
+            href="https://en.wikipedia.org/wiki/Condorcet_paradox">Condorcet
+            paradox</a> in social choice theory.<a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>Our final solution involved running over 1
+            million simulations for each matchup to accurately account
+            for all possible random outcomes. This was computationally
+            intensive but necessary to get statistically significant
+            results.<a href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>While we used the standard Smogon Strategy
+            Dex movesets for consistency, competitive players often use
+            surprise movesets to gain an edge. This “meta-gaming” aspect
+            creates another layer of game theory that could be explored
+            in future work.<a href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+        </article>
+    </div>
+    <footer>
+        <p>© 2025 salm.dev</p>
+    </footer>
+</body>
+</html>

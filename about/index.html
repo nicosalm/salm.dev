@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <title>about | salm.dev</title>
+        <style>
+        @media (max-width: 576px) {
+            .about-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-container img {
+                margin-bottom: 20px;
+                order: -1;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <a href="/">home</a> / about
+        </header>
+        <h1>
+            hello, i am nico!
+        </h1>
+        <div style="display: flex; gap: 20px; justify-content: space-between;" class="about-container">
+            <div>
+                <p>
+                    Computers weren't my childhood obsession. I spent most of my time with my nose in fantasy books (Patrick Rothfuss and Ken Follet are particular favorites). While I was always the go-to person for tech problems and enjoyed modding games, it wasn't until after AP CSA in my senior year of high school that I truly started programming.
+                </p>
+                <p>
+                    What drew me in was discovering how programming connects to my creative interests: world-building, drawing, and bringing imagined scenes to life. Programming is like another canvas, but with the unique advantage that my creations are tangible and useful to others. I love getting lost in problems until I suddenly realize it's 3 AM—that feeling when time completely escapes me while solving a challenging puzzle.
+                </p>
+            </div>
+            <img src="/assets/me.jpg" alt="Nico" style="width: 220px; height: 220px;">
+        </div>
+        <p>
+            What continues to captivate me is understanding how systems interact beneath the surface, the hidden infrastructure behind what users experience. This perspective guides everything I build, from personal projects to my work during internships.
+        </p>
+        <h2>
+            studies
+        </h2>
+        <p>
+            I am a student at the University of Wisconsin-Madison, double majoring in Computer Sciences and Data Science. I spend most of my time hanging out in the <a href="https://www.upl.cs.wisc.edu/" target="blank">Undergraduate Projects Lab</a> on campus with my friends "getting work done".
+        </p>
+        <p>
+            Here is a list of some of my favorite classes:
+        </p>
+        <ul>
+            <li>Game Theory, Learning and Optimization* (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
+            <li>Data Exploration, Cleaning, and Integration for Data Science* (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
+            <li>Theory of Multi-agent Machine Learning* (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
+            <li>Introduction to Operating Systems (<a href="https://pages.cs.wisc.edu/~swift" target="_blank">Michael Swift</a>)</li>
+            <li>Database Management Systems: Design and Implementation (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
+            <li>Introduction to Big Data Systems (<a href="https://tyler.caraza-harter.com/" target="_blank">Tyler Caraza-Harter</a>)</li>
+        </ul>
+        <small>* graduate-level classes</small>
+        <h2>
+            interests
+        </h2>
+        <p>
+            My technical interests center around big data systems, distributed computing, and statistical analysis. I'm particularly drawn to the hard systems questions that make data science possible at scale. Recently, I've been exploring Game Theory. It is cool.
+        </p>
+        <p>
+            I do exist beyond coursework and "CS career"-type business. I enjoy reading (fantasy novels, historical texts), playing tabletop roleplaying games, historical/strategy/military videogames (Paradox games, Total War, ArmA series), drawing, long-distance running outside in Madison, and I'm looking forward to rekindling my passion for piano playing.
+        </p>
+
+        <hr class="solid">
+        <h1>
+            colophon
+        </h1>
+        <p>
+            A colophon is a brief statement that appears at the end of a book, providing information about its production. I got the idea from <a href="https://www.amoses.dev/" target="_blank">Andrew</a>, and while I don't believe I will do as great a job as he did with his, here is my best shot:
+        </p>
+        <p>
+            There's a running joke among my friends that I go through many websites. This one will hopefully stand the test of time. I've had a lot of fun writing salm.dev #5 using only HTML/CSS with a build.sh script, <a href="https://pandoc.org/" target="_blank">Pandoc</a>, and post templates for the blog. I have enjoyed that I have to figure things out rather than getting features out of the box, as it forces me to really consider what I actually want.
+        </p>
+        <p>
+            The site is intentionally minimal, with no JavaScript except for conditional loading of MathJax on blog posts that require LaTeX rendering (a necessary concession). Content is processed from Markdown files using Pandoc, creating a static site that's lightweight and fast. While I might run into challenges down the road, the simplicity of the system makes maintenance straightforward.
+        </p>
+        <p>
+            This is officially my last site rewrite before focusing on "real projects." Next up in the pipeline is implementing image optimization with jpegli to further improve performance while maintaining visual quality.
+        </p>
+
+        <div style="text-align: right; margin-top: 40px; margin-bottom: 40px; padding-right: 8px;">
+            <p style="margin-bottom: 8px; font-style: italic;">
+                See you space cowboy...
+            </p>
+            <p>
+                — Nico
+            </p>
+        </div>
+
+    </body>
+</html>
+
+

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Beyond Language Wars | salm.dev</title>
+    </head>
+<body>
+    <div>
+        <header>
+            <a href="/">home</a> / <a href="/writing/">writing</a>
+        </header>
+        <article>
+            <h1 id="beyond-language-wars">Beyond Language Wars</h1>
+            <p>Date: 2025-02-15</p>
+            <blockquote>
+            <p>The debate between programming languages in data science
+            is usually a red herring that masks fundamental
+            architectural challenges. I look into when rewrites make
+            sense, and when they actually mask deeper problems.</p>
+            </blockquote>
+            <p>During my data science internship, our R-based prediction
+            model reached 92% accuracy, and someone immediately stated,
+            “Great, now let’s port it to Python!” That moment stuck with
+            me – mostly because it meant I would be rewriting code to
+            Python (a silly and annoyingly-useful language for data
+            science), but also because it reveals a deeper question
+            about how we build ML systems: When does the programming
+            language actually matter?</p>
+            <p>I used to be the one saying “let’s port it to &lt;X&gt;!”
+            – spending entire weekends rewriting “good enough”<a
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> code. As it turns out,
+            being the “I rewrote everything” guy usually creates more
+            problems than it solves. These days, I’m more interested in
+            understanding what each language brings to the table, and
+            how we can intelligently compose their strengths to exceed
+            expectations.</p>
+            <h2 id="the-standard-python-argument">The Standard Python
+            Argument</h2>
+            <p>The push for Python standardization typically rests on
+            three pillars: deployment simplicity, package management,
+            and cloud integration. On the surface, it seems like an easy
+            sell. However, <b>the devil is in the details</b>.</p>
+            <h3 id="i.-deployment-simplicity">I. Deployment
+            Simplicity</h3>
+            <p>Take AWS Lambda deployment:</p>
+            <div class="sourceCode" id="cb1"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lambda_handler(event, context):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> load_model()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">&#39;prediction&#39;</span>: <span class="bu">float</span>(model.predict(event[<span class="st">&#39;data&#39;</span>]))}</span></code></pre></div>
+            <p>Clean, native support. Meanwhile in R:</p>
+            <div class="sourceCode" id="cb2"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Requires Plumber API wrapping</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#* @post /predict</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span>(req) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">use_condaenv</span>(<span class="st">&quot;r-api&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  predictions <span class="ot">&lt;-</span> model<span class="sc">$</span><span class="fu">predict</span>(req<span class="sc">$</span>data)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">prediction =</span> predictions)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+            <p>The R deployment setup isn’t pretty. But focusing on
+            deployment simplicity misses the point. At scale, teams face
+            bigger questions about building maintainable, reliable
+            systems that developers can actually work with. Netflix’s
+            approach shows us a smarter way to handle this balancing
+            act, which we’ll dig into later.</p>
+            <h3 id="ii.-package-management">II. Package Management</h3>
+            <p>Python’s packaging story appears cleaner:</p>
+            <div class="sourceCode" id="cb3"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .  <span class="co"># Install from pyproject.toml</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or for production:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install .</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> mymodel .</span></code></pre></div>
+            <p>While in R you might see something like:</p>
+            <div class="sourceCode" id="cb4"><pre
+            class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">install.packages</span><span class="er">(</span><span class="st">&#39;renv&#39;</span><span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">renv::init()</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">renv::restore()</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pray your system dependencies align</span></span></code></pre></div>
+            <p>The choice here boils down to ecosystem priorities.
+            Python’s packaging evolved alongside web development,
+            prioritizing fast iteration and deployment. Meanwhile, R’s
+            <a href="https://cran.r-project.org">CRAN</a> system
+            reflects its heritage as a scientific computing language,
+            emphasizing stability and reproducibility.</p>
+            <h3 id="iii.-cloud-integration">III. Cloud Integration</h3>
+            <p>Python’s cloud support appears dominant at first
+            glance:</p>
+            <div class="sourceCode" id="cb5"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Azure ML deployment</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> azureml.core <span class="im">import</span> Workspace, Environment</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ws <span class="op">=</span> Workspace.from_config()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model.register(ws, model_path<span class="op">=</span><span class="st">&quot;model.pkl&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># GCP integration</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.cloud <span class="im">import</span> aiplatform</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> aiplatform.Endpoint(endpoint_name<span class="op">=</span>ENDPOINT_NAME)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>endpoint.deploy(model<span class="op">=</span>model)</span></code></pre></div>
+            <p>Python’s apparent cloud advantage is more about timing
+            than technical merit. Major cloud providers invested heavily
+            in Python support early (AWS Lambda launched Python support
+            in October of 2015, R in December of 2018), creating robust
+            documentation and tooling. This early adoption by tech
+            giants created a
+            <a href="https://www.jimcollins.com/article_topics/articles/the-flywheel-effect.html">flywheel
+            effect</a> – better tools led to more adoption, which led to
+            better tools.</p>
+            <h2 id="in-defense-of-r">In Defense of R</h2>
+            <p>R’s evolution from statistical computing to production
+            systems creates a series of unique strengths worth
+            mentioning.</p>
+            <h3 id="i.-statistical-computing-is-near-perfect">I.
+            Statistical Computing is Near-Perfect</h3>
+            <p>R is <i>really good</i> at clean and concise statistical
+            computing:</p>
+            <div class="sourceCode" id="cb6"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed effects model with post-hoc analysis</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(response <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>subject), <span class="at">data =</span> df) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(<span class="sc">~</span>treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adjust</span>(<span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Complex survey design with proper weighting</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ids =</span> <span class="sc">~</span>PSU,             <span class="co"># Primary sampling units</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">strata =</span> <span class="sc">~</span>region,       <span class="co"># Stratification</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="sc">~</span>weight,      <span class="co"># Sample weights</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> clinical_data</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">svymean</span>(<span class="sc">~</span>outcome)   <span class="co"># Proper variance estimation</span></span></code></pre></div>
+            <p>Many healthcare and pharmaceutical companies have built
+            R-based analysis pipelines that handle everything from
+            complex survival analysis to regulatory compliance
+            checks.</p>
+            <p>When teams attempt Python ports of core statistical
+            analysis components, the codebase often grows substantially
+            in size. Why? Python requires custom implementations of
+            statistical routines that R handles natively, plus
+            additional validation code to ensure compliance with
+            regulatory standards.</p>
+            <p>The R versions are typically more concise and contain
+            built-in statistical rigor that compliance teams already
+            trust. This isn’t a surprise. In fact, this is exactly the
+            scenario for which R optimizes.</p>
+            <h3 id="ii.-performance-optimization">II. Performance
+            Optimization</h3>
+            <p>R’s C++ integration via RCpp offers clean performance
+            optimization:</p>
+            <div class="sourceCode" id="cb7"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From slow R to fast C++ in one step!</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>RcppArmadillo<span class="sc">::</span><span class="fu">cppFunction</span>(<span class="st">&#39;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector fastFn(NumericVector x) {</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">    NumericVector out = x * 2;  // Vectorized C++</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">    return out;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span>)</span></code></pre></div>
+            <p>While both Python and R can leverage C++,
+            <a href="https://cran.r-project.org/web/packages/Rcpp/index.html">Rcpp</a>
+            makes the transition nearly seamless. No separate
+            compilation steps, no manual memory management, no breaking
+            R’s vectorized paradigm.</p>
+            <p>Compare this to Python’s
+            <a href="https://cython.org">Cython</a> or pybind11, which
+            often require separate build processes and careful attention
+            to memory handling. In many numerically intense tasks, the
+            Rcpp version can match or exceed the performance of the
+            Python equivalents with significantly less complexity.</p>
+            <h3 id="iii.-modern-tools">III. Modern Tools</h3>
+            <p>R’s development environment has evolved far beyond
+            RStudio:</p>
+            <div class="sourceCode" id="cb8"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From idea to production-ready package</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">&quot;mypackage&quot;</span>)  <span class="co"># Project scaffolding</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()           <span class="co"># CRAN-level quality checks</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()            <span class="co"># Lockfile for reproducibility</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()       <span class="co"># Auto-generated documentation</span></span></code></pre></div>
+            <p>The tooling gap has largely closed. With native LSP
+            support, VS Code’s R tools match Python’s intellisense.
+            GitHub Actions templates handle CI/CD, and container tooling
+            like <a href="https://rocker-project.org">rocker</a> makes
+            deployment as smooth as any Python package. Additionally,
+            these tools enforce good practices by default, including
+            unit testing and dependency tracking.</p>
+            <h2 id="infrastructure-reality-check">Infrastructure Reality
+            Check</h2>
+            <p>The “R can’t scale” argument is a distractor burying
+            deeper infrastructure questions. In fact, both languages
+            face the same core challenges in production:</p>
+            <h3 id="i.-container-complexity">I. Container
+            Complexity</h3>
+            <div class="sourceCode" id="cb9"><pre
+            class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python &amp; R: Nearly identical container overhead</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.9-slim</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    libgomp1 cuda-toolkit-12-0</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.0</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> <span class="dt">\</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    libxml2-dev cuda-toolkit-12-0</span></code></pre></div>
+            <p>If you use containers, then you have to deal with system
+            dependencies and runtime environments. Both languages need
+            similar support for numerical computing, GPU acceleration,
+            and network operations. Python’s apparent advantage
+            disappears once you move beyond basic web services.</p>
+            <h3 id="ii.-memory-management">II. Memory Management</h3>
+            <p>Both R and Python share the same fundamental memory
+            constraints. These include handling large datasets, garbage
+            collection overhead, and out-of-memory scenarios in
+            production. The solution isn’t language-specific, it’s
+            architectural. Whether you’re using Python’s multiprocessing
+            or R’s future package, you’ll need the same patterns:
+            streaming processing, proper chunking, and smart resource
+            allocation.</p>
+            <h3 id="iii.-stability">III. Stability</h3>
+            <p>These ecosystems handle change in fundamentally different
+            ways. Python’s ecosystem moves fast and breaks things, with
+            PyTorch pushing major changes every 8-12 months, pandas
+            regularly shifting DataFrame behavior, and numpy making
+            array handling changes that ripple through dependencies.</p>
+            <p>In contrast, R optimizes for stability: data.table has
+            maintained its core API for over five years, the tidyverse
+            ensures careful deprecation cycles, and CRAN enforces strict
+            compatibility requirements.</p>
+            <p>Neither approach is strictly better… Python optimizes for
+            rapid innovation, while R prioritizes reproducibility. The
+            choice depends more on your team’s needs and operating
+            requirements rather than any inherent “technical
+            superiority”.</p>
+            <h2 id="real-world-case-studies">Real-World Case
+            Studies</h2>
+            <p>Netflix’s recommendation system prioritizes thoughtful
+            architecture (and ignores language debates) by allowing
+            engineers to compose languages together. In doing so, they
+            capture the unique strengths of each:</p>
+            <div class="sourceCode" id="cb10"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python service layer with R statistical core</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastapi <span class="im">import</span> FastAPI</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> FastAPI()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">@app.post</span>(<span class="st">&quot;/predict&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> predict(data: Dict):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Statistical heavy lifting happens in R</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> r.source(<span class="st">&quot;recommendation_core.R&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">&quot;recommendations&quot;</span>: predictions.get_top_n(data)}</span></code></pre></div>
+            <p>Netflix’s initial instinct was to standardize on Python
+            for everything: clean APIs, unified deployment, “one
+            language to rule them all”! But, as is often the case,
+            reality proved messier. Their data scientists were most
+            productive in R for complex statistical work, while their
+            service layer needed Python’s web capabilities. Instead of
+            forcing a single-language solution, they evolved toward a
+            pragmatic split: Python services handle web-scale traffic
+            while R powers the statistical core.</p>
+            <p>In contrast, healthcare organizations often opt for pure
+            R environments, especially in clinical research:</p>
+            <div class="sourceCode" id="cb11"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Production clinical trial analysis</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> treatment <span class="sc">+</span> <span class="fu">strata</span>(risk_level),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> trial_data) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compliance requirements</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsurvplot</span>(<span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">conf.int =</span> <span class="cn">TRUE</span>,   <span class="co"># Regulatory guidelines</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>             <span class="co"># Standard reporting periods</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">break.time.by =</span> <span class="dv">90</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export_validation</span>()   <span class="co"># Audit trail</span></span></code></pre></div>
+            <p>This single-language approach makes sense when
+            statistical rigor and validation are paramount. Many
+            pharmaceutical companies build R-focused clinical trial
+            frameworks that process millions of patient data points
+            daily, leveraging R’s established track record with
+            regulatory bodies and CRAN’s strict validation requirements.
+            These frameworks often integrate directly with regulatory
+            submission pipelines (something that would take extra work
+            in Python), demonstrating how domain requirements can drive
+            architecture decisions.</p>
+            <h2 id="the-hidden-costs">The Hidden Costs</h2>
+            <p>At first glance, the numbers seem to favor Python. Here
+            are some quick stats: - Python data science roles fetch a
+            135k USD median salary and represent 71% of job postings,
+            with pandas seeing 3.2M daily PyPI downloads. - R positions,
+            meanwhile, show a slightly lower 128k USD median salary,
+            appear in 31% of postings, and see 2.1M daily tidyverse
+            downloads from CRAN.</p>
+            <p>Reality is, of course, more complex.</p>
+            <p>Organizations that pursue wholesale Python rewrites often
+            face “sticker shock” (real costs often cost much more than
+            expected). Not only must teams write new code, they have to
+            rebuild and validate existing statistical workflows,
+            transfer deep domain knowledge, survive production system
+            downtime, and often sacrifice statistical optimizations that
+            were custom-built for their specific needs.</p>
+            <p>Oftentimes, this ends up being a months-long
+            organizational challenge.</p>
+            <h2 id="making-the-decision">Making the Decision</h2>
+            <p>As we saw in the Netflix case study, modern teams are
+            moving away from blanket rewrites toward a more nuanced,
+            polyglot approach. The key point lies in understanding your
+            system’s natural boundaries and your team’s strengths.</p>
+            <p>Consider system architecture first. API boundaries often
+            create natural language transitions:</p>
+            <div class="sourceCode" id="cb12"><pre
+            class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python handling web traffic</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">@app.post</span>(<span class="st">&quot;/api/v1/predict&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict():</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># R powering statistical core</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> r.source(<span class="st">&quot;model.R&quot;</span>).predict(request.json)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jsonify({<span class="st">&quot;results&quot;</span>: predictions})</span></code></pre></div>
+            <p>This split makes sense: Python handles the web stuff
+            while R does the heavy statistical lifting<a href="#fn2"
+            class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>. Take a typical Bayesian
+            analysis:</p>
+            <div class="sourceCode" id="cb13"><pre
+            class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From raw data to visualization in R</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">brm</span>(score <span class="sc">~</span> treatment <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>subject),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="fu">gaussian</span>(), <span class="at">data =</span> trials) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(<span class="sc">~</span>treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather_emmeans_draws</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> contrast, <span class="at">y =</span> .value)) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>()</span></code></pre></div>
+            <p>What takes 5 lines in R would require 50+ lines and
+            multiple dependencies in Python<a href="#fn3"
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a>. Modern deployment tools
+            bridge these worlds seamlessly:</p>
+            <div class="sourceCode" id="cb14"><pre
+            class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single container, dual runtime</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.0</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="fu">install</span> python3.9</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> [<span class="st">&quot;model.R&quot;</span>, <span class="st">&quot;api.py&quot;</span>, <span class="st">&quot;./&quot;</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">&quot;python3&quot;</span>, <span class="st">&quot;api.py&quot;</span>]</span></code></pre></div>
+            <p>Play to each language’s strengths while maintaining clean
+            interfaces between them. Let your architecture reflect your
+            team’s expertise and your problem domain, not the other way
+            around.</p>
+            <p>When someone suggests a rewrite, they’re often trying to
+            solve the <i>wrong</i> problem. Zoom out, define the problem
+            you are trying to solve, and define a clear and efficient
+            architecture. The key? <b>Build what you need, not what
+            looks good on paper.</b> Define clear service boundaries,
+            invest in proper infrastructure, leverage your team’s
+            expertise, and stay focused on your domain requirements.
+            Both languages can scale effectively when used
+            thoughtfully.</p>
+            <p>Next time the rewrite discussion comes up, dig deeper.
+            The answer usually reveals that language choice was never
+            the real bottleneck.</p>
+            <h2 id="footnotes">Footnotes</h2>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>“Good enough” code is good enough! Rewriting
+            everything (of your own volition) will only cause problems
+            and annoy your team. Nobody wants to spend time
+            re-understanding rewritten code.<a href="#fnref1"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>Modern microservices architectures
+            increasingly use language-specific services, communicating
+            via well-defined APIs rather than forcing standardization.<a
+            href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>Comparison based on standard statistical
+            analysis tasks across both languages. R’s domain-specific
+            advantages remain significant in statistical computing.<a
+            href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+        </article>
+    </div>
+    <footer>
+        <p>© 2025 salm.dev</p>
+    </footer>
+</body>
+</html>

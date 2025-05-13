@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Command Line Productivity | salm.dev</title>
+    </head>
+<body>
+    <div>
+        <header>
+            <a href="/">home</a> / <a href="/writing/">writing</a>
+        </header>
+        <article>
+            <h1 id="command-line-productivity">Command Line
+            Productivity</h1>
+            <p>Date: 2024-10-10</p>
+            <blockquote>
+            <p>I am not a fan of bloated workflows or feature overload.
+            In this article, I describe my minimal, focused,
+            keyboard-centric workflow where I do my best work. In other
+            words: I shill vim.</p>
+            </blockquote>
+            <p><strong>(!!!) - This post is being updated.</strong></p>
+            <p>The purpose of this article isn’t to persuade you to
+            radically overhaul your development workflow overnight, nor
+            is it a critique of “mainstream” editors and IDEs. My aim is
+            to share my perspective and introduce you to an alternative
+            (and in my opinion, more performant) set tools that have
+            worked well for me.</p>
+            <p>In my view, there are two distinct areas of technical
+            productivity:</p>
+            <ol type="1">
+            <li><p>On one side, you have tools for version control (Git)
+            and repository hosting (GitHub, GitLab) – these vital
+            systems fundamentally improve how you manage projects.
+            They’re your safety net and scaffolding for when things go
+            wrong and should be part of every developer’s workflow.
+            These tools form a backbone for collaboration, creating a
+            shared context that allows teams of any size to coordinate
+            their efforts effectively. However, they aren’t our
+            focus.</p></li>
+            <li><p>On the other side, there are tools designed to
+            genuinely accelerate your coding process and task
+            completion. These tools are what I will be highlighting
+            today.</p></li>
+            </ol>
+            <h2 id="mental-model">Mental Model</h2>
+            <p>This mental model shall bestow upon thee a helpful way to
+            think about the labyrinthine world of terminal tooling. Now,
+            at first glance, this may seem like a lot. But, trust me, it
+            isn’t as bad as it looks:</p>
+            <figure style="text-align: center">
+            <img src="./images/hierarchy.svg" alt="A hierarchical tree diagram showing the Command Line Productivity Hierarchy. From top to bottom: Operating System Kernel connects to Display Server, which branches into three parallel components: Desktop Environment (left), Window Manager (center), and Package Manager (right). All three connect to Shell and Shell Config, which flows to Terminal Multiplexer, then Editor, and finally Text Processors/Formatters at the bottom. The diagram illustrates the progression from general, system-wide components at the top to specific, task-oriented tools at the bottom." style="width: 90%; margin: 0 auto;">
+            </figure>
+            <p>We’ll walk through it one step at a time, build intuition
+            for the part each piece plays in your experience, and
+            hopefully you’ll take with you the knowledge you need to
+            tweak parts of your setup to your liking. We’ll begin at the
+            top, and work our way down!</p>
+            <h2 id="multiplexing">Multiplexing</h2>
+            <p>When you dedicate a lot of time in your terminal, it
+            quickly becomes apparent how cumbersome it can get. In a web
+            browser, you can create new tabs and swiftly
+            <code>ALT-TAB</code> between them. You can bookmark and
+            return to your workspace at will. There’s a parallel
+            here—you can open multiple terminal windows, and that works…
+            sort of. But you still have to reopen everything with each
+            new terminal instance.</p>
+            <p>I found something much better. It does exactly what I
+            want. It’s called <a
+            href="https://tmuxcheatsheet.com/how-to-install-tmux/">TMUX</a>:</p>
+            <figure>
+            <img src="https://img.salm.dev/u/TrkDLO.png" alt="TMUX" />
+            <figcaption aria-hidden="true">TMUX</figcaption>
+            </figure>
+            <p>A terminal multiplexer is a program that transparently
+            “sits between” your active terminal connection and <i>K</i>
+            spawned terminal sessions. With TMUX, you can start a
+            session, open new windows, and hotkey between them. You can
+            detach and reattach to sessions at will. In other words, you
+            can set a session aside and return to it later, and
+            everything will be exactly how you left it.</p>
+            <p>With a plugin, these sessions can even persist across
+            system restarts.</p>
+            <p>TMUX is incredibly useful, and if you plan on doing
+            <strong>any</strong> serious work in the terminal, it will
+            save you a huge amount of time. Go ahead and install it.</p>
+            <pre><code>pacman -S tmux      # Arch Linux
+apt install tmux    # Debian or Ubuntu
+brew install tmux   # macOS (using Homebrew)</code></pre>
+            <p>You can create a new session with
+            <code>tmux new -s session_name</code>, detach with
+            <code>CTRL-B D</code>, and reattach with
+            <code>tmux attach -t session_name</code>.</p>
+            <p>Some other useful commands include:</p>
+            <pre><code>tmux ls                             # list sessions
+tmux kill-session -t session_name   # kill a session
+tmux kill-server                    # kill the server
+tmux a -t session_name              # attach to a session
+tmux a                              # attach to the last session</code></pre>
+            <h3 id="customization">Customization</h3>
+            <p>When you start TMUX, the program looks for a .dotfile<a
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> at
+            <code>~/.tmux.conf</code>. This plain-text file is where you
+            can configure and “rice out”<a href="#fn2"
+            class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a> your multiplexer. You’ll
+            begin by adding a plugin manager, <a
+            href="https://github.com/tmux-plugins/tpm">tpm</a>, and then
+            use it to load a few plugins and a nice theme<a href="#fn3"
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a>.</p>
+            <h2 id="vim-as-your-editor">Vim As Your Editor</h2>
+            <p>I’ve been using Vim for about two years. When we mention
+            Vim, it’s usually in one of two contexts: <code>vim</code>
+            (the program), or Vim Motions.</p>
+            <p>Vim Motions are the keybindings that allow you to move
+            around the text. They are the most important part of Vim.
+            Everyone should use Vim Motions. They are extremely
+            efficient. They’re available on all text editors and
+            IDEs.</p>
+            <p>Vim, by contrast, is a highly configurable, extensible
+            text editor built to make creating and changing any kind of
+            text very efficient.</p>
+            <h3 id="vim-motions">Vim Motions</h3>
+            <p>There is only one type of grammar in Vim: the grammar of
+            Vim Motions. It’s a language that allows you to move around
+            the text.</p>
+            <p>Here’s a quick reference of some common Vim Motions:</p>
+            <p><br /></p>
+            <table>
+            <colgroup>
+            <col style="width: 11%" />
+            <col style="width: 10%" />
+            <col style="width: 77%" />
+            </colgroup>
+            <thead>
+            <tr class="header">
+            <th>Category</th>
+            <th>Command</th>
+            <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="odd">
+            <td>motion</td>
+            <td>h</td>
+            <td>Left</td>
+            </tr>
+            <tr class="even">
+            <td></td>
+            <td>j</td>
+            <td>Down</td>
+            </tr>
+            <tr class="odd">
+            <td></td>
+            <td>k</td>
+            <td>Up</td>
+            </tr>
+            <tr class="even">
+            <td></td>
+            <td>l</td>
+            <td>Right</td>
+            </tr>
+            <tr class="odd">
+            <td></td>
+            <td>w</td>
+            <td>Move forward to the beginning of the next word</td>
+            </tr>
+            <tr class="even">
+            <td></td>
+            <td>}</td>
+            <td>Jump to the next paragraph</td>
+            </tr>
+            <tr class="odd">
+            <td></td>
+            <td>$</td>
+            <td>Go to the end of the line</td>
+            </tr>
+            <tr class="even">
+            <td>operator</td>
+            <td>y</td>
+            <td>Yank text (copy)</td>
+            </tr>
+            <tr class="odd">
+            <td></td>
+            <td>d</td>
+            <td>Delete text and save to register</td>
+            </tr>
+            <tr class="even">
+            <td></td>
+            <td>c</td>
+            <td>Delete text, save to register, and start insert
+            mode</td>
+            </tr>
+            </tbody>
+            </table>
+            <p><br /></p>
+            <p>More generally, the syntax looks like:
+            <code>[count] + operator + motion</code>. For example,
+            <code>3dw</code> would delete three words. <code>2yy</code>
+            would yank two lines. <code>c$</code> would delete to the
+            end of the line and start insert mode. <code>dap</code>
+            would delete a paragraph.</p>
+            <p>Notice how, for some, the phonetic sound of the command
+            matches the action. <code>d</code> for delete,
+            <code>y</code> for yank, <code>c</code> for change. This is
+            a mnemonic device to help you remember the commands. Delete
+            a paragraph? <code>dap</code>. Change a word?
+            <code>caw</code>.</p>
+            <h3 id="vim-the-program">Vim (The Program)</h3>
+            <p>Vim, by contrast, is a highly configurable, extensible
+            text editor in your terminal built to make creating and
+            changing any kind of text very efficient.</p>
+            <p>My friend <a href="https://scharenbroch.dev/">Lucas</a>
+            rather aptly put:</p>
+            <blockquote>
+            <p>Vim is the bliss of Ctrl C/V but applied to every facet
+            of the editor.</p>
+            </blockquote>
+            <p>I think that’s a really good way to describe it. Vim
+            recognizes and eliminates the vast majority of typing
+            inefficiencies. The result is blazingly fast precision, and
+            a workflow that feels like a dance.</p>
+            <p>A contention I often receive is, “well, how do I debug in
+            Vim?” You don’t. You have separate programs<a href="#fn4"
+            class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a>. Each program is good at
+            what it does. If you build a hodgepodge of functionality you
+            end up with an IDE and that’s precisely what I’m trying to
+            escape.</p>
+            <p>I will concede, however, that Vim is not beginner
+            friendly. There’s a learning curve. However, Vim is
+            exceptionally user friendly<a href="#fn5"
+            class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a>. Once you get the hang
+            of things, and it clicks, it’s really, really fun to
+            use.</p>
+            <p>A lot of people recommend learning Vim Motions on your
+            current editor first before switching to Vim full time. I
+            didn’t do this, but it’s the path most people take. I’m a
+            bit weird. I like to cold turkey and learn things from the
+            ground up right away. But that’s a digression.</p>
+            <h3 id="neovim">Neovim</h3>
+            <p>Vim’s extensibility takes it to the next level. Enter:
+            Neovim. Taken from the Neovim Charter:</p>
+            <blockquote>
+            <p>Neovim is a refactor, and sometimes redactor, in the
+            tradition of Vim. It is not a rewrite but a continuation and
+            extension of Vim. Many clones and derivatives exist, some
+            very clever—but none are Vim. Neovim is built for users who
+            want the good parts of Vim, and more.</p>
+            </blockquote>
+            <figure style={{ width: "50%", margin: "0 auto" }}>
+              <img src="https://img.salm.dev/u/iaOsYr.png" alt="The Neovim Pyramid" />
+              <figcaption style={{ textAlign: "center" }}>The Neovim Pyramid</figcaption>
+            </figure>
+            <p>Neovim’s component-like plugin structure allows you to
+            drop in and take out functionality easily. You can bring in
+            an <a
+            href="https://github.com/neovim/nvim-lspconfig">LSP</a>, <a
+            href="https://github.com/hrsh7th/nvim-cmp">completions</a>,
+            <a href="https://github.com/L3MON4D3/LuaSnip">snippets</a>,
+            <a href="https://github.com/tpope/vim-fugitive">git</a>, and
+            <a
+            href="https://github.com/nvim-neotest/neotest">testing</a>
+            infrastructure. You can get new things too: <a
+            href="https://github.com/nvim-treesitter">Treesitter</a>, <a
+            href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a>
+            FZF (fuzzy finding), Scoped grep string searches, and <a
+            href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon</a>
+            anchor points to jump around.</p>
+            <p>What’s more, since YOU configure Neovim, you’ll come away
+            with a complete understanding of how each tool works, and
+            how they interact with one another to create a complete
+            ecosystem. By contrast, other editors and IDEs abstract this
+            away.</p>
+            <p>I know I just said a lot of words. The takeaway is this:
+            With Neovim, you know exactly why everything works the way
+            it does, and you can make it work exactly the way you want
+            it to. The possibilities are, in fact, endless.</p>
+            <p>Want functionality but there’s no plugin for it? Your
+            config is in Lua and everything in Lua is easy. Make it,
+            maintain it, push it to the Neovim community! The Neovim
+            community is vibrant and full of passionate creators and
+            maintainers who work hard to support the editor they
+            love.</p>
+            <h2 id="wrapping-up">Wrapping up</h2>
+            <p>In exploring the minimalist, keyboard-centric workflow of
+            command line tools and editors like Vim and Neovim, we
+            uncover a significant truth about productivity in software
+            development: simplicity and customization can profoundly
+            enhance efficiency. By adopting tools such as Tmux and Vim,
+            developers are equipped to create a highly personalized
+            development environment. This environment not only
+            streamlines tasks but also keeps the focus on coding,
+            reducing distractions inherent in more complex IDEs.
+            Embracing these tools may involve a learning curve, but the
+            long-term gains in speed, understanding, and adaptability
+            make this investment worthwhile.</p>
+            <p>For those willing to explore these command line utilities
+            and text editors, the payoff is a more intuitive and
+            efficient coding experience that aligns perfectly with the
+            unique needs of each developer.</p>
+            <p>And as always, remember: <strong><em>Life is like Vim:
+            There are a lot of shortcuts and you should take
+            them.</em></strong></p>
+            <h2 id="footnotes">Footnotes</h2>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-document"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>Many programs store their configuration
+            files in plain text files. These are usually (but not
+            always) in your <code>~</code> or <code>~/.config/~</code>
+            directories. Dotfiles are configuration files for various
+            programs. What sets them apart from regular files and
+            directories is their prefix: a dot (<code>.</code>). Note:
+            On Unix based systems, dotfiles are hidden by the OS by
+            default.<a href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2"><p>Ricing is a process in which one customizes
+            their OS or programs to improve the aesthetics or refine
+            their workflow.<a href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>I highly reccommend <a
+            href="https://github.com/rose-pine/tmux">rose-pine</a> or <a
+            href="https://github.com/catppuccin/tmux">catppuccin</a>
+            (mocha).<a href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn4"><p>In the case of debugging, one might opt for
+            <code>gdb</code>, the browser, or the python debugger,
+            etc.<a href="#fnref4" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn5"><p>I’m paraphrasing <a
+            href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a
+            Neovim enjoyer and popular streamer.<a href="#fnref5"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+        </article>
+    </div>
+    <footer>
+        <p>© 2025 salm.dev</p>
+    </footer>
+</body>
+</html>
