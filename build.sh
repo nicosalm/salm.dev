@@ -29,6 +29,8 @@ setup_directories() {
   cp src/index.html dist/
   cp src/about/index.html dist/about/
   cp src/assets/favicon.svg dist/assets/
+  cp src/assets/88x31/88x31.jpg dist/88x31.jpg
+  cp src/404.html dist/
 }
 
 has_math_content() {
