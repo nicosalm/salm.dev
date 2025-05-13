@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v4
+      - name: install dependencies
+        run: sudo apt-get update && sudo apt-get install -y pandoc
       - name: build
         run: |
           chmod +x ./build.sh
           ./build.sh
-
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
