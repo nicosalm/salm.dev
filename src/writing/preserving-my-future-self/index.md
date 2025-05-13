@@ -1,7 +1,7 @@
 # Preserving My Future Self
 Date: 2024-08-18
 
-> Ergonomic overhaul to improve health and reduce strain.
+> I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got a new, expensive keyboard that got sawed in half. Either way, it was an adventure worth sharing.
 
 **(!!!) - This post is being updated.**
 

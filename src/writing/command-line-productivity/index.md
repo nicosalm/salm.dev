@@ -1,7 +1,7 @@
 # Command Line Productivity
 Date: 2024-10-10
 
-> Navigating the world of development tools often leads to bloated workflows and feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work.
+> I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.
 
 **(!!!) - This post is being updated.**
 
