@@ -18,10 +18,6 @@ In my view, there are two distinct areas of technical productivity:
 
 This mental model shall bestow upon thee a helpful way to think about the labyrinthine world of terminal tooling. Now, at first glance, this may seem like a lot. But, trust me, it isn't as bad as it looks:
 
-<figure style="text-align: center">
-    <img src="./images/hierarchy.svg" alt="A hierarchical tree diagram showing the Command Line Productivity Hierarchy. From top to bottom: Operating System Kernel connects to Display Server, which branches into three parallel components: Desktop Environment (left), Window Manager (center), and Package Manager (right). All three connect to Shell and Shell Config, which flows to Terminal Multiplexer, then Editor, and finally Text Processors/Formatters at the bottom. The diagram illustrates the progression from general, system-wide components at the top to specific, task-oriented tools at the bottom." style="width: 90%; margin: 0 auto;">
-</figure>
-
 We'll walk through it one step at a time, build intuition for the part each piece plays in your experience, and hopefully you'll take with you the knowledge you need to tweak parts of your setup to your liking. We'll begin at the top, and work our way down!
 
 ## Multiplexing

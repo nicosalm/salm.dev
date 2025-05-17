@@ -8,10 +8,10 @@ In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokém
 <table style="margin: 0 auto; border-collapse: collapse;">
   <tr>
     <td style="padding: 10px; text-align: center;">
-      <img src="./images/choosing-phase.png" alt="choosing phase">
+      <img src="./images/choosing-phase.jpeg" alt="choosing phase">
     </td>
     <td style="padding: 10px; text-align: center;">
-      <img src="./images/battle-phase.png" alt="battling phase">
+      <img src="./images/battle-phase.jpeg" alt="battling phase">
     </td>
   </tr>
 </table>
@@ -22,7 +22,7 @@ When a player's Pokemon's HP reaches 0, the other player wins:
 ## The Seven Pokémon We Analyzed
 For our project, my friends and I focused on seven of the most commonly used Pokémon in the January 2021 Pokémon Showdown 1v1 leaderboard:
 
-<img src="./images/top-7.png" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
+<img src="./images/top-7.jpeg" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Primarina, Sylveon, Heatran, Urshifu, Rillaboom, Garchomp, and Zapdos
 </p>
@@ -37,22 +37,22 @@ We modeled these battles in two key stages:
 ## The Battling Phase (Finding Optimal Move Strategies)
 
 First, we needed to understand how each Pokémon matchup would play out when both players use optimal strategies. This required us to create turn-based payoff matrices for each possible matchup  (a [normal form game](https://en.wikipedia.org/wiki/Normal-form_game) representation of the strategic interactions), calculating the expected damage and effects of every possible move combination with Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
- 
-<img src="./images/single-turn-payoff.png" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+
+<img src="./images/single-turn-payoff.jpeg" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   This payoff matrix shows damage ranges between Garchomp and Sylveon's moves
 </p>
 
 Pokémon battles have numerous random elements: move accuracy, critical hits, and damage ranges. To handle this, we built [expectimax trees](https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html) (a variant of [extensive form games](https://en.wikipedia.org/wiki/Extensive-form_game)) that calculated the expected outcome of each decision.
 
-<img src="./images/example-game-tree.png" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
+<img src="./images/example-game-tree.jpeg" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Example of a battle decision tree showing Hyper Beam outcomes between Primarina and Sylveon
 </p>
 
 Some moves like *Sucker Punch* (which only works if the opponent uses an attacking move) create rock-paper-scissors style mind games that required [mixed strategy Nash equilibria](https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy). For particularly complex scenarios, we put together a reinforcement learning algorithm to discover optimal mixed strategies that wouldn't be obvious through direct calculation.
 
-<img src="./images/sucker-punch.png" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
+<img src="./images/sucker-punch.jpeg" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
    Sucker Punch move
 </p>
@@ -65,45 +65,45 @@ Here's a simplified example of how we computed Nash equilibrium strategies for a
 def compute_nash_equilibrium(payoff_matrix):
     """
     Compute the Nash equilibrium for a zero-sum game using linear programming.
-    
+
     Args:
         payoff_matrix: A numpy array where A[i,j] is the payoff when player 1
                       plays strategy i and player 2 plays strategy j
-    
+
     Returns:
         tuple (p1_strategy, p2_strategy, value) containing optimal mixed strategies
     """
     num_rows, num_cols = payoff_matrix.shape
-    
-    # Player 1's linear program 
+
+    # Player 1's linear program
     c = np.zeros(num_rows + 1)
     c[-1] = -1  # maximize v (game value)
-    
+
     # Constraints ensuring expected payoff is at least v against any opponent strategy
     A_ub = np.zeros((num_cols, num_rows + 1))
     for j in range(num_cols):
         A_ub[j, :-1] = -payoff_matrix[:, j]
         A_ub[j, -1] = 1
     b_ub = np.zeros(num_cols)
-    
+
     # Constraint that probabilities sum to 1
     A_eq = np.zeros((1, num_rows + 1))
     A_eq[0, :-1] = 1
     b_eq = np.ones(1)
-    
+
     bounds = [(0, 1) for _ in range(num_rows)] + [(None, None)]
-    
+
     # Solve the linear program
-    res1 = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, 
+    res1 = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq,
                    bounds=bounds, method='highs')
-    
+
     # Extract player 1's strategy and game value
     p1_strategy = res1.x[:-1]
     v = -res1.fun
-    
+
     # Player 2's linear program (omitted for brevity)
     # ...
-    
+
     return p1_strategy, p2_strategy, v
 ```
 
@@ -113,7 +113,7 @@ The code above computes the mathematically optimal mixed strategy for each playe
 
 After simulating over 1 million battles for each possible matchup, we created a comprehensive payoff matrix of win probabilities:
 
-<img src="./images/payoff-matrix-full.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+<img src="./images/payoff-matrix-full.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Matchup win probability matrix
 </p>
@@ -131,10 +131,10 @@ def analyze_matchup(team_a, team_b, win_probabilities):
     """
     # Create payoff matrix where A[i,j] = win probability when Pokémon i faces Pokémon j
     payoff_matrix = create_payoff_matrix(team_a, team_b, win_probabilities)
-    
+
     # Compute Nash equilibrium
     _, _, game_value = compute_nash_equilibrium(payoff_matrix)
-    
+
     return game_value
 
 # Calculate win rates for all teams
@@ -142,20 +142,20 @@ team_results = {}
 for team in all_team_combinations:
     total_win_rate = 0.0
     total_matchups = 0
-    
+
     for opponent_team in all_team_combinations:
         if team != opponent_team:
             win_rate = analyze_matchup(team, opponent_team, win_probabilities)
             total_win_rate += win_rate
             total_matchups += 1
-    
+
     team_results[team] = total_win_rate / total_matchups
 
 # Sort teams by average win rate
 best_teams = sorted(team_results.items(), key=lambda x: x[1], reverse=True)
 ```
 
-<img src="./images/team-performance-ranking.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+<img src="./images/team-performance-ranking.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Team performance ranking based on average win rates
 </p>
@@ -164,7 +164,7 @@ best_teams = sorted(team_results.items(), key=lambda x: x[1], reverse=True)
 
 Our analysis revealed that the strongest team composition was Heatran, Sylveon, and Zapdos with a solid 62.4% average win rate across all matchups! The combination of Garchomp, Heatran, and Urshifu struggled significantly with just a 29.7% win rate. Among individual Pokémon, Sylveon proved to be the most versatile performer, maintaining a 55.3% win rate across all team compositions.
 
-<img src="./images/avg-winrate.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+<img src="./images/avg-winrate.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Best and worst performing Pokémon based on Nash equilibrium calculations
 </p>
@@ -177,7 +177,7 @@ Teams containing Sylveon and Zapdos generally performed well in our simulations,
 
 One of the simpler matchups we analyzed was *Heatran vs. Garchomp*. Despite Garchomp's fearsome reputation, our models determined Heatran should win 81.7% of the time when both players use optimal strategies.
 
-<img src="./images/matchup-heatran-garchomp.png" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+<img src="./images/matchup-heatran-garchomp.jpeg" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Battle setup and outcome for Heatran vs. Garchomp
 </p>
@@ -188,14 +188,14 @@ The optimal strategy for Heatran is to use *Will-O-Wisp* on turn 1 (to burn and 
 
 The strategic mind games in the *Rillaboom vs. Urshifu* were where things began to get interesting. *Sucker Punch*, which only works against attacking moves, creates a complicated decision matrix where neither Pokémon can rely on a single dominant strategy.
 
-<img src="./images/payoff-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+<img src="./images/payoff-rillaboom-urshifu.jpeg" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
    Payoff matrix for Rillaboom vs. Urshifu involving the move Sucker Punch
 </p>
 
 Crunching the numbers reveals Urshifu should employ a perfect 50/50 split between Sucker Punch and Wicked Blow after turn 2, while Rillaboom adapts based on battle conditions:
 
-<img src="./images/matchup-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+<img src="./images/matchup-rillaboom-urshifu.jpeg" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
    Battle setup and outcome for Rillaboom vs. Urshifu
 </p>
@@ -209,14 +209,14 @@ Jake, our Pokémon expert (with over 5000 hours?!), predicted almost identical s
 ## Nash Equilibria in Team Selection
 Some team matchups resulted in [pure Nash equilibria](https://en.wikipedia.org/wiki/Strategy_(game_theory)#Pure_and_mixed_strategies) with dominant strategies:
 
-<img src="./images/pne.png" alt="Pure Nash Equilibrium" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+<img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Example of a pure Nash equilibrium in team selection
 </p>
 
 While others required mixed strategies, creating a Rock-Paper-Scissors dynamic:
 
-<img src="./images/mixed.png" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
+<img src="./images/mixed.jpeg" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Example of a mixed Nash equilibrium in team selection
 </p>
