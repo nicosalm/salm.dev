@@ -31,10 +31,10 @@
             <table style="margin: 0 auto; border-collapse: collapse;">
             <tr>
             <td style="padding: 10px; text-align: center;">
-            <img src="./images/choosing-phase.png" alt="choosing phase">
+            <img src="./images/choosing-phase.jpeg" alt="choosing phase">
             </td>
             <td style="padding: 10px; text-align: center;">
-            <img src="./images/battle-phase.png" alt="battling phase">
+            <img src="./images/battle-phase.jpeg" alt="battling phase">
             </td>
             </tr>
             </table>
@@ -46,7 +46,7 @@
             <p>For our project, my friends and I focused on seven of the
             most commonly used Pokémon in the January 2021 Pokémon
             Showdown 1v1 leaderboard:</p>
-            <img src="./images/top-7.png" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
+            <img src="./images/top-7.jpeg" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Primarina, Sylveon, Heatran, Urshifu, Rillaboom, Garchomp,
             and Zapdos
@@ -79,7 +79,7 @@
             possible move combination with Showdown’s <a
             href="https://calc.pokemonshowdown.com/">Pokémon Damage
             Calculator</a>.</p>
-            <img src="./images/single-turn-payoff.png" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <img src="./images/single-turn-payoff.jpeg" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             This payoff matrix shows damage ranges between Garchomp and
             Sylveon’s moves
@@ -92,7 +92,7 @@
             href="https://en.wikipedia.org/wiki/Extensive-form_game">extensive
             form games</a>) that calculated the expected outcome of each
             decision.</p>
-            <img src="./images/example-game-tree.png" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
+            <img src="./images/example-game-tree.jpeg" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Example of a battle decision tree showing Hyper Beam
             outcomes between Primarina and Sylveon
@@ -105,7 +105,7 @@
             scenarios, we put together a reinforcement learning
             algorithm to discover optimal mixed strategies that wouldn’t
             be obvious through direct calculation.</p>
-            <img src="./images/sucker-punch.png" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
+            <img src="./images/sucker-punch.jpeg" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Sucker Punch move
             </p>
@@ -119,45 +119,45 @@
             class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_nash_equilibrium(payoff_matrix):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Compute the Nash equilibrium for a zero-sum game using linear programming.</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">        payoff_matrix: A numpy array where A[i,j] is the payoff when player 1</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">                      plays strategy i and player 2 plays strategy j</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        tuple (p1_strategy, p2_strategy, value) containing optimal mixed strategies</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    num_rows, num_cols <span class="op">=</span> payoff_matrix.shape</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player 1&#39;s linear program </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player 1&#39;s linear program</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> np.zeros(num_rows <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    c[<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>  <span class="co"># maximize v (game value)</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Constraints ensuring expected payoff is at least v against any opponent strategy</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    A_ub <span class="op">=</span> np.zeros((num_cols, num_rows <span class="op">+</span> <span class="dv">1</span>))</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_cols):</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        A_ub[j, :<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span>payoff_matrix[:, j]</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        A_ub[j, <span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    b_ub <span class="op">=</span> np.zeros(num_cols)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Constraint that probabilities sum to 1</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    A_eq <span class="op">=</span> np.zeros((<span class="dv">1</span>, num_rows <span class="op">+</span> <span class="dv">1</span>))</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    A_eq[<span class="dv">0</span>, :<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    b_eq <span class="op">=</span> np.ones(<span class="dv">1</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    bounds <span class="op">=</span> [(<span class="dv">0</span>, <span class="dv">1</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_rows)] <span class="op">+</span> [(<span class="va">None</span>, <span class="va">None</span>)]</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Solve the linear program</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    res1 <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq, </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    res1 <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A_ub, b_ub<span class="op">=</span>b_ub, A_eq<span class="op">=</span>A_eq, b_eq<span class="op">=</span>b_eq,</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                   bounds<span class="op">=</span>bounds, method<span class="op">=</span><span class="st">&#39;highs&#39;</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract player 1&#39;s strategy and game value</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    p1_strategy <span class="op">=</span> res1.x[:<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="op">-</span>res1.fun</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player 2&#39;s linear program (omitted for brevity)</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p1_strategy, p2_strategy, v</span></code></pre></div>
             <p>The code above computes the mathematically optimal mixed
             strategy for each player. For example, in the <em>Rillaboom
@@ -174,7 +174,7 @@
             <p>After simulating over 1 million battles for each possible
             matchup, we created a comprehensive payoff matrix of win
             probabilities:</p>
-            <img src="./images/payoff-matrix-full.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <img src="./images/payoff-matrix-full.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Matchup win probability matrix
             </p>
@@ -194,10 +194,10 @@
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create payoff matrix where A[i,j] = win probability when Pokémon i faces Pokémon j</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    payoff_matrix <span class="op">=</span> create_payoff_matrix(team_a, team_b, win_probabilities)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute Nash equilibrium</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    _, _, game_value <span class="op">=</span> compute_nash_equilibrium(payoff_matrix)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> game_value</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate win rates for all teams</span></span>
@@ -205,18 +205,18 @@
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> team <span class="kw">in</span> all_team_combinations:</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    total_win_rate <span class="op">=</span> <span class="fl">0.0</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    total_matchups <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> opponent_team <span class="kw">in</span> all_team_combinations:</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> team <span class="op">!=</span> opponent_team:</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            win_rate <span class="op">=</span> analyze_matchup(team, opponent_team, win_probabilities)</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            total_win_rate <span class="op">+=</span> win_rate</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            total_matchups <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    team_results[team] <span class="op">=</span> total_win_rate <span class="op">/</span> total_matchups</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort teams by average win rate</span></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>best_teams <span class="op">=</span> <span class="bu">sorted</span>(team_results.items(), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-            <img src="./images/team-performance-ranking.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+            <img src="./images/team-performance-ranking.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Team performance ranking based on average win rates
             </p>
@@ -228,7 +228,7 @@
             29.7% win rate. Among individual Pokémon, Sylveon proved to
             be the most versatile performer, maintaining a 55.3% win
             rate across all team compositions.</p>
-            <img src="./images/avg-winrate.png" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <img src="./images/avg-winrate.jpeg" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Best and worst performing Pokémon based on Nash equilibrium
             calculations
@@ -244,7 +244,7 @@
             vs. Garchomp</em>. Despite Garchomp’s fearsome reputation,
             our models determined Heatran should win 81.7% of the time
             when both players use optimal strategies.</p>
-            <img src="./images/matchup-heatran-garchomp.png" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <img src="./images/matchup-heatran-garchomp.jpeg" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Battle setup and outcome for Heatran vs. Garchomp
             </p>
@@ -260,7 +260,7 @@
             <em>Sucker Punch</em>, which only works against attacking
             moves, creates a complicated decision matrix where neither
             Pokémon can rely on a single dominant strategy.</p>
-            <img src="./images/payoff-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <img src="./images/payoff-rillaboom-urshifu.jpeg" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Payoff matrix for Rillaboom vs. Urshifu involving the move
             Sucker Punch
@@ -269,7 +269,7 @@
             perfect 50/50 split between Sucker Punch and Wicked Blow
             after turn 2, while Rillaboom adapts based on battle
             conditions:</p>
-            <img src="./images/matchup-rillaboom-urshifu.png" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <img src="./images/matchup-rillaboom-urshifu.jpeg" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Battle setup and outcome for Rillaboom vs. Urshifu
             </p>
@@ -290,13 +290,13 @@
             <p>Some team matchups resulted in <a
             href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Pure_and_mixed_strategies">pure
             Nash equilibria</a> with dominant strategies:</p>
-            <img src="./images/pne.png" alt="Pure Nash Equilibrium" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            <img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Example of a pure Nash equilibrium in team selection
             </p>
             <p>While others required mixed strategies, creating a
             Rock-Paper-Scissors dynamic:</p>
-            <img src="./images/mixed.png" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
+            <img src="./images/mixed.jpeg" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
             <p style="text-align: center; font-style: italic; margin-top: 10px;">
             Example of a mixed Nash equilibrium in team selection
             </p>
