@@ -36,7 +36,7 @@ The focus to design a refined, precise, and complete world -- rather than an end
 The creative drive that fuels both worldbuilding and programming can be all-consuming. I've definitely had nights up past 3 AM sketching political conflicts between fictional kingdoms or perfecting an NPC's backstory my players might never even meet. This passion is a double-edged sword, driving creation but leading to burnout when unchecked.
 
 <figure style="text-align: center">
-    <img src="./images/wikia.jpeg" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 0 auto;">
+    <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 0 auto;">
     <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">Wiki-style lore respositories I've written (where each page contains a character, location, or info page, etc.)</figcaption>
 </figure>
 
