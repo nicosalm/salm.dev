@@ -23,7 +23,7 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,log,about,assets,styles}
+  mkdir -p dist/{writing,about,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
@@ -77,32 +77,6 @@ process_post() {
   fi
 }
 
-process_log() {
-  local file="$1"
-  local name=$(basename "$file" .md)
-  local day_number="$2"
-
-  [ ! -f "$file" ] && return
-
-  mkdir -p "dist/log/$name"
-
-  local date="$name"
-  local title="Study Log #$day_number - $date"
-
-  local date_rfc=$(format_date_rfc "$date")
-
-  LOGS+=("$date|$date_rfc|$title|$name|$day_number")
-
-  local math_flag=""
-  if has_math_content "$file"; then
-      math_flag="-V has_math=true"
-      echo "Math content detected in log $name"
-  fi
-
-  pandoc "$file" --standalone --template=src/templates/log.html --mathjax \
-    -o "dist/log/$name/index.html" -V title="$title" -V date="$date" $math_flag
-}
-
 generate_posts_index() {
   cat > dist/writing/index.html << HTML
 <!DOCTYPE html>
@@ -130,7 +104,7 @@ generate_posts_index() {
             width: 320px;
             background-color: #fff;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #eee;
             border-radius: 4px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             color: #555;
@@ -152,36 +126,6 @@ HTML
     echo "<li>$date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>" >> dist/writing/index.html
   done
   cat >> dist/writing/index.html << HTML
-        </ul>
-    </div>
-    <footer><p>© 2025 salm.dev</p></footer>
-</body>
-</html>
-HTML
-}
-
-generate_logs_index() {
-  cat > dist/log/index.html << HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>study logs | salm.dev</title>
-</head>
-<body>
-    <div>
-        <header><a href="/">home</a> / study logs</header>
-        <h1>study logs</h1>
-        <p>Brief daily notes on what I'm learning and working on.</p>
-        <ul>
-HTML
-  (IFS=$'\n'; sort -r <<<"${LOGS[*]}") | while IFS="|" read -r date date_rfc title name day_number; do
-    echo "<li>$date :: <a href=\"/log/$name/\">Log #$day_number</a></li>" >> dist/log/index.html
-  done
-  cat >> dist/log/index.html << HTML
         </ul>
     </div>
     <footer><p>© 2025 salm.dev</p></footer>
@@ -219,12 +163,6 @@ XML
   echo "</channel></rss>" >> dist/rss.xml
 }
 
-update_homepage() {
-    if [ -f "dist/index.html" ]; then
-        sed -i 's|<a href="/writing/">writing</a>|<a href="/writing/">writing</a> / <a href="/log/">logs</a>|g' dist/index.html
-    fi
-}
-
 inline_css() {
   css_content=$(cat dist/styles/styles.css)
   find dist -name "*.html" | while read -r html_file; do
@@ -249,7 +187,6 @@ inline_css() {
 
 NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
 POSTS=()
-LOGS=()
 
 setup_directories
 
@@ -257,25 +194,8 @@ for dir in src/writing/*/; do
   process_post "$dir"
 done
 
-log_files=()
-for file in src/log/*.md; do
-  [ -e "$file" ] || continue
-  log_files+=("$file")
-done
-
-IFS=$'\n' sorted_logs=($(sort <<<"${log_files[*]}"))
-unset IFS
-
-day_count=1
-for file in "${sorted_logs[@]}"; do
-  process_log "$file" "$day_count"
-  ((day_count++))
-done
-
 generate_posts_index
-generate_logs_index
 generate_rss_feed "$NOW"
-update_homepage
 inline_css
 
 echo "-- build done! --"
