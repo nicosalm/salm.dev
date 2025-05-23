@@ -34,24 +34,6 @@ setup_directories() {
   cp src/404.html dist/
 }
 
-fetch_sponsor_avatars() {
-    local sponsors_file="src/sponsors/sponsors.txt"
-    local avatars_dir="dist/assets/sponsors"
-
-    mkdir -p "$avatars_dir"
-
-    if [ -f "$sponsors_file" ]; then
-        while IFS= read -r bleh || [ -n "$bleh" ]; do
-            [ -z "$bleh" ] && continue
-            [ "${bleh#\#}" != "$bleh" ] && continue
-
-            local avatar_file="${avatars_dir}/${bleh}.png"
-            echo "fetching avatar for $bleh..."
-            curl -sL "https://github.com/${bleh}.png" -o "$avatar_file"
-        done < "$sponsors_file"
-    fi
-}
-
 has_math_content() {
   local file="$1"
   grep -q -E '(^|[[:space:][:punct:]])\$[^\$\n]{1,100}\$' "$file" && return 0
@@ -209,7 +191,6 @@ NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
 POSTS=()
 
 setup_directories
-fetch_sponsor_avatars
 
 for dir in src/writing/*/; do
   process_post "$dir"
