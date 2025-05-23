@@ -23,14 +23,33 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,about,assets,styles}
+  mkdir -p dist/{writing,sponsors,about,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
   cp src/about/index.html dist/about/
+  cp src/sponsors/index.html dist/sponsors/
   cp src/assets/favicon.svg dist/assets/
   cp src/assets/88x31/88x31.jpg dist/88x31.jpg
   cp src/404.html dist/
+}
+
+fetch_sponsor_avatars() {
+    local sponsors_file="src/sponsors/sponsors.txt"
+    local avatars_dir="dist/assets/sponsors"
+
+    mkdir -p "$avatars_dir"
+
+    if [ -f "$sponsors_file" ]; then
+        while IFS= read -r bleh || [ -n "$bleh" ]; do
+            [ -z "$bleh" ] && continue
+            [ "${bleh#\#}" != "$bleh" ] && continue
+
+            local avatar_file="${avatars_dir}/${bleh}.png"
+            echo "fetching avatar for $bleh..."
+            curl -sL "https://github.com/${bleh}.png" -o "$avatar_file"
+        done < "$sponsors_file"
+    fi
 }
 
 has_math_content() {
@@ -163,6 +182,7 @@ XML
   echo "</channel></rss>" >> dist/rss.xml
 }
 
+
 inline_css() {
   css_content=$(cat dist/styles/styles.css)
   find dist -name "*.html" | while read -r html_file; do
@@ -189,6 +209,7 @@ NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
 POSTS=()
 
 setup_directories
+fetch_sponsor_avatars
 
 for dir in src/writing/*/; do
   process_post "$dir"
