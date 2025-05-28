@@ -121,6 +121,26 @@ li {
     margin-bottom: var(--spacing-tiny);
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-medium) 0;
+    font-size: var(--font-size-base);
+}
+
+th, td {
+    padding: var(--spacing-small) var(--spacing-medium);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color var(--transition-speed);
+}
+
+th {
+    font-weight: bold;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-dark);
+}
+
 blockquote {
     margin: var(--spacing-large) 0;
     padding: var(--spacing-small) var(--spacing-large);
