@@ -102,7 +102,7 @@ When you dedicate a lot of time in your terminal, it quickly becomes apparent ho
 
 I found something much better. It does exactly what I want. It's called [tmux](https://tmuxcheatsheet.com/how-to-install-tmux/), a terminal multiplexer.
 
-A terminal multiplexer is a program that transparently "sits between" your active terminal connection and $K$ spawned terminal sessions. With tmux, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
+A terminal multiplexer is a program that transparently "sits between" your active terminal connection and K spawned terminal sessions. With tmux, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
 
 With a plugin, these sessions can even persist across system restarts.
 
