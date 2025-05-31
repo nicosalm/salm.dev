@@ -1,8 +1,27 @@
 @font-face {
+    font-family: 'firasans';
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/firasans_regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'firasans';
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/firasans_italic.woff2') format('woff2');
+}
+
+@font-face {
     font-family: 'charter';
     font-style: normal;
     font-weight: normal;
     font-stretch: normal;
+    font-display: swap;
     src: url('/assets/fonts/charter_regular.woff2') format('woff2');
 }
 
@@ -11,6 +30,7 @@
     font-style: italic;
     font-weight: normal;
     font-stretch: normal;
+    font-display: swap;
     src: url('/assets/fonts/charter_italic.woff2') format('woff2');
 }
 
@@ -19,6 +39,7 @@
     font-style: normal;
     font-weight: bold;
     font-stretch: normal;
+    font-display: swap;
     src: url('/assets/fonts/charter_bold.woff2') format('woff2');
 }
 
@@ -27,14 +48,16 @@
     font-style: italic;
     font-weight: bold;
     font-stretch: normal;
+    font-display: swap;
     src: url('/assets/fonts/charter_bold_italic.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'firacode';
-  src: url('/assets/fonts/firacode-regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'firacode';
+    src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 :root {
@@ -53,7 +76,8 @@
     --webring-primary: #C5050C;
     --webring-bg: #FFFFFF;
 
-    --font-family-text: charter, Georgia, serif;
+    --font-family-body: charter, Georgia, serif;
+    --font-family-headers: firasans, Georgia, serif;
     --font-family-code: firacode, Consolas, monospace;
 
     --font-size-base: 1rem;
@@ -108,7 +132,7 @@
 }
 
 body {
-    font-family: var(--font-family-text);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-base);
     line-height: var(--line-height);
     max-width: var(--max-width);
@@ -120,6 +144,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-headers);
     margin: var(--spacing-large) 0 var(--spacing-medium);
     line-height: var(--line-height-heading);
     color: var(--text-color);
