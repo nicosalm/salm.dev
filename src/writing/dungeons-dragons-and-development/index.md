@@ -3,9 +3,7 @@ Date: 2025-04-21
 
 > Creating custom ("homebrew") D&D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected "worlds" which must remain cohesive while evolving over time.
 
-<span class="dropcap">
-  <img src="./images/dropcap-i.svg" alt="Decorative letter I (Retrieved from https://openclipart.org/detail/325725/drop-cap-i)" width="60" height="60">
-</span> have been roleplaying and building worlds for a decade this May[^1]. In that time, I've learned a tremendous amount about what works in worldbuilding and how to build player trust as a game master[^2] (GM). When I'm not at the table with friends, I'm programming -- graduating soon with a Computer Sciences degree from the [University of Wisconsin-Madison](https://cdis.wisc.edu/). The creative challenges faced by worldbuilding GMs parallel those of software engineers, particularly in managing complexity, sustaining creative momentum, and designing flexible systems that adapt to change.
+I have been roleplaying and building worlds for a decade this May[^1]. In that time, I've learned a tremendous amount about what works in worldbuilding and how to build player trust as a game master[^2] (GM). When I'm not at the table with friends, I'm programming -- graduating soon with a Computer Sciences degree from the [University of Wisconsin-Madison](https://cdis.wisc.edu/). The creative challenges faced by worldbuilding GMs parallel those of software engineers, particularly in managing complexity, sustaining creative momentum, and designing flexible systems that adapt to change.
 
 ## Building Worlds
 
