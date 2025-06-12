@@ -1,4 +1,4 @@
-# Winning Pokémon Showdown (w/ Game Theory!)
+# Winning Pokemon Showdown (w/ Game Theory!)
 Date: 2025-05-11
 
 > We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!
@@ -19,7 +19,7 @@ When a player's Pokemon's HP reaches 0, the other player wins:
 
 <img src="./images/outcome.gif" alt="Battle outcome GIF" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
 
-## The Seven Pokémon We Analyzed
+## The Seven Pokemon We Analyzed
 For our project, my friends and I focused on seven of the most commonly used Pokémon in the January 2021 Pokémon Showdown 1v1 leaderboard:
 
 <img src="./images/top-7.jpeg" loading="lazy" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
