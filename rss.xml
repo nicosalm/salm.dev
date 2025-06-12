@@ -5,14 +5,14 @@
   <link>https://salm.dev</link>
   <description>Hot takes and cool things</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 12 Jun 2025 16:40:23 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 12 Jun 2025 16:44:02 +0000</lastBuildDate>
   <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
   <item>
     <title>Winning Pokémon Showdown (w/ Game Theory!)</title>
     <link>https://salm.dev/writing/winning-pokemon-showdown-with-game-theory/</link>
     <guid>https://salm.dev/writing/winning-pokemon-showdown-with-game-theory/</guid>
     <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
-    <description><![CDATA[ We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. Funny enough, they perfectly matched what our friend with 5000+ hours in the game already knew. ]]></description>
+    <description><![CDATA[ We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew! ]]></description>
   </item>
   <item>
     <title>Dungeons, Dragons &amp; Development</title>
