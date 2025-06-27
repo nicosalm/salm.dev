@@ -382,8 +382,6 @@ For those willing to explore these command line utilities and text editors, the 
 
 And as always, remember: ***Life is like Vim: There are a lot of shortcuts and you should take them.***
 
-## Footnotes
-
 [^1]: The objective is reducing the most common sources of friction in your everyday routine. Instead of trying to find a quicker way to do everything under the sun, reflect on your routines and make those processes swifter.
 
 [^2]: If you don't want to set up your shell yourself, here is an [elegant script](https://github.com/jo

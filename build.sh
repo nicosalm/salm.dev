@@ -23,12 +23,13 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,sponsors,about,assets,styles}
+  mkdir -p dist/{writing,sponsors,bookshelf,about,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
   cp src/about/index.html dist/about/
   cp src/sponsors/index.html dist/sponsors/
+  cp src/bookshelf/index.html dist/bookshelf/
   cp src/assets/favicon.svg dist/assets/
   cp src/assets/88x31/88x31.jpg dist/88x31.jpg
   cp src/404.html dist/
@@ -70,7 +71,8 @@ process_post() {
   fi
 
   pandoc "$mdfile" --standalone --template=src/templates/post.html --mathjax \
-    -o "dist/writing/$name/index.html" -V title="$title" -V date="$date" $math_flag
+  --reference-location=section \
+  -o "dist/writing/$name/index.html" -V title="$title" -V date="$date" $math_flag
 
   if [ -d "${dir}images" ]; then
       mkdir -p "dist/writing/$name/images"
@@ -163,7 +165,6 @@ XML
 
   echo "</channel></rss>" >> dist/rss.xml
 }
-
 
 inline_css() {
   css_content=$(cat dist/styles/styles.css)

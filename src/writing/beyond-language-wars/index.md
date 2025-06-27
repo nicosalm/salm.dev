@@ -259,8 +259,6 @@ When someone suggests a rewrite, they're often trying to solve the <i>wrong</i> 
 
 Next time the rewrite discussion comes up, dig deeper. The answer usually reveals that language choice was never the real bottleneck.
 
-## Footnotes
-
 [^1]: "Good enough" code is good enough! Rewriting everything (of your own volition) will only cause problems and annoy your team. Nobody wants to spend time re-understanding rewritten code.
 
 [^2]: Modern microservices architectures increasingly use language-specific services, communicating via well-defined APIs rather than forcing standardization.

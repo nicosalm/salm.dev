@@ -68,13 +68,17 @@ The best software, too, evolves through consistent dialogue between creators and
 
 Different types of collaboration appear in both domains:
 
-- __Planned collaboration__ occurs when multiple creators intentionally work together toward defined goals. For game masters, this might mean co-creating a campaign setting with players during a "session zero," while developers achieve this through agile methodologies.
+<div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 15px 0;">
+<strong>Planned collaboration</strong> occurs when multiple creators intentionally work together toward defined goals. For game masters, this might mean co-creating a campaign setting with players during a "session zero," while developers achieve this through agile methodologies.
+</div>
+<div style="background-color: #f8f9fa; border-left: 4px solid #6f42c1; padding: 15px; margin: 15px 0;">
+<strong>Emergent collaboration</strong> happens when users unexpectedly extend or transform the original creation. Players develop complex relationships between their characters that I could never have anticipated, or users discover innovative uses for software features that developers never imagined.
+</div>
+<div style="background-color: #f8f9fa; border-left: 4px solid #fd7e14; padding: 15px; margin: 15px 0;">
+<strong>Feedback-driven evolution</strong> is another mode where creators respond to how their work is actually used rather than how they assumed it would be used. I've redesigned entire campaign arcs based on unexpected player decisions; similarly, product teams pivot features based on user behavior.
+</div>
 
-- __Emergent collaboration__ happens when users unexpectedly extend or transform the original creation. Players develop complex relationships between their characters that I could never have anticipated, or users discover innovative uses for software features that developers never imagined.
-
-- __Feedback-driven evolution__ is another mode where creators respond to how their work is actually used rather than how they assumed it would be used. I've redesigned entire campaign arcs based on unexpected player decisions; similarly, product teams pivot features based on user behavior.
-
-Both disciplines require balancing creative vision with what the audience actually wants. This means maintaining the humility to recognize when your brilliant idea isn't working, and the flexibility to adapt.
+Both disciplines require balancing creative vision with what the audience actually wants. This means **maintaining the humility to recognize when your brilliant idea isn't working**, and the flexibility to adapt.
 
 The most rewarding creative experiences happen when we step back from being the sole author and create spaces where others can contribute meaningfully. This doesn't diminish our work -- it enhances it, transforming our initial ideas into something far richer than we could have built alone.
 
@@ -97,8 +101,6 @@ Whether crafting magical realms or coding projects, common challenges include ma
 Perhaps most importantly, both disciplines teach humility. No matter how brilliant our creations seem in our minds, their true value lies in how they serve others. The perfect world only exists in our minds; our job is to create the best approximation in the time we have. By embracing these constraints rather than fighting them, we open ourselves to discoveries and collaborations that far surpass the original vision.
 
 I plan to continue worldbuilding, both as a software engineer and a game master, for the foreseeable future. May your own creative endeavors, whatever form they take, benefit from the wisdom worldbuilding has to offer.
-
-## Footnotes
 
 [^1]: Over the years, I've explored roleplay across many mediums, from Star Wars forum RP and MMOs to tabletop games like D&D 5e. During COVID, I invested heavily in both DayZ roleplay and a 42-week D&D campaign with friends, which cemented my focus on tabletop RPGs.
 
