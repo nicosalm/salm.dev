@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<style>
+@font-face {
+    font-family: 'firasans';
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/firasans_regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'firasans';
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/firasans_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'firacode';
+    src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --text-light: #555555;
+    --text-gray: #666666;
+    --link-color: #0066cc;
+    --border-color: #eee;
+    --border-dark: #000;
+    --code-bg: #f5f5f5;
+    --blockquote-bg: #f9f9f9;
+    --blockquote-border: #ccc;
+    --nav-light: #f8f8f8;
+    --nav-dark: #f0f0f0;
+    --webring-primary: #C5050C;
+    --webring-bg: #FFFFFF;
+
+    --font-family-body: charter, Georgia, serif;
+    --font-family-headers: firasans, Georgia, serif;
+    --font-family-code: firacode, Consolas, monospace;
+
+    --font-size-base: 1rem;
+    --font-size-small: 0.9rem;
+    --line-height: 1.6;
+    --line-height-tight: 1.1;
+    --line-height-heading: 1.2;
+    --spacing-tiny: 0.25rem;
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-huge: 3rem;
+    --max-width: 1000px;
+    --transition-speed: 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --text-light: #b0b0b0;
+        --text-gray: #888888;
+        --link-color: #66aaff;
+        --border-color: #333;
+        --border-dark: #555;
+        --code-bg: #2a2a2a;
+        --blockquote-bg: #2a2a2a;
+        --blockquote-border: #555;
+        --nav-light: #2a2a2a;
+        --nav-dark: #333333;
+        --webring-primary: #ff4444;
+        --webring-bg: #2a2a2a;
+    }
+
+    header.main-nav img[src="/assets/logo-black.svg"] {
+        content: url("/assets/logo-white.svg");
+    }
+
+    .post-link[data-description]:hover::after {
+        background-color: #2a2a2a !important;
+        border: 1px solid #555 !important;
+        color: var(--text-light) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    max-width: var(--max-width);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0 auto;
+    padding: 20px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-headers);
+    margin: var(--spacing-large) 0 var(--spacing-medium);
+    line-height: var(--line-height-heading);
+    color: var(--text-color);
+}
+
+h1 { font-size: 2rem; }
+h2 {
+    font-size: 1.5rem;
+    margin-top: var(--spacing-xl);
+}
+h3 { font-size: 1.25rem; }
+
+p {
+    margin-bottom: var(--spacing-medium);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin: var(--spacing-medium) 0;
+    padding-left: var(--spacing-xl);
+}
+
+li {
+    margin-bottom: var(--spacing-tiny);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-medium) 0;
+    font-size: var(--font-size-base);
+}
+
+th, td {
+    padding: var(--spacing-small) var(--spacing-medium);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color var(--transition-speed);
+}
+
+th {
+    font-weight: bold;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-dark);
+}
+
+blockquote {
+    margin: var(--spacing-large) 0;
+    padding: var(--spacing-small) var(--spacing-large);
+    border-left: 3px solid var(--blockquote-border);
+    color: var(--text-light);
+    font-style: italic;
+    background-color: var(--blockquote-bg);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+blockquote p {
+    margin-bottom: var(--spacing-small);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+code {
+    font-family: var(--font-family-code);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: var(--font-size-small);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    transition: background-color var(--transition-speed);
+}
+
+pre {
+    background-color: var(--code-bg);
+    padding: var(--spacing-medium);
+    border-radius: 3px;
+    overflow-x: auto;
+    margin: var(--spacing-medium) 0;
+    transition: background-color var(--transition-speed);
+}
+
+pre code {
+    padding: 0;
+    background-color: transparent;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: var(--spacing-small) var(--spacing-tiny);
+}
+
+figure {
+    margin: 0;
+    text-align: center;
+}
+
+figcaption {
+    font-size: var(--font-size-small);
+    margin-top: 5px;
+    font-style: italic;
+    color: var(--text-light);
+}
+
+header {
+    margin-bottom: var(--spacing-medium);
+}
+
+footer {
+    margin-top: var(--spacing-huge);
+    text-align: center;
+    font-size: var(--font-size-small);
+    color: var(--text-gray);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-medium);
+    transition: border-color var(--transition-speed);
+}
+
+hr.solid {
+    border: 0;
+    border-top: 1px solid var(--border-dark);
+    margin: var(--spacing-large) 0;
+    transition: border-color var(--transition-speed);
+}
+
+header.main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header.main-nav img {
+    margin-bottom: 15px;
+    margin-right: 0;
+}
+
+header.main-nav nav {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    line-height: var(--line-height-tight);
+    min-width: max-content;
+}
+
+.nav-header,
+.nav-cell {
+    padding: 2px;
+}
+
+.nav-cell {
+    padding-bottom: 1px;
+}
+
+.light-row {
+    background-color: var(--nav-light);
+    transition: background-color var(--transition-speed);
+}
+
+.dark-row {
+    background-color: var(--nav-dark);
+    transition: background-color var(--transition-speed);
+}
+
+@media (min-width: 576px) {
+    header.main-nav {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    header.main-nav img {
+        margin-right: 80px;
+        margin-bottom: 0;
+    }
+}
+
+.buttons-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+}
+
+.button-88x31 {
+    width: 88px;
+    height: 31px;
+    margin: 0;
+}
+
+.post-link {
+    position: relative;
+    display: inline-block;
+}
+
+.post-link[data-description]:hover::after {
+    content: attr(data-description);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 5px;
+    z-index: 1;
+    width: 320px;
+    background-color: var(--bg-color);
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: var(--text-light);
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+    pointer-events: none;
+    transition: all var(--transition-speed);
+}
+
+.webring {
+    width: 100%;
+    border: 1px solid var(--webring-primary);
+    max-width: 250px;
+    transition: border-color var(--transition-speed);
+}
+
+.webring-header {
+    background-color: var(--webring-primary);
+    text-align: center;
+    color: #FFFFFF;
+    transition: background-color var(--transition-speed);
+}
+
+.webring-links {
+    background-color: var(--webring-bg);
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color var(--transition-speed);
+}
+
+.webring-links a {
+    color: var(--webring-primary);
+    transition: color var(--transition-speed);
+}
+
+@media (max-width: 576px) {
+    .about-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .about-container img {
+        margin-bottom: 20px !important;
+        order: -1 !important;
+    }
+}
+</style>
+    <title>Create, Don't Consume | salm.dev</title>
+    </head>
+<body>
+    <div>
+        <header>
+            <a href="/">home</a> / <a href="/writing/">writing</a>
+        </header>
+        <article>
+            <h1 id="create-dont-consume">Create, Don’t Consume</h1>
+            <p>Date: 2025-06-27</p>
+            <blockquote>
+            <p>We’re trading long-term fulfillment for short-term
+            dopamine hits, and each trade makes the next one harder to
+            resist.</p>
+            </blockquote>
+            <h2 id="introduction">Introduction</h2>
+            <p>Nothing technical today in the traditional sense; rather,
+            I’ve come to share a bit of introspection. This morning I
+            jotted down my “time wasters”—a list I feel almost anyone
+            these days can relate to:</p>
+            <ul>
+            <li>not going to bed right away</li>
+            <li>not waking up right away</li>
+            <li>scrolling</li>
+            <li>YouTube videos and short-form content</li>
+            <li>Discord conversations</li>
+            <li>“dooming”<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> about big milestones I
+            have not achieved</li>
+            <li>using AI (*when passive)</li>
+            </ul>
+            <p>Looking at this list, there’s a pattern I’ve been
+            thinking about a lot recently: these are all low-effort
+            activities that deliver quick dopamine hits. They feel
+            rewarding in the moment, yet leave me empty afterward.</p>
+            <p>It’s rather obvious that if something wastes your time,
+            it is preventing you from doing other things. And though
+            they may present reward in the moment, later, all you feel
+            is regret. I’m training my brain to want instant
+            gratification over doing hard things. Each time I pick the
+            easy dopamine hit, finding motivation for real work becomes
+            that much harder.</p>
+            <p>And while I’ve identified this grouping of problems, I’m
+            still far away from being able to conquer them myself.</p>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-section"
+            role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1"><p>“Dooming”, by my count, refers to
+            obsessively dwelling on negative thoughts about future
+            outcomes or personal failures, often worsened by social
+            media comparisons and societal expectations about where you
+            “should be” in life.<a href="#fnref1" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+            <h2 id="vocabulary">Vocabulary</h2>
+            <p>Let me introduce some vocabulary to clarify this
+            pattern.</p>
+            <p>I’ll call these two opposing action sets
+            <strong>consumptive</strong> versus
+            <strong>generative</strong> behaviors:</p>
+            <div
+            style="background-color: var(--blockquote-bg); border-left: 4px solid #dc3545; padding: 15px; margin: 15px 0; transition: background-color var(--transition-speed);">
+            <p><strong>Consumptive behaviors</strong> are low-effort
+            activities that provide high momentary reward (scrolling
+            feels good while you’re doing it) but offer little lasting
+            reward (nothing meaningful to show for it afterward) and
+            minimal dopamine upon completion (no real sense of
+            accomplishment).</p>
+            </div>
+            <div
+            style="background-color: var(--blockquote-bg); border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; transition: background-color var(--transition-speed);">
+            <p><strong>Generative behaviors</strong> require effort and
+            sustained attention, providing low or delayed momentary
+            reward (the work feels hard initially) but high lasting
+            reward (real skills, relationships, health, accomplishments)
+            and significant dopamine upon completion (genuine
+            satisfaction from finishing something worthwhile).</p>
+            </div>
+            <p>The consumptive activities feel immediately rewarding but
+            train your brain to crave easy gratification. The generative
+            ones often feel difficult to start but gradually become more
+            rewarding as your dopamine system recalibrates to appreciate
+            sustained effort.</p>
+            <h2 id="down-in-a-hole">Down in a Hole</h2>
+            <p>I am no psychologist, but I believe the key point is
+            this: <strong><em>your brain actively fights against
+            choosing generative behaviors.</em></strong> It has been
+            conditioned to expect easy dopamine hits, so when faced with
+            something that requires effort—even something you know will
+            ultimately be more fulfilling—your mind will push you toward
+            the consumptive alternatives. It wants its quick fix.</p>
+            <p>Daniel Lieberman calls this an “<a
+            href="https://www.cell.com/current-biology/pdf/S0960-9822(14)00257-7.pdf">evolutionary
+            mismatch</a>”<a href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>, and describes how
+            behaviors that once helped us survive now work against our
+            wellbeing. For most of human history, conserving energy and
+            seeking quick rewards were essential for survival. Brains
+            that chose certain, easy rewards over uncertain future
+            benefits were the ones that lived to reproduce.</p>
+            <p>The struggle comes from processes running at different
+            priority levels<a href="#fn3" class="footnote-ref"
+            id="fnref3" role="doc-noteref"><sup>3</sup></a>: your
+            evolutionary brain operates with high priority, optimizing
+            for immediate survival, while your conscious mind runs in
+            the background trying to optimize for long-term meaning and
+            growth.</p>
+            <p>I recently stumbled across comedian Jimmy Carr in <a
+            href="https://www.youtube.com/watch?v=v8mlrSIMhD8&amp;list=WL&amp;index=2">an
+            interview</a> (don’t bristle at the title! it’s a good
+            video) and was genuinely surprised with what he had to say!
+            He captured this perfectly: video games serve as “a proxy
+            for career” while online porn acts as “a proxy for sex.”
+            These activities provide the neurochemical rewards of real
+            accomplishment and connection without any of the actual
+            benefits. As Carr put it: “George Orwell wasn’t right—our
+            power won’t be taken away from us by some authoritarian
+            master, we’re going to give it away for cheap dopamine.”</p>
+            <p>All of these consumptive behaviors (the scrolling, the
+            videos, etc.) are forms of mental escape from the present
+            moment. They pull us away from engaging with what’s actually
+            in front of us.</p>
+            <p>This creates a dangerous cycle. The more you give in to
+            consumptive behaviors, the harder generative ones become to
+            start. Eventually, you find yourself in what feels like a
+            dark, dull pit—going through the motions of easy pleasures
+            that no longer even feel that good, while the meaningful
+            activities that could lift you out seem impossibly difficult
+            to begin. Like Huxley’s soma<a href="#fn4"
+            class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a>, these easy pleasures
+            numb us to the richer rewards that come from actual
+            engagement with life.</p>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-section"
+            role="doc-endnotes">
+            <hr />
+            <ol start="2">
+            <li id="fn2"><p>From Daniel Lieberman’s “The Story of the
+            Human Body,” which explores how traits that evolved for
+            ancestral environments can become problematic in modern
+            contexts.<a href="#fnref2" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn3"><p>Though this cheeky computing metaphor
+            simplifies the actual neuroscience, research on dual-process
+            theory and ego depletion does show that conscious control
+            requires more cognitive resources and can be overwhelmed by
+            automatic processes, especially under stress or fatigue.<a
+            href="#fnref3" class="footnote-back"
+            role="doc-backlink">↩︎</a></p></li>
+            <li id="fn4"><p>In Aldous Huxley’s <em>Brave New World</em>,
+            soma is a drug that provides instant pleasure and escape,
+            keeping citizens docile and preventing them from seeking
+            deeper meaning. This book has frightened me far more than
+            <em>1984</em> ever could.<a href="#fnref4"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+            <h2 id="where-im-at">Where I’m At</h2>
+            <p>I wish I could offer a clear path forward, but honestly,
+            I’m still working through this cycle myself. Part of me
+            keeps hoping I’ll stumble across some font of inspiration
+            that will suddenly make everything clear. I recognize real
+            change requires the hard work of building new habits day by
+            day. I’ve identified the problem and understand the
+            psychology behind it, but I’m still in the messy middle of
+            actually changing. I fall back into old patterns regularly,
+            but I’m learning.</p>
+            <p>Given how ubiquitous these behaviors are, this seems to
+            be the defining challenge of our digital age (especially
+            with the emergence of AI, which can be profoundly
+            consumptive when used as a replacement for thinking rather
+            than a tool to enhance it).</p>
+            <p>I plan to revisit this post as I experiment with
+            different approaches and hopefully develop some practical
+            insights. For now, I have clearer language for what I’m
+            fighting against. I’d be curious to hear what consumptive<a
+            href="#fn5" class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a> patterns others
+            recognize in themselves.</p>
+            <aside id="footnotes"
+            class="footnotes footnotes-end-of-section"
+            role="doc-endnotes">
+            <hr />
+            <ol start="5">
+            <li id="fn5"><p>These activities aren’t inherently good or
+            bad. Really, it depends on how you engage with them. Playing
+            video games with friends can build real relationships;
+            creating content on social media can develop genuine skills.
+            What matters is whether you’re passively consuming or
+            actively creating, connecting, and growing.<a href="#fnref5"
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </aside>
+        </article>
+    </div>
+    <footer>
+        <p>© 2025 salm.dev</p>
+    </footer>
+</body>
+</html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <style>
 @font-face {
     font-family: 'firasans';
@@ -427,48 +427,69 @@ header.main-nav nav {
     }
 }
 </style>
-    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
-    <title>writing | salm.dev</title>
-    <style>
-        .post-link {
-            position: relative;
-            display: inline-block;
-        }
+        <title>bookshelf | salm.dev</title>
+    </head>
+    <body>
+        <header>
+            <a href="/">home</a> / bookshelf
+        </header>
+        <h1>bookshelf</h1>
+        <p>
+            A collection of books that have shaped my thinking, in no particular order. Each entry includes my personal thoughts and what I took away from the experience.
+        </p>
 
-        .post-link[data-description]:hover::after {
-            content: attr(data-description);
-            position: absolute;
-            left: 0;
-            top: 100%;
-            margin-top: 5px;
-            z-index: 1;
-            width: 320px;
-            background-color: #fff;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            color: #555;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <header><a href="/">home</a> / writing</header>
-        <h1>writing (<a href="../rss.xml">RSS</a>)</h1>
-        <p>My programming adventures, unfiltered thoughts, and current obsessions.</p>
-        <ul>
-<li>2025-06-27 :: <a href="/writing/create-dont-consume/" class="post-link" data-description="We&apos;re trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.">Create, Don't Consume</a></li>
-<li>2025-05-11 :: <a href="/writing/winning-pokemon-showdown-with-game-theory/" class="post-link" data-description="We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!">Winning Pokemon Showdown (w/ Game Theory!)</a></li>
-<li>2025-04-21 :: <a href="/writing/dungeons-dragons-and-development/" class="post-link" data-description="Creating custom (&quot;homebrew&quot;) D&amp;D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected &quot;worlds&quot; which must remain cohesive while evolving over time.">Dungeons, Dragons & Development</a></li>
-<li>2025-02-15 :: <a href="/writing/beyond-language-wars/" class="post-link" data-description="The debate between programming languages in data science is usually a red herring that masks fundamental architectural challenges. I look into when rewrites make sense, and when they actually mask deeper problems.">Beyond Language Wars</a></li>
-<li>2024-10-10 :: <a href="/writing/command-line-productivity/" class="post-link" data-description="I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.">Command Line Productivity</a></li>
-<li>2024-08-18 :: <a href="/writing/preserving-my-future-self/" class="post-link" data-description="I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got a new, expensive keyboard that got sawed in half. Either way, it was an adventure worth sharing.">Preserving My Future Self</a></li>
-        </ul>
-    </div>
-    <footer><p>© 2025 salm.dev</p></footer>
-</body>
+        <h2>Technical/Programming</h2>
+        <h3>The Algorithm Design Manual</h3>
+        <p><em>Steven Skiena</em></p>
+        <p>
+            TODO
+        </p>
+        <h3>Designing Data-Intensive Applications</h3>
+        <p><em>Martin Kleppmann and Chris Riccomini</em></p>
+        <p>
+            TODO
+        </p>
+        <h3>Operating Systems: Three Easy Pieces</h3>
+        <p><em>Remzi and Andrea Arpaci-Dusseau</em></p>
+        <p>
+            TODO
+        </p>
+        <p>Click <a href="/writing/notes-on-operating-systems">here</a> to view my notes on OSTEP and Operating Systems.</p>
+
+        <hr class="solid">
+        <h2>ML/Statistics</h2>
+        <h3>Introduction to Statistical Learning</h3>
+        <p><em>Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani</em></p>
+        <p>
+            TODO
+        </p>
+        <h3>Foundations of Machine Learning</h3>
+        <p><em>Mehryar Mohri, Afshin Rostamizadeh, and Ameet Talwalkar</em></p>
+        <p>
+            TODO
+        </p>
+
+        <hr class="solid">
+        <h2>Philosophy/History</h2>
+        <h3>A History of Western Philosophy</h3>
+        <p><em>Bertrand Russell</em></p>
+        <p>
+            When Russell needed money during World War II (his pacifist views had cost him academic positions), he turned to lecturing at the Barnes Foundation in Philadelphia and discovered he could tell the story of Western philosophy as if it were human drama rather than abstract theory. The book divides twenty-five centuries into three acts—ancient, medieval, modern—with philosophers responding to plague and war and political collapse, each thinker shaped by forces larger than himself. Russell's genius lies in his ruthless clarity: he can explain why Aquinas mattered to medieval Europe, then show exactly where his arguments fall apart, and you finish both respecting the man and understanding why his system couldn't survive the Renaissance. Critics attack Russell's biases, his dismissal of German idealism, his weak grasp of medieval thought, but this misses what he accomplished. Russell made philosophy feel urgent again, connected to the crises that produced it, and when the Nobel Committee awarded him the Literature Prize in 1950, they cited this book as proof that ideas have consequences and that someone who can trace those consequences across centuries deserves our attention.
+        </p>
+        <h3>Meditations</h3>
+        <p><em>Marcus Aurelius</em></p>
+        <p>
+            <em>Meditations</em> captures something extraordinary: the private thoughts of a Roman emperor wrestling with timeless questions while leading a brutal campaign. Between 170 and 180 CE, during the Marcomannic Wars, Marcus Aurelius wrote these reflections while fighting the Germanic Marcomanni and Quadi tribes along the Danube frontier. He penned passages while campaigning against the Quadi on the river Granova in Slovakia and at Carnuntum near Vienna. The work unfolds in fragments—brief notes on managing stress, dealing with difficult people, keeping perspective when everything falls apart. What strikes me most is his silence about Stoicism itself; Marcus never announces his philosophical allegiance, making his wisdom feel immediate rather than academic. His central insight runs deeper than any system: live according to reason, find peace within yourself, focus on what you can control instead of raging against what you cannot. I keep returning to <em>Meditations</em> because its practical wisdom cuts through centuries, offering guidance as relevant today as it was during his war against tribes threatening the Empire's heart.
+        </p>
+
+        <hr class="solid">
+        <div style="text-align: right; margin-top: 40px; margin-bottom: 40px;">
+            <p style="margin-bottom: 8px; font-style: italic;">
+                To know, is to know that you know <strong>nothing</strong>. That is the meaning of true knowledge.
+            </p>
+            <p>
+                — Socrates
+            </p>
+        </div>
+    </body>
 </html>
