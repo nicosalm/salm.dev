@@ -389,31 +389,30 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
-.webring {
-    width: 100%;
-    border: 1px solid var(--webring-primary);
-    max-width: 250px;
-    transition: border-color var(--transition-speed);
+.footnotes ol {
+    counter-reset: footnote-symbols;
+    list-style: none;
+}
+.footnotes li {
+    counter-increment: footnote-symbols;
+    list-style: none;
+    position: relative;
+}
+.footnotes li::before {
+    position: absolute;
+    left: -1.5em;
 }
 
-.webring-header {
-    background-color: var(--webring-primary);
-    text-align: center;
-    color: #FFFFFF;
-    transition: background-color var(--transition-speed);
-}
-
-.webring-links {
-    background-color: var(--webring-bg);
-    text-align: center;
-    white-space: nowrap;
-    transition: background-color var(--transition-speed);
-}
-
-.webring-links a {
-    color: var(--webring-primary);
-    transition: color var(--transition-speed);
-}
+.footnotes li#fn1::before { content: "※"; }
+.footnotes li#fn2::before { content: "†"; }
+.footnotes li#fn3::before { content: "▲"; }
+.footnotes li#fn4::before { content: "♦"; }
+.footnotes li#fn5::before { content: "♠"; }
+.footnotes li#fn6::before { content: "♣"; }
+.footnotes li#fn7::before { content: "♥"; }
+.footnotes li#fn8::before { content: "★"; }
+.footnotes li#fn9::before { content: "▼"; }
+.footnotes li#fn10::before { content: "§"; }
 
 @media (max-width: 576px) {
     .about-container {
@@ -453,8 +452,8 @@ header.main-nav nav {
             language actually matter?</p>
             <p>I used to be the one saying “let’s port it to &lt;X&gt;!”
             – spending entire weekends rewriting “good enough”<a
-            href="#fn1" class="footnote-ref" id="fnref1"
-            role="doc-noteref"><sup>1</sup></a> code. As it turns out,
+            href="#fn1" class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
+            role="doc-noteref"><sup>※</sup></a> code. As it turns out,
             being the “I rewrote everything” guy usually creates more
             problems than it solves. These days, I’m more interested in
             understanding what each language brings to the table, and
@@ -497,7 +496,7 @@ header.main-nav nav {
             everything (of your own volition) will only cause problems
             and annoy your team. Nobody wants to spend time
             re-understanding rewritten code.<a href="#fnref1"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h3 id="ii.-package-management">II. Package Management</h3>
@@ -749,8 +748,8 @@ header.main-nav nav {
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jsonify({<span class="st">&quot;results&quot;</span>: predictions})</span></code></pre></div>
             <p>This split makes sense: Python handles the web stuff
             while R does the heavy statistical lifting<a href="#fn2"
-            class="footnote-ref" id="fnref2"
-            role="doc-noteref"><sup>2</sup></a>. Take a typical Bayesian
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref2"
+            role="doc-noteref"><sup>†</sup></a>. Take a typical Bayesian
             analysis:</p>
             <div class="sourceCode" id="cb13"><pre
             class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From raw data to visualization in R</span></span>
@@ -762,8 +761,8 @@ header.main-nav nav {
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>()</span></code></pre></div>
             <p>What takes 5 lines in R would require 50+ lines and
             multiple dependencies in Python<a href="#fn3"
-            class="footnote-ref" id="fnref3"
-            role="doc-noteref"><sup>3</sup></a>. Modern deployment tools
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref3"
+            role="doc-noteref"><sup>▲</sup></a>. Modern deployment tools
             bridge these worlds seamlessly:</p>
             <div class="sourceCode" id="cb14"><pre
             class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single container, dual runtime</span></span>
@@ -795,12 +794,12 @@ header.main-nav nav {
             <li id="fn2"><p>Modern microservices architectures
             increasingly use language-specific services, communicating
             via well-defined APIs rather than forcing standardization.<a
-            href="#fnref2" class="footnote-back"
+            href="#fnref2" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn3"><p>Comparison based on standard statistical
             analysis tasks across both languages. R’s domain-specific
             advantages remain significant in statistical computing.<a
-            href="#fnref3" class="footnote-back"
+            href="#fnref3" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>

@@ -389,31 +389,30 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
-.webring {
-    width: 100%;
-    border: 1px solid var(--webring-primary);
-    max-width: 250px;
-    transition: border-color var(--transition-speed);
+.footnotes ol {
+    counter-reset: footnote-symbols;
+    list-style: none;
+}
+.footnotes li {
+    counter-increment: footnote-symbols;
+    list-style: none;
+    position: relative;
+}
+.footnotes li::before {
+    position: absolute;
+    left: -1.5em;
 }
 
-.webring-header {
-    background-color: var(--webring-primary);
-    text-align: center;
-    color: #FFFFFF;
-    transition: background-color var(--transition-speed);
-}
-
-.webring-links {
-    background-color: var(--webring-bg);
-    text-align: center;
-    white-space: nowrap;
-    transition: background-color var(--transition-speed);
-}
-
-.webring-links a {
-    color: var(--webring-primary);
-    transition: color var(--transition-speed);
-}
+.footnotes li#fn1::before { content: "※"; }
+.footnotes li#fn2::before { content: "†"; }
+.footnotes li#fn3::before { content: "▲"; }
+.footnotes li#fn4::before { content: "♦"; }
+.footnotes li#fn5::before { content: "♠"; }
+.footnotes li#fn6::before { content: "♣"; }
+.footnotes li#fn7::before { content: "♥"; }
+.footnotes li#fn8::before { content: "★"; }
+.footnotes li#fn9::before { content: "▼"; }
+.footnotes li#fn10::before { content: "§"; }
 
 @media (max-width: 576px) {
     .about-container {
@@ -518,8 +517,8 @@ header.main-nav nav {
             <p>Now, for the content of substance. First we must
             configure the shell. That means creating aliases to
             eliminate the <em>friction</em><a href="#fn1"
-            class="footnote-ref" id="fnref1"
-            role="doc-noteref"><sup>1</sup></a> from your daily
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
+            role="doc-noteref"><sup>※</sup></a> from your daily
             workflow:</p>
             <div class="sourceCode" id="cb1"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> v=<span class="st">&#39;nvim&#39;</span>                          <span class="co"># why type 4 letters when 1 will do?</span></span>
@@ -544,8 +543,8 @@ header.main-nav nav {
             switch.</p>
             <p>In general, the goal isn’t to memorize every flag and
             option. The goal is to configure your environment once<a
-            href="#fn2" class="footnote-ref" id="fnref2"
-            role="doc-noteref"><sup>2</sup></a>, correctly, so that the
+            href="#fn2" class="footnote-ref" aria-describedby="footnote-label" id="fnref2"
+            role="doc-noteref"><sup>†</sup></a>, correctly, so that the
             most efficient way to do something is also the most natural
             way.</p>
             <p><strong>[DICLAIMER]</strong> There is something worth
@@ -567,12 +566,12 @@ header.main-nav nav {
             sources of friction in your everyday routine. Instead of
             trying to find a quicker way to do everything under the sun,
             reflect on your routines and make those processes swifter.<a
-            href="#fnref1" class="footnote-back"
+            href="#fnref1" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn2"><p>If you don’t want to set up your shell
             yourself, here is an <a
             href="https://github.com/jo%20tyGill/ezsh">elegant
-            script</a>.<a href="#fnref2" class="footnote-back"
+            script</a>.<a href="#fnref2" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
@@ -671,17 +670,17 @@ tmux a -t session_name              # attach to a session
 tmux a                              # attach to the last session</code></pre>
             <h3 id="customization">Customization</h3>
             <p>When you start Tmux, the program looks for a .dotfile<a
-            href="#fn3" class="footnote-ref" id="fnref3"
-            role="doc-noteref"><sup>3</sup></a> at
+            href="#fn3" class="footnote-ref" aria-describedby="footnote-label" id="fnref3"
+            role="doc-noteref"><sup>▲</sup></a> at
             <code>~/.tmux.conf</code>. This plain-text file is where you
             can configure and “rice out”<a href="#fn4"
-            class="footnote-ref" id="fnref4"
-            role="doc-noteref"><sup>4</sup></a> your multiplexer. You’ll
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref4"
+            role="doc-noteref"><sup>♦</sup></a> your multiplexer. You’ll
             begin by adding a plugin manager, <a
             href="https://github.com/tmux-plugins/tpm">tpm</a>, and then
             use it to load a few plugins and a nice theme<a href="#fn5"
-            class="footnote-ref" id="fnref5"
-            role="doc-noteref"><sup>5</sup></a>.</p>
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref5"
+            role="doc-noteref"><sup>♠</sup></a>.</p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
             role="doc-endnotes">
@@ -694,11 +693,11 @@ tmux a                              # attach to the last session</code></pre>
             programs. What sets them apart from regular files and
             directories is their prefix: a dot (<code>.</code>). Note:
             On Unix based systems, dotfiles are hidden by the OS by
-            default.<a href="#fnref3" class="footnote-back"
+            default.<a href="#fnref3" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn4"><p>Ricing is a process in which one customizes
             their OS or programs to improve the aesthetics or refine
-            their workflow.<a href="#fnref4" class="footnote-back"
+            their workflow.<a href="#fnref4" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn5"><p>In earlier drafts, I recommended <a
             href="https://github.com/catppuccin/tmux">catppuccin</a>
@@ -706,7 +705,7 @@ tmux a                              # attach to the last session</code></pre>
             href="https://github.com/folke/tokyonight.nvim">tokyonight</a>
             by Folke; these days, I like a simpler, higher contrast
             theme like one of the built vim defaults, elflord.<a
-            href="#fnref5" class="footnote-back"
+            href="#fnref5" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
@@ -839,16 +838,16 @@ tmux a                              # attach to the last session</code></pre>
             and gradually expand it.</p>
             <p>A contention I often receive is, “well, how do I debug in
             Vim?” You don’t. You have separate programs<a href="#fn6"
-            class="footnote-ref" id="fnref6"
-            role="doc-noteref"><sup>6</sup></a>. Each program is good at
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref6"
+            role="doc-noteref"><sup>♣</sup></a>. Each program is good at
             what it does. If you build a hodgepodge of functionality you
             end up with an IDE and that’s precisely what I’m trying to
             escape.</p>
             <p>I will concede, however, that Vim is not beginner
             friendly. There’s a learning curve. However, Vim is
             exceptionally user friendly<a href="#fn7"
-            class="footnote-ref" id="fnref7"
-            role="doc-noteref"><sup>7</sup></a>. Once you get the hang
+            class="footnote-ref" aria-describedby="footnote-label" id="fnref7"
+            role="doc-noteref"><sup>♥</sup></a>. Once you get the hang
             of things, and it clicks, it’s really, really fun to use.
             Here’s <a href="https://scharenbroch.dev/blog/vim/">Lucas’
             argument</a> in favor of Vim.</p>
@@ -864,12 +863,12 @@ tmux a                              # attach to the last session</code></pre>
             <ol start="6">
             <li id="fn6"><p>In the case of debugging, one might opt for
             <code>gdb</code>, the browser, or the python debugger,
-            etc.<a href="#fnref6" class="footnote-back"
+            etc.<a href="#fnref6" class="footnote-back" aria-label="Back to content"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn7"><p>I’m paraphrasing <a
             href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a
             Neovim enjoyer and popular streamer.<a href="#fnref7"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h3 id="neovim">Neovim</h3>
