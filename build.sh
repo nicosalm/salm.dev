@@ -67,7 +67,7 @@ process_post() {
   local math_flag=""
   if has_math_content "$mdfile"; then
       math_flag="-V has_math=true"
-      echo "Math content detected in $name"
+      echo "math detected in $name"
   fi
 
   pandoc "$mdfile" --standalone --template=src/templates/post.html --mathjax \
@@ -185,7 +185,7 @@ inline_css() {
       mv "$tmp_file" "$html_file"
     fi
   done
-  echo "CSS has been inlined."
+  echo "css inlined."
 }
 
 NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
