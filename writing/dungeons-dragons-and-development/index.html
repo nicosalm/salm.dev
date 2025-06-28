@@ -80,8 +80,6 @@
     --blockquote-border: #ccc;
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
-    --webring-primary: #C5050C;
-    --webring-bg: #FFFFFF;
 
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
@@ -116,8 +114,6 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
-        --webring-primary: #ff4444;
-        --webring-bg: #2a2a2a;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -389,31 +385,6 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
-.footnotes ol {
-    counter-reset: footnote-symbols;
-    list-style: none;
-}
-.footnotes li {
-    counter-increment: footnote-symbols;
-    list-style: none;
-    position: relative;
-}
-.footnotes li::before {
-    position: absolute;
-    left: -1.5em;
-}
-
-.footnotes li#fn1::before { content: "※"; }
-.footnotes li#fn2::before { content: "†"; }
-.footnotes li#fn3::before { content: "▲"; }
-.footnotes li#fn4::before { content: "♦"; }
-.footnotes li#fn5::before { content: "♠"; }
-.footnotes li#fn6::before { content: "♣"; }
-.footnotes li#fn7::before { content: "♥"; }
-.footnotes li#fn8::before { content: "★"; }
-.footnotes li#fn9::before { content: "▼"; }
-.footnotes li#fn10::before { content: "§"; }
-
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -445,12 +416,12 @@ header.main-nav nav {
             time.</p>
             </blockquote>
             <p>I have been roleplaying and building worlds for a decade
-            this May<a href="#fn1" class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
-            role="doc-noteref"><sup>※</sup></a>. In that time, I’ve
+            this May<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a>. In that time, I’ve
             learned a tremendous amount about what works in
             worldbuilding and how to build player trust as a game
-            master<a href="#fn2" class="footnote-ref" aria-describedby="footnote-label" id="fnref2"
-            role="doc-noteref"><sup>†</sup></a> (GM). When I’m not at
+            master<a href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a> (GM). When I’m not at
             the table with friends, I’m programming – graduating soon
             with a Computer Sciences degree from the <a
             href="https://cdis.wisc.edu/">University of
@@ -530,13 +501,13 @@ header.main-nav nav {
             tabletop games like D&amp;D 5e. During COVID, I invested
             heavily in both DayZ roleplay and a 42-week D&amp;D campaign
             with friends, which cemented my focus on tabletop RPGs.<a
-            href="#fnref1" class="footnote-back" aria-label="Back to content"
+            href="#fnref1" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn2"><p>“Game master” is the most generalizable
             title for the player who acts as storyteller, referee, and
             world-builder, guiding the adventure for other players. In
             D&amp;D, this role is called the “Dungeon Master.”<a
-            href="#fnref2" class="footnote-back" aria-label="Back to content"
+            href="#fnref2" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
@@ -641,8 +612,8 @@ header.main-nav nav {
             immersed. Conversely, when you railroad players along
             predetermined paths, their engagement evaporates as they
             realize they’re merely pawns in your<a href="#fn3"
-            class="footnote-ref" aria-describedby="footnote-label" id="fnref3"
-            role="doc-noteref"><sup>▲</sup></a> story.</p>
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a> story.</p>
             <p>Software development follows a similar pattern. My most
             successful coding projects have been those where I remained
             flexible to changing requirements rather than clinging to
@@ -674,7 +645,7 @@ header.main-nav nav {
             and trust to you. The same principle applies to software:
             technical brilliance means nothing if it doesn’t solve
             users’ problems in an intuitive way.<a href="#fnref3"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h2 id="collaborating">Collaborating</h2>
@@ -689,8 +660,8 @@ header.main-nav nav {
             demonstrate this perfectly: communities of developers
             contributing to codebases that exceed what any individual
             could create alone. Even proprietary software benefits from
-            beta testing<a href="#fn4" class="footnote-ref" aria-describedby="footnote-label" id="fnref4"
-            role="doc-noteref"><sup>♦</sup></a>, user feedback loops,
+            beta testing<a href="#fn4" class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a>, user feedback loops,
             and cross-functional teams.</p>
             <p>Different types of collaboration appear in both
             domains:</p>
@@ -740,7 +711,7 @@ header.main-nav nav {
             testers. The gaming industry especially does this weird
             thing where they expect fans to test for free when they
             really should be hiring a specialized team.<a href="#fnref4"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h2 id="using-what-you-have">Using What You Have</h2>

@@ -80,8 +80,6 @@
     --blockquote-border: #ccc;
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
-    --webring-primary: #C5050C;
-    --webring-bg: #FFFFFF;
 
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
@@ -116,8 +114,6 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
-        --webring-primary: #ff4444;
-        --webring-bg: #2a2a2a;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -388,31 +384,6 @@ header.main-nav nav {
     pointer-events: none;
     transition: all var(--transition-speed);
 }
-
-.footnotes ol {
-    counter-reset: footnote-symbols;
-    list-style: none;
-}
-.footnotes li {
-    counter-increment: footnote-symbols;
-    list-style: none;
-    position: relative;
-}
-.footnotes li::before {
-    position: absolute;
-    left: -1.5em;
-}
-
-.footnotes li#fn1::before { content: "※"; }
-.footnotes li#fn2::before { content: "†"; }
-.footnotes li#fn3::before { content: "▲"; }
-.footnotes li#fn4::before { content: "♦"; }
-.footnotes li#fn5::before { content: "♠"; }
-.footnotes li#fn6::before { content: "♣"; }
-.footnotes li#fn7::before { content: "♥"; }
-.footnotes li#fn8::before { content: "★"; }
-.footnotes li#fn9::before { content: "▼"; }
-.footnotes li#fn10::before { content: "§"; }
 
 @media (max-width: 576px) {
     .about-container {

@@ -80,8 +80,6 @@
     --blockquote-border: #ccc;
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
-    --webring-primary: #C5050C;
-    --webring-bg: #FFFFFF;
 
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
@@ -116,8 +114,6 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
-        --webring-primary: #ff4444;
-        --webring-bg: #2a2a2a;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -389,31 +385,6 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
-.footnotes ol {
-    counter-reset: footnote-symbols;
-    list-style: none;
-}
-.footnotes li {
-    counter-increment: footnote-symbols;
-    list-style: none;
-    position: relative;
-}
-.footnotes li::before {
-    position: absolute;
-    left: -1.5em;
-}
-
-.footnotes li#fn1::before { content: "※"; }
-.footnotes li#fn2::before { content: "†"; }
-.footnotes li#fn3::before { content: "▲"; }
-.footnotes li#fn4::before { content: "♦"; }
-.footnotes li#fn5::before { content: "♠"; }
-.footnotes li#fn6::before { content: "♣"; }
-.footnotes li#fn7::before { content: "♥"; }
-.footnotes li#fn8::before { content: "★"; }
-.footnotes li#fn9::before { content: "▼"; }
-.footnotes li#fn10::before { content: "§"; }
-
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -452,8 +423,8 @@ header.main-nav nav {
             <li>scrolling</li>
             <li>YouTube videos and short-form content</li>
             <li>Discord conversations</li>
-            <li>“dooming”<a href="#fn1" class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
-            role="doc-noteref"><sup>※</sup></a> about big milestones I
+            <li>“dooming”<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a> about big milestones I
             have not achieved</li>
             <li>using AI (*when passive)</li>
             </ul>
@@ -479,7 +450,7 @@ header.main-nav nav {
             obsessively dwelling on negative thoughts about future
             outcomes or personal failures, often worsened by social
             media comparisons and societal expectations about where you
-            “should be” in life.<a href="#fnref1" class="footnote-back" aria-label="Back to content"
+            “should be” in life.<a href="#fnref1" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
@@ -522,16 +493,16 @@ header.main-nav nav {
             the consumptive alternatives. It wants its quick fix.</p>
             <p>Daniel Lieberman calls this an “<a
             href="https://www.cell.com/current-biology/pdf/S0960-9822(14)00257-7.pdf">evolutionary
-            mismatch</a>”<a href="#fn2" class="footnote-ref" aria-describedby="footnote-label" id="fnref2"
-            role="doc-noteref"><sup>†</sup></a>, and describes how
+            mismatch</a>”<a href="#fn2" class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>, and describes how
             behaviors that once helped us survive now work against our
             wellbeing. For most of human history, conserving energy and
             seeking quick rewards were essential for survival. Brains
             that chose certain, easy rewards over uncertain future
             benefits were the ones that lived to reproduce.</p>
             <p>The struggle comes from processes running at different
-            priority levels<a href="#fn3" class="footnote-ref" aria-describedby="footnote-label"
-            id="fnref3" role="doc-noteref"><sup>▲</sup></a>: your
+            priority levels<a href="#fn3" class="footnote-ref"
+            id="fnref3" role="doc-noteref"><sup>3</sup></a>: your
             evolutionary brain operates with high priority, optimizing
             for immediate survival, while your conscious mind runs in
             the background trying to optimize for long-term meaning and
@@ -558,8 +529,8 @@ header.main-nav nav {
             that no longer even feel that good, while the meaningful
             activities that could lift you out seem impossibly difficult
             to begin. Like Huxley’s soma<a href="#fn4"
-            class="footnote-ref" aria-describedby="footnote-label" id="fnref4"
-            role="doc-noteref"><sup>♦</sup></a>, these easy pleasures
+            class="footnote-ref" id="fnref4"
+            role="doc-noteref"><sup>4</sup></a>, these easy pleasures
             numb us to the richer rewards that come from actual
             engagement with life.</p>
             <aside id="footnotes"
@@ -570,21 +541,21 @@ header.main-nav nav {
             <li id="fn2"><p>From Daniel Lieberman’s “The Story of the
             Human Body,” which explores how traits that evolved for
             ancestral environments can become problematic in modern
-            contexts.<a href="#fnref2" class="footnote-back" aria-label="Back to content"
+            contexts.<a href="#fnref2" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn3"><p>Though this cheeky computing metaphor
             simplifies the actual neuroscience, research on dual-process
             theory and ego depletion does show that conscious control
             requires more cognitive resources and can be overwhelmed by
             automatic processes, especially under stress or fatigue.<a
-            href="#fnref3" class="footnote-back" aria-label="Back to content"
+            href="#fnref3" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn4"><p>In Aldous Huxley’s <em>Brave New World</em>,
             soma is a drug that provides instant pleasure and escape,
             keeping citizens docile and preventing them from seeking
             deeper meaning. This book has frightened me far more than
             <em>1984</em> ever could.<a href="#fnref4"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h2 id="where-im-at">Where I’m At</h2>
@@ -606,8 +577,8 @@ header.main-nav nav {
             different approaches and hopefully develop some practical
             insights. For now, I have clearer language for what I’m
             fighting against. I’d be curious to hear what consumptive<a
-            href="#fn5" class="footnote-ref" aria-describedby="footnote-label" id="fnref5"
-            role="doc-noteref"><sup>♠</sup></a> patterns others
+            href="#fn5" class="footnote-ref" id="fnref5"
+            role="doc-noteref"><sup>5</sup></a> patterns others
             recognize in themselves.</p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
@@ -620,7 +591,7 @@ header.main-nav nav {
             creating content on social media can develop genuine skills.
             What matters is whether you’re passively consuming or
             actively creating, connecting, and growing.<a href="#fnref5"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
         </article>

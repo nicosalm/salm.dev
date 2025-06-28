@@ -80,8 +80,6 @@
     --blockquote-border: #ccc;
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
-    --webring-primary: #C5050C;
-    --webring-bg: #FFFFFF;
 
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
@@ -116,8 +114,6 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
-        --webring-primary: #ff4444;
-        --webring-bg: #2a2a2a;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -388,31 +384,6 @@ header.main-nav nav {
     pointer-events: none;
     transition: all var(--transition-speed);
 }
-
-.footnotes ol {
-    counter-reset: footnote-symbols;
-    list-style: none;
-}
-.footnotes li {
-    counter-increment: footnote-symbols;
-    list-style: none;
-    position: relative;
-}
-.footnotes li::before {
-    position: absolute;
-    left: -1.5em;
-}
-
-.footnotes li#fn1::before { content: "※"; }
-.footnotes li#fn2::before { content: "†"; }
-.footnotes li#fn3::before { content: "▲"; }
-.footnotes li#fn4::before { content: "♦"; }
-.footnotes li#fn5::before { content: "♠"; }
-.footnotes li#fn6::before { content: "♣"; }
-.footnotes li#fn7::before { content: "♥"; }
-.footnotes li#fn8::before { content: "★"; }
-.footnotes li#fn9::before { content: "▼"; }
-.footnotes li#fn10::before { content: "§"; }
 
 @media (max-width: 576px) {
     .about-container {
@@ -727,8 +698,8 @@ header.main-nav nav {
             50.5% in favor of the best team. We believe this makes
             sense, because team composition effectiveness depends
             greatly on the broader metagame, not simply individual
-            matchups.<a href="#fn1" class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
-            role="doc-noteref"><sup>※</sup></a></p>
+            matchups.<a href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a></p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
             role="doc-endnotes">
@@ -743,7 +714,7 @@ header.main-nav nav {
             situation is also similar to the <a
             href="https://en.wikipedia.org/wiki/Condorcet_paradox">Condorcet
             paradox</a> in social choice theory.<a href="#fnref1"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h2 id="challenges-limitations">Challenges &amp;
@@ -752,8 +723,8 @@ header.main-nav nav {
             randomness. With 16 possible damage rolls per move and
             battles lasting multiple turns, we needed high-iteration
             simulations rather than pure expectimax trees to get
-            reliable win rates.<a href="#fn2" class="footnote-ref" aria-describedby="footnote-label"
-            id="fnref2" role="doc-noteref"><sup>†</sup></a></p>
+            reliable win rates.<a href="#fn2" class="footnote-ref"
+            id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
             <p>We also faced balance issues: initially, Rillaboom
             dominated with no bad matchups (worst case: 50% win rate
             against itself), creating boring results. Adding Zapdos and
@@ -767,8 +738,8 @@ header.main-nav nav {
             href="https://www.smogon.com/stats/">currently #1 in
             1v1</a>) being powerful precisely because of its
             unpredictable moveset options.<a href="#fn3"
-            class="footnote-ref" aria-describedby="footnote-label" id="fnref3"
-            role="doc-noteref"><sup>▲</sup></a></p>
+            class="footnote-ref" id="fnref3"
+            role="doc-noteref"><sup>3</sup></a></p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
             role="doc-endnotes">
@@ -778,13 +749,13 @@ header.main-nav nav {
             million simulations for each matchup to accurately account
             for all possible random outcomes. This was computationally
             intensive but necessary to get statistically significant
-            results.<a href="#fnref2" class="footnote-back" aria-label="Back to content"
+            results.<a href="#fnref2" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             <li id="fn3"><p>While we used the standard Smogon Strategy
             Dex movesets for consistency, competitive players often use
             surprise movesets to gain an edge. This “meta-gaming” aspect
             creates another layer of game theory that could be explored
-            in future work.<a href="#fnref3" class="footnote-back" aria-label="Back to content"
+            in future work.<a href="#fnref3" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>

@@ -80,8 +80,6 @@
     --blockquote-border: #ccc;
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
-    --webring-primary: #C5050C;
-    --webring-bg: #FFFFFF;
 
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
@@ -116,8 +114,6 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
-        --webring-primary: #ff4444;
-        --webring-bg: #2a2a2a;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -389,31 +385,6 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
-.footnotes ol {
-    counter-reset: footnote-symbols;
-    list-style: none;
-}
-.footnotes li {
-    counter-increment: footnote-symbols;
-    list-style: none;
-    position: relative;
-}
-.footnotes li::before {
-    position: absolute;
-    left: -1.5em;
-}
-
-.footnotes li#fn1::before { content: "※"; }
-.footnotes li#fn2::before { content: "†"; }
-.footnotes li#fn3::before { content: "▲"; }
-.footnotes li#fn4::before { content: "♦"; }
-.footnotes li#fn5::before { content: "♠"; }
-.footnotes li#fn6::before { content: "♣"; }
-.footnotes li#fn7::before { content: "♥"; }
-.footnotes li#fn8::before { content: "★"; }
-.footnotes li#fn9::before { content: "▼"; }
-.footnotes li#fn10::before { content: "§"; }
-
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -462,8 +433,8 @@ header.main-nav nav {
             <p>I chose to refactor my workflow for one reason alone: the
             vast ergonomic benefit which promises to preserve my
             physical health. I did this for me ten years from now<a
-            href="#fn1" class="footnote-ref" aria-describedby="footnote-label" id="fnref1"
-            role="doc-noteref"><sup>※</sup></a>.</p>
+            href="#fn1" class="footnote-ref" id="fnref1"
+            role="doc-noteref"><sup>1</sup></a>.</p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
             role="doc-endnotes">
@@ -471,7 +442,7 @@ header.main-nav nav {
             <ol>
             <li id="fn1"><p>As a programmer, I will spend the majority
             of my professional career at a desk!<a href="#fnref1"
-            class="footnote-back" aria-label="Back to content" role="doc-backlink">↩︎</a></p></li>
+            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
             <h2 id="rebuilding-muscle-memory">Rebuilding Muscle
@@ -480,8 +451,8 @@ header.main-nav nav {
             adjusting to a new keyboard layout over time, perhaps adding
             in a small subsection of the keyboard each week. I think
             that is fair, but not for me<a href="#fn2"
-            class="footnote-ref" aria-describedby="footnote-label" id="fnref2"
-            role="doc-noteref"><sup>†</sup></a>. Instead, I erased my
+            class="footnote-ref" id="fnref2"
+            role="doc-noteref"><sup>2</sup></a>. Instead, I erased my
             muscle memory in one sweep and just went for it.</p>
             <p>I unplugged my old keyboard and set up my Voyager. Split
             keyboard, blank keycaps, and an entirely new keyboard schema
@@ -504,7 +475,7 @@ header.main-nav nav {
             <ol start="2">
             <li id="fn2"><p>I am a firm believer of ripping of the
             band-aid. I would rather get it all over in one go.<a
-            href="#fnref2" class="footnote-back" aria-label="Back to content"
+            href="#fnref2" class="footnote-back"
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
