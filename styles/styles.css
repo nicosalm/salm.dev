@@ -394,6 +394,8 @@ header.main-nav nav {
 .footnotes li::before {
     position: absolute;
     left: -1.5em;
+    font-variant-emoji: text;
+    font-family: inherit;
 }
 
 .footnotes li#fn1::before { content: "※"; }
@@ -406,6 +408,11 @@ header.main-nav nav {
 .footnotes li#fn8::before { content: "★"; }
 .footnotes li#fn9::before { content: "▼"; }
 .footnotes li#fn10::before { content: "§"; }
+
+a[aria-describedby="footnote-label"] sup {
+    font-variant-emoji: text;
+    font-family: inherit;
+}
 
 @media (max-width: 576px) {
     .about-container {
