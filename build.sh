@@ -23,13 +23,12 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,sponsors,bookshelf,about,assets,styles}
+  mkdir -p dist/{writing,sponsors,about,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
   cp src/about/index.html dist/about/
   cp src/sponsors/index.html dist/sponsors/
-  cp src/bookshelf/index.html dist/bookshelf/
   cp src/assets/favicon.svg dist/assets/
   cp src/assets/88x31/88x31.jpg dist/88x31.jpg
   cp src/404.html dist/
