@@ -23,13 +23,12 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,sponsors,bookshelf,about,assets,styles}
+  mkdir -p dist/{writing,sponsors,about,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
   cp src/about/index.html dist/about/
   cp src/sponsors/index.html dist/sponsors/
-  cp src/bookshelf/index.html dist/bookshelf/
   cp src/assets/favicon.svg dist/assets/
   cp src/assets/88x31/88x31.jpg dist/88x31.jpg
   cp src/404.html dist/
@@ -67,7 +66,7 @@ process_post() {
   local math_flag=""
   if has_math_content "$mdfile"; then
       math_flag="-V has_math=true"
-      echo "Math content detected in $name"
+      echo "math detected in $name"
   fi
 
   pandoc "$mdfile" --standalone --template=src/templates/post.html --mathjax \
@@ -185,7 +184,7 @@ inline_css() {
       mv "$tmp_file" "$html_file"
     fi
   done
-  echo "CSS has been inlined."
+  echo "css inlined."
 }
 
 NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
