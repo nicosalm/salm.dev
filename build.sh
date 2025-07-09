@@ -13,9 +13,9 @@ escape() {
 format_date_rfc() {
   local date_str="$1"
   if [ -n "$date_str" ]; then
-    date -d "$date_str" "+%a, %d %b %Y %H:%M:%S %z" 2>/dev/null ||                  # 1. GNU
-    date -j -f "%Y-%m-%d" "$date_str" "+%a, %d %b %Y %H:%M:%S %z" 2>/dev/null ||    # 2. BSD
-    echo "Thu, 01 Jan 1970 00:00:00 +0000"                                          # 3. Linux epoch time (RFC format)
+    date -d "$date_str" "+%a, %d %b %Y %H:%M:%S %z" 2>/dev/null ||                  # GNU
+    date -j -f "%Y-%m-%d" "$date_str" "+%a, %d %b %Y %H:%M:%S %z" 2>/dev/null ||    # BSD
+    echo "Thu, 01 Jan 1970 00:00:00 +0000"                                          # fallback
   else
     echo "Thu, 01 Jan 1970 00:00:00 +0000"
   fi
@@ -30,7 +30,7 @@ setup_directories() {
   cp src/about/index.html dist/about/
   cp src/sponsors/index.html dist/sponsors/
   cp src/assets/favicon.svg dist/assets/
-  cp src/assets/88x31/88x31.jpg dist/88x31.jpg
+  cp src/assets/88x31/88x31.gif dist/88x31.gif
   cp src/404.html dist/
 }
 
@@ -40,6 +40,14 @@ has_math_content() {
   grep -q -E '\$\$[^$\n]+\$\$' "$file" && return 0
   grep -q -E '\\begin\{(equation|align|math|displaymath)\*?\}' "$file" && return 0
   grep -q -E '\\[\(\)\[\]]' "$file" && return 0
+  return 1
+}
+
+has_code_content() {
+  local file="$1"
+  grep -q -E '^```' "$file" && return 0
+  grep -q -E '^    [[:space:]]*[[:alnum:]]' "$file" && return 0
+  grep -q -E '`[^`]+`' "$file" && return 0
   return 1
 }
 
@@ -59,19 +67,22 @@ process_post() {
   [ -z "$date" ] && date="1970-01-01"
 
   local desc=$(grep -m 1 "^>" "$mdfile" | sed 's/^> //')
-  [ -z "$desc" ] && desc="Read more at salm.dev"
+  [ -z "$desc" ] && desc="Read more at salm.dev!"
 
   POSTS+=("$date|$date_rfc|$title|$name|$desc")
 
-  local math_flag=""
+  local pandoc_cmd="pandoc $mdfile --standalone --template=src/templates/post.html --reference-location=section"
+
   if has_math_content "$mdfile"; then
-      math_flag="-V has_math=true"
+      pandoc_cmd="$pandoc_cmd --mathjax -V has_math=true"
       echo "math detected in $name"
   fi
 
-  pandoc "$mdfile" --standalone --template=src/templates/post.html --mathjax \
-  --reference-location=section \
-  -o "dist/writing/$name/index.html" -V title="$title" -V date="$date" $math_flag
+  if has_code_content "$mdfile"; then
+      pandoc_cmd="$pandoc_cmd --highlight-style=pygments"
+  fi
+
+  $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title" -V date="$date"
 
   if [ -d "${dir}images" ]; then
       mkdir -p "dist/writing/$name/images"
@@ -90,31 +101,6 @@ generate_posts_index() {
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>writing | salm.dev</title>
-    <style>
-        .post-link {
-            position: relative;
-            display: inline-block;
-        }
-
-        .post-link[data-description]:hover::after {
-            content: attr(data-description);
-            position: absolute;
-            left: 0;
-            top: 100%;
-            margin-top: 5px;
-            z-index: 1;
-            width: 320px;
-            background-color: #fff;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            color: #555;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            pointer-events: none;
-        }
-    </style>
 </head>
 <body>
     <div>
@@ -166,11 +152,9 @@ XML
 }
 
 inline_css() {
-  css_content=$(cat dist/styles/styles.css)
   find dist -name "*.html" | while read -r html_file; do
     if grep -q '<link rel="stylesheet" href="/styles/styles.css">' "$html_file"; then
       tmp_file=$(mktemp)
-
       awk '{
         if ($0 ~ /<link rel="stylesheet" href="\/styles\/styles.css">/) {
           print "<style>"
@@ -180,7 +164,6 @@ inline_css() {
           print $0
         }
       }' "$html_file" > "$tmp_file"
-
       mv "$tmp_file" "$html_file"
     fi
   done
