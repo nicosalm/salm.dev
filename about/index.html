@@ -551,7 +551,7 @@ header.main-nav nav {
         <div class="about-container">
             <div>
                 <p>
-                    My technical interests center around big data systems, distributed computing, and statistical analysis, with proficiency in Python, Rust, Go, TypeScript, and SQL. I'm particularly drawn to solving the hard systems questions that enable data science at scale. What continues to captivate me is understanding how systems interact beneath the surface, the hidden infrastructure behind what users experience.
+                    My technical interests center around big data systems, distributed computing, and statistical analysis, with proficiency in <span style="color: #3776ab;">Python</span>, <span style="color: #ce422b;">Rust</span>, <span style="color: #00add8;">Go</span>, <span style="color: #3178c6;">TypeScript</span>, and <span style="color: #336791;">SQL</span>. I'm particularly drawn to solving the hard systems questions that enable data science at scale. What continues to captivate me is understanding how systems interact beneath the surface, the hidden infrastructure behind what users experience.
                 </p>
                 <p>
                     I do also exist beyond code and computers! I enjoy reading fantasy novels and historical texts, playing tabletop RPGs, strategy games (Paradox games, Total War, ArmA), drawing and cartography, and long-distance running around Madison.
@@ -560,7 +560,7 @@ header.main-nav nav {
                     Feel free to email me for any reason :) <code>nico(at)salm(dot)dev</code>
                 </p>
             </div>
-            <img src="/assets/me.jpg" alt="Nico" style="width: 270px; height: 270px;">
+            <img src="/assets/me.jpg" alt="Nico" style="width: 200px; height: auto;">
         </div>
         <hr class="solid">
         <h2>
@@ -574,10 +574,10 @@ header.main-nav nav {
         </p>
         <ul>
             <li>Game Theory, Learning and Optimization* (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
-            <li>Data Exploration, Cleaning, and Integration for Data Science* (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
             <li>Theory of Multi-agent Machine Learning* (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
+            <li>Data Exploration, Cleaning, and Integration for Data Science* (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
+            <li>Statistical Data Visualization (<a href="https://krisrs1128.github.io/personal-site/" target="_blank">Kris Sankaran</a>)</li>
             <li>Introduction to Operating Systems (<a href="https://pages.cs.wisc.edu/~swift" target="_blank">Michael Swift</a>)</li>
-            <li>Database Management Systems: Design and Implementation (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
             <li>Introduction to Big Data Systems (<a href="https://tyler.caraza-harter.com/" target="_blank">Tyler Caraza-Harter</a>)</li>
         </ul>
         <small>* graduate-level classes</small>
@@ -589,20 +589,16 @@ header.main-nav nav {
             A colophon is a brief statement that appears at the end of a book, providing information about its production. I got the idea from <a href="https://www.amoses.dev/" target="_blank">Andrew</a>, and while I don't believe I will do as great a job as he did with his, here is my best shot:
         </p>
         <p>
-            There's a running joke among my friends that I go through many websites. This one will hopefully stand the test of time. I've had a lot of fun writing salm.dev #5 using only HTML/CSS with a build.sh script, <a href="https://pandoc.org/" target="_blank">Pandoc</a>, and post templates for the blog. I have enjoyed that I have to figure things out rather than getting features out of the box, as it forces me to really consider what I actually want.
+            There's a running joke among my friends that I go through many websites. This one will hopefully stand the test of time. I've had a lot of fun writing this using only HTML/CSS with a build.sh script, <a href="https://pandoc.org/" target="_blank">Pandoc</a>, and post templates for the blog. I have enjoyed that I have to figure things out rather than getting features out of the box, as it forces me to really consider what I actually want.
         </p>
         <p>
-            The site is intentionally minimal, with no JavaScript except for conditional loading of MathJax on blog posts that require LaTeX rendering (a necessary concession). Content is processed from Markdown files using Pandoc, creating a static site that's lightweight and fast. While I might run into challenges down the road, the simplicity of the system makes maintenance straightforward.
+            The site is intentionally minimal, with no JavaScript except for conditional loading of MathJax on blog posts that require LaTeX rendering (a necessary concession). Content is processed from Markdown files using Pandoc, creating a static site that's lightweight and fast. CSS is inlined to eliminate render-blocking resources, and I subset all fonts using pyftsubset to include only the characters actually used on each page. The simplicity of the system makes maintenance straightforward.
         </p>
         <p>
-            To further optimize performance, I've implemented a few techniques: CSS is inlined to eliminate render-blocking resources, images below the viewport use lazy loading, and I subset all fonts using pyftsubset to include only the characters actually used on each page, significantly reducing font file sizes and improving load times.
+            For those interested, the website source is <a href="https://github.com/nicosalm/salm.dev/" target="_blank">available here</a>.
         </p>
         <p>
-            This is officially my last site rewrite before focusing on "real projects." For those interested, the website source is <a href="https://github.com/nicosalm/salm.dev/" target="_blank">available here</a>.
-        </p>
-
-        <p>
-            If you'd like to link back to my site, feel free to use my <code>88x31</code> button. These little graphics are a nostalgic nod to the early web when personal sites would exchange link buttons as a simple way to discover new corners of the internet.
+            If you'd like to link back to my site, feel free to use my <code>88x31</code> button. These little graphics are a nostalgic nod to the early web when personal sites would exchange link buttons as a simple way to discover new corners of the internet:
         </p>
 
         <pre><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://salm.dev"</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://salm.dev/88x31.gif"</span> <span class="na">target</span><span class="o">=</span><span class="s">"_blank"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"salm.dev"</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre>
