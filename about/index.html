@@ -81,6 +81,15 @@
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
 
+    /* syntax highlighting (light mode) */
+    --syntax-keyword: #954121;
+    --syntax-type: #b00040;
+    --syntax-number: #666666;
+    --syntax-string: #219161;
+    --syntax-prompt: #000080;
+    --syntax-output: #808080;
+    --syntax-comment: #808080;
+
     --font-family-body: charter, Georgia, serif;
     --font-family-headers: firasans, Georgia, serif;
     --font-family-code: firacode, Consolas, monospace;
@@ -114,6 +123,15 @@
         --blockquote-border: #555;
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
+
+        /* syntax highlighting (dark mode) */
+        --syntax-keyword: #af5a54;
+        --syntax-type: #b64343;
+        --syntax-number: #688ec8;
+        --syntax-string: #718e72;
+        --syntax-prompt: #8a6ab1;
+        --syntax-output: #868686;
+        --syntax-comment: #868686;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -146,6 +164,10 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
+small {
+    font-size: 0.875em;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-headers);
     margin: var(--spacing-large) 0 var(--spacing-medium);
@@ -166,12 +188,8 @@ p {
 
 a {
     color: var(--link-color);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-a:hover {
     text-decoration: underline;
+    transition: color var(--transition-speed);
 }
 
 ul, ol {
@@ -205,11 +223,13 @@ th {
 
 blockquote {
     margin: var(--spacing-large) 0;
-    padding: var(--spacing-small) var(--spacing-large);
-    border-left: 3px solid var(--blockquote-border);
+    padding: var(--spacing-medium) var(--spacing-large);
+    border-left: 4px solid var(--blockquote-border);
     color: var(--text-light);
     font-style: italic;
     background-color: var(--blockquote-bg);
+    border-radius: 0 4px 4px 0;
+    position: relative;
     transition: background-color var(--transition-speed), border-color var(--transition-speed);
 }
 
@@ -245,6 +265,121 @@ pre {
 pre code {
     padding: 0;
     background-color: transparent;
+}
+
+.definition-box {
+    --def-border: var(--blockquote-border);
+
+    background-color: var(--blockquote-bg);
+    border-left: 4px solid var(--def-border);
+    padding: var(--spacing-medium) var(--spacing-large);
+    margin: var(--spacing-large) 0;
+    border-radius: 0 4px 4px 0;
+    color: var(--text-color);
+    font-style: normal;
+    font-family: var(--font-family-body);
+    position: relative;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.definition-box::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-tiny);
+    letter-spacing: 0.03em;
+}
+
+/* syntax highlighting */
+.nx { }                                    /* Name.Other */
+.nf { }                                    /* Name.Function */
+.o  { color: var(--syntax-keyword); }     /* Operator */
+.p  { }                                    /* Plain */
+.k  { color: var(--syntax-keyword); }     /* Keyword */
+.kc { color: var(--syntax-keyword); }     /* Keyword.Constant */
+.kd { color: var(--syntax-keyword); }     /* Keyword.Declaration */
+.kn { color: var(--syntax-keyword); }     /* Keyword.Namespace */
+.nb { color: var(--syntax-keyword); }     /* Name.Builtin */
+.kt { color: var(--syntax-type); }        /* Keyword.Type */
+.m  { color: var(--syntax-number); }      /* Literal.Number */
+.mf { color: var(--syntax-number); }      /* Literal.Number.Float */
+.mh { color: var(--syntax-number); }      /* Literal.Number.Hex */
+.mi { color: var(--syntax-number); }      /* Literal.Number.Integer */
+.mo { color: var(--syntax-number); }      /* Literal.Number.Oct */
+.s  { color: var(--syntax-string); }      /* Literal.String */
+.sc { color: var(--syntax-string); }      /* Literal.String.Char */
+.gp { color: var(--syntax-prompt); }      /* Generic.Prompt */
+.go { color: var(--syntax-output); }      /* Generic.Output */
+.c1 { color: var(--syntax-comment); }     /* Comment.Single */
+.co { color: var(--syntax-comment); }     /* Comment */
+.kw { color: var(--syntax-keyword); }     /* Keyword */
+.op { color: var(--syntax-keyword); }     /* Operator */
+.dt { color: var(--syntax-type); }        /* Data type */
+.cf { color: var(--syntax-keyword); }     /* Control flow */
+.st { color: var(--syntax-string); }      /* String */
+
+/* side-by-side docs layout (credit: https://gobyexample.com/) */
+.example-container {
+    margin-bottom: 4rem;
+}
+
+.docs-code-layout {
+    display: table;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    max-width: 900px;
+}
+
+.docs-section {
+    display: table-cell;
+    width: 42%;
+    max-width: 42%;
+    min-width: 42%;
+    vertical-align: top;
+    text-align: left;
+    padding-right: 1.5rem;
+}
+
+.docs-section p {
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.code-section {
+    display: table-cell;
+    width: 58%;
+    max-width: 58%;
+    min-width: 58%;
+    padding: 1rem;
+    vertical-align: top;
+    background-color: var(--code-bg);
+    border-radius: 3px;
+}
+
+.code-section.leading {
+    padding-bottom: 11px;
+}
+
+@media (max-width: 768px) {
+    .docs-code-layout {
+        display: block;
+    }
+
+    .docs-section, .code-section {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .docs-section {
+        margin-bottom: 1rem;
+        padding-right: 0;
+    }
 }
 
 img {
@@ -385,6 +520,13 @@ header.main-nav nav {
     transition: all var(--transition-speed);
 }
 
+.about-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -398,18 +540,6 @@ header.main-nav nav {
 }
 </style>
         <title>about | salm.dev</title>
-        <style>
-        @media (max-width: 576px) {
-            .about-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .about-container img {
-                margin-bottom: 20px;
-                order: -1;
-            }
-        }
-        </style>
     </head>
     <body>
         <header>
@@ -418,7 +548,7 @@ header.main-nav nav {
         <h1>
             hello, i am nico!
         </h1>
-        <div style="display: flex; gap: 20px; justify-content: space-between;" class="about-container">
+        <div class="about-container">
             <div>
                 <p>
                     My technical interests center around big data systems, distributed computing, and statistical analysis, with proficiency in Python, Rust, Go, TypeScript, and SQL. I'm particularly drawn to solving the hard systems questions that enable data science at scale. What continues to captivate me is understanding how systems interact beneath the surface, the hidden infrastructure behind what users experience.
@@ -427,10 +557,10 @@ header.main-nav nav {
                     I do also exist beyond code and computers! I enjoy reading fantasy novels and historical texts, playing tabletop RPGs, strategy games (Paradox games, Total War, ArmA), drawing and cartography, and long-distance running around Madison.
                 </p>
                 <p>
-                    Feel free to email me for any reason :)
+                    Feel free to email me for any reason :) <code>nico(at)salm(dot)dev</code>
                 </p>
             </div>
-            <img src="/assets/me.jpg" alt="Nico" style="width: 270px; height: 270px; border: 1px solid;">
+            <img src="/assets/me.jpg" alt="Nico" style="width: 270px; height: 270px;">
         </div>
         <hr class="solid">
         <h2>
@@ -465,7 +595,7 @@ header.main-nav nav {
             The site is intentionally minimal, with no JavaScript except for conditional loading of MathJax on blog posts that require LaTeX rendering (a necessary concession). Content is processed from Markdown files using Pandoc, creating a static site that's lightweight and fast. While I might run into challenges down the road, the simplicity of the system makes maintenance straightforward.
         </p>
         <p>
-            To further optimize performance, I've implemented a few techniques: CSS is inlined to eliminate render-blocking resources, images below the viewport use lazy loading, and Cloudflare handles aggressive caching of static assets.
+            To further optimize performance, I've implemented a few techniques: CSS is inlined to eliminate render-blocking resources, images below the viewport use lazy loading, and I subset all fonts using pyftsubset to include only the characters actually used on each page, significantly reducing font file sizes and improving load times.
         </p>
         <p>
             This is officially my last site rewrite before focusing on "real projects." For those interested, the website source is <a href="https://github.com/nicosalm/salm.dev/" target="_blank">available here</a>.
@@ -474,8 +604,8 @@ header.main-nav nav {
         <p>
             If you'd like to link back to my site, feel free to use my <code>88x31</code> button. These little graphics are a nostalgic nod to the early web when personal sites would exchange link buttons as a simple way to discover new corners of the internet.
         </p>
-        <code>&lt;a href="https://salm.dev"&gt;&lt;img src="https://salm.dev/88x31.jpg" target="_blank" alt="salm.dev"&gt;&lt;/a&gt;</code>
 
+        <pre><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://salm.dev"</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://salm.dev/88x31.gif"</span> <span class="na">target</span><span class="o">=</span><span class="s">"_blank"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"salm.dev"</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre>
 
         <div style="text-align: right; margin-top: 40px; margin-bottom: 40px;">
             <p style="margin-bottom: 8px; font-style: italic;">
@@ -485,9 +615,5 @@ header.main-nav nav {
                 — Nico
             </p>
         </div>
-
-
     </body>
 </html>
-
-
