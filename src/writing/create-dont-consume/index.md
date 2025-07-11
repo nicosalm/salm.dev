@@ -29,12 +29,9 @@ Let me introduce some vocabulary to clarify this pattern.
 
 I'll call these two opposing action sets **consumptive** versus **generative** behaviors:
 
-<div style="background-color: var(--blockquote-bg); border-left: 4px solid #dc3545; padding: 15px; margin: 15px 0; transition: background-color var(--transition-speed);">
-<strong>Consumptive behaviors</strong> are low-effort activities that provide high momentary reward (scrolling feels good while you're doing it) but offer little lasting reward (nothing meaningful to show for it afterward) and minimal dopamine upon completion (no real sense of accomplishment).
-</div>
-<div style="background-color: var(--blockquote-bg); border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; transition: background-color var(--transition-speed);">
-<strong>Generative behaviors</strong> require effort and sustained attention, providing low or delayed momentary reward (the work feels hard initially) but high lasting reward (real skills, relationships, health, accomplishments) and significant dopamine upon completion (genuine satisfaction from finishing something worthwhile).
-</div>
+- <strong>Consumptive behaviors</strong> are low-effort activities that provide high momentary reward (scrolling feels good while you're doing it) but offer little lasting reward (nothing meaningful to show for it afterward) and minimal dopamine upon completion (no real sense of accomplishment).
+
+- <strong>Generative behaviors</strong> require effort and sustained attention, providing low or delayed momentary reward (the work feels hard initially) but high lasting reward (real skills, relationships, health, accomplishments) and significant dopamine upon completion (genuine satisfaction from finishing something worthwhile).
 
 The consumptive activities feel immediately rewarding but train your brain to crave easy gratification. The generative ones often feel difficult to start but gradually become more rewarding as your dopamine system recalibrates to appreciate sustained effort.
 
