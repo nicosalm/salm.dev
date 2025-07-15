@@ -4,7 +4,8 @@ Date: 2025-05-11
 > We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!
 
 ## Premise
-In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring a team of three Pokémon. A game consists of a "choosing" phase (left) and a "battling" phase (right):
+In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring a team of three Pokémon and choose one for each battle—this simplified format lets us focus on pure strategic decision-making without the complexity of switching mid-battle that defines 6v6 play. A game consists of a "choosing" phase (left) and a "battling" phase (right):
+
 <table style="margin: 0 auto; border-collapse: collapse;">
   <tr>
     <td style="padding: 10px; text-align: center;">
@@ -15,6 +16,7 @@ In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokém
     </td>
   </tr>
 </table>
+
 When a player's Pokemon's HP reaches 0, the other player wins:
 
 <img src="./images/outcome.gif" alt="Battle outcome GIF" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
@@ -36,7 +38,7 @@ We modeled these battles in two key stages:
 
 ## The Battling Phase (Finding Optimal Move Strategies)
 
-First, we needed to understand how each Pokémon matchup would play out when both players use optimal strategies. This required us to create turn-based payoff matrices for each possible matchup  (a [normal form game](https://en.wikipedia.org/wiki/Normal-form_game) representation of the strategic interactions), calculating the expected damage and effects of every possible move combination with Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
+First, we needed to understand how each Pokémon matchup would play out when both players use optimal strategies. This required us to create turn-based payoff matrices for each possible matchup (a [normal form game](https://en.wikipedia.org/wiki/Normal-form_game) representation of the strategic interactions), calculating the expected damage and effects of every possible move combination with Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
 
 <img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
@@ -111,7 +113,7 @@ The code above computes the mathematically optimal mixed strategy for each playe
 
 ## The Choosing Phase (Team Selection Strategies)
 
-After simulating over 1 million battles for each possible matchup, we created a comprehensive payoff matrix of win probabilities:
+Once we solved the optimal move strategies for individual battles, we could analyze the team selection meta-game. After simulating over 1 million battles for each possible matchup, we created a comprehensive payoff matrix of win probabilities:
 
 <img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
