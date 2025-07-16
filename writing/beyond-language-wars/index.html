@@ -496,12 +496,12 @@ header.main-nav nav {
             spent way too many weekends rewriting “good enough”<a
             href="#fn1" class="footnote-ref" id="fnref1"
             role="doc-noteref"><sup>1</sup></a> code from one language
-            to another. Always had some grand justification—performance,
-            maintainability, team consistency. But honestly? Half the
-            time I was just bored and wanted to play with something
-            shiny. Being the “I rewrote everything in X” guy gets old
-            fast, especially when your teammates have to re-learn code
-            that was working fine.</p>
+            to another. Always had some grand justification, whether it
+            be performance, maintainability, or team consistency. But
+            honestly? Half the time I was just bored and wanted to play
+            with something shiny. Being the “I rewrote everything in X”
+            guy gets old fast, especially when your teammates have to
+            re-learn code that was working fine.</p>
             <p>So when I heard someone say “Great, now let’s refactor it
             to Python!” about our R-based prediction model that had just
             hit 92% accuracy, I recognized the pattern. I used to be
@@ -575,16 +575,17 @@ header.main-nav nav {
             <p>I used to get really frustrated with R’s package
             management. Then I learned to appreciate the broader context
             and began to correctly juxtapose the two approaches:
-            Python’s ecosystem evolved alongside web development—fast
-            iteration, rapid deployment, break things and fix them
-            later. R is from the scientific computing world, where
-            “oops, I broke the analysis that took three weeks to run”
-            isn’t acceptable. Neither approach is wrong <em>per se</em>.
-            They’re just optimized for different kinds of pain!</p>
+            Python’s ecosystem evolved alongside web development,
+            inheriting values of fast iteration, rapid deployment, and
+            the idea of breaking things and fixing them later. R is from
+            the scientific computing world, where “oops, I broke the
+            analysis that took three weeks to run” isn’t acceptable.</p>
+            <p>Neither approach is wrong <em>per se</em>. They’re just
+            optimized for different kinds of pain!</p>
             <h3
             id="cloud-integration-or-why-timing-matters-more-than-merit">Cloud
             integration (or: why timing matters more than merit)</h3>
-            <p>Python’s cloud support is undeniably dominant:</p>
+            <p>Python’s cloud support wears the crown:</p>
             <div class="sourceCode" id="cb5"><pre
             class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> azureml.core <span class="im">import</span> Workspace, Environment</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ws <span class="op">=</span> Workspace.from_config()</span>
@@ -625,18 +626,17 @@ header.main-nav nav {
             <p>I tried porting similar analyses to Python once. The code
             grew to three times the size, needed custom statistical
             implementations, plus validation code to make sure I hadn’t
-            screwed up the math. Healthcare and pharma teams stick with
-            R for good reason—it’s not just about the code, it’s about
-            the confidence that comes with battle-tested statistical
-            computing.</p>
+            made mathematical errors. Healthcare and pharma teams stick
+            with R for good reason: it reduces variability, promoting
+            consistency.</p>
             <h3 id="performance-isnt-the-disaster-i-thought">Performance
             isn’t the disaster I thought</h3>
             <p>“R is slow,” people say. Usually right after writing a
             for-loop instead of using vectorized operations. It’s like
             judging Python performance based on someone who’s never
             heard of NumPy.</p>
-            <p>R’s C++ integration via <a
-            href="https://rcpp.org/">Rcpp</a> surprised me:</p>
+            <p>I thought R’s C++ integration via <a
+            href="https://rcpp.org/">Rcpp</a> was pretty cool:</p>
             <div class="sourceCode" id="cb7"><pre
             class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>RcppArmadillo<span class="sc">::</span><span class="fu">cppFunction</span>(<span class="st">&#39;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector fastFn(NumericVector x) {</span></span>
@@ -651,14 +651,16 @@ header.main-nav nav {
             people write R like it’s C instead of leveraging
             vectorization. When I play to R’s strengths (vectorized
             operations, optimized BLAS libraries, statistical
-            computing), it’s genuinely fast. When I don’t, well, any
+            computing), it’s genuinely fast. And when I don’t? Well, any
             language looks bad when I’m fighting against its design.</p>
             <h3 id="the-tooling-caught-up">The tooling caught up</h3>
             <p>R tooling has come a long way from the bare-bones
             curriculum I learned in my statistical programming course.
-            Back then it was just base R functions and maybe loading a
-            CSV. No fancy project management, no integrated development
-            tools, just console and some scripts.</p>
+            In class it was just base R functions,
+            <code>tidyverse</code> and maybe loading a CSV with
+            Madison’s water levels, which were surveyed by the
+            university. No fancy project management, no integrated
+            development tools, just the console and some scripts.</p>
             <p>Now look at this:</p>
             <div class="sourceCode" id="cb8"><pre
             class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">create_package</span>(<span class="st">&quot;mypackage&quot;</span>)</span>
@@ -691,14 +693,14 @@ header.main-nav nav {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.0</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> libxml2-dev cuda-toolkit-12-0</span></code></pre></div>
             <p>Once I need system dependencies for numerical computing,
-            GPUs, networking libraries—Python’s “simple” container
+            GPUs, and networking libraries, Python’s “simple” container
             strategy gets messy relatively quickly. The complexity was
             always there; I just wasn’t looking hard enough.</p>
             <h3 id="memory-management-sucks-everywhere">Memory
             management sucks everywhere</h3>
-            <p>Large datasets, garbage collection overhead,
-            out-of-memory crashes—both languages face the same problems.
-            The solutions—streaming, chunking, proper resource
+            <p>Large datasets, garbage collection overhead, and
+            out-of-memory crashes are problems both languages face. The
+            solutions—streaming, chunking, proper resource
             allocation—are architectural, not language-specific.</p>
             <p>When people blame R for memory issues, they’re usually
             missing the bigger picture. The problem isn’t the language,
@@ -732,7 +734,7 @@ header.main-nav nav {
             handles web services. It’s pragmatic “polyglot architecture”
             instead of shoehorning everything into one language.</p>
             <p>By contrast, healthcare teams often go R-only for
-            regulatory reasons:</p>
+            regulatory/accountability reasons:</p>
             <div class="sourceCode" id="cb11"><pre
             class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> treatment <span class="sc">+</span> <span class="fu">strata</span>(risk_level), <span class="at">data =</span> trial_data) <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsurvplot</span>(<span class="at">risk.table =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">break.time.by =</span> <span class="dv">90</span>) <span class="sc">%&gt;%</span></span>
@@ -787,8 +789,8 @@ header.main-nav nav {
             conversation</h2>
             <p>When someone suggests rewriting working code, I ask what
             problem we’re actually solving. Half the time, the answer is
-            “it would be cleaner” or “everyone knows Python.” Those
-            aren’t problems—they’re preferences.</p>
+            “it would be cleaner” or “everyone knows Python.” Those are
+            preferences, not problems.</p>
             <p>I’ve learned to build what I need, not what looks good on
             paper. Define clear boundaries, invest in infrastructure,
             leverage team expertise, focus on domain needs. Both
