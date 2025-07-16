@@ -218,7 +218,7 @@ th, td {
 th {
     font-weight: bold;
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-dark);
+    border-bottom: 2px solid var(--border-color);
 }
 
 blockquote {
@@ -267,30 +267,16 @@ pre code {
     background-color: transparent;
 }
 
-.definition-box {
-    --def-border: var(--blockquote-border);
-
-    background-color: var(--blockquote-bg);
-    border-left: 4px solid var(--def-border);
-    padding: var(--spacing-medium) var(--spacing-large);
-    margin: var(--spacing-large) 0;
-    border-radius: 0 4px 4px 0;
-    color: var(--text-color);
-    font-style: normal;
+.dialogue {
+    background-color: var(--code-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-large);
+    margin: var(--spacing-xl) 0;
     font-family: var(--font-family-body);
-    position: relative;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
-}
-
-.definition-box::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--text-gray);
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-tiny);
-    letter-spacing: 0.03em;
+    line-height: var(--line-height);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
 }
 
 /* syntax highlighting */
@@ -320,67 +306,6 @@ pre code {
 .dt { color: var(--syntax-type); }        /* Data type */
 .cf { color: var(--syntax-keyword); }     /* Control flow */
 .st { color: var(--syntax-string); }      /* String */
-
-/* side-by-side docs layout (credit: https://gobyexample.com/) */
-.example-container {
-    margin-bottom: 4rem;
-}
-
-.docs-code-layout {
-    display: table;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    max-width: 900px;
-}
-
-.docs-section {
-    display: table-cell;
-    width: 42%;
-    max-width: 42%;
-    min-width: 42%;
-    vertical-align: top;
-    text-align: left;
-    padding-right: 1.5rem;
-}
-
-.docs-section p {
-    padding-top: 5px;
-    padding-bottom: 15px;
-}
-
-.code-section {
-    display: table-cell;
-    width: 58%;
-    max-width: 58%;
-    min-width: 58%;
-    padding: 1rem;
-    vertical-align: top;
-    background-color: var(--code-bg);
-    border-radius: 3px;
-}
-
-.code-section.leading {
-    padding-bottom: 11px;
-}
-
-@media (max-width: 768px) {
-    .docs-code-layout {
-        display: block;
-    }
-
-    .docs-section, .code-section {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
-    }
-
-    .docs-section {
-        margin-bottom: 1rem;
-        padding-right: 0;
-    }
-}
 
 img {
     max-width: 100%;
@@ -417,7 +342,7 @@ footer {
 
 hr.solid {
     border: 0;
-    border-top: 1px solid var(--border-dark);
+    border-top: 1px solid var(--border-color);
     margin: var(--spacing-large) 0;
     transition: border-color var(--transition-speed);
 }
@@ -557,11 +482,14 @@ header.main-nav nav {
             knew!</p>
             </blockquote>
             <h2 id="premise">Premise</h2>
-            In <a href="https://pokemonshowdown.com/">Pokémon
+            <p>In <a href="https://pokemonshowdown.com/">Pokémon
             Showdown</a>, you build a team of Pokémon and battle. In the
-            1v1 format, you bring a team of three Pokémon. A game
-            consists of a “choosing” phase (left) and a “battling” phase
-            (right):
+            1v1 format, you bring a team of three Pokémon and choose one
+            for each battle—this simplified format lets us focus on pure
+            strategic decision-making without the complexity of
+            switching mid-battle that defines 6v6 play. A game consists
+            of a “choosing” phase (left) and a “battling” phase
+            (right):</p>
             <table style="margin: 0 auto; border-collapse: collapse;">
             <tr>
             <td style="padding: 10px; text-align: center;">
@@ -705,7 +633,9 @@ header.main-nav nav {
             discovered through experience!)</p>
             <h2 id="the-choosing-phase-team-selection-strategies">The
             Choosing Phase (Team Selection Strategies)</h2>
-            <p>After simulating over 1 million battles for each possible
+            <p>Once we solved the optimal move strategies for individual
+            battles, we could analyze the team selection meta-game.
+            After simulating over 1 million battles for each possible
             matchup, we created a comprehensive payoff matrix of win
             probabilities:</p>
             <img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">

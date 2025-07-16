@@ -218,7 +218,7 @@ th, td {
 th {
     font-weight: bold;
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-dark);
+    border-bottom: 2px solid var(--border-color);
 }
 
 blockquote {
@@ -267,30 +267,16 @@ pre code {
     background-color: transparent;
 }
 
-.definition-box {
-    --def-border: var(--blockquote-border);
-
-    background-color: var(--blockquote-bg);
-    border-left: 4px solid var(--def-border);
-    padding: var(--spacing-medium) var(--spacing-large);
-    margin: var(--spacing-large) 0;
-    border-radius: 0 4px 4px 0;
-    color: var(--text-color);
-    font-style: normal;
+.dialogue {
+    background-color: var(--code-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-large);
+    margin: var(--spacing-xl) 0;
     font-family: var(--font-family-body);
-    position: relative;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
-}
-
-.definition-box::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--text-gray);
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-tiny);
-    letter-spacing: 0.03em;
+    line-height: var(--line-height);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
 }
 
 /* syntax highlighting */
@@ -320,67 +306,6 @@ pre code {
 .dt { color: var(--syntax-type); }        /* Data type */
 .cf { color: var(--syntax-keyword); }     /* Control flow */
 .st { color: var(--syntax-string); }      /* String */
-
-/* side-by-side docs layout (credit: https://gobyexample.com/) */
-.example-container {
-    margin-bottom: 4rem;
-}
-
-.docs-code-layout {
-    display: table;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    max-width: 900px;
-}
-
-.docs-section {
-    display: table-cell;
-    width: 42%;
-    max-width: 42%;
-    min-width: 42%;
-    vertical-align: top;
-    text-align: left;
-    padding-right: 1.5rem;
-}
-
-.docs-section p {
-    padding-top: 5px;
-    padding-bottom: 15px;
-}
-
-.code-section {
-    display: table-cell;
-    width: 58%;
-    max-width: 58%;
-    min-width: 58%;
-    padding: 1rem;
-    vertical-align: top;
-    background-color: var(--code-bg);
-    border-radius: 3px;
-}
-
-.code-section.leading {
-    padding-bottom: 11px;
-}
-
-@media (max-width: 768px) {
-    .docs-code-layout {
-        display: block;
-    }
-
-    .docs-section, .code-section {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
-    }
-
-    .docs-section {
-        margin-bottom: 1rem;
-        padding-right: 0;
-    }
-}
 
 img {
     max-width: 100%;
@@ -417,7 +342,7 @@ footer {
 
 hr.solid {
     border: 0;
-    border-top: 1px solid var(--border-dark);
+    border-top: 1px solid var(--border-color);
     margin: var(--spacing-large) 0;
     transition: border-color var(--transition-speed);
 }
@@ -553,7 +478,7 @@ header.main-nav nav {
         <article>
             <h1 id="command-line-productivity">Command Line
             Productivity</h1>
-            <p>Date: 2024-10-10</p>
+            <p>Date: 2024-10-10 | Last Updated: 2025-07-13</p>
             <blockquote>
             <p>I am not a fan of bloated workflows or feature overload.
             In this article, I describe my minimal, focused,
@@ -570,15 +495,12 @@ header.main-nav nav {
             <p>In my view, there are two distinct domains of technical
             productivity:</p>
             <ol type="1">
-            <li><p>Tools, such as those for version control (Git) and
-            repository hosting (GitHub, GitLab) – these systems
-            fundamentally improve how you work. They’re your safety net
-            and scaffolding for when things go awry and have a place in
-            every developer’s workflow.</p></li>
-            <li><p>On the other side, there are tools and tweaks
-            designed to genuinely accelerate your development process
-            (and subsequently, the rate which you complete tasks). These
-            tools are what I will be highlighting today.</p></li>
+            <li><p>Tools like Git and GitHub that provide essential
+            workflow structure and safety nets when things go
+            wrong.</p></li>
+            <li><p>Tools and tweaks that directly speed up your
+            development process and task completion rate. This is what
+            I’ll talk about today.</p></li>
             </ol>
             <p>In order, I’ll discuss: the shell, command line tools,
             multiplexers, text editors, cases for automation, and
@@ -592,8 +514,8 @@ header.main-nav nav {
             productivity-focused) areas: hardware (keyboard layouts,
             system performance factors), operating system choices (FS
             architecture, process management, etc.), system admin and
-            low-level configuration, and container tools (docker,
-            podman).</p>
+            low-level configuration, and container tools (e.g.,
+            Docker).</p>
             <h2 id="the-shell">The Shell</h2>
             <p>Your shell is the foundation that every other tool builds
             upon, and frankly, most people are not taking full advantage
@@ -601,12 +523,13 @@ header.main-nav nav {
             <p>The default bash that ships with most systems is… fine.
             However, if you’re serious about command line productivity,
             you need to upgrade to something modern. I recommend
-            <strong>zsh</strong> with a framework like <a
-            href="https://ohmyz.sh/">Oh My Zsh</a>, or if you want
-            something that works beautifully out of the box, try
-            <strong>fish</strong>.</p>
-            <p>Here’s what you get with a modern shell that bash simply
-            can’t match:</p>
+            <strong>zsh</strong> with <a href="https://ohmyz.sh/">Oh My
+            Zsh</a>, or if you want something that works beautifully out
+            of the box, try <strong>fish</strong>. I’ve been testing
+            <strong>nushell</strong> for its structured data handling—it
+            treats everything as tables, which is neat—but I still
+            primarily use zsh for daily work.</p>
+            <p>Here are some things a modern shell has over bash:</p>
             <ul>
             <li><p>Intelligent autocompletion that actually understands
             context. Type <code>git</code> and hit tab—it knows you
@@ -627,49 +550,57 @@ header.main-nav nav {
             80x24 windows like it’s 1985. You have a 27-inch monitor and
             you’re squinting at 12 lines of code at a time. Make your
             terminal bigger. Much bigger!</p>
-            <p>Now, for the content of substance. First we must
+            <p>Now, for the content of substance. First I had to
             configure the shell. That means creating aliases to
             eliminate the <em>friction</em><a href="#fn1"
             class="footnote-ref" id="fnref1"
-            role="doc-noteref"><sup>1</sup></a> from your daily
+            role="doc-noteref"><sup>1</sup></a> from my daily
             workflow:</p>
             <div class="sourceCode" id="cb1"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> v=<span class="st">&#39;nvim&#39;</span>                          <span class="co"># why type 4 letters when 1 will do?</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> c=<span class="st">&#39;clear&#39;</span>                         <span class="co"># (alternatively: CMD/CTRL-L)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> j=<span class="st">&#39;jobs&#39;</span>                          <span class="co"># see what&#39;s running in the background</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> ev=<span class="st">&#39;cd ~/.config/nvim/ &amp;&amp; nvim .&#39;</span> <span class="co"># jump to editor config</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> ...=<span class="st">&quot;cd ../..&quot;</span>                    <span class="co"># jump back two dirs</span></span></code></pre></div>
-            <p>Beyond just saving keystrokes, you’re reducing the mental
-            overhead of context switching. When you want to edit your
-            Neovim config, you don’t want to remember the path and type
-            out two commands. You want to type <code>ev</code> and be
-            there.</p>
-            <p>Write functions for operations that are slightly too
-            complex for aliases:</p>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> ...=<span class="st">&quot;cd ../..&quot;</span>                    <span class="co"># jump back two dirs</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> lg=<span class="st">&#39;lazygit&#39;</span>                      <span class="co"># git UI in the terminal</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> btop=<span class="st">&#39;btop&#39;</span>                       <span class="co"># better htop alternative</span></span></code></pre></div>
+            <p>Beyond just saving keystrokes, I’m reducing the mental
+            overhead of context switching. When I want to edit my Neovim
+            config, I don’t want to remember the path and type out two
+            commands. I want to type <code>ev</code> and be there.</p>
+            <p>I learned to write functions for operations that are
+            slightly too complex for aliases:</p>
             <div class="sourceCode" id="cb2"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proj()</span> <span class="kw">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> ~/dev/<span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> <span class="kw">&amp;&amp;</span> <span class="ex">tmux</span> new-session <span class="at">-d</span> <span class="at">-s</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> <span class="kw">&amp;&amp;</span> <span class="ex">tmux</span> attach <span class="at">-t</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># quick backup with timestamp</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">backup()</span> <span class="kw">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">name</span><span class="op">=</span><span class="st">&quot;</span><span class="va">${1</span><span class="op">:-</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">))}</span><span class="st">&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-czf</span> ~/backups/<span class="st">&quot;</span><span class="va">$name</span><span class="st">&quot;</span>-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d-%H%M<span class="va">)</span>.tar.gz .</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;Backed up </span><span class="va">$name</span><span class="st"> to ~/backups/&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
             <p>Now <code>proj myapp</code> creates a new tmux session,
-            navigates to your project directory, and drops you into a
+            navigates to my project directory, and drops me into a
             focused workspace. One command for a complete context
             switch.</p>
             <p>In general, the goal isn’t to memorize every flag and
-            option. The goal is to configure your environment once<a
+            option. The goal is to configure my environment once<a
             href="#fn2" class="footnote-ref" id="fnref2"
             role="doc-noteref"><sup>2</sup></a>, correctly, so that the
             most efficient way to do something is also the most natural
             way.</p>
-            <p><strong>[DICLAIMER]</strong> There is something worth
+            <p><strong>[DISCLAIMER]</strong> There is something worth
             mentioning. And it applies to all of the things I recommend
-            in this post and beyond. You’ll read all of this, and you’ll
-            be excited to jam in a ton of features that look cool and
-            sound useful. However, you must have balance! Add too many
-            features and you drag out shell start up time. The best way
-            to never have to worry about start up time is to take the
-            features you absolutely need, and discard the rest. Just
-            because something is flashy doesn’t mean you <em>need</em>
-            it.</p>
+            in this post and beyond. I read all of this stuff, got
+            excited, and tried to jam in a ton of features that looked
+            cool and sounded useful. However, you must have balance! Add
+            too many features and you drag out shell start up time. The
+            best way to never have to worry about start up time is to
+            take the features you absolutely need, and discard the rest.
+            Just because something is flashy doesn’t mean you
+            <em>need</em> it.</p>
             <aside id="footnotes"
             class="footnotes footnotes-end-of-section"
             role="doc-endnotes">
@@ -690,88 +621,94 @@ header.main-nav nav {
             </aside>
             <h2 id="essential-command-line-tools">Essential Command Line
             Tools</h2>
-            <p>Now that your shell is properly configured (and your
-            terminal is actually a usable size), it’s worth talking
-            about the tools that will do the heavy lifting in your
-            day-to-day life.</p>
+            <p>Now that my shell is properly configured (and my terminal
+            is actually a usable size), it’s worth talking about the
+            tools that do the heavy lifting in my day-to-day life.</p>
             <p>The Unix philosophy got a lot of things right: small
             programs that do one thing well, and do it really well. The
-            core utilities—<code>grep</code>, <code>sed</code>,
-            <code>awk</code>, <code>find</code>—have been around for
-            decades because they work. But here’s the thing: we can do
-            better.</p>
-            <p>You should learn the classics first. Understand that
-            <code>grep</code> is for searching text, <code>find</code>
-            is for locating files, and pipes (<code>|</code>) chain
-            commands together. These form the backbone of command line
-            productivity:</p>
+            core utilities (<code>grep</code>, <code>sed</code>,
+            <code>awk</code>, <code>find</code>) have been around for
+            decades because they work. I learned the classics first and
+            I’m glad I did. Understanding that <code>grep</code> is for
+            searching text, <code>find</code> is for locating files, and
+            pipes (<code>|</code>) chain commands together forms the
+            backbone of command line productivity:</p>
             <div class="sourceCode" id="cb3"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;*.js&quot;</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> node_modules <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code></pre></div>
             <p>This finds JavaScript files, excludes node_modules, and
             shows the first 10 results. It’s composable, predictable,
             and works everywhere.</p>
-            <p>Eventually, upgrade to the modern alternatives. The new
-            generation of command line tools takes the Unix philosophy
-            and makes it faster, more user-friendly, and frankly, more
-            pleasant to use:</p>
+            <p>Eventually, I upgraded to the modern alternatives. The
+            new generation of command line tools takes the Unix
+            philosophy and makes it faster, more user-friendly, and
+            frankly, more pleasant to use:</p>
             <ul>
             <li><strong>ripgrep (<code>rg</code>)</strong> instead of
-            <code>grep</code> - It’s absurdly fast and has sane
+            <code>grep</code> — It’s absurdly fast and has sane
             defaults</li>
-            <li><strong>fd</strong> instead of <code>find</code> -
+            <li><strong>fd</strong> instead of <code>find</code> —
             Simple syntax that actually makes sense</li>
-            <li><strong>bat</strong> instead of <code>cat</code> -
+            <li><strong>bat</strong> instead of <code>cat</code> —
             Syntax highlighting and line numbers built-in</li>
-            <li><strong>exa</strong> instead of <code>ls</code> - Better
+            <li><strong>eza</strong> instead of <code>ls</code> — Better
             formatting and git integration</li>
+            <li><strong>dust</strong> instead of <code>du</code> —
+            Visual disk usage that actually makes sense</li>
+            <li><strong>btop</strong> instead of <code>htop</code> —
+            Beautiful, interactive process viewer</li>
+            <li><strong>xh</strong> instead of <code>curl</code> — More
+            intuitive HTTP client for API testing</li>
+            <li><strong>jq</strong> for JSON processing — Incredibly
+            powerful for parsing API responses and config files</li>
             </ul>
             <p>Here’s the same search with modern tools:</p>
             <div class="sourceCode" id="cb4"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fd</span> <span class="st">&quot;\.js$&quot;</span> <span class="kw">|</span> <span class="ex">rg</span> <span class="at">-v</span> node_modules <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code></pre></div>
             <p>Cleaner, faster, and the output actually looks good.</p>
             <p><strong>fzf</strong> (fuzzy finding) is fucking amazing.
-            Install it, configure it, and watch your productivity
+            I installed it, configured it, and watched my productivity
             skyrocket. It turns any list into an interactive, searchable
             interface. Want to find a file? <code>Ctrl+T</code>. Want to
             search command history? <code>Ctrl+R</code>. Want to kill a
             process?
             <code>ps aux | fzf | awk '{print $2}' | xargs kill</code>.</p>
             <p>All of these are neat individual tools. But they’re also
-            utilities which, when composed together, allow you to do
-            literally anything. Master pipes, redirection, and command
-            substitution, and you can create powerful one-liners that
-            solve complex problems in seconds.</p>
-            <p>Don’t try to learn everything at once. Pick one modern
-            tool, use it until it becomes muscle memory, then add the
-            next one. The compound effect is what matters here.</p>
+            utilities which, when composed together, allow me to do
+            literally anything. Mastering pipes, redirection, and
+            command substitution means I can create powerful one-liners
+            that solve complex problems in seconds.</p>
+            <p>I didn’t try to learn everything at once—I tried that
+            initially and it was overwhelming. I picked one modern tool,
+            used it until it became muscle memory, then added the next
+            one. The compound effect is what matters here.</p>
             <h2 id="terminal-multiplexers">Terminal Multiplexers</h2>
-            <p>When you dedicate a lot of time in your terminal, it
-            quickly becomes apparent how cumbersome it can get. When web
-            browsing, you can create new windows and swiftly
+            <p>When I started spending a lot of time in my terminal, it
+            quickly became apparent how cumbersome it could get. When
+            web browsing, you can create new windows and swiftly
             <code>ALT-TAB</code> between them. Within a window, you can
             switch between tabs with <code>CMD/CTRL-0..9</code> You can
             bookmark and return to your workspace at will. There’s a
-            parallel here—you can open multiple terminal windows, and
-            that works… sort of. But you still have to reopen everything
+            parallel here—I could open multiple terminal windows, and
+            that worked… sort of. But I still had to reopen everything
             with each new terminal instance.</p>
             <p>I found something much better. It does exactly what I
             want. It’s called <a
             href="https://tmuxcheatsheet.com/how-to-install-tmux/">tmux</a>,
             a terminal multiplexer.</p>
             <p>A terminal multiplexer is a program that transparently
-            “sits between” your active terminal connection and K spawned
-            terminal sessions. With tmux, you can start a session, open
-            new windows, and hotkey between them. You can detach and
-            reattach to sessions at will. In other words, you can set a
+            “sits between” your active terminal connection and spawned
+            terminal sessions. With tmux, I can start a session, open
+            new windows, and hotkey between them. I can detach and
+            reattach to sessions at will. In other words, I can set a
             session aside and return to it later, and everything will be
-            exactly how you left it.</p>
+            exactly how I left it.</p>
             <p>With a plugin, these sessions can even persist across
             system restarts.</p>
-            <p>Tmux is incredibly useful, and if you plan on doing
-            <strong>any</strong> serious work in the terminal, it will
-            save you a huge amount of time. Install it and never look
+            <p>Tmux is incredibly useful, and if I’m doing
+            <strong>any</strong> serious work in the terminal, it saves
+            me a huge amount of time. I installed it and never looked
             back.</p>
-            <p>You can create a new session with
+            <p>I can create a new session with
             <code>tmux new -s session_name</code>, detach with
             <code>CTRL-B D</code>, and reattach with
             <code>tmux attach -t session_name</code>. Some other useful
@@ -782,16 +719,16 @@ tmux kill-server                    # kill the server
 tmux a -t session_name              # attach to a session
 tmux a                              # attach to the last session</code></pre>
             <h3 id="customization">Customization</h3>
-            <p>When you start Tmux, the program looks for a .dotfile<a
+            <p>When I start Tmux, the program looks for a .dotfile<a
             href="#fn3" class="footnote-ref" id="fnref3"
             role="doc-noteref"><sup>3</sup></a> at
-            <code>~/.tmux.conf</code>. This plain-text file is where you
+            <code>~/.tmux.conf</code>. This plain-text file is where I
             can configure and “rice out”<a href="#fn4"
             class="footnote-ref" id="fnref4"
-            role="doc-noteref"><sup>4</sup></a> your multiplexer. You’ll
-            begin by adding a plugin manager, <a
+            role="doc-noteref"><sup>4</sup></a> my multiplexer. I began
+            by adding a plugin manager, <a
             href="https://github.com/tmux-plugins/tpm">tpm</a>, and then
-            use it to load a few plugins and a nice theme<a href="#fn5"
+            used it to load a few plugins and a nice theme<a href="#fn5"
             class="footnote-ref" id="fnref5"
             role="doc-noteref"><sup>5</sup></a>.</p>
             <aside id="footnotes"
@@ -822,29 +759,34 @@ tmux a                              # attach to the last session</code></pre>
             role="doc-backlink">↩︎</a></p></li>
             </ol>
             </aside>
-            <h3 id="alternatively-wezterm">Alternatively: WezTerm</h3>
+            <h3 id="alternatively-wezterm-or-zellij">Alternatively:
+            WezTerm or Zellij</h3>
             <p>If Tmux doesn’t tickle your fancy, try <a
             href="https://wezterm.org/index.html">WezTerm</a>, a
             cross-platform terminal emulator and multiplexer implemented
-            in Rust. It’s config is in Lua. This is what I use right
-            now, and it’s very nice. But make sure to build familiarity
-            in Tmux too, for when SSH’d into servers, TMUX is your only
-            real option.</p>
+            in Rust. Its config is in Lua. This is what I use right now,
+            and it’s very nice.</p>
+            <p>There’s also <strong>Zellij</strong>, a newer multiplexer
+            written in Rust that’s more beginner-friendly than tmux with
+            floating panes and better defaults out of the box.</p>
+            <p>But I still keep tmux skills sharp—when SSH’d into
+            servers, tmux is often your only real option.</p>
             <h2 id="text-editors-vim-and-beyond">Text Editors: Vim and
             Beyond</h2>
-            <p>Once you have your shell configured and your multiplexer
-            managing your sessions, it’s time to talk about the heart of
-            your development workflow: your text editor.</p>
+            <p>Once I had my shell configured and my multiplexer
+            managing my sessions, it was time to talk about the heart of
+            my development workflow: my text editor.</p>
             <p>I’ve been using Vim for about three years. When we
             mention Vim, it’s usually in one of two contexts:
             <code>vim</code> (the program), or Vim Motions.</p>
             <p><strong>Vim Motions</strong> are the keybindings that
             allow you to move around the text. They are the most
-            important part of Vim. Everyone should use Vim Motions. They
-            are extremely efficient. They’re available on all text
-            editors and IDEs. <strong>Vim</strong>, by contrast, is a
-            highly configurable, extensible text editor built to make
-            creating and changing any kind of text very efficient.</p>
+            important part of Vim. I think everyone should use Vim
+            Motions. They are extremely efficient. They’re available on
+            all text editors and IDEs. <strong>Vim</strong>, by
+            contrast, is a highly configurable, extensible text editor
+            built to make creating and changing any kind of text very
+            efficient.</p>
             <h3 id="vim-motions">Vim Motions</h3>
             <p>There is only one type of grammar in Vim: Vim Motions.
             It’s a language that allows you to move around the text.</p>
@@ -927,8 +869,8 @@ tmux a                              # attach to the last session</code></pre>
             <p>Notice how, for some, the phonetic sound of the command
             matches the action. <code>d</code> for delete,
             <code>y</code> for yank, <code>c</code> for change. This is
-            a mnemonic device to help you remember the commands. Delete
-            a paragraph? <code>dap</code>. Change a word?
+            a mnemonic device to help remember the commands. Delete a
+            paragraph? <code>dap</code>. Change a word?
             <code>caw</code>.</p>
             <h3 id="vim-the-program">Vim (The Program)</h3>
             <p>Vim, by contrast, is a highly configurable, extensible
@@ -946,22 +888,22 @@ tmux a                              # attach to the last session</code></pre>
             a workflow that feels like a dance.</p>
             <p>Lucas wrote a list of <a
             href="https://scharenbroch.dev/blog/vim-bindings/">every
-            single Vim binding he knows</a>. It’s substantial, but you
-            never learn them all at the same time. Start with a subset,
-            and gradually expand it.</p>
+            single Vim binding he knows</a>. It’s substantial, but I
+            never learned them all at the same time. I started with a
+            subset, and gradually expanded it.</p>
             <p>A contention I often receive is, “well, how do I debug in
-            Vim?” You don’t. You have separate programs<a href="#fn6"
+            Vim?” I don’t. I use separate programs<a href="#fn6"
             class="footnote-ref" id="fnref6"
             role="doc-noteref"><sup>6</sup></a>. Each program is good at
-            what it does. If you build a hodgepodge of functionality you
-            end up with an IDE and that’s precisely what I’m trying to
+            what it does. If I build a hodgepodge of functionality I end
+            up with an IDE and that’s precisely what I’m trying to
             escape.</p>
             <p>I will concede, however, that Vim is not beginner
             friendly. There’s a learning curve. However, Vim is
             exceptionally user friendly<a href="#fn7"
             class="footnote-ref" id="fnref7"
-            role="doc-noteref"><sup>7</sup></a>. Once you get the hang
-            of things, and it clicks, it’s really, really fun to use.
+            role="doc-noteref"><sup>7</sup></a>. Once I got the hang of
+            things, and it clicked, it became really, really fun to use.
             Here’s <a href="https://scharenbroch.dev/blog/vim/">Lucas’
             argument</a> in favor of Vim.</p>
             <p>A lot of people recommend learning Vim Motions on your
@@ -994,98 +936,111 @@ tmux a                              # attach to the last session</code></pre>
             very clever—but none are Vim. Neovim is built for users who
             want the good parts of Vim, and more.</p>
             </blockquote>
-            <p>Neovim’s component-like plugin structure allows you to
-            drop in and take out functionality easily. You can bring in
-            an <a
-            href="https://github.com/neovim/nvim-lspconfig">LSP</a>, <a
+            <p>Neovim’s component-like plugin structure allows me to
+            drop in and take out functionality easily. I can bring in an
+            <a href="https://github.com/neovim/nvim-lspconfig">LSP</a>,
+            <a
             href="https://github.com/hrsh7th/nvim-cmp">completions</a>,
             <a href="https://github.com/L3MON4D3/LuaSnip">snippets</a>,
             <a href="https://github.com/tpope/vim-fugitive">git</a>, and
             <a
             href="https://github.com/nvim-neotest/neotest">testing</a>
-            infrastructure. You can get new things too: <a
+            infrastructure. I can get new things too: <a
             href="https://github.com/nvim-treesitter">Treesitter</a>, <a
             href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a>
             FZF (fuzzy finding), Scoped grep string searches, and <a
             href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon</a>
             anchor points to jump around.</p>
-            <p>What’s more, since YOU configure Neovim, you’ll come away
+            <p>What’s more, since I configure Neovim myself, I came away
             with a complete understanding of how each tool works, and
             how they interact with one another to create a complete
             ecosystem. By contrast, other editors and IDEs abstract this
             away.</p>
             <p>I know I just said a lot of words. The takeaway is this:
-            With Neovim, you know exactly why everything works the way
-            it does, and you can make it work exactly the way you want
-            it to. The possibilities are, in fact, endless.</p>
-            <p>Want functionality but there’s no plugin for it? Your
-            config is in Lua and everything in Lua is easy. Make it,
-            maintain it, push it to the Neovim community! The Neovim
+            With Neovim, I know exactly why everything works the way it
+            does, and I can make it work exactly the way I want it to.
+            The possibilities are, in fact, endless.</p>
+            <p>Want functionality but there’s no plugin for it? My
+            config is in Lua and everything in Lua is easy. I can make
+            it, maintain it, push it to the Neovim community! The Neovim
             community is vibrant and full of passionate creators and
             maintainers who work hard to support the editor they
             love.</p>
+            <h3 id="alternative-editors-worth-mentioning">Alternative
+            Editors Worth Mentioning</h3>
+            <p><strong>tig</strong> — A terminal git browser that’s
+            incredibly useful for exploring git history and staging
+            changes interactively. I use this constantly instead of
+            <code>git log</code>.</p>
+            <p><strong>Helix</strong> — A post-modern text editor with
+            vim-like keybindings but built-in LSP and tree-sitter
+            support. The key difference is it uses selection → action
+            instead of vim’s action → selection model. So instead of
+            <code>d5w</code> (delete 5 words), you’d do <code>5wd</code>
+            (select 5 words, then delete). There’s also <strong>Evil
+            Helix</strong> which flips them back to vim’s way if you
+            can’t handle the change.</p>
             <h2 id="workflow-automation">Workflow Automation</h2>
-            <p>Now that you’ve been introduced to the core tools—shell,
-            command line utilities, multiplexers, and editors—it’s time
-            to tie them all together into automated workflows that
-            eliminate repetitive tasks you do every single day.</p>
-            <p>Shell scripts are your friend. A commonly accepted
-            general rule: if you find yourself typing the same sequence
-            of commands more than twice, write a script. I don’t care if
-            it’s just three lines—write it anyway. Here’s one I use
-            constantly:</p>
+            <p>Now that I’ve covered the core tools—shell, command line
+            utilities, multiplexers, and editors—it’s time to tie them
+            all together into automated workflows that eliminate
+            repetitive tasks I do every single day.</p>
+            <p>Shell scripts became my friend. A rule I learned: if I
+            find myself typing the same sequence of commands more than
+            twice, I write a script. I don’t care if it’s just three
+            lines—I write it anyway. Here’s one I use constantly:</p>
             <div class="sourceCode" id="cb6"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># backup.sh - my quick project backup</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czf</span> ~/backups/<span class="va">$(</span><span class="fu">basename</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">))</span>-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.tar.gz .</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;Backed up </span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">))</span><span class="st"> to ~/backups/&quot;</span></span></code></pre></div>
-            <p>Throw it in your <code>PATH</code>, make it executable,
+            <p>I threw it in my <code>PATH</code>, made it executable,
             and now <code>backup</code> creates a timestamped archive of
-            your current project. Takes 30 seconds to write, saves hours
+            my current project. Took 30 seconds to write, saves hours
             over time.</p>
             <h3 id="making-scripts-global">Making Scripts Global</h3>
-            <p>Before we go further, let’s talk about where to put these
-            scripts so they actually work from anywhere. You don’t want
-            to type <code>./backup.sh</code> every time—you want to type
+            <p>Before I go further, let me talk about where I put these
+            scripts so they actually work from anywhere. I don’t want to
+            type <code>./backup.sh</code> every time—I want to type
             <code>backup</code> and have it just work.</p>
-            <p>Create a directory for your personal scripts:</p>
+            <p>I created a directory for my personal scripts:</p>
             <div class="sourceCode" id="cb7"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.local/bin</span></code></pre></div>
-            <p>Add this directory to your PATH by putting this in your
+            <p>I added this directory to my PATH by putting this in my
             shell config (<code>.zshrc</code>, <code>.bashrc</code>,
             etc.):</p>
             <div class="sourceCode" id="cb8"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.local/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></span></code></pre></div>
-            <p>Now, for any script you write, make it executable and <a
+            <p>Now, for any script I write, I make it executable and <a
             href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a>
-            it to your bin directory:</p>
+            it to my bin directory:</p>
             <div class="sourceCode" id="cb9"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x backup.sh</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /full/path/to/backup.sh ~/.local/bin/backup</span></code></pre></div>
             <p>Notice I dropped the <code>.sh</code> extension in the
             symlink. Global commands shouldn’t look like scripts.
-            Instead, they should look like built-in commands. When you
+            Instead, they should look like built-in commands. When I
             type <code>backup</code>, nobody needs to know it’s actually
             a shell script living somewhere else.</p>
             <p>This approach is cleaner than copying scripts around
-            because you can edit the original file and the changes are
-            immediately available everywhere. Your scripts live in your
+            because I can edit the original file and the changes are
+            immediately available everywhere. My scripts live in my
             projects or dotfiles repo, but they’re accessible from any
             directory.</p>
-            <p>On that note, dotfiles management is non-negotiable: your
-            shell config, your editor settings, your aliases—all of it
-            should be in version control. When you get a new machine or
-            mess something up, you want to be back to your perfect setup
-            in minutes, not hours.</p>
-            <p>So, create a dotfiles repository, use symlinks or a tool
-            like <a href="https://www.gnu.org/software/stow/">GNU
-            Stow</a>, and never lose your configuration again. My rule:
-            if I spend more than 15 minutes customizing something, it
-            goes in the dotfiles repo immediately.</p>
-            <p>Project-specific automation is nice too. Consider
-            creating a <code>.envrc</code> files (if you use <a
+            <p>On that note, dotfiles management became non-negotiable
+            for me: my shell config, my editor settings, my aliases—all
+            of it is in version control. When I get a new machine or
+            mess something up, I want to be back to my perfect setup in
+            minutes, not hours.</p>
+            <p>So, I created a dotfiles repository, used symlinks and a
+            tool like <a href="https://www.gnu.org/software/stow/">GNU
+            Stow</a>, and never lost my configuration again. My rule: if
+            I spend more than 15 minutes customizing something, it goes
+            in the dotfiles repo immediately.</p>
+            <p>Project-specific automation helps too. I create
+            <code>.envrc</code> files (using <a
             href="https://direnv.net/">direnv</a>) or simple shell
-            scripts that set up your environment automatically:</p>
+            scripts that set up my environment automatically:</p>
             <div class="sourceCode" id="cb10"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.sh - example project setup script</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATABASE_URL</span><span class="op">=</span><span class="st">&quot;postgresql://localhost/myapp_dev&quot;</span></span>
@@ -1096,30 +1051,47 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;env is prepared&quot;</span></span></code></pre></div>
             <p>In this example, every project now has its own
-            <code>./dev.sh</code> that gets you from cold start to
+            <code>./dev.sh</code> that gets me from cold start to
             ready-to-code in one command.</p>
-            <p>Again, we return to the idea of eliminating friction. We
+            <p>Again, we return to the idea of eliminating friction. I
             couldn’t possibly make scripts for every scenario (nor
-            should we). Rather, we hasten those little context switches,
+            should I). Rather, I hasten those little context switches,
             those “wait, how do I do this again?” moments, those
-            repetitive setup tasks. Eliminate them, and you’ll find
-            yourself in flow state more often and frustrated less.</p>
+            repetitive setup tasks. Eliminate them, and I find myself in
+            flow state more often and frustrated less.</p>
+            <h3
+            id="package-management-and-environment-isolation">Package
+            Management and Environment Isolation</h3>
+            <p>Dotfiles management became my lifesaver after I got a new
+            laptop and spent an entire weekend trying to recreate my
+            perfect setup from memory. Never again. Now my shell config,
+            my editor settings, my aliases—all of it lives in version
+            control. When I mess something up or get a new machine, I’m
+            back to my perfect setup in minutes, not hours.</p>
+            <p>I created a dotfiles repository, learned to use symlinks
+            and a tool like <a
+            href="https://www.gnu.org/software/stow/">GNU Stow</a>, and
+            never lost my configuration again. My rule now: if I spend
+            more than 15 minutes customizing something, it goes in the
+            dotfiles repo immediately. Future me always thanks past me
+            for this.</p>
             <h2 id="development-integration">Development
             Integration</h2>
-            <p>The final layer builds upon everything we’ve covered thus
-            far, integrating your command line workflow with the broader
+            <p>The final layer builds upon everything I’ve covered thus
+            far, integrating my command line workflow with the broader
             development ecosystem: version control, build systems,
             testing frameworks, and deployment pipelines.</p>
-            <p>This is where your terminal setup stops being just a
-            collection of tools and becomes something more. You probably
+            <p>This is where my terminal setup stopped being just a
+            collection of tools and became something more. I probably
             don’t need all of these, but here are a few ideas:</p>
-            <p>Configure aliases that match your actual workflow:</p>
+            <p>I configured aliases that match my actual workflow:</p>
             <div class="sourceCode" id="cb11"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.co checkout</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.br branch</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.st status</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.unstage <span class="st">&#39;reset HEAD --&#39;</span></span></code></pre></div>
-            <p>Create functions that handle entire workflows:</p>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.unstage <span class="st">&#39;reset HEAD --&#39;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.lg <span class="st">&quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;</span></span></code></pre></div>
+            <p>I created functions that handle entire workflows:</p>
             <div class="sourceCode" id="cb12"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quick commit with message</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qc()</span> <span class="kw">{</span></span>
@@ -1134,11 +1106,16 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># push current branch and set upstream</span></span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pushup()</span> <span class="kw">{</span></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> push <span class="at">-u</span> origin <span class="va">$(</span><span class="fu">git</span> branch <span class="at">--show-current</span><span class="va">)</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
-            <p>Now <code>qc "Fix login bug"</code> handles your entire
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># clean merged branches</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">gitclean()</span> <span class="kw">{</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> branch <span class="at">--merged</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">&quot;\*\|main\|master&quot;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 git branch <span class="at">-d</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+            <p>Now <code>qc "Fix login bug"</code> handles my entire
             commit process, and <code>nb feature/new-auth</code> creates
             and switches to a new branch in one command.</p>
-            <p>Create project-agnostic scripts that handle the
+            <p>I created project-agnostic scripts that handle the
             complexity of build tools:</p>
             <div class="sourceCode" id="cb13"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.sh - universal dev server</span></span>
@@ -1148,10 +1125,12 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cargo</span> run</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;Makefile&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">make</span> dev <span class="kw">||</span> <span class="fu">make</span> run</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
-            <p>Put this in your PATH, and now <code>dev</code> starts
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;docker-compose.yml&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">docker-compose</span> up</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+            <p>I put this in my PATH, and now <code>dev</code> starts
             the right development server regardless of project type.</p>
-            <p>The best test suite is the one you actually run:</p>
+            <p>The best test suite is the one I actually run:</p>
             <div class="sourceCode" id="cb14"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.sh - a smart test runner</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;package.json&quot;</span> <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">&quot;test&quot;</span> package.json<span class="kw">;</span> <span class="cf">then</span></span>
@@ -1160,10 +1139,21 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cargo</span> test</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;Makefile&quot;</span> <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">&quot;test:&quot;</span> Makefile<span class="kw">;</span> <span class="cf">then</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">make</span> test</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
-            <p>Make environment switching seamless with <a
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;pytest.ini&quot;</span> <span class="bu">]</span> <span class="kw">||</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;pyproject.toml&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pytest</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+            <p>For Rust development, <strong>bacon</strong> is a
+            game-changer—it runs in the background and shows compile
+            errors and warnings in real-time as I type. No more
+            constantly running <code>cargo check</code>. Combined with
+            <strong>mprocs</strong> (a process runner that can manage
+            multiple commands in panes), I can run <code>bacon</code>,
+            <code>cargo run</code>, and maybe a database all in one
+            organized view. It’s like having a custom IDE built from
+            composable terminal tools.</p>
+            <p>I make environment switching seamless with <a
             href="https://direnv.net/">direnv</a>, which automatically
-            loads environment variables when you enter a project
+            loads environment variables when I enter a project
             directory:</p>
             <div class="sourceCode" id="cb15"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .envrc in project root</span></span>
@@ -1171,9 +1161,9 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">NODE_ENV</span><span class="op">=</span><span class="st">&quot;development&quot;</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">use</span> node 18.17.0</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">PATH_add</span> ./node_modules/.bin</span></code></pre></div>
-            <p>Now every time you <code>cd</code> into this project,
-            your environment is automatically configured.</p>
-            <p>Create deployment scripts that handle the entire
+            <p>Now every time I <code>cd</code> into this project, my
+            environment is automatically configured.</p>
+            <p>I created deployment scripts that handle the entire
             pipeline:</p>
             <div class="sourceCode" id="cb16"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deploy.sh</span></span>
@@ -1192,8 +1182,8 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;oops! can only deploy from main branch&quot;</span></span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
-            <p>Create universal commands that work regardless of package
-            manager for consistent package management:</p>
+            <p>I created universal commands that work regardless of
+            package manager for consistent package management:</p>
             <div class="sourceCode" id="cb17"><pre
             class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.sh</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;package-lock.json&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
@@ -1207,35 +1197,39 @@ tmux a                              # attach to the last session</code></pre>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
             <p>Importantly, these optimizations <em>compound</em>. When
             switching between projects is frictionless, when tests run
-            automatically, when deployment is one command, you spend
-            less time context switching. Every project feels familiar
-            because the interface is consistent, even when the
-            underlying technology stack is different.</p>
+            automatically, when deployment is one command, I spend less
+            time context switching. Every project feels familiar because
+            the interface is consistent, even when the underlying
+            technology stack is different.</p>
             <h2 id="mental-model">Mental Model</h2>
-            <p>Now that we’ve walked through each component, here’s how
-            to think about the complete picture of terminal tooling:</p>
+            <p>Now that I’ve walked through each component, here’s how I
+            think about the complete picture of terminal tooling:</p>
             <p>Each layer builds upon the previous ones, creating a
             compound effect where mastering multiple aspects leads to
             exponential productivity gains rather than linear
-            improvements. Your shell provides the foundation, command
-            line tools give you power, multiplexers organize your
-            workspace, editors let you manipulate text efficiently,
-            automation eliminates repetition, and development
-            integration connects everything to your broader
-            workflow.</p>
+            improvements. My shell provides the foundation, command line
+            tools give me power, multiplexers organize my workspace,
+            editors let me manipulate text efficiently, automation
+            eliminates repetition, and development integration connects
+            everything to my broader workflow.</p>
+            <p>The key insight I learned: <strong>consistency trumps
+            optimization</strong>. Having a universal interface across
+            all projects (even if it’s not the absolute fastest for each
+            individual stack) reduces cognitive load more than trying to
+            optimize each workflow separately.</p>
             <h2 id="wrapping-up">Wrapping up</h2>
             <p>In exploring the minimalist, keyboard-centric workflow of
-            command line tools and editors like Vim and Neovim, we
-            uncover a significant truth about productivity in software
+            command line tools and editors like Vim and Neovim, I’ve
+            uncovered a significant truth about productivity in software
             development: simplicity and customization can profoundly
             enhance efficiency. By adopting tools such as Tmux and Vim,
-            developers are equipped to create a highly personalized
-            development environment. This environment not only
-            streamlines tasks but also keeps the focus on coding,
-            reducing distractions inherent in more complex IDEs.
-            Embracing these tools may involve a learning curve, but the
-            long-term gains in speed, understanding, and adaptability
-            make this investment worthwhile.</p>
+            I’ve been able to create a highly personalized development
+            environment. This environment not only streamlines tasks but
+            also keeps the focus on coding, reducing distractions
+            inherent in more complex IDEs. Embracing these tools
+            involved a learning curve, but the long-term gains in speed,
+            understanding, and adaptability made this investment
+            worthwhile.</p>
             <p>For those willing to explore these command line utilities
             and text editors, the payoff is a more intuitive and
             efficient coding experience that aligns perfectly with the

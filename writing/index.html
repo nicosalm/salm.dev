@@ -218,7 +218,7 @@ th, td {
 th {
     font-weight: bold;
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-dark);
+    border-bottom: 2px solid var(--border-color);
 }
 
 blockquote {
@@ -267,30 +267,16 @@ pre code {
     background-color: transparent;
 }
 
-.definition-box {
-    --def-border: var(--blockquote-border);
-
-    background-color: var(--blockquote-bg);
-    border-left: 4px solid var(--def-border);
-    padding: var(--spacing-medium) var(--spacing-large);
-    margin: var(--spacing-large) 0;
-    border-radius: 0 4px 4px 0;
-    color: var(--text-color);
-    font-style: normal;
+.dialogue {
+    background-color: var(--code-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-large);
+    margin: var(--spacing-xl) 0;
     font-family: var(--font-family-body);
-    position: relative;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
-}
-
-.definition-box::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--text-gray);
-    text-transform: uppercase;
-    margin-bottom: var(--spacing-tiny);
-    letter-spacing: 0.03em;
+    line-height: var(--line-height);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
 }
 
 /* syntax highlighting */
@@ -320,67 +306,6 @@ pre code {
 .dt { color: var(--syntax-type); }        /* Data type */
 .cf { color: var(--syntax-keyword); }     /* Control flow */
 .st { color: var(--syntax-string); }      /* String */
-
-/* side-by-side docs layout (credit: https://gobyexample.com/) */
-.example-container {
-    margin-bottom: 4rem;
-}
-
-.docs-code-layout {
-    display: table;
-    width: 100%;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    max-width: 900px;
-}
-
-.docs-section {
-    display: table-cell;
-    width: 42%;
-    max-width: 42%;
-    min-width: 42%;
-    vertical-align: top;
-    text-align: left;
-    padding-right: 1.5rem;
-}
-
-.docs-section p {
-    padding-top: 5px;
-    padding-bottom: 15px;
-}
-
-.code-section {
-    display: table-cell;
-    width: 58%;
-    max-width: 58%;
-    min-width: 58%;
-    padding: 1rem;
-    vertical-align: top;
-    background-color: var(--code-bg);
-    border-radius: 3px;
-}
-
-.code-section.leading {
-    padding-bottom: 11px;
-}
-
-@media (max-width: 768px) {
-    .docs-code-layout {
-        display: block;
-    }
-
-    .docs-section, .code-section {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
-    }
-
-    .docs-section {
-        margin-bottom: 1rem;
-        padding-right: 0;
-    }
-}
 
 img {
     max-width: 100%;
@@ -417,7 +342,7 @@ footer {
 
 hr.solid {
     border: 0;
-    border-top: 1px solid var(--border-dark);
+    border-top: 1px solid var(--border-color);
     margin: var(--spacing-large) 0;
     transition: border-color var(--transition-speed);
 }
@@ -551,7 +476,7 @@ header.main-nav nav {
 <li>2025-06-27 :: <a href="/writing/create-dont-consume/" class="post-link" data-description="We&apos;re trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.">Create, Don't Consume</a></li>
 <li>2025-05-11 :: <a href="/writing/winning-pokemon-showdown-with-game-theory/" class="post-link" data-description="We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!">Winning Pokemon Showdown (w/ Game Theory!)</a></li>
 <li>2025-04-21 :: <a href="/writing/dungeons-dragons-and-development/" class="post-link" data-description="Creating custom (&quot;homebrew&quot;) D&amp;D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected &quot;worlds&quot; which must remain cohesive while evolving over time.">Dungeons, Dragons & Development</a></li>
-<li>2025-02-15 :: <a href="/writing/beyond-language-wars/" class="post-link" data-description="The debate between programming languages in data science is usually a red herring that masks fundamental architectural challenges. I look into when rewrites make sense, and when they actually mask deeper problems.">Beyond Language Wars</a></li>
+<li>2025-02-15 :: <a href="/writing/beyond-language-wars/" class="post-link" data-description="I used to be that person who&apos;d rewrite perfectly good code just to use a different language. Turns out the real problems are usually somewhere else entirely.">Beyond Language Wars</a></li>
 <li>2024-10-10 :: <a href="/writing/command-line-productivity/" class="post-link" data-description="I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.">Command Line Productivity</a></li>
 <li>2024-08-18 :: <a href="/writing/preserving-my-future-self/" class="post-link" data-description="I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got a new, expensive keyboard that got sawed in half. Either way, it was an adventure worth sharing.">Preserving My Future Self</a></li>
         </ul>
