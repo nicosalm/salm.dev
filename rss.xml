@@ -5,7 +5,7 @@
   <link>https://salm.dev</link>
   <description>Hot takes and cool things</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 17 Jul 2025 02:50:46 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 17 Jul 2025 02:57:16 +0000</lastBuildDate>
   <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
   <item>
     <title>Create, Don&apos;t Consume</title>
@@ -13,6 +13,13 @@
     <guid>https://salm.dev/writing/create-dont-consume/</guid>
     <pubDate>Fri, 27 Jun 2025 00:00:00 +0000</pubDate>
     <description><![CDATA[ We&apos;re trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist. ]]></description>
+  </item>
+  <item>
+    <title>Winning Pokemon Showdown</title>
+    <link>https://salm.dev/writing/winning-pokemon-showdown/</link>
+    <guid>https://salm.dev/writing/winning-pokemon-showdown/</guid>
+    <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+    <description><![CDATA[ We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew! ]]></description>
   </item>
   <item>
     <title>Winning Pokemon Showdown (w/ Game Theory!)</title>
