@@ -238,12 +238,15 @@ pre {
     border: var(--border-subtle);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
+    white-space: pre; /* Ensure no wrapping */
 }
 
 pre code {
     padding: 0;
     background-color: transparent;
     border: none;
+    white-space: pre; /* Ensure no wrapping in code within pre */
+    overflow-x: visible; /* Let the parent pre handle scrolling */
 }
 
 .nx, .nf, .p { }
@@ -687,10 +690,7 @@ header.main-nav nav {
                 recommend <strong>zsh</strong> with <a
                 href="https://ohmyz.sh/">Oh My Zsh</a>, or if you want
                 something that works beautifully out of the box, try
-                <strong>fish</strong>. I’ve been testing
-                <strong>nushell</strong> for its structured data
-                handling—it treats everything as tables, which is
-                neat—but I still primarily use zsh for daily work.</p>
+                <strong>fish</strong>.</p>
                 <p>Here are some things a modern shell has over
                 bash:</p>
                 <ul>
@@ -756,8 +756,8 @@ header.main-nav nav {
                 role="doc-noteref"><sup>2</sup></a>, correctly, so that
                 the most efficient way to do something is also the most
                 natural way.</p>
-                <p><strong>[DISCLAIMER]</strong> There is something
-                worth mentioning. And it applies to all of the things I
+                <p><strong>DISCLAIMER:</strong> There is something worth
+                mentioning. And it applies to all of the things I
                 recommend in this post and beyond. I read all of this
                 stuff, got excited, and tried to jam in a ton of
                 features that looked cool and sounded useful. However,
@@ -812,22 +812,21 @@ header.main-nav nav {
                 frankly, more pleasant to use:</p>
                 <ul>
                 <li><strong>ripgrep (<code>rg</code>)</strong> instead
-                of <code>grep</code> — It’s absurdly fast and has sane
-                defaults</li>
+                of <code>grep</code> — Faster with sane defaults</li>
                 <li><strong>fd</strong> instead of <code>find</code> —
-                Simple syntax that actually makes sense</li>
+                Simple syntax</li>
                 <li><strong>bat</strong> instead of <code>cat</code> —
                 Syntax highlighting and line numbers built-in</li>
                 <li><strong>eza</strong> instead of <code>ls</code> —
                 Better formatting and git integration</li>
                 <li><strong>dust</strong> instead of <code>du</code> —
-                Visual disk usage that actually makes sense</li>
+                Visual disk usage</li>
                 <li><strong>btop</strong> instead of <code>htop</code> —
                 Beautiful, interactive process viewer</li>
                 <li><strong>xh</strong> instead of <code>curl</code> —
                 More intuitive HTTP client for API testing</li>
-                <li><strong>jq</strong> for JSON processing — Incredibly
-                powerful for parsing API responses and config files</li>
+                <li><strong>jq</strong> for JSON processing — Powerful
+                for parsing API responses and config files</li>
                 </ul>
                 <p>Here’s the same search with modern tools:</p>
                 <div class="sourceCode" id="cb4"><pre
@@ -944,10 +943,9 @@ tmux a                              # attach to the last session</code></pre>
                 multiplexer written in Rust that’s more
                 beginner-friendly than tmux with floating panes and
                 better defaults out of the box.</p>
-                <p>But I still keep tmux skills sharp—when SSH’d into
+                <p>But I still keep tmux skills sharp; when SSH’d into
                 servers, tmux is often your only real option.</p>
-                <h2 id="text-editors-vim-and-beyond">Text Editors: Vim
-                and Beyond</h2>
+                <h2 id="text-editors">Text Editors</h2>
                 <p>Once I had my shell configured and my multiplexer
                 managing my sessions, it was time to talk about the
                 heart of my development workflow: my text editor.</p>
@@ -1114,7 +1112,9 @@ tmux a                              # attach to the last session</code></pre>
                 </aside>
                 <h3 id="neovim">Neovim</h3>
                 <p>Vim’s extensibility takes it to the next level.
-                Enter: Neovim. Taken from the Neovim Charter:</p>
+                Enter: Neovim. Taken from the <a
+                href="https://neovim.io/charter/">Neovim
+                Charter</a>:</p>
                 <blockquote>
                 <p>Neovim is a refactor, and sometimes redactor, in the
                 tradition of Vim. It is not a rewrite but a continuation
@@ -1296,24 +1296,16 @@ tmux a                              # attach to the last session</code></pre>
                 <p>I created functions that handle entire workflows:</p>
                 <div class="sourceCode" id="cb12"><pre
                 class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quick commit with message</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qc()</span> <span class="kw">{</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> add . <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># make and switch to new branch</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nb()</span> <span class="kw">{</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> checkout <span class="at">-b</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># push current branch and set upstream</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pushup()</span> <span class="kw">{</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> push <span class="at">-u</span> origin <span class="va">$(</span><span class="fu">git</span> branch <span class="at">--show-current</span><span class="va">)</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># clean merged branches</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">gitclean()</span> <span class="kw">{</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> branch <span class="at">--merged</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">&quot;\*\|main\|master&quot;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 git branch <span class="at">-d</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qc()</span> <span class="kw">{</span> <span class="fu">git</span> add . <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> }</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make and switch to new branch</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nb()</span> <span class="kw">{</span> <span class="fu">git</span> checkout <span class="at">-b</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> }</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># push current branch and set upstream</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pushup()</span> <span class="kw">{</span> <span class="fu">git</span> push <span class="at">-u</span> origin <span class="va">$(</span><span class="fu">git</span> branch <span class="at">--show-current</span><span class="va">)</span> }</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># clean merged branches</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gitclean()</span> <span class="kw">{</span> <span class="fu">git</span> branch <span class="at">--merged</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> <span class="st">&quot;\*\|main\|master&quot;</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 git branch <span class="at">-d</span> }</span></code></pre></div>
                 <p>Now <code>qc "Fix login bug"</code> handles my entire
                 commit process, and <code>nb feature/new-auth</code>
                 creates and switches to a new branch in one command.</p>
@@ -1357,47 +1349,9 @@ tmux a                              # attach to the last session</code></pre>
                 <p>I make environment switching seamless with <a
                 href="https://direnv.net/">direnv</a>, which
                 automatically loads environment variables when I enter a
-                project directory:</p>
-                <div class="sourceCode" id="cb15"><pre
-                class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .envrc in project root</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DATABASE_URL</span><span class="op">=</span><span class="st">&quot;postgresql://localhost/myapp_dev&quot;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">NODE_ENV</span><span class="op">=</span><span class="st">&quot;development&quot;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">use</span> node 18.17.0</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">PATH_add</span> ./node_modules/.bin</span></code></pre></div>
-                <p>Now every time I <code>cd</code> into this project,
-                my environment is automatically configured.</p>
-                <p>I created deployment scripts that handle the entire
-                pipeline:</p>
-                <div class="sourceCode" id="cb16"><pre
-                class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deploy.sh</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;starting deployment...&quot;</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> test</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="va">current_branch</span><span class="op">=</span><span class="va">$(</span><span class="fu">git</span> branch <span class="at">--show-current</span><span class="va">)</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="st">&quot;</span><span class="va">$current_branch</span><span class="st">&quot;</span> <span class="ot">=</span> <span class="st">&quot;main&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> push heroku main</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;deployed to prod&quot;</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;oops! can only deploy from main branch&quot;</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
-                <p>I created universal commands that work regardless of
-                package manager for consistent package management:</p>
-                <div class="sourceCode" id="cb17"><pre
-                class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.sh</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;package-lock.json&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">npm</span> install</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;yarn.lock&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">yarn</span> install</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;Cargo.toml&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cargo</span> build</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">&quot;requirements.txt&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+                project directory. Now every time I <code>cd</code> into
+                a project, my environment is automatically
+                configured.</p>
                 <p>Importantly, these optimizations <em>compound</em>.
                 When switching between projects is frictionless, when
                 tests run automatically, when deployment is one command,

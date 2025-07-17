@@ -238,12 +238,15 @@ pre {
     border: var(--border-subtle);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
+    white-space: pre; /* Ensure no wrapping */
 }
 
 pre code {
     padding: 0;
     background-color: transparent;
     border: none;
+    white-space: pre; /* Ensure no wrapping in code within pre */
+    overflow-x: visible; /* Let the parent pre handle scrolling */
 }
 
 .nx, .nf, .p { }
@@ -734,7 +737,9 @@ header.main-nav nav {
                 immediate survival, while your conscious mind runs in
                 the background trying to optimize for long-term meaning
                 and growth.</p>
-                <p>I recently stumbled across comedian Jimmy Carr in <a
+                <p>These consumptive behaviors often function as
+                sophisticated counterfeits of the real thing. I recently
+                stumbled across comedian Jimmy Carr in <a
                 href="https://www.youtube.com/watch?v=v8mlrSIMhD8&amp;list=WL&amp;index=2">an
                 interview</a> (don’t bristle at the title! it’s a good
                 video) and was genuinely surprised with what he had to

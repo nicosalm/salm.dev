@@ -238,12 +238,15 @@ pre {
     border: var(--border-subtle);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
+    white-space: pre; /* Ensure no wrapping */
 }
 
 pre code {
     padding: 0;
     background-color: transparent;
     border: none;
+    white-space: pre; /* Ensure no wrapping in code within pre */
+    overflow-x: visible; /* Let the parent pre handle scrolling */
 }
 
 .nx, .nf, .p { }

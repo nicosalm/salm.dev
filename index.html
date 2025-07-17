@@ -238,12 +238,15 @@ pre {
     border: var(--border-subtle);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
+    white-space: pre; /* Ensure no wrapping */
 }
 
 pre code {
     padding: 0;
     background-color: transparent;
     border: none;
+    white-space: pre; /* Ensure no wrapping in code within pre */
+    overflow-x: visible; /* Let the parent pre handle scrolling */
 }
 
 .nx, .nf, .p { }
@@ -645,7 +648,7 @@ header.main-nav nav {
                         <small>/ <a href="mailto:nico@salm.dev">email</a></small>
                     </div>
                     <div class="nav-cell light-row">
-                        <small>/ <a href="/writing/winning-pokemon-showdown-with-game-theory">pokémon & game theory</a></small>
+                        <small>/ <a href="/writing/winning-pokemon-showdown">pokémon & game theory</a></small>
                     </div>
                     <div class="nav-cell light-row">
                         <small>/ <a href="/about">more about me :D</a></small>
@@ -705,11 +708,11 @@ header.main-nav nav {
         </h2>
         <div class="buttons-layout">
             <div class="buttons-container">
-                <a href="https://salm.dev/"><img src="/assets/88x31/88x31.gif" alt="Nico's 88x31" class="button-88x31"></a>
-                <a href="https://www.vim.org/" target="_blank"><img src="/assets/88x31/vim_a.gif" alt="Made with Vim" class="button-88x31"></a>
-                <a href="https://www.upl.cs.wisc.edu/" target="_blank"><img src="/assets/88x31/upl.gif" alt="Undergraduate Projects Lab" class="button-88x31"></a>
-                <img src="/assets/88x31/rainbow_bev.gif" alt="Rainbow" class="button-88x31"></img>
-                <a href="/rss.xml" target="_blank"><img src="/assets/88x31/rss-button.gif" alt="RSS Feed" class="button-88x31"></a>
+                <a href="https://salm.dev/"><img src="/assets/88x31/88x31.gif" alt="Nico's 88x31" width="88" height="31" class="button-88x31"></a>
+                <a href="https://www.vim.org/" target="_blank"><img src="/assets/88x31/vim_a.gif" width="88" height="31" alt="Made with Vim" class="button-88x31"></a>
+                <a href="https://www.upl.cs.wisc.edu/" target="_blank"><img src="/assets/88x31/upl.gif" width="88" height="31" alt="Undergraduate Projects Lab" class="button-88x31"></a>
+                <img src="/assets/88x31/rainbow_bev.gif" alt="Rainbow" width="88" height="31" class="button-88x31"></img>
+                <a href="/rss.xml" target="_blank"><img src="/assets/88x31/rss-button.gif" alt="RSS Feed" width="88" height="31" class="button-88x31"></a>
             </div>
         </div>
     </body>
