@@ -1,4 +1,4 @@
-# Winning Pokemon Showdown (w/ Game Theory!)
+# Winning Pokemon Showdown
 <div class="description">
 We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!
 <span class="date-info"><span class="date">2025-05-11</span></span>
