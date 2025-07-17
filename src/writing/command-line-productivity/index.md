@@ -25,7 +25,7 @@ This post talks about productivity tools and techniques which I feel will have t
 
 Your shell is the foundation that every other tool builds upon, and frankly, most people are not taking full advantage of it.
 
-The default bash that ships with most systems is... fine. However, if you're serious about command line productivity, you need to upgrade to something modern. I recommend **zsh** with [Oh My Zsh](https://ohmyz.sh/), or if you want something that works beautifully out of the box, try **fish**. I've been testing **nushell** for its structured data handling---it treats everything as tables, which is neat---but I still primarily use zsh for daily work.
+The default bash that ships with most systems is... fine. However, if you're serious about command line productivity, you need to upgrade to something modern. I recommend **zsh** with [Oh My Zsh](https://ohmyz.sh/), or if you want something that works beautifully out of the box, try **fish**.
 
 Here are some things a modern shell has over bash:
 
@@ -70,7 +70,7 @@ Now `proj myapp` creates a new tmux session, navigates to my project directory, 
 
 In general, the goal isn't to memorize every flag and option. The goal is to configure my environment once[^2], correctly, so that the most efficient way to do something is also the most natural way.
 
-**[DISCLAIMER]** There is something worth mentioning. And it applies to all of the things I recommend in this post and beyond. I read all of this stuff, got excited, and tried to jam in a ton of features that looked cool and sounded useful. However, you must have balance! Add too many features and you drag out shell start up time. The best way to never have to worry about start up time is to take the features you absolutely need, and discard the rest. Just because something is flashy doesn't mean you *need* it.
+**DISCLAIMER:** There is something worth mentioning. And it applies to all of the things I recommend in this post and beyond. I read all of this stuff, got excited, and tried to jam in a ton of features that looked cool and sounded useful. However, you must have balance! Add too many features and you drag out shell start up time. The best way to never have to worry about start up time is to take the features you absolutely need, and discard the rest. Just because something is flashy doesn't mean you *need* it.
 
 ## Essential Command Line Tools
 
@@ -86,14 +86,14 @@ This finds JavaScript files, excludes node_modules, and shows the first 10 resul
 
 Eventually, I upgraded to the modern alternatives. The new generation of command line tools takes the Unix philosophy and makes it faster, more user-friendly, and frankly, more pleasant to use:
 
-- **ripgrep (`rg`)** instead of `grep` --- It's absurdly fast and has sane defaults
-- **fd** instead of `find` --- Simple syntax that actually makes sense
+- **ripgrep (`rg`)** instead of `grep` --- Faster with sane defaults
+- **fd** instead of `find` --- Simple syntax
 - **bat** instead of `cat` --- Syntax highlighting and line numbers built-in
 - **eza** instead of `ls` --- Better formatting and git integration
-- **dust** instead of `du` --- Visual disk usage that actually makes sense
+- **dust** instead of `du` --- Visual disk usage
 - **btop** instead of `htop` --- Beautiful, interactive process viewer
 - **xh** instead of `curl` --- More intuitive HTTP client for API testing
-- **jq** for JSON processing --- Incredibly powerful for parsing API responses and config files
+- **jq** for JSON processing --- Powerful for parsing API responses and config files
 
 Here's the same search with modern tools:
 
@@ -141,9 +141,9 @@ If Tmux doesn't tickle your fancy, try [WezTerm](https://wezterm.org/index.html)
 
 There's also **Zellij**, a newer multiplexer written in Rust that's more beginner-friendly than tmux with floating panes and better defaults out of the box.
 
-But I still keep tmux skills sharp---when SSH'd into servers, tmux is often your only real option.
+But I still keep tmux skills sharp; when SSH'd into servers, tmux is often your only real option.
 
-## Text Editors: Vim and Beyond
+## Text Editors
 
 Once I had my shell configured and my multiplexer managing my sessions, it was time to talk about the heart of my development workflow: my text editor.
 
@@ -203,7 +203,7 @@ A lot of people recommend learning Vim Motions on your current editor first befo
 
 ### Neovim
 
-Vim's extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:
+Vim's extensibility takes it to the next level. Enter: Neovim. Taken from the [Neovim Charter](https://neovim.io/charter/):
 
 > Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
 
@@ -310,24 +310,16 @@ I created functions that handle entire workflows:
 
 ```bash
 # quick commit with message
-qc() {
-    git add . && git commit -m "$1"
-}
+qc() { git add . && git commit -m "$1" }
 
 # make and switch to new branch
-nb() {
-    git checkout -b "$1"
-}
+nb() { git checkout -b "$1" }
 
 # push current branch and set upstream
-pushup() {
-    git push -u origin $(git branch --show-current)
-}
+pushup() { git push -u origin $(git branch --show-current) }
 
 # clean merged branches
-gitclean() {
-    git branch --merged | grep -v "\*\|main\|master" | xargs -n 1 git branch -d
-}
+gitclean() { git branch --merged | grep -v "\*\|main\|master" | xargs -n 1 git branch -d }
 ```
 
 Now `qc "Fix login bug"` handles my entire commit process, and `nb feature/new-auth` creates and switches to a new branch in one command.
@@ -366,53 +358,7 @@ fi
 
 For Rust development, **bacon** is a game-changer---it runs in the background and shows compile errors and warnings in real-time as I type. No more constantly running `cargo check`. Combined with **mprocs** (a process runner that can manage multiple commands in panes), I can run `bacon`, `cargo run`, and maybe a database all in one organized view. It's like having a custom IDE built from composable terminal tools.
 
-I make environment switching seamless with [direnv](https://direnv.net/), which automatically loads environment variables when I enter a project directory:
-
-```bash
-# .envrc in project root
-export DATABASE_URL="postgresql://localhost/myapp_dev"
-export NODE_ENV="development"
-use node 18.17.0
-PATH_add ./node_modules/.bin
-```
-
-Now every time I `cd` into this project, my environment is automatically configured.
-
-I created deployment scripts that handle the entire pipeline:
-
-```bash
-# deploy.sh
-#!/bin/bash
-set -e
-
-echo "starting deployment..."
-npm test
-npm run build
-
-current_branch=$(git branch --show-current)
-if [ "$current_branch" = "main" ]; then
-    git push heroku main
-    echo "deployed to prod"
-else
-    echo "oops! can only deploy from main branch"
-    exit 1
-fi
-```
-
-I created universal commands that work regardless of package manager for consistent package management:
-
-```bash
-# install.sh
-if [ -f "package-lock.json" ]; then
-    npm install
-elif [ -f "yarn.lock" ]; then
-    yarn install
-elif [ -f "Cargo.toml" ]; then
-    cargo build
-elif [ -f "requirements.txt" ]; then
-    pip install -r requirements.txt
-fi
-```
+I make environment switching seamless with [direnv](https://direnv.net/), which automatically loads environment variables when I enter a project directory. Now every time I `cd` into a project, my environment is automatically configured.
 
 Importantly, these optimizations *compound*. When switching between projects is frictionless, when tests run automatically, when deployment is one command, I spend less time context switching. Every project feels familiar because the interface is consistent, even when the underlying technology stack is different.
 

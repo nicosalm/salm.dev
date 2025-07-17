@@ -10,17 +10,17 @@ I have been roleplaying and building worlds for a decade this May[^1]. In that t
 Creating homebrew worlds mirrors designing software. The worldbuilding process is an asymptotic journey toward an ideal. You begin with an empty canvas, add and strip away elements, and refine towards a "just right" state that can never be fully reached. This gap between vision and implementation persists regardless of effort invested. At the end of this process, the creator has established consistent rules and a living, breathing fantasy world.
 
 ```{=html}
-<div style="display: flex; justify-content: space-between; margin: 10px 0; padding: 0 20px;">
+<div style="display: flex; justify-content: space-between; margin: 20px 0; padding: 20px 20px;">
   <div style="text-align: center;">
-    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px;">
+    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px; margin: 10px 0;">
     <div style="font-style: italic;">Map A. The Isles (2020)</div>
   </div>
   <div style="text-align: center;">
-    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px;">
+    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px; margin: 10px 0;">
     <div style="font-style: italic;">Map B. Aldria (2021)</div>
   </div>
   <div style="text-align: center;">
-    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px;">
+    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px; margin: 10px 0;">
     <div style="font-style: italic;">Map C. El'kora (2024-)</div>
   </div>
 </div>
@@ -50,8 +50,8 @@ Learning to design a refined, precise, and complete world---rather than an endle
 
 The creative drive that fuels both worldbuilding and programming can be all-consuming. I've definitely had nights up past 3 AM sketching political conflicts between fictional kingdoms or perfecting an NPC's backstory my players might never even meet. This passion is a double-edged sword, driving creation but leading to burnout when unchecked.
 
-<figure style="text-align: center">
-    <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 0 auto;">
+<figure style="text-align: center; margin: 20px 0;">
+    <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 15px auto;">
     <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">Wiki-style lore respositories I've written (where each page contains a character, location, or info page, etc.)</figcaption>
 </figure>
 

@@ -44,7 +44,7 @@ Daniel Lieberman calls this an "[evolutionary mismatch](https://www.cell.com/cur
 
 The struggle comes from processes running at different priority levels[^3]: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.
 
-I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say! He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits:
+These consumptive behaviors often function as sophisticated counterfeits of the real thing. I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say! He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits:
 
 ```{=html}
 <div class="quote-container">
