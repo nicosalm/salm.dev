@@ -402,6 +402,7 @@ header.main-nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: var(--spacing-large);
 }
 
 header.main-nav img {
