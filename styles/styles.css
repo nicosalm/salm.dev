@@ -302,9 +302,19 @@ blockquote blockquote {
     gap: var(--spacing-medium);
 }
 
-.quote-container::before,
+.quote-container::before {
+    content: '“';
+    font-family: var(--font-family-headers);
+    font-size: 4rem;
+    color: var(--text-light);
+    opacity: 0.4;
+    line-height: 1;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
 .quote-container::after {
-    content: '"';
+    content: '”';
     font-family: var(--font-family-headers);
     font-size: 4rem;
     color: var(--text-light);
