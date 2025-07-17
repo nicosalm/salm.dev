@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>$title$ | salm.dev</title>
-    $if(has_math)$
-    <script src="/assets/js/mathjax-config.js"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" as="script">
-    $endif$
-</head>
-<body>
-    <div>
-        <header>
-            <a href="/">home</a> / <a href="/writing/">writing</a>
-        </header>
-        <article>
-            $body$
-        </article>
-    </div>
-    <footer>
-        <p>© 2025 salm.dev</p>
-    </footer>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <title>$title$ | salm.dev</title>
+        $if(has_math)$
+        <script src="/assets/js/mathjax-config.js"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net">
+        <link rel="preload" href="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" as="script">
+        $endif$
+    </head>
+    <body>
+        <div>
+            <header style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+                <nav>
+                    <a href="/">home</a> / <a href="/writing/">writing</a>
+                </nav>
+                <p>
+                </p>
+                <nav style="text-align: right;">
+                    <a href="/rss.xml">view rss</a>
+                </nav>
+            </header>
+            <article>
+                $body$
+            </article>
+        </div>
+
+        <footer>
+    <p style="color: var(--text-light); font-size: var(--font-size-small); font-style: italic; margin-bottom: var(--spacing-small);">
+        Enjoyed this? Check out <a href="/writing/">more posts</a> or <a href="/rss.xml">subscribe to RSS</a> for updates.
+    </p>
+    <p>© 2025 salm.dev</p>
+</footer>
+
+        </body>
 </html>

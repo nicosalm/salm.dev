@@ -1,15 +1,30 @@
 # Dungeons, Dragons & Development
-Date: 2025-04-21
-
-> Creating custom ("homebrew") D&D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected "worlds" which must remain cohesive while evolving over time.
-
-I have been roleplaying and building worlds for a decade this May[^1]. In that time, I've learned a tremendous amount about what works in worldbuilding and how to build player trust as a game master[^2] (GM). When I'm not at the table with friends, I'm programming---graduating soon with a Computer Science and Data Science degree from the [University of Wisconsin-Madison](https://cdis.wisc.edu/). The creative challenges faced by worldbuilding GMs parallel those of software engineers, particularly in managing complexity, sustaining creative momentum, and designing flexible systems that adapt to change.
+<div class="description">
+Creating custom ("homebrew") D&D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected "worlds" which must remain cohesive while evolving over time.
+<span class="date-info"><span class="date">2025-04-21</span></span>
+</div>
 
 ## Building Worlds
+I have been roleplaying and building worlds for a decade this May[^1]. In that time, I've learned a tremendous amount about what works in worldbuilding and how to build player trust as a game master[^2] (GM). When I'm not at the table with friends, I'm programming---graduating soon with a Computer Science and Data Science degree from the [University of Wisconsin-Madison](https://cdis.wisc.edu/). The creative challenges faced by worldbuilding GMs parallel those of software engineers, particularly in managing complexity, sustaining creative momentum, and designing flexible systems that adapt to change.
 
 Creating homebrew worlds mirrors designing software. The worldbuilding process is an asymptotic journey toward an ideal. You begin with an empty canvas, add and strip away elements, and refine towards a "just right" state that can never be fully reached. This gap between vision and implementation persists regardless of effort invested. At the end of this process, the creator has established consistent rules and a living, breathing fantasy world.
 
-<div style="display: flex; justify-content: space-between; margin: 20px 0;"><div style="text-align: center;"><img src="./images/map1.jpeg" alt="The Isles" style="width: 200px;"><div style="font-style: italic;">Map A. The Isles (2020)</div></div><div style="text-align: center;"><img src="./images/map2.jpeg" alt="Aldria" style="width: 200px;"><div style="font-style: italic;">Map B. Aldria (2021)</div></div><div style="text-align: center;"><img src="./images/map3.jpeg" alt="El'kora" style="width: 200px;"><div style="font-style: italic;">Map C. El'kora (2024-)</div></div></div>
+```{=html}
+<div style="display: flex; justify-content: space-between; margin: 10px 0; padding: 0 20px;">
+  <div style="text-align: center;">
+    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px;">
+    <div style="font-style: italic;">Map A. The Isles (2020)</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px;">
+    <div style="font-style: italic;">Map B. Aldria (2021)</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px;">
+    <div style="font-style: italic;">Map C. El'kora (2024-)</div>
+  </div>
+</div>
+```
 
 This model works equally well for programming. Programmers build "worlds" of their own, maintaining coherence internally through well-structured code and externally through intuitive interfaces. We design data structures, algorithms, and establish design patterns. Like worldbuilders, programmers must understand how each component affects the entire system.
 

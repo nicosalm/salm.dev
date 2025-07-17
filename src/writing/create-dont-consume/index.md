@@ -1,7 +1,8 @@
 # Create, Don't Consume
-Date: 2025-06-27
-
-> We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.
+<div class="description">
+We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.
+<span class="date-info"><span class="date">2025-06-27</span></span>
+</div>
 
 ## Introduction
 
@@ -43,7 +44,20 @@ Daniel Lieberman calls this an "[evolutionary mismatch](https://www.cell.com/cur
 
 The struggle comes from processes running at different priority levels[^3]: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.
 
-I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say! He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits. As Carr put it: "George Orwell wasn't right---our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine."
+I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say! He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits:
+
+```{=html}
+<div class="quote-container">
+    <div class="quote-content">
+        <div class="quote-text">
+            George Orwell wasn't right—our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine.
+        </div>
+        <div class="quote-author">
+            Jimmy Carr, <a href="https://www.youtube.com/watch?v=uHLAazKUU68" target="_blank">"The Diary of a CEO"</a>
+        </div>
+    </div>
+</div>
+```
 
 All of these consumptive behaviors (the scrolling, the videos, etc.) are forms of mental escape from the present moment. They pull us away from engaging with what's actually in front of us.
 

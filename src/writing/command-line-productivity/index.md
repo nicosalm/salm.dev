@@ -1,8 +1,9 @@
 # Command Line Productivity
-Date: 2024-10-10
-| Last Updated: 2025-07-13
 
-> I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.
+<div class="description">
+I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.
+<span class="date-info"><span class="date">2024-10-10</span><span class="updated">2025-07-13</span></span>
+</div>
 
 ## Motivation
 
@@ -175,11 +176,20 @@ Notice how, for some, the phonetic sound of the command matches the action. `d` 
 
 ### Vim (The Program)
 
-Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient.
+Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient. My friend [Lucas](https://scharenbroch.dev/) rather aptly put:
 
-My friend [Lucas](https://scharenbroch.dev/) rather aptly put:
-
-> Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
+```{=html}
+<div class="quote-container">
+    <div class="quote-content">
+        <div class="quote-text">
+            Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
+        </div>
+        <div class="quote-author">
+            Lucas Scharenbroch
+        </div>
+    </div>
+</div>
+```
 
 I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
 

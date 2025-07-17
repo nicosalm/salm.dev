@@ -1,7 +1,8 @@
 # Winning Pokemon Showdown (w/ Game Theory!)
-Date: 2025-05-11
-
-> We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!
+<div class="description">
+We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies. And they perfectly matched what our 5000+ hour expert already knew!
+<span class="date-info"><span class="date">2025-05-11</span></span>
+</div>
 
 ## Premise
 In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring a team of three Pokémon and choose one for each battle—this simplified format lets us focus on pure strategic decision-making without the complexity of switching mid-battle that defines 6v6 play. A game consists of a "choosing" phase (left) and a "battling" phase (right):

@@ -61,12 +61,15 @@ process_post() {
   mkdir -p "dist/writing/$name"
 
   local title=$(head -n 1 "$mdfile" | sed 's/^# //')
-  local date=$(grep -m 1 "Date:" "$mdfile" | sed 's/Date: //')
+
+  # Extract date from <span class="date">DATE</span> - only the first one
+  local date=$(grep -o '<span class="date">[^<]*</span>' "$mdfile" | head -1 | sed 's/<span class="date">\([^<]*\)<\/span>/\1/')
 
   local date_rfc=$(format_date_rfc "$date")
   [ -z "$date" ] && date="1970-01-01"
 
-  local desc=$(grep -m 1 "^>" "$mdfile" | sed 's/^> //')
+  # Extract description text between <div class="description"> and first <span
+  local desc=$(sed -n '/<div class="description">/,/<span/p' "$mdfile" | sed '1d;$d' | tr '\n' ' ' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
   [ -z "$desc" ] && desc="Read more at salm.dev!"
 
   POSTS+=("$date|$date_rfc|$title|$name|$desc")
@@ -82,7 +85,7 @@ process_post() {
       pandoc_cmd="$pandoc_cmd --highlight-style=pygments"
   fi
 
-  $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title" -V date="$date"
+  $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title"
 
   if [ -d "${dir}images" ]; then
       mkdir -p "dist/writing/$name/images"
@@ -105,22 +108,38 @@ generate_posts_index() {
 <body>
     <div>
         <header><a href="/">home</a> / writing</header>
-        <h1>writing (<a href="../rss.xml">RSS</a>)</h1>
-        <p>My programming adventures, unfiltered thoughts, and current obsessions.</p>
-        <ul>
+        <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
 HTML
+
+  local current_year=""
   (IFS=$'\n'; sort -r <<<"${POSTS[*]}") | while IFS="|" read -r date date_rfc title name desc; do
-    local escaped_desc=$(escape "$desc")
-    echo "<li>$date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>" >> dist/writing/index.html
+    local year="${date:0:4}"
+    local short_date="${date:5}"  # Extract MM-DD
+    local escaped_desc
+    escaped_desc=$(escape "$desc")
+
+    if [[ "$year" != "$current_year" ]]; then
+      if [[ -n "$current_year" ]]; then
+        echo "        </ul>" >> dist/writing/index.html
+      fi
+      echo "        <h4>$year</h4>" >> dist/writing/index.html
+      echo "        <ul>" >> dist/writing/index.html
+      current_year="$year"
+    fi
+
+    echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>" >> dist/writing/index.html
   done
+
+  echo "        </ul>" >> dist/writing/index.html
+
   cat >> dist/writing/index.html << HTML
-        </ul>
     </div>
     <footer><p>© 2025 salm.dev</p></footer>
 </body>
 </html>
 HTML
 }
+
 
 generate_rss_feed() {
   local now="$1"
