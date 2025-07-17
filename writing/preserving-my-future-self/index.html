@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <style>
-@font-face {
-    font-family: 'firasans';
-    font-style: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-display: swap;
-    src: url('/assets/fonts/firasans_regular.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'firasans';
-    font-style: italic;
-    font-weight: normal;
-    font-stretch: normal;
-    font-display: swap;
-    src: url('/assets/fonts/firasans_italic.woff2') format('woff2');
-}
-
 @font-face {
     font-family: 'charter';
     font-style: normal;
@@ -69,8 +51,9 @@
 
 :root {
     --bg-color: #ffffff;
-    --text-color: #333333;
+    --text-color: #2a2a2a;
     --text-light: #555555;
+    --text-lighter: #e8e8e8;
     --text-gray: #666666;
     --link-color: #0066cc;
     --border-color: #eee;
@@ -91,7 +74,7 @@
     --syntax-comment: #808080;
 
     --font-family-body: charter, Georgia, serif;
-    --font-family-headers: firasans, Georgia, serif;
+    --font-family-headers: charter, Georgia, serif;
     --font-family-code: firacode, Consolas, monospace;
 
     --font-size-base: 1rem;
@@ -107,6 +90,9 @@
     --spacing-huge: 3rem;
     --max-width: 1000px;
     --transition-speed: 0.3s ease;
+
+    --border-subtle: 1px solid var(--border-color);
+    --border-emphasis: 2px solid var(--text-color);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -114,6 +100,7 @@
         --bg-color: #1a1a1a;
         --text-color: #e0e0e0;
         --text-light: #b0b0b0;
+        --text-lighter: #777777;
         --text-gray: #888888;
         --link-color: #66aaff;
         --border-color: #333;
@@ -164,8 +151,11 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-small {
-    font-size: 0.875em;
+small { font-size: 0.875em; }
+
+a {
+    color: var(--link-color);
+    text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -173,33 +163,97 @@ h1, h2, h3, h4, h5, h6 {
     margin: var(--spacing-large) 0 var(--spacing-medium);
     line-height: var(--line-height-heading);
     color: var(--text-color);
+    font-variant: small-caps;
+    text-align: left;
+    text-decoration: none;
 }
 
-h1 { font-size: 2rem; }
+h1 {
+    font-size: 2.25rem;
+    text-align: center;
+}
+
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-top: var(--spacing-xl);
-}
-h3 { font-size: 1.25rem; }
-
-p {
-    margin-bottom: var(--spacing-medium);
+    position: relative;
+    padding-bottom: 2px;
 }
 
-a {
-    color: var(--link-color);
-    text-decoration: underline;
-    transition: color var(--transition-speed);
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--text-color);
 }
+
+h3 {
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: radial-gradient(circle, var(--text-color) 0.5px, transparent 0.5px);
+    background-size: 3px 1px;
+    background-repeat: repeat-x;
+}
+
+h4 { font-size: 1.25rem; }
+
+p { margin-bottom: var(--spacing-medium); }
 
 ul, ol {
     margin: var(--spacing-medium) 0;
     padding-left: var(--spacing-xl);
 }
 
-li {
-    margin-bottom: var(--spacing-tiny);
+li { margin-bottom: var(--spacing-tiny); }
+
+code {
+    font-family: var(--font-family-code);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    padding: 0.15rem 0.3rem;
+    border-radius: 3px;
+    border: var(--border-subtle);
+    font-size: var(--font-size-small);
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
+
+pre {
+    background-color: var(--code-bg);
+    padding: var(--spacing-medium);
+    border-radius: 0;
+    border: var(--border-subtle);
+    overflow-x: auto;
+    margin: var(--spacing-medium) 0;
+}
+
+pre code {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.nx, .nf, .p { }
+.o, .k, .kc, .kd, .kn, .nb, .cf, .kw, .op { color: var(--syntax-keyword); }
+.kt, .dt { color: var(--syntax-type); }
+.m, .mf, .mh, .mi, .mo { color: var(--syntax-number); }
+.s, .sc, .st { color: var(--syntax-string); }
+.gp { color: var(--syntax-prompt); }
+.go { color: var(--syntax-output); }
+.c1, .co { color: var(--syntax-comment); }
 
 table {
     width: 100%;
@@ -212,25 +266,23 @@ th, td {
     padding: var(--spacing-small) var(--spacing-medium);
     text-align: left;
     border-bottom: 1px solid var(--border-color);
-    transition: border-color var(--transition-speed);
 }
 
 th {
     font-weight: bold;
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: var(--border-emphasis);
 }
 
 blockquote {
     margin: var(--spacing-large) 0;
-    padding: var(--spacing-medium) var(--spacing-large);
-    border-left: 4px solid var(--blockquote-border);
-    color: var(--text-light);
-    font-style: italic;
-    background-color: var(--blockquote-bg);
-    border-radius: 0 4px 4px 0;
+    padding: var(--spacing-medium);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    font-style: normal;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
     position: relative;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
 }
 
 blockquote p {
@@ -241,71 +293,57 @@ blockquote p:last-child {
     margin-bottom: 0;
 }
 
-code {
-    font-family: var(--font-family-code);
-    background-color: var(--code-bg);
+blockquote blockquote {
+    background-color: var(--text-lighter);
     color: var(--text-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-size: var(--font-size-small);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    transition: background-color var(--transition-speed);
+    border-color: var(--text-lighter);
 }
 
-pre {
-    background-color: var(--code-bg);
-    padding: var(--spacing-medium);
-    border-radius: 3px;
-    overflow-x: auto;
-    margin: var(--spacing-medium) 0;
-    transition: background-color var(--transition-speed);
+.quote-container {
+    padding: var(--spacing-large) var(--spacing-large);
+    margin: var(--spacing-large) 0;
+    position: relative;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-medium);
 }
 
-pre code {
-    padding: 0;
-    background-color: transparent;
+.quote-container::before,
+.quote-container::after {
+    content: '"';
+    font-family: var(--font-family-headers);
+    font-size: 4rem;
+    color: var(--text-light);
+    opacity: 0.4;
+    line-height: 1;
+    font-weight: normal;
+    flex-shrink: 0;
 }
 
-.dialogue {
-    background-color: var(--code-bg);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: var(--spacing-large);
-    margin: var(--spacing-xl) 0;
+.quote-content { flex: 1; text-align: center; }
+
+.quote-text {
     font-family: var(--font-family-body);
-    line-height: var(--line-height);
+    font-size: 1.25rem;
+    line-height: 1.4;
     color: var(--text-color);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
+    font-style: italic;
+    margin: 0 0 var(--spacing-small) 0;
 }
 
-/* syntax highlighting */
-.nx { }                                    /* Name.Other */
-.nf { }                                    /* Name.Function */
-.o  { color: var(--syntax-keyword); }     /* Operator */
-.p  { }                                    /* Plain */
-.k  { color: var(--syntax-keyword); }     /* Keyword */
-.kc { color: var(--syntax-keyword); }     /* Keyword.Constant */
-.kd { color: var(--syntax-keyword); }     /* Keyword.Declaration */
-.kn { color: var(--syntax-keyword); }     /* Keyword.Namespace */
-.nb { color: var(--syntax-keyword); }     /* Name.Builtin */
-.kt { color: var(--syntax-type); }        /* Keyword.Type */
-.m  { color: var(--syntax-number); }      /* Literal.Number */
-.mf { color: var(--syntax-number); }      /* Literal.Number.Float */
-.mh { color: var(--syntax-number); }      /* Literal.Number.Hex */
-.mi { color: var(--syntax-number); }      /* Literal.Number.Integer */
-.mo { color: var(--syntax-number); }      /* Literal.Number.Oct */
-.s  { color: var(--syntax-string); }      /* Literal.String */
-.sc { color: var(--syntax-string); }      /* Literal.String.Char */
-.gp { color: var(--syntax-prompt); }      /* Generic.Prompt */
-.go { color: var(--syntax-output); }      /* Generic.Output */
-.c1 { color: var(--syntax-comment); }     /* Comment.Single */
-.co { color: var(--syntax-comment); }     /* Comment */
-.kw { color: var(--syntax-keyword); }     /* Keyword */
-.op { color: var(--syntax-keyword); }     /* Operator */
-.dt { color: var(--syntax-type); }        /* Data type */
-.cf { color: var(--syntax-keyword); }     /* Control flow */
-.st { color: var(--syntax-string); }      /* String */
+.quote-author {
+    font-family: var(--font-family-headers);
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--text-color);
+    font-variant: small-caps;
+}
+
+.quote-author a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
 
 img {
     max-width: 100%;
@@ -326,9 +364,7 @@ figcaption {
     color: var(--text-light);
 }
 
-header {
-    margin-bottom: var(--spacing-medium);
-}
+header { margin-bottom: var(--spacing-medium); }
 
 footer {
     margin-top: var(--spacing-huge);
@@ -337,14 +373,26 @@ footer {
     color: var(--text-gray);
     border-top: 1px solid var(--border-color);
     padding-top: var(--spacing-medium);
-    transition: border-color var(--transition-speed);
 }
 
 hr.solid {
     border: 0;
     border-top: 1px solid var(--border-color);
     margin: var(--spacing-large) 0;
-    transition: border-color var(--transition-speed);
+}
+
+hr.subtle {
+    border: 0;
+    border-top: 1px dotted var(--text-lighter);
+    margin: var(--spacing-medium) 0;
+    opacity: 0.5;
+}
+
+hr.minimal {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--text-lighter), transparent);
+    margin: var(--spacing-medium) 0;
 }
 
 header.main-nav {
@@ -390,16 +438,39 @@ header.main-nav nav {
     transition: background-color var(--transition-speed);
 }
 
-@media (min-width: 576px) {
-    header.main-nav {
-        flex-direction: row;
-        align-items: flex-start;
-    }
+.description {
+    text-align: center;
+    font-style: italic;
+    margin: var(--spacing-medium) 0;
+    color: var(--text-light);
+}
 
-    header.main-nav img {
-        margin-right: 80px;
-        margin-bottom: 0;
-    }
+.description .date {
+    display: inline;
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--text-light);
+    margin-top: var(--spacing-small);
+}
+
+.description .date::before {
+    content: "Published ";
+}
+
+.description .updated {
+    display: inline;
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--text-light);
+}
+
+.description .updated::before {
+    content: " • Updated ";
+}
+
+.description .date-info {
+    display: block;
+    margin-top: var(--spacing-small);
 }
 
 .buttons-layout {
@@ -452,6 +523,75 @@ header.main-nav nav {
     align-items: flex-start;
 }
 
+.footnotes {
+    margin-top: var(--spacing-xl) !important;
+    padding: var(--spacing-medium) !important;
+    border: var(--border-subtle) !important;
+    background-color: var(--code-bg) !important;
+    border-radius: 4px !important;
+}
+
+.footnotes::before {
+    content: "Notes" !important;
+    display: block !important;
+    font-family: var(--font-family-headers) !important;
+    font-weight: bold !important;
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--text-color) !important;
+    font-size: var(--font-size-small) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.footnotes hr { display: none !important; }
+
+.footnotes ol {
+    margin: 0 !important;
+    padding-left: var(--spacing-medium) !important;
+}
+
+.footnotes li {
+    margin-bottom: var(--spacing-tiny) !important;
+    font-size: var(--font-size-small) !important;
+    line-height: 1.4 !important;
+}
+
+.footnotes p { margin-bottom: var(--spacing-tiny) !important; }
+
+.footnotes a { color: var(--link-color) !important; }
+
+@media (min-width: 576px) {
+    header.main-nav {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    header.main-nav img {
+        margin-right: 80px;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .quote-container {
+        padding: var(--spacing-large) var(--spacing-medium);
+        gap: var(--spacing-small);
+    }
+
+    .quote-container::before,
+    .quote-container::after {
+        font-size: 3rem;
+    }
+
+    .quote-text {
+        font-size: 1.125rem;
+    }
+
+    .quote-author {
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -464,163 +604,187 @@ header.main-nav nav {
     }
 }
 </style>
-    <title>Preserving My Future Self | salm.dev</title>
-    </head>
-<body>
-    <div>
-        <header>
-            <a href="/">home</a> / <a href="/writing/">writing</a>
-        </header>
-        <article>
-            <h1 id="preserving-my-future-self">Preserving My Future
-            Self</h1>
-            <p>Date: 2024-08-18</p>
-            <blockquote>
-            <p>I underwent an ergonomic overhaul to improve health and
-            reduce strain. Or: I got a new, expensive keyboard that got
-            sawed in half. Either way, it was an adventure worth
-            sharing.</p>
-            </blockquote>
-            <p><strong>(!!!) - This post is being updated.</strong></p>
-            <h2 id="motivation">Motivation</h2>
-            <p>Humans have a natural aversion to change and it makes
-            adjusting daily routines difficult. A month ago, I embarked
-            on a journey to overhaul my typing experience by learning
-            not just a new keyboard layout but also a new type of
-            keyboard altoghether. I restructured my experience from the
-            ground up, and wrote this post to share my impressions after
-            a month of using a split, ortholinear keyboard called the <a
-            href="https://www.zsa.io/voyager">ZSA Voyager</a>. I paired
-            this with the <a
-            href="https://colemakmods.github.io/mod-dh/">Colemak-DH
-            keyboard layout</a>.</p>
-            <p>But why? — Why go through so much work? Will it make me
-            type blazingly fast? Well, no, although I believe the
-            ceiling has been raised inadvertently.</p>
-            <p>I chose to refactor my workflow for one reason alone: the
-            vast ergonomic benefit which promises to preserve my
-            physical health. I did this for me ten years from now<a
-            href="#fn1" class="footnote-ref" id="fnref1"
-            role="doc-noteref"><sup>1</sup></a>.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol>
-            <li id="fn1"><p>As a programmer, I will spend the majority
-            of my professional career at a desk!<a href="#fnref1"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="rebuilding-muscle-memory">Rebuilding Muscle
-            Memory</h2>
-            <p>A lot of experts and articles will advise slowly
-            adjusting to a new keyboard layout over time, perhaps adding
-            in a small subsection of the keyboard each week. I think
-            that is fair, but not for me<a href="#fn2"
-            class="footnote-ref" id="fnref2"
-            role="doc-noteref"><sup>2</sup></a>. Instead, I erased my
-            muscle memory in one sweep and just went for it.</p>
-            <p>I unplugged my old keyboard and set up my Voyager. Split
-            keyboard, blank keycaps, and an entirely new keyboard schema
-            with a symbols layer. Challenge accepted.</p>
-            <p>I began with typing websites. I introduced one letter at
-            a time, building familiarity.</p>
-            <p>I saw gradual but consistent progression. It was like a
-            game.</p>
-            <p>I eventually unlocked the entire keyboard. Including
-            numbers and symbols. After a month of practice, I’m now
-            typing at ~70 wpm down from my previous average of ~125.</p>
-            <p>In time, I transitioned from typing websites to real
-            projects, coursework, and general day-to-day productivity. I
-            see a strong linear trend and I am confident it is only a
-            matter of time until I meet my old personal best.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol start="2">
-            <li id="fn2"><p>I am a firm believer of ripping of the
-            band-aid. I would rather get it all over in one go.<a
-            href="#fnref2" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="breaking-down-the-changes">Breaking Down the
-            Changes</h2>
-            <p>I changed many things about my setup. I think there’s
-            value in analyzing each change and the impact it brought my
-            way.</p>
-            <h3 id="the-voyager-split-keyboard">1. The Voyager Split
-            Keyboard</h3>
-            <p>The Voyager split keyboard is a revelation. My <a
-            href="https://iqunix.store/collections/hitchhiker-series/products/f97-hitchhiker">IQUNIX
-            F97 Hitchhiker</a> is an excellent pre-built keyboard, but
-            the Voyager implements a handful of essential improvements.
-            With the split design, my hands rest more naturally, and my
-            shoulders are no longer pulled inward. This alignment
-            improvement alone has made typing for extended periods
-            significantly more comfortable and eased the constant, dull
-            pain between my shoulder blades.</p>
-            <h3 id="ortholinear-keys">2. Ortholinear Keys</h3>
-            <p>Ortholinear keys, where keys are aligned in a grid rather
-            than staggered, are simply better. The staggered design
-            we’re all used to was born out of typewriter constraints,
-            not ergonomics. With ortholinear keys, every finger’s
-            movement feels more intentional and precise.</p>
-            <h3 id="proper-10-finger-touch-typing">3. Proper 10-Finger
-            Touch-Typing</h3>
-            <p>One of the biggest changes I’ve made is enforcing proper
-            10-finger touch-typing. Paired with the key layout of the
-            Voyager, using all ten fingers has effectively eliminated
-            moving my hand to reach for a key. Each finger is
-            responsible for a column of keys on the keyboard. I also
-            eliminated some of my bad habits! In the past, some fingers
-            took on more responsibility than they ought to, and this
-            fixed that.</p>
-            <h3 id="colemak-dh-layout">4. Colemak-DH Layout</h3>
-            <p>Colemak-DH takes the already ergonomic Colemak layout and
-            makes it even better by keeping your most-used keys on the
-            home row. It’s designed to minimize finger movement and keep
-            your hands comfortable while typing. For someone like me,
-            who spends a significant amount of time programming, the
-            inclusion of a symbol layer (where symbols are mapped to
-            easily accessible keys) is revolutionary. The result? A
-            layout that’s not only ergonomic but also extremely
-            fast.</p>
-            <h2 id="the-bigger-picture">The Bigger Picture</h2>
-            <p>While I’m optimizing my typing setup, it’s crucial not to
-            overlook the importance of overall posture. After all, no
-            keyboard layout can save you from the effects of poor
-            posture. I’ve been paying close attention to my chair and
-            how I sit while working. Ensuring that my chair supports a
-            natural, upright posture is key to avoiding <a
-            href="https://www.physio-pedia.com/Upper-Crossed_Syndrome">upper
-            crossed syndrome</a> — a condition where the muscles in the
-            neck, shoulders, and chest become imbalanced due to poor
-            posture. This syndrome can lead to neck pain, shoulder
-            discomfort, and even headaches, which all suck.</p>
-            <p>A close friend of mine worked for years unguarded at a
-            desk and it caused them to lose 67% of the natural curvature
-            in their spine. The resulting chiropractic bills came to
-            $4,500. That was a huge wake-up call for me and played a
-            significant role in justifying the money I spent on this new
-            ergonomic setup. Investing in good equipment now feels like
-            a small price to pay for long-term health and comfort.</p>
-            <h2 id="wrapping-up">Wrapping Up</h2>
-            <p>Adopting this new keyboard setup is a commitment, but
-            it’s one I’m excited about. I’ve even gamified the process
-            with a website that tracks my typing progress and gives me a
-            bunch of stats and charts to geek out over. As someone who
-            will be programming for many more years, this feels like a
-            worthwhile investment in my professional workflow.</p>
-            <p>The journey is just beginning, and I look forward to
-            seeing how much my typing speed and comfort improve over the
-            coming months. Stay tuned for updates!</p>
-        </article>
-    </div>
-    <footer>
-        <p>© 2025 salm.dev</p>
-    </footer>
-</body>
+        <title>Preserving My Future Self | salm.dev</title>
+            </head>
+    <body>
+        <div>
+            <header style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+                <nav>
+                    <a href="/">home</a> / <a href="/writing/">writing</a>
+                </nav>
+                <p>
+                </p>
+                <nav style="text-align: right;">
+                    <a href="/rss.xml">view rss</a>
+                </nav>
+            </header>
+            <article>
+                <h1 id="preserving-my-future-self">Preserving My Future
+                Self</h1>
+                <div class="description">
+                <p>I underwent an ergonomic overhaul to improve health
+                and reduce strain. Or: I got a new, expensive keyboard
+                that got sawed in half. Either way, it was an adventure
+                worth sharing. <span class="date-info"><span
+                class="date">2024-08-18</span></span></p>
+                </div>
+                <p><strong>(!!!) - This post is being
+                updated.</strong></p>
+                <h2 id="motivation">Motivation</h2>
+                <p>Humans have a natural aversion to change and it makes
+                adjusting daily routines difficult. A month ago, I
+                embarked on a journey to overhaul my typing experience
+                by learning not just a new keyboard layout but also a
+                new type of keyboard altoghether. I restructured my
+                experience from the ground up, and wrote this post to
+                share my impressions after a month of using a split,
+                ortholinear keyboard called the <a
+                href="https://www.zsa.io/voyager">ZSA Voyager</a>. I
+                paired this with the <a
+                href="https://colemakmods.github.io/mod-dh/">Colemak-DH
+                keyboard layout</a>.</p>
+                <p>But why? — Why go through so much work? Will it make
+                me type blazingly fast? Well, no, although I believe the
+                ceiling has been raised inadvertently.</p>
+                <p>I chose to refactor my workflow for one reason alone:
+                the vast ergonomic benefit which promises to preserve my
+                physical health. I did this for me ten years from now<a
+                href="#fn1" class="footnote-ref" id="fnref1"
+                role="doc-noteref"><sup>1</sup></a>.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>As a programmer, I will spend the
+                majority of my professional career at a desk!<a
+                href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="rebuilding-muscle-memory">Rebuilding Muscle
+                Memory</h2>
+                <p>A lot of experts and articles will advise slowly
+                adjusting to a new keyboard layout over time, perhaps
+                adding in a small subsection of the keyboard each week.
+                I think that is fair, but not for me<a href="#fn2"
+                class="footnote-ref" id="fnref2"
+                role="doc-noteref"><sup>2</sup></a>. Instead, I erased
+                my muscle memory in one sweep and just went for it.</p>
+                <p>I unplugged my old keyboard and set up my Voyager.
+                Split keyboard, blank keycaps, and an entirely new
+                keyboard schema with a symbols layer. Challenge
+                accepted.</p>
+                <p>I began with typing websites. I introduced one letter
+                at a time, building familiarity.</p>
+                <p>I saw gradual but consistent progression. It was like
+                a game.</p>
+                <p>I eventually unlocked the entire keyboard. Including
+                numbers and symbols. After a month of practice, I’m now
+                typing at ~70 wpm down from my previous average of
+                ~125.</p>
+                <p>In time, I transitioned from typing websites to real
+                projects, coursework, and general day-to-day
+                productivity. I see a strong linear trend and I am
+                confident it is only a matter of time until I meet my
+                old personal best.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol start="2">
+                <li id="fn2"><p>I am a firm believer of ripping of the
+                band-aid. I would rather get it all over in one go.<a
+                href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="breaking-down-the-changes">Breaking Down the
+                Changes</h2>
+                <p>I changed many things about my setup. I think there’s
+                value in analyzing each change and the impact it brought
+                my way.</p>
+                <h3 id="the-voyager-split-keyboard">1. The Voyager Split
+                Keyboard</h3>
+                <p>The Voyager split keyboard is a revelation. My <a
+                href="https://iqunix.store/collections/hitchhiker-series/products/f97-hitchhiker">IQUNIX
+                F97 Hitchhiker</a> is an excellent pre-built keyboard,
+                but the Voyager implements a handful of essential
+                improvements. With the split design, my hands rest more
+                naturally, and my shoulders are no longer pulled inward.
+                This alignment improvement alone has made typing for
+                extended periods significantly more comfortable and
+                eased the constant, dull pain between my shoulder
+                blades.</p>
+                <h3 id="ortholinear-keys">2. Ortholinear Keys</h3>
+                <p>Ortholinear keys, where keys are aligned in a grid
+                rather than staggered, are simply better. The staggered
+                design we’re all used to was born out of typewriter
+                constraints, not ergonomics. With ortholinear keys,
+                every finger’s movement feels more intentional and
+                precise.</p>
+                <h3 id="proper-10-finger-touch-typing">3. Proper
+                10-Finger Touch-Typing</h3>
+                <p>One of the biggest changes I’ve made is enforcing
+                proper 10-finger touch-typing. Paired with the key
+                layout of the Voyager, using all ten fingers has
+                effectively eliminated moving my hand to reach for a
+                key. Each finger is responsible for a column of keys on
+                the keyboard. I also eliminated some of my bad habits!
+                In the past, some fingers took on more responsibility
+                than they ought to, and this fixed that.</p>
+                <h3 id="colemak-dh-layout">4. Colemak-DH Layout</h3>
+                <p>Colemak-DH takes the already ergonomic Colemak layout
+                and makes it even better by keeping your most-used keys
+                on the home row. It’s designed to minimize finger
+                movement and keep your hands comfortable while typing.
+                For someone like me, who spends a significant amount of
+                time programming, the inclusion of a symbol layer (where
+                symbols are mapped to easily accessible keys) is
+                revolutionary. The result? A layout that’s not only
+                ergonomic but also extremely fast.</p>
+                <h2 id="the-bigger-picture">The Bigger Picture</h2>
+                <p>While I’m optimizing my typing setup, it’s crucial
+                not to overlook the importance of overall posture. After
+                all, no keyboard layout can save you from the effects of
+                poor posture. I’ve been paying close attention to my
+                chair and how I sit while working. Ensuring that my
+                chair supports a natural, upright posture is key to
+                avoiding <a
+                href="https://www.physio-pedia.com/Upper-Crossed_Syndrome">upper
+                crossed syndrome</a> — a condition where the muscles in
+                the neck, shoulders, and chest become imbalanced due to
+                poor posture. This syndrome can lead to neck pain,
+                shoulder discomfort, and even headaches, which all
+                suck.</p>
+                <p>A close friend of mine worked for years unguarded at
+                a desk and it caused them to lose 67% of the natural
+                curvature in their spine. The resulting chiropractic
+                bills came to $4,500. That was a huge wake-up call for
+                me and played a significant role in justifying the money
+                I spent on this new ergonomic setup. Investing in good
+                equipment now feels like a small price to pay for
+                long-term health and comfort.</p>
+                <h2 id="wrapping-up">Wrapping Up</h2>
+                <p>Adopting this new keyboard setup is a commitment, but
+                it’s one I’m excited about. I’ve even gamified the
+                process with a website that tracks my typing progress
+                and gives me a bunch of stats and charts to geek out
+                over. As someone who will be programming for many more
+                years, this feels like a worthwhile investment in my
+                professional workflow.</p>
+                <p>The journey is just beginning, and I look forward to
+                seeing how much my typing speed and comfort improve over
+                the coming months. Stay tuned for updates!</p>
+            </article>
+        </div>
+
+        <footer>
+    <p style="color: var(--text-light); font-size: var(--font-size-small); font-style: italic; margin-bottom: var(--spacing-small);">
+        Enjoyed this? Check out <a href="/writing/">more posts</a> or <a href="/rss.xml">subscribe to RSS</a> for updates.
+    </p>
+    <p>© 2025 salm.dev</p>
+</footer>
+
+        </body>
 </html>

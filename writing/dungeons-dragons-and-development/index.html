@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <style>
-@font-face {
-    font-family: 'firasans';
-    font-style: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-display: swap;
-    src: url('/assets/fonts/firasans_regular.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'firasans';
-    font-style: italic;
-    font-weight: normal;
-    font-stretch: normal;
-    font-display: swap;
-    src: url('/assets/fonts/firasans_italic.woff2') format('woff2');
-}
-
 @font-face {
     font-family: 'charter';
     font-style: normal;
@@ -69,8 +51,9 @@
 
 :root {
     --bg-color: #ffffff;
-    --text-color: #333333;
+    --text-color: #2a2a2a;
     --text-light: #555555;
+    --text-lighter: #e8e8e8;
     --text-gray: #666666;
     --link-color: #0066cc;
     --border-color: #eee;
@@ -91,7 +74,7 @@
     --syntax-comment: #808080;
 
     --font-family-body: charter, Georgia, serif;
-    --font-family-headers: firasans, Georgia, serif;
+    --font-family-headers: charter, Georgia, serif;
     --font-family-code: firacode, Consolas, monospace;
 
     --font-size-base: 1rem;
@@ -107,6 +90,9 @@
     --spacing-huge: 3rem;
     --max-width: 1000px;
     --transition-speed: 0.3s ease;
+
+    --border-subtle: 1px solid var(--border-color);
+    --border-emphasis: 2px solid var(--text-color);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -114,6 +100,7 @@
         --bg-color: #1a1a1a;
         --text-color: #e0e0e0;
         --text-light: #b0b0b0;
+        --text-lighter: #777777;
         --text-gray: #888888;
         --link-color: #66aaff;
         --border-color: #333;
@@ -164,8 +151,11 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-small {
-    font-size: 0.875em;
+small { font-size: 0.875em; }
+
+a {
+    color: var(--link-color);
+    text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -173,33 +163,97 @@ h1, h2, h3, h4, h5, h6 {
     margin: var(--spacing-large) 0 var(--spacing-medium);
     line-height: var(--line-height-heading);
     color: var(--text-color);
+    font-variant: small-caps;
+    text-align: left;
+    text-decoration: none;
 }
 
-h1 { font-size: 2rem; }
+h1 {
+    font-size: 2.25rem;
+    text-align: center;
+}
+
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-top: var(--spacing-xl);
-}
-h3 { font-size: 1.25rem; }
-
-p {
-    margin-bottom: var(--spacing-medium);
+    position: relative;
+    padding-bottom: 2px;
 }
 
-a {
-    color: var(--link-color);
-    text-decoration: underline;
-    transition: color var(--transition-speed);
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--text-color);
 }
+
+h3 {
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: radial-gradient(circle, var(--text-color) 0.5px, transparent 0.5px);
+    background-size: 3px 1px;
+    background-repeat: repeat-x;
+}
+
+h4 { font-size: 1.25rem; }
+
+p { margin-bottom: var(--spacing-medium); }
 
 ul, ol {
     margin: var(--spacing-medium) 0;
     padding-left: var(--spacing-xl);
 }
 
-li {
-    margin-bottom: var(--spacing-tiny);
+li { margin-bottom: var(--spacing-tiny); }
+
+code {
+    font-family: var(--font-family-code);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    padding: 0.15rem 0.3rem;
+    border-radius: 3px;
+    border: var(--border-subtle);
+    font-size: var(--font-size-small);
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
+
+pre {
+    background-color: var(--code-bg);
+    padding: var(--spacing-medium);
+    border-radius: 0;
+    border: var(--border-subtle);
+    overflow-x: auto;
+    margin: var(--spacing-medium) 0;
+}
+
+pre code {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.nx, .nf, .p { }
+.o, .k, .kc, .kd, .kn, .nb, .cf, .kw, .op { color: var(--syntax-keyword); }
+.kt, .dt { color: var(--syntax-type); }
+.m, .mf, .mh, .mi, .mo { color: var(--syntax-number); }
+.s, .sc, .st { color: var(--syntax-string); }
+.gp { color: var(--syntax-prompt); }
+.go { color: var(--syntax-output); }
+.c1, .co { color: var(--syntax-comment); }
 
 table {
     width: 100%;
@@ -212,25 +266,23 @@ th, td {
     padding: var(--spacing-small) var(--spacing-medium);
     text-align: left;
     border-bottom: 1px solid var(--border-color);
-    transition: border-color var(--transition-speed);
 }
 
 th {
     font-weight: bold;
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: var(--border-emphasis);
 }
 
 blockquote {
     margin: var(--spacing-large) 0;
-    padding: var(--spacing-medium) var(--spacing-large);
-    border-left: 4px solid var(--blockquote-border);
-    color: var(--text-light);
-    font-style: italic;
-    background-color: var(--blockquote-bg);
-    border-radius: 0 4px 4px 0;
+    padding: var(--spacing-medium);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    font-style: normal;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
     position: relative;
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
 }
 
 blockquote p {
@@ -241,71 +293,57 @@ blockquote p:last-child {
     margin-bottom: 0;
 }
 
-code {
-    font-family: var(--font-family-code);
-    background-color: var(--code-bg);
+blockquote blockquote {
+    background-color: var(--text-lighter);
     color: var(--text-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-size: var(--font-size-small);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    transition: background-color var(--transition-speed);
+    border-color: var(--text-lighter);
 }
 
-pre {
-    background-color: var(--code-bg);
-    padding: var(--spacing-medium);
-    border-radius: 3px;
-    overflow-x: auto;
-    margin: var(--spacing-medium) 0;
-    transition: background-color var(--transition-speed);
+.quote-container {
+    padding: var(--spacing-large) var(--spacing-large);
+    margin: var(--spacing-large) 0;
+    position: relative;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-medium);
 }
 
-pre code {
-    padding: 0;
-    background-color: transparent;
+.quote-container::before,
+.quote-container::after {
+    content: '"';
+    font-family: var(--font-family-headers);
+    font-size: 4rem;
+    color: var(--text-light);
+    opacity: 0.4;
+    line-height: 1;
+    font-weight: normal;
+    flex-shrink: 0;
 }
 
-.dialogue {
-    background-color: var(--code-bg);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: var(--spacing-large);
-    margin: var(--spacing-xl) 0;
+.quote-content { flex: 1; text-align: center; }
+
+.quote-text {
     font-family: var(--font-family-body);
-    line-height: var(--line-height);
+    font-size: 1.25rem;
+    line-height: 1.4;
     color: var(--text-color);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
+    font-style: italic;
+    margin: 0 0 var(--spacing-small) 0;
 }
 
-/* syntax highlighting */
-.nx { }                                    /* Name.Other */
-.nf { }                                    /* Name.Function */
-.o  { color: var(--syntax-keyword); }     /* Operator */
-.p  { }                                    /* Plain */
-.k  { color: var(--syntax-keyword); }     /* Keyword */
-.kc { color: var(--syntax-keyword); }     /* Keyword.Constant */
-.kd { color: var(--syntax-keyword); }     /* Keyword.Declaration */
-.kn { color: var(--syntax-keyword); }     /* Keyword.Namespace */
-.nb { color: var(--syntax-keyword); }     /* Name.Builtin */
-.kt { color: var(--syntax-type); }        /* Keyword.Type */
-.m  { color: var(--syntax-number); }      /* Literal.Number */
-.mf { color: var(--syntax-number); }      /* Literal.Number.Float */
-.mh { color: var(--syntax-number); }      /* Literal.Number.Hex */
-.mi { color: var(--syntax-number); }      /* Literal.Number.Integer */
-.mo { color: var(--syntax-number); }      /* Literal.Number.Oct */
-.s  { color: var(--syntax-string); }      /* Literal.String */
-.sc { color: var(--syntax-string); }      /* Literal.String.Char */
-.gp { color: var(--syntax-prompt); }      /* Generic.Prompt */
-.go { color: var(--syntax-output); }      /* Generic.Output */
-.c1 { color: var(--syntax-comment); }     /* Comment.Single */
-.co { color: var(--syntax-comment); }     /* Comment */
-.kw { color: var(--syntax-keyword); }     /* Keyword */
-.op { color: var(--syntax-keyword); }     /* Operator */
-.dt { color: var(--syntax-type); }        /* Data type */
-.cf { color: var(--syntax-keyword); }     /* Control flow */
-.st { color: var(--syntax-string); }      /* String */
+.quote-author {
+    font-family: var(--font-family-headers);
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--text-color);
+    font-variant: small-caps;
+}
+
+.quote-author a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
 
 img {
     max-width: 100%;
@@ -326,9 +364,7 @@ figcaption {
     color: var(--text-light);
 }
 
-header {
-    margin-bottom: var(--spacing-medium);
-}
+header { margin-bottom: var(--spacing-medium); }
 
 footer {
     margin-top: var(--spacing-huge);
@@ -337,14 +373,26 @@ footer {
     color: var(--text-gray);
     border-top: 1px solid var(--border-color);
     padding-top: var(--spacing-medium);
-    transition: border-color var(--transition-speed);
 }
 
 hr.solid {
     border: 0;
     border-top: 1px solid var(--border-color);
     margin: var(--spacing-large) 0;
-    transition: border-color var(--transition-speed);
+}
+
+hr.subtle {
+    border: 0;
+    border-top: 1px dotted var(--text-lighter);
+    margin: var(--spacing-medium) 0;
+    opacity: 0.5;
+}
+
+hr.minimal {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--text-lighter), transparent);
+    margin: var(--spacing-medium) 0;
 }
 
 header.main-nav {
@@ -390,16 +438,39 @@ header.main-nav nav {
     transition: background-color var(--transition-speed);
 }
 
-@media (min-width: 576px) {
-    header.main-nav {
-        flex-direction: row;
-        align-items: flex-start;
-    }
+.description {
+    text-align: center;
+    font-style: italic;
+    margin: var(--spacing-medium) 0;
+    color: var(--text-light);
+}
 
-    header.main-nav img {
-        margin-right: 80px;
-        margin-bottom: 0;
-    }
+.description .date {
+    display: inline;
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--text-light);
+    margin-top: var(--spacing-small);
+}
+
+.description .date::before {
+    content: "Published ";
+}
+
+.description .updated {
+    display: inline;
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--text-light);
+}
+
+.description .updated::before {
+    content: " • Updated ";
+}
+
+.description .date-info {
+    display: block;
+    margin-top: var(--spacing-small);
 }
 
 .buttons-layout {
@@ -452,6 +523,75 @@ header.main-nav nav {
     align-items: flex-start;
 }
 
+.footnotes {
+    margin-top: var(--spacing-xl) !important;
+    padding: var(--spacing-medium) !important;
+    border: var(--border-subtle) !important;
+    background-color: var(--code-bg) !important;
+    border-radius: 4px !important;
+}
+
+.footnotes::before {
+    content: "Notes" !important;
+    display: block !important;
+    font-family: var(--font-family-headers) !important;
+    font-weight: bold !important;
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--text-color) !important;
+    font-size: var(--font-size-small) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.footnotes hr { display: none !important; }
+
+.footnotes ol {
+    margin: 0 !important;
+    padding-left: var(--spacing-medium) !important;
+}
+
+.footnotes li {
+    margin-bottom: var(--spacing-tiny) !important;
+    font-size: var(--font-size-small) !important;
+    line-height: 1.4 !important;
+}
+
+.footnotes p { margin-bottom: var(--spacing-tiny) !important; }
+
+.footnotes a { color: var(--link-color) !important; }
+
+@media (min-width: 576px) {
+    header.main-nav {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    header.main-nav img {
+        margin-right: 80px;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .quote-container {
+        padding: var(--spacing-large) var(--spacing-medium);
+        gap: var(--spacing-small);
+    }
+
+    .quote-container::before,
+    .quote-container::after {
+        font-size: 3rem;
+    }
+
+    .quote-text {
+        font-size: 1.125rem;
+    }
+
+    .quote-author {
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 576px) {
     .about-container {
         flex-direction: column !important;
@@ -464,397 +604,423 @@ header.main-nav nav {
     }
 }
 </style>
-    <title>Dungeons, Dragons & Development | salm.dev</title>
-    </head>
-<body>
-    <div>
-        <header>
-            <a href="/">home</a> / <a href="/writing/">writing</a>
-        </header>
-        <article>
-            <h1 id="dungeons-dragons-development">Dungeons, Dragons
-            &amp; Development</h1>
-            <p>Date: 2025-04-21</p>
-            <blockquote>
-            <p>Creating custom (“homebrew”) D&amp;D worlds and
-            developing software are surprisingly similar as creative
-            disciplines. In both, you create vast interconnected
-            “worlds” which must remain cohesive while evolving over
-            time.</p>
-            </blockquote>
-            <p>I have been roleplaying and building worlds for a decade
-            this May<a href="#fn1" class="footnote-ref" id="fnref1"
-            role="doc-noteref"><sup>1</sup></a>. In that time, I’ve
-            learned a tremendous amount about what works in
-            worldbuilding and how to build player trust as a game
-            master<a href="#fn2" class="footnote-ref" id="fnref2"
-            role="doc-noteref"><sup>2</sup></a> (GM). When I’m not at
-            the table with friends, I’m programming—graduating soon with
-            a Computer Science and Data Science degree from the <a
-            href="https://cdis.wisc.edu/">University of
-            Wisconsin-Madison</a>. The creative challenges faced by
-            worldbuilding GMs parallel those of software engineers,
-            particularly in managing complexity, sustaining creative
-            momentum, and designing flexible systems that adapt to
-            change.</p>
-            <h2 id="building-worlds">Building Worlds</h2>
-            <p>Creating homebrew worlds mirrors designing software. The
-            worldbuilding process is an asymptotic journey toward an
-            ideal. You begin with an empty canvas, add and strip away
-            elements, and refine towards a “just right” state that can
-            never be fully reached. This gap between vision and
-            implementation persists regardless of effort invested. At
-            the end of this process, the creator has established
-            consistent rules and a living, breathing fantasy world.</p>
-            <div
-            style="display: flex; justify-content: space-between; margin: 20px 0;">
-            <div style="text-align: center;">
-            <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px;">
-            <div style="font-style: italic;">
-            Map A. The Isles (2020)
-            </div>
-            </div>
-            <div style="text-align: center;">
-            <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px;">
-            <div style="font-style: italic;">
-            Map B. Aldria (2021)
-            </div>
-            </div>
-            <div style="text-align: center;">
-            <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px;">
-            <div style="font-style: italic;">
-            Map C. El’kora (2024-)
-            </div>
-            </div>
-            </div>
-            <p>This model works equally well for programming.
-            Programmers build “worlds” of their own, maintaining
-            coherence internally through well-structured code and
-            externally through intuitive interfaces. We design data
-            structures, algorithms, and establish design patterns. Like
-            worldbuilders, programmers must understand how each
-            component affects the entire system.</p>
-            <p>One challenge in both disciplines is adding new elements
-            without disrupting the existing system. As a GM, when I
-            introduce a new culture or type of magic, I must weave it
-            into existing lore without creating contradictions. When I
-            created a seafaring merchant kingdom (Tayrest on map A), I
-            ensured their cultural practices made sense given their
-            proximity to existing nations. Similarly, software engineers
-            adding features must ensure compatibility with existing
-            functionality while avoiding regression issues. In both
-            domains, you must anticipate how additions will ripple
-            through your creation.</p>
-            <p>This extends to knowledge management, where both roles
-            struggle with documentation debt. Many GMs compile extensive
-            <a href="https://hatch-books.com/blog/world-bible">world
-            wikis</a>, campaign notes, and NPC directories that
-            gradually become unwieldy. Software engineers face identical
-            challenges with technical documentation that quickly falls
-            out of sync with evolving codebases. The struggle to
-            maintain current reference materials creates friction that
-            compounds over time.</p>
-            <p>Both disciplines require creators to balance ambitious
-            ideas with practical constraints. The art lies in crafting
-            worlds resilient enough to evolve without collapsing under
-            their own complexity.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol>
-            <li id="fn1"><p>Over the years, I’ve explored roleplay
-            across many mediums, from Star Wars forum RP and MMOs to
-            tabletop games like D&amp;D 5e. During COVID, I invested
-            heavily in both DayZ roleplay and a 42-week D&amp;D campaign
-            with friends (June 13, 2021 to August 7, 2022—with my
-            friends from high school), which cemented my focus on
-            tabletop RPGs. I learned a ton about worldbuilding and “on
-            the fly” planning during those 14 months. Going with the
-            flow became just as important as preparation.<a
-            href="#fnref1" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
-            <li id="fn2"><p>“Game master” is the most generalizable
-            title for the player who acts as storyteller, referee, and
-            world-builder, guiding the adventure for other players. In
-            D&amp;D, this role is called the “Dungeon Master.”<a
-            href="#fnref2" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="fighting-bloat-and-feature-creep">Fighting Bloat and
-            Feature Creep</h2>
-            <p>When designing a world or software, it takes willpower to
-            stop adding more. I hyperfixate on current projects and
-            build them up with all my creative energy. But you’re not
-            building the world to build the world—you’re building it to
-            tell a story! And the most important part is how it ends: a
-            refined, precise, complete story that serves a purpose. The
-            world is merely a tool to deliver that story to your
-            players.</p>
-            <p>I’ve learned this the hard way. I once spent weeks
-            crafting an elaborate side quest involving ancient ruins
-            with detailed political backstory, custom monsters, and
-            three different possible outcomes. I was so excited to
-            unveil it. The players walked right past every hint I
-            dropped, completely ignored the mysterious NPCs trying to
-            guide them there, and decided to start a tavern business
-            instead<a href="#fn3" class="footnote-ref" id="fnref3"
-            role="doc-noteref"><sup>3</sup></a>. All that preparation
-            became expensive scratch paper.</p>
-            <p>Building intricacies in my world is therapeutic, but I
-            have to rein myself in and remember that while my mind has
-            near-bottomless capacity for this, my players have limited
-            mental bandwidth and <strong><em>playtime</em></strong>.
-            Much of what I create will never see the light of day, and
-            it shouldn’t. Players can only absorb so much information
-            during sessions, and what seems crystal clear to me often
-            gets lost in translation.</p>
-            <p>Software engineers face this same struggle. The
-            excitement of introducing new functionality can lead to
-            bloated codebases that become difficult to maintain and
-            confusing for users. Developers must remember that users
-            want software that solves their problems efficiently, not
-            necessarily software that does everything imaginable.</p>
-            <p>Learning to design a refined, precise, and complete
-            world—rather than an endlessly expanding one—distinguishes
-            the very best creators. I’ve found that balancing enough
-            content to make the system feel hearty and fully fleshed
-            out, without creating an overwhelming noise-to-signal ratio,
-            is one of the hardest skills to develop.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol start="3">
-            <li id="fn3"><p>Turns out the tavern business was brilliant!
-            It naturally became their home base where I could hide
-            secret rooms and things to discover inside (and below) the
-            building. They could have agents work out of it to gather
-            information, and it gave them something meaningful to spend
-            gold on, reducing gold inflation. Sometimes the players’
-            ideas are way better than yours.<a href="#fnref3"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="preventing-burnout">Preventing Burnout</h2>
-            <p>The creative drive that fuels both worldbuilding and
-            programming can be all-consuming. I’ve definitely had nights
-            up past 3 AM sketching political conflicts between fictional
-            kingdoms or perfecting an NPC’s backstory my players might
-            never even meet. This passion is a double-edged sword,
-            driving creation but leading to burnout when unchecked.</p>
-            <figure style="text-align: center">
-            <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 0 auto;">
-            <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">
-            Wiki-style lore respositories I’ve written (where each page
-            contains a character, location, or info page, etc.)
-            </figcaption>
-            </figure>
-            <p>Game masters often feel pressure to constantly innovate,
-            balancing preparation with improvisation as player actions
-            derail planned scenarios. After months of this cycle, even
-            the most enthusiastic GM can find their creative well
-            running dry. The cruel irony is that the hobby once chosen
-            as an escape transforms into something they themselves now
-            feel the need to escape from.</p>
-            <p>Software developers battle similar demons. The pressure
-            to deliver features, fix bugs, meet deadlines, and stay
-            current with evolving technologies creates a perfect storm
-            for burnout. Both roles demand a constant outpouring of
-            creative and technical solutions, with limited recognition
-            of the mental cost.</p>
-            <p>I’ve learned that boundaries are essential. “But
-            Nico-Nico! Does that mean you advocating for work-life
-            balance? And in this economy!?” I think so. For GMs, this
-            might mean limiting worldbuilding to defined time blocks.
-            For developers, it means timeboxing problems and recognizing
-            when good enough is truly good enough. As my professor AnHai
-            Doan once said, <strong><em>“There is nothing perfect in
-            life!”</em></strong></p>
-            <p>I’ve had to learn not to be afraid to prioritize
-            self-care. If you’re overwhelmed, cancel a session—your
-            players <em>will</em> understand. While software engineering
-            sometimes requires sprints for critical deadlines, I’ve
-            found it’s important to balance these with recovery time.
-            Your mental health deserves protection, and well-rested work
-            will always outshine what you create while exhausted.</p>
-            <p>The bottom line: pace yourself. Some weeks that means
-            canceling a session to recharge. Other weeks it means
-            pulling an all-nighter because you’re genuinely excited
-            about what you’re building! Make those choices consciously,
-            not out of obligation. Be sustainable and know your
-            limits.</p>
-            <h2 id="adapting-to-change">Adapting to Change</h2>
-            <p>One of the most important lessons from a decade of GMing
-            is that player agency is sacred.</p>
-            <p>For players to truly invest in your world, they must know
-            <em>unequivocally</em> that their choices matter. This trust
-            isn’t built through elaborate pre-scripted monologues that
-            rival <a
-            href="https://www.youtube.com/watch?v=sjgUXY4U3JI">Lelouch’s
-            “Obey Me, World”</a>, or <a
-            href="https://www.youtube.com/watch?v=V0hV5MtC4Vw">meticulous,
-            Mercer-tier narrations</a>, but through your consistent
-            willingness to adapt your creation to your players’
-            decisions.</p>
-            <p>I learned this the hard way when I prepared an entire
-            plot hook around a conspicuous character who would offer the
-            party a job and help them resist the oppressive government.
-            I had this whole rebellion storyline planned out. Instead,
-            my players turned that character in to the authorities and
-            started helping who I was trying to assert was the
-            “enemy!”<a href="#fn4" class="footnote-ref" id="fnref4"
-            role="doc-noteref"><sup>4</sup></a> I had to completely
-            redesign the campaign on the fly, turning my carefully
-            crafted rebels into the antagonists and making the
-            authoritarian regime actually reasonable. It was terrifying
-            but became one of our best story arcs.</p>
-            <p>Many of my most memorable moments came from sessions
-            where I hadn’t looked at my prepared notes for
-            hours—situations where players pursued unexpected threads
-            and things “flew off the rails” in a good way! These
-            moments, while nerve-wracking, are where the magic happens.
-            When you’re comfortable enough with your world to seamlessly
-            improvise while appearing prepared, players become genuinely
-            immersed. Conversely, when you railroad players along
-            predetermined paths, their engagement evaporates as they
-            realize they’re merely pawns in your<a href="#fn5"
-            class="footnote-ref" id="fnref5"
-            role="doc-noteref"><sup>5</sup></a> story.</p>
-            <p>Software development follows a similar pattern. My most
-            successful coding projects have been those where I remained
-            flexible to changing requirements rather than clinging to
-            initial designs. Just as a good GM adapts their world to
-            player choices, effective programmers adapt and refactor
-            their code to best handle real-world usage patterns.
-            Creation isn’t a linear process but a dialogue between GM
-            and players, or between developers and users.</p>
-            <p>I’ve found that the willingness to adapt reveals a
-            difference in perspective that separates beginners from
-            veterans: recognizing that creation isn’t about executing a
-            predetermined plan, but maintaining the invariant that
-            whatever you build can actively evolve to accommodate
-            ongoing feedback. If you build from the outset with
-            flexibility in mind, you don’t have a messy web anymore, but
-            an organized map. This mindset transforms rigid structures
-            into living frameworks capable of becoming something better
-            than initially imagined.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol start="4">
-            <li id="fn4"><p>There goes 7 pages of rebellion notes!
-            Needless to say, I threw them into an improvised combat
-            encounter to buy me time to figure out what to do next. The
-            lesson: always have a random encounter table ready for when
-            your players completely derail your carefully laid plans.<a
-            href="#fnref4" class="footnote-back"
-            role="doc-backlink">↩︎</a></p></li>
-            <li id="fn5"><p>As the Dungeon Master, you have <a
-            href="https://cdn.salm.dev/u/eAYkcU.gif"><em>unlimited
-            power</em></a> within your world, but that power must exist
-            solely to enhance your players’ experience. Everything has
-            to serve their enjoyment, not your ego. They allocate time
-            and trust to you. The same principle applies to software:
-            technical brilliance means nothing if it doesn’t solve
-            users’ problems in an intuitive way.<a href="#fnref5"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="collaborating">Collaborating</h2>
-            <p>At its core, worldbuilding thrives on collaboration. My
-            most memorable roleplaying scenarios weren’t those with the
-            deepest lore or perfectly balanced encounters. Instead, they
-            emerged organically from how my players’ choices interwove
-            with the framework I provided. The world was alive because I
-            wasn’t its only author.</p>
-            <p>The best software, too, evolves through consistent
-            dialogue between creators and users. Open source projects
-            demonstrate this perfectly: communities of developers
-            contributing to codebases that exceed what any individual
-            could create alone. Even proprietary software benefits from
-            beta testing<a href="#fn6" class="footnote-ref" id="fnref6"
-            role="doc-noteref"><sup>6</sup></a>, user feedback loops,
-            and cross-functional teams.</p>
-            <p>I’ve noticed different types of collaboration in both
-            domains. Sometimes it’s planned—like co-creating a campaign
-            setting with players during a “session zero,” or developers
-            working together through agile methodologies. Other times
-            it’s emergent—players develop complex relationships between
-            their characters that I could never have anticipated, or
-            users discover innovative uses for software features that
-            developers never imagined. And sometimes it’s
-            feedback-driven evolution, where I redesign entire campaign
-            arcs based on unexpected player decisions, or product teams
-            pivot features based on user behavior.</p>
-            <p>Both disciplines require balancing creative vision with
-            what the audience actually wants. This means
-            <strong>maintaining the humility to recognize when your
-            brilliant idea isn’t working</strong>, and the flexibility
-            to adapt.</p>
-            <p>The most rewarding creative experiences happen when we
-            step back from being the sole author and create spaces where
-            others can contribute meaningfully. This doesn’t diminish
-            our work—it enhances it, transforming our initial ideas into
-            something far richer than we could have built alone.</p>
-            <aside id="footnotes"
-            class="footnotes footnotes-end-of-section"
-            role="doc-endnotes">
-            <hr />
-            <ol start="6">
-            <li id="fn6"><p>Do make sure you <em>pay</em> your beta
-            testers. The gaming industry especially does this weird
-            thing where they expect fans to test for free when they
-            really should be hiring a specialized team.<a href="#fnref6"
-            class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-            </ol>
-            </aside>
-            <h2 id="using-what-you-have">Using What You Have</h2>
-            <p>Both game masters and programmers must balance technical
-            mastery with creative expression. As a GM, I’ve spent
-            hundreds of hours perfecting homebrewed game elements and
-            designing balanced encounters—the technical foundation that
-            supports creative storytelling. Similarly, in programming,
-            clean code architecture provides the foundation for
-            innovative features and an enjoyable user experience.</p>
-            <p>In both disciplines, the technical and creative elements
-            are inseparable. I could have the most brilliant narrative
-            concept, but it would fall flat without solid game
-            mechanics. I could have the most elegant helper function,
-            but if the feature doesn’t make sense, it is wasted.</p>
-            <p>I’ve learned to develop both sides of this equation,
-            using technical constraints to inspire creative solutions
-            rather than seeing them as limitations.</p>
-            <h2 id="wrapping-up">Wrapping Up</h2>
-            <p>I’ve highlighted the interesting parallels that exist for
-            game masters and software developers. Worldbuilding is a
-            generalizable skill in disciplines where you create, and
-            lessons from one domain consistently enrich practices in the
-            other.</p>
-            <p>Whether crafting magical realms or coding projects,
-            common challenges include managing complexity, avoiding
-            feature bloat, preventing burnout, and adapting to
-            unexpected changes. Success in either field requires
-            understanding how what you build interfaces with the user.
-            Are we building with them in mind?</p>
-            <p>Perhaps most importantly, both disciplines teach
-            humility. No matter how brilliant our creations seem in our
-            minds, their true value lies in how they serve others. The
-            perfect world only exists in our minds; our job is to create
-            the best approximation in the time we have. By embracing
-            these constraints rather than fighting them, we open
-            ourselves to discoveries and collaborations that far surpass
-            the original vision.</p>
-            <p>I plan to continue worldbuilding, both as a software
-            engineer and a game master, for the foreseeable future. May
-            your own creative endeavors, whatever form they take,
-            benefit from the wisdom worldbuilding has to offer.</p>
-        </article>
-    </div>
-    <footer>
-        <p>© 2025 salm.dev</p>
-    </footer>
-</body>
+        <title>Dungeons, Dragons & Development | salm.dev</title>
+            </head>
+    <body>
+        <div>
+            <header style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;">
+                <nav>
+                    <a href="/">home</a> / <a href="/writing/">writing</a>
+                </nav>
+                <p>
+                </p>
+                <nav style="text-align: right;">
+                    <a href="/rss.xml">view rss</a>
+                </nav>
+            </header>
+            <article>
+                <h1 id="dungeons-dragons-development">Dungeons, Dragons
+                &amp; Development</h1>
+                <div class="description">
+                <p>Creating custom (“homebrew”) D&amp;D worlds and
+                developing software are surprisingly similar as creative
+                disciplines. In both, you create vast interconnected
+                “worlds” which must remain cohesive while evolving over
+                time. <span class="date-info"><span
+                class="date">2025-04-21</span></span></p>
+                </div>
+                <h2 id="building-worlds">Building Worlds</h2>
+                <p>I have been roleplaying and building worlds for a
+                decade this May<a href="#fn1" class="footnote-ref"
+                id="fnref1" role="doc-noteref"><sup>1</sup></a>. In that
+                time, I’ve learned a tremendous amount about what works
+                in worldbuilding and how to build player trust as a game
+                master<a href="#fn2" class="footnote-ref" id="fnref2"
+                role="doc-noteref"><sup>2</sup></a> (GM). When I’m not
+                at the table with friends, I’m programming—graduating
+                soon with a Computer Science and Data Science degree
+                from the <a href="https://cdis.wisc.edu/">University of
+                Wisconsin-Madison</a>. The creative challenges faced by
+                worldbuilding GMs parallel those of software engineers,
+                particularly in managing complexity, sustaining creative
+                momentum, and designing flexible systems that adapt to
+                change.</p>
+                <p>Creating homebrew worlds mirrors designing software.
+                The worldbuilding process is an asymptotic journey
+                toward an ideal. You begin with an empty canvas, add and
+                strip away elements, and refine towards a “just right”
+                state that can never be fully reached. This gap between
+                vision and implementation persists regardless of effort
+                invested. At the end of this process, the creator has
+                established consistent rules and a living, breathing
+                fantasy world.</p>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0; padding: 0 20px;">
+                  <div style="text-align: center;">
+                    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px;">
+                    <div style="font-style: italic;">Map A. The Isles (2020)</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px;">
+                    <div style="font-style: italic;">Map B. Aldria (2021)</div>
+                  </div>
+                  <div style="text-align: center;">
+                    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px;">
+                    <div style="font-style: italic;">Map C. El'kora (2024-)</div>
+                  </div>
+                </div>
+                <p>This model works equally well for programming.
+                Programmers build “worlds” of their own, maintaining
+                coherence internally through well-structured code and
+                externally through intuitive interfaces. We design data
+                structures, algorithms, and establish design patterns.
+                Like worldbuilders, programmers must understand how each
+                component affects the entire system.</p>
+                <p>One challenge in both disciplines is adding new
+                elements without disrupting the existing system. As a
+                GM, when I introduce a new culture or type of magic, I
+                must weave it into existing lore without creating
+                contradictions. When I created a seafaring merchant
+                kingdom (Tayrest on map A), I ensured their cultural
+                practices made sense given their proximity to existing
+                nations. Similarly, software engineers adding features
+                must ensure compatibility with existing functionality
+                while avoiding regression issues. In both domains, you
+                must anticipate how additions will ripple through your
+                creation.</p>
+                <p>This extends to knowledge management, where both
+                roles struggle with documentation debt. Many GMs compile
+                extensive <a
+                href="https://hatch-books.com/blog/world-bible">world
+                wikis</a>, campaign notes, and NPC directories that
+                gradually become unwieldy. Software engineers face
+                identical challenges with technical documentation that
+                quickly falls out of sync with evolving codebases. The
+                struggle to maintain current reference materials creates
+                friction that compounds over time.</p>
+                <p>Both disciplines require creators to balance
+                ambitious ideas with practical constraints. The art lies
+                in crafting worlds resilient enough to evolve without
+                collapsing under their own complexity.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>Over the years, I’ve explored roleplay
+                across many mediums, from Star Wars forum RP and MMOs to
+                tabletop games like D&amp;D 5e. During COVID, I invested
+                heavily in both DayZ roleplay and a 42-week D&amp;D
+                campaign with friends (June 13, 2021 to August 7,
+                2022—with my friends from high school), which cemented
+                my focus on tabletop RPGs. I learned a ton about
+                worldbuilding and “on the fly” planning during those 14
+                months. Going with the flow became just as important as
+                preparation.<a href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>“Game master” is the most generalizable
+                title for the player who acts as storyteller, referee,
+                and world-builder, guiding the adventure for other
+                players. In D&amp;D, this role is called the “Dungeon
+                Master.”<a href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="fighting-bloat-and-feature-creep">Fighting Bloat
+                and Feature Creep</h2>
+                <p>When designing a world or software, it takes
+                willpower to stop adding more. I hyperfixate on current
+                projects and build them up with all my creative energy.
+                But you’re not building the world to build the
+                world—you’re building it to tell a story! And the most
+                important part is how it ends: a refined, precise,
+                complete story that serves a purpose. The world is
+                merely a tool to deliver that story to your players.</p>
+                <p>I’ve learned this the hard way. I once spent weeks
+                crafting an elaborate side quest involving ancient ruins
+                with detailed political backstory, custom monsters, and
+                three different possible outcomes. I was so excited to
+                unveil it. The players walked right past every hint I
+                dropped, completely ignored the mysterious NPCs trying
+                to guide them there, and decided to start a tavern
+                business instead<a href="#fn3" class="footnote-ref"
+                id="fnref3" role="doc-noteref"><sup>3</sup></a>. All
+                that preparation became expensive scratch paper.</p>
+                <p>Building intricacies in my world is therapeutic, but
+                I have to rein myself in and remember that while my mind
+                has near-bottomless capacity for this, my players have
+                limited mental bandwidth and
+                <strong><em>playtime</em></strong>. Much of what I
+                create will never see the light of day, and it
+                shouldn’t. Players can only absorb so much information
+                during sessions, and what seems crystal clear to me
+                often gets lost in translation.</p>
+                <p>Software engineers face this same struggle. The
+                excitement of introducing new functionality can lead to
+                bloated codebases that become difficult to maintain and
+                confusing for users. Developers must remember that users
+                want software that solves their problems efficiently,
+                not necessarily software that does everything
+                imaginable.</p>
+                <p>Learning to design a refined, precise, and complete
+                world—rather than an endlessly expanding
+                one—distinguishes the very best creators. I’ve found
+                that balancing enough content to make the system feel
+                hearty and fully fleshed out, without creating an
+                overwhelming noise-to-signal ratio, is one of the
+                hardest skills to develop.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol start="3">
+                <li id="fn3"><p>Turns out the tavern business was
+                brilliant! It naturally became their home base where I
+                could hide secret rooms and things to discover inside
+                (and below) the building. They could have agents work
+                out of it to gather information, and it gave them
+                something meaningful to spend gold on, reducing gold
+                inflation. Sometimes the players’ ideas are way better
+                than yours.<a href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="preventing-burnout">Preventing Burnout</h2>
+                <p>The creative drive that fuels both worldbuilding and
+                programming can be all-consuming. I’ve definitely had
+                nights up past 3 AM sketching political conflicts
+                between fictional kingdoms or perfecting an NPC’s
+                backstory my players might never even meet. This passion
+                is a double-edged sword, driving creation but leading to
+                burnout when unchecked.</p>
+                <figure style="text-align: center">
+                <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 0 auto;">
+                <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">
+                Wiki-style lore respositories I’ve written (where each
+                page contains a character, location, or info page, etc.)
+                </figcaption>
+                </figure>
+                <p>Game masters often feel pressure to constantly
+                innovate, balancing preparation with improvisation as
+                player actions derail planned scenarios. After months of
+                this cycle, even the most enthusiastic GM can find their
+                creative well running dry. The cruel irony is that the
+                hobby once chosen as an escape transforms into something
+                they themselves now feel the need to escape from.</p>
+                <p>Software developers battle similar demons. The
+                pressure to deliver features, fix bugs, meet deadlines,
+                and stay current with evolving technologies creates a
+                perfect storm for burnout. Both roles demand a constant
+                outpouring of creative and technical solutions, with
+                limited recognition of the mental cost.</p>
+                <p>I’ve learned that boundaries are essential. “But
+                Nico-Nico! Does that mean you advocating for work-life
+                balance? And in this economy!?” I think so. For GMs,
+                this might mean limiting worldbuilding to defined time
+                blocks. For developers, it means timeboxing problems and
+                recognizing when good enough is truly good enough. As my
+                professor AnHai Doan once said, <strong><em>“There is
+                nothing perfect in life!”</em></strong></p>
+                <p>I’ve had to learn not to be afraid to prioritize
+                self-care. If you’re overwhelmed, cancel a session—your
+                players <em>will</em> understand. While software
+                engineering sometimes requires sprints for critical
+                deadlines, I’ve found it’s important to balance these
+                with recovery time. Your mental health deserves
+                protection, and well-rested work will always outshine
+                what you create while exhausted.</p>
+                <p>The bottom line: pace yourself. Some weeks that means
+                canceling a session to recharge. Other weeks it means
+                pulling an all-nighter because you’re genuinely excited
+                about what you’re building! Make those choices
+                consciously, not out of obligation. Be sustainable and
+                know your limits.</p>
+                <h2 id="adapting-to-change">Adapting to Change</h2>
+                <p>One of the most important lessons from a decade of
+                GMing is that player agency is sacred.</p>
+                <p>For players to truly invest in your world, they must
+                know <em>unequivocally</em> that their choices matter.
+                This trust isn’t built through elaborate pre-scripted
+                monologues that rival <a
+                href="https://www.youtube.com/watch?v=sjgUXY4U3JI">Lelouch’s
+                “Obey Me, World”</a>, or <a
+                href="https://www.youtube.com/watch?v=V0hV5MtC4Vw">meticulous,
+                Mercer-tier narrations</a>, but through your consistent
+                willingness to adapt your creation to your players’
+                decisions.</p>
+                <p>I learned this the hard way when I prepared an entire
+                plot hook around a conspicuous character who would offer
+                the party a job and help them resist the oppressive
+                government. I had this whole rebellion storyline planned
+                out. Instead, my players turned that character in to the
+                authorities and started helping who I was trying to
+                assert was the “enemy!”<a href="#fn4"
+                class="footnote-ref" id="fnref4"
+                role="doc-noteref"><sup>4</sup></a> I had to completely
+                redesign the campaign on the fly, turning my carefully
+                crafted rebels into the antagonists and making the
+                authoritarian regime actually reasonable. It was
+                terrifying but became one of our best story arcs.</p>
+                <p>Many of my most memorable moments came from sessions
+                where I hadn’t looked at my prepared notes for
+                hours—situations where players pursued unexpected
+                threads and things “flew off the rails” in a good way!
+                These moments, while nerve-wracking, are where the magic
+                happens. When you’re comfortable enough with your world
+                to seamlessly improvise while appearing prepared,
+                players become genuinely immersed. Conversely, when you
+                railroad players along predetermined paths, their
+                engagement evaporates as they realize they’re merely
+                pawns in your<a href="#fn5" class="footnote-ref"
+                id="fnref5" role="doc-noteref"><sup>5</sup></a>
+                story.</p>
+                <p>Software development follows a similar pattern. My
+                most successful coding projects have been those where I
+                remained flexible to changing requirements rather than
+                clinging to initial designs. Just as a good GM adapts
+                their world to player choices, effective programmers
+                adapt and refactor their code to best handle real-world
+                usage patterns. Creation isn’t a linear process but a
+                dialogue between GM and players, or between developers
+                and users.</p>
+                <p>I’ve found that the willingness to adapt reveals a
+                difference in perspective that separates beginners from
+                veterans: recognizing that creation isn’t about
+                executing a predetermined plan, but maintaining the
+                invariant that whatever you build can actively evolve to
+                accommodate ongoing feedback. If you build from the
+                outset with flexibility in mind, you don’t have a messy
+                web anymore, but an organized map. This mindset
+                transforms rigid structures into living frameworks
+                capable of becoming something better than initially
+                imagined.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol start="4">
+                <li id="fn4"><p>There goes 7 pages of rebellion notes!
+                Needless to say, I threw them into an improvised combat
+                encounter to buy me time to figure out what to do next.
+                The lesson: always have a random encounter table ready
+                for when your players completely derail your carefully
+                laid plans.<a href="#fnref4" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn5"><p>As the Dungeon Master, you have <a
+                href="https://cdn.salm.dev/u/eAYkcU.gif"><em>unlimited
+                power</em></a> within your world, but that power must
+                exist solely to enhance your players’ experience.
+                Everything has to serve their enjoyment, not your ego.
+                They allocate time and trust to you. The same principle
+                applies to software: technical brilliance means nothing
+                if it doesn’t solve users’ problems in an intuitive
+                way.<a href="#fnref5" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="collaborating">Collaborating</h2>
+                <p>At its core, worldbuilding thrives on collaboration.
+                My most memorable roleplaying scenarios weren’t those
+                with the deepest lore or perfectly balanced encounters.
+                Instead, they emerged organically from how my players’
+                choices interwove with the framework I provided. The
+                world was alive because I wasn’t its only author.</p>
+                <p>The best software, too, evolves through consistent
+                dialogue between creators and users. Open source
+                projects demonstrate this perfectly: communities of
+                developers contributing to codebases that exceed what
+                any individual could create alone. Even proprietary
+                software benefits from beta testing<a href="#fn6"
+                class="footnote-ref" id="fnref6"
+                role="doc-noteref"><sup>6</sup></a>, user feedback
+                loops, and cross-functional teams.</p>
+                <p>I’ve noticed different types of collaboration in both
+                domains. Sometimes it’s planned—like co-creating a
+                campaign setting with players during a “session zero,”
+                or developers working together through agile
+                methodologies. Other times it’s emergent—players develop
+                complex relationships between their characters that I
+                could never have anticipated, or users discover
+                innovative uses for software features that developers
+                never imagined. And sometimes it’s feedback-driven
+                evolution, where I redesign entire campaign arcs based
+                on unexpected player decisions, or product teams pivot
+                features based on user behavior.</p>
+                <p>Both disciplines require balancing creative vision
+                with what the audience actually wants. This means
+                <strong>maintaining the humility to recognize when your
+                brilliant idea isn’t working</strong>, and the
+                flexibility to adapt.</p>
+                <p>The most rewarding creative experiences happen when
+                we step back from being the sole author and create
+                spaces where others can contribute meaningfully. This
+                doesn’t diminish our work—it enhances it, transforming
+                our initial ideas into something far richer than we
+                could have built alone.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol start="6">
+                <li id="fn6"><p>Do make sure you <em>pay</em> your beta
+                testers. The gaming industry especially does this weird
+                thing where they expect fans to test for free when they
+                really should be hiring a specialized team.<a
+                href="#fnref6" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2 id="using-what-you-have">Using What You Have</h2>
+                <p>Both game masters and programmers must balance
+                technical mastery with creative expression. As a GM,
+                I’ve spent hundreds of hours perfecting homebrewed game
+                elements and designing balanced encounters—the technical
+                foundation that supports creative storytelling.
+                Similarly, in programming, clean code architecture
+                provides the foundation for innovative features and an
+                enjoyable user experience.</p>
+                <p>In both disciplines, the technical and creative
+                elements are inseparable. I could have the most
+                brilliant narrative concept, but it would fall flat
+                without solid game mechanics. I could have the most
+                elegant helper function, but if the feature doesn’t make
+                sense, it is wasted.</p>
+                <p>I’ve learned to develop both sides of this equation,
+                using technical constraints to inspire creative
+                solutions rather than seeing them as limitations.</p>
+                <h2 id="wrapping-up">Wrapping Up</h2>
+                <p>I’ve highlighted the interesting parallels that exist
+                for game masters and software developers. Worldbuilding
+                is a generalizable skill in disciplines where you
+                create, and lessons from one domain consistently enrich
+                practices in the other.</p>
+                <p>Whether crafting magical realms or coding projects,
+                common challenges include managing complexity, avoiding
+                feature bloat, preventing burnout, and adapting to
+                unexpected changes. Success in either field requires
+                understanding how what you build interfaces with the
+                user. Are we building with them in mind?</p>
+                <p>Perhaps most importantly, both disciplines teach
+                humility. No matter how brilliant our creations seem in
+                our minds, their true value lies in how they serve
+                others. The perfect world only exists in our minds; our
+                job is to create the best approximation in the time we
+                have. By embracing these constraints rather than
+                fighting them, we open ourselves to discoveries and
+                collaborations that far surpass the original vision.</p>
+                <p>I plan to continue worldbuilding, both as a software
+                engineer and a game master, for the foreseeable future.
+                May your own creative endeavors, whatever form they
+                take, benefit from the wisdom worldbuilding has to
+                offer.</p>
+            </article>
+        </div>
+
+        <footer>
+    <p style="color: var(--text-light); font-size: var(--font-size-small); font-style: italic; margin-bottom: var(--spacing-small);">
+        Enjoyed this? Check out <a href="/writing/">more posts</a> or <a href="/rss.xml">subscribe to RSS</a> for updates.
+    </p>
+    <p>© 2025 salm.dev</p>
+</footer>
+
+        </body>
 </html>

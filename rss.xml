@@ -5,7 +5,7 @@
   <link>https://salm.dev</link>
   <description>Hot takes and cool things</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 16 Jul 2025 14:08:15 +0000</lastBuildDate>
+  <lastBuildDate>Thu, 17 Jul 2025 02:46:19 +0000</lastBuildDate>
   <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
   <item>
     <title>Create, Don&apos;t Consume</title>
@@ -27,13 +27,6 @@
     <guid>https://salm.dev/writing/dungeons-dragons-and-development/</guid>
     <pubDate>Mon, 21 Apr 2025 00:00:00 +0000</pubDate>
     <description><![CDATA[ Creating custom (&quot;homebrew&quot;) D&amp;D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected &quot;worlds&quot; which must remain cohesive while evolving over time. ]]></description>
-  </item>
-  <item>
-    <title>Beyond Language Wars</title>
-    <link>https://salm.dev/writing/beyond-language-wars/</link>
-    <guid>https://salm.dev/writing/beyond-language-wars/</guid>
-    <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
-    <description><![CDATA[ I used to be that person who&apos;d rewrite perfectly good code just to use a different language. Turns out the real problems are usually somewhere else entirely. ]]></description>
   </item>
   <item>
     <title>Command Line Productivity</title>
