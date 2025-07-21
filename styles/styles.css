@@ -57,7 +57,6 @@
     --nav-light: #f8f8f8;
     --nav-dark: #f0f0f0;
 
-    /* syntax highlighting (light mode) */
     --syntax-keyword: #954121;
     --syntax-type: #b00040;
     --syntax-number: #666666;
@@ -104,7 +103,6 @@
         --nav-light: #2a2a2a;
         --nav-dark: #333333;
 
-        /* syntax highlighting (dark mode) */
         --syntax-keyword: #af5a54;
         --syntax-type: #b64343;
         --syntax-number: #688ec8;
@@ -144,6 +142,12 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
+.content-wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 small { font-size: 0.875em; }
 
 a {
@@ -164,6 +168,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 2.25rem;
     text-align: center;
+    margin-top: var(--spacing-small);
 }
 
 h2 {
@@ -203,6 +208,20 @@ h3::after {
 
 h4 { font-size: 1.25rem; }
 
+.year-heading {
+    margin-top: var(--spacing-large) !important;
+    margin-bottom: var(--spacing-medium) !important;
+}
+
+.year-tags-row .year-heading {
+    margin-top: var(--spacing-large) !important;
+    margin-bottom: var(--spacing-medium) !important;
+}
+
+h4.year-heading + ul {
+    margin-top: 0 !important;
+}
+
 p { margin-bottom: var(--spacing-medium); }
 
 ul, ol {
@@ -231,15 +250,15 @@ pre {
     border: var(--border-subtle);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
-    white-space: pre; /* Ensure no wrapping */
+    white-space: pre;
 }
 
 pre code {
     padding: 0;
     background-color: transparent;
     border: none;
-    white-space: pre; /* Ensure no wrapping in code within pre */
-    overflow-x: visible; /* Let the parent pre handle scrolling */
+    white-space: pre;
+    overflow-x: visible;
 }
 
 .nx, .nf, .p { }
@@ -306,7 +325,7 @@ blockquote blockquote {
 }
 
 .quote-container::before {
-    content: '“';
+    content: '"';
     font-family: var(--font-family-headers);
     font-size: 4rem;
     color: var(--text-light);
@@ -317,7 +336,7 @@ blockquote blockquote {
 }
 
 .quote-container::after {
-    content: '”';
+    content: '"';
     font-family: var(--font-family-headers);
     font-size: 4rem;
     color: var(--text-light);
@@ -373,12 +392,12 @@ figcaption {
 header { margin-bottom: var(--spacing-medium); }
 
 footer {
-    margin-top: var(--spacing-huge);
+    margin-top: var(--spacing-xl) !important;
+    padding-top: var(--spacing-medium) !important;
     text-align: center;
     font-size: var(--font-size-small);
     color: var(--text-gray);
     border-top: 1px solid var(--border-color);
-    padding-top: var(--spacing-medium);
 }
 
 hr.solid {
@@ -567,6 +586,71 @@ header.main-nav nav {
 
 .footnotes a { color: var(--link-color) !important; }
 
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+.writing-layout {
+    display: flex;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+    position: relative;
+}
+
+.writing-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.year-tags-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.tags-heading {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 !important;
+    text-align: right;
+}
+
+.tags-heading.desktop-only {
+    margin-top: var(--spacing-large) !important;
+    line-height: var(--line-height-heading);
+    font-size: 1.25rem;
+}
+
+.tags-section {
+    position: absolute;
+    right: 0;
+    top: calc(var(--spacing-large) + 2.5rem);
+    width: 250px;
+    text-align: right;
+    word-wrap: break-word;
+    line-height: 1.8;
+}
+
+.tags-section a {
+    white-space: nowrap;
+    color: var(--link-color);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity var(--transition-speed);
+    margin: 0 0 0.5rem 0.5rem;
+    display: inline-block;
+}
+
+.tags-section a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
 @media (min-width: 576px) {
     header.main-nav {
         flex-direction: row;
@@ -580,6 +664,19 @@ header.main-nav nav {
 }
 
 @media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
+        margin-top: var(--spacing-xl) !important;
+        margin-bottom: var(--spacing-medium) !important;
+        margin-left: 0 !important;
+        position: static !important;
+        text-align: left !important;
+    }
+
     .quote-container {
         padding: var(--spacing-large) var(--spacing-medium);
         gap: var(--spacing-small);
@@ -596,6 +693,26 @@ header.main-nav nav {
 
     .quote-author {
         font-size: 0.9rem;
+    }
+
+    .writing-layout {
+        display: block;
+    }
+
+    .year-tags-row {
+        display: block;
+    }
+
+    .tags-section {
+        position: static;
+        width: 100%;
+        margin-top: var(--spacing-small);
+        margin-bottom: var(--spacing-xl);
+        text-align: left;
+    }
+
+    .tags-section a {
+        margin: 0 0.5rem 0.5rem 0;
     }
 }
 
