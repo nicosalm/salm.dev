@@ -1,8 +1,9 @@
 # Preserving My Future Self
 
 <div class="description">
-I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got a new, expensive keyboard that got sawed in half. Either way, it was an adventure worth sharing.
+I underwent an ergonomic overhaul to improve health and reduce strain. Or: I got an expensive new (split) keyboard. Either way, an adventure worth sharing.
 <span class="date-info"><span class="date">2024-08-18</span></span>
+<span class="tags">productivity, ergonomics, hardware, health</span>
 </div>
 
 **(!!!) - This post is being updated.**

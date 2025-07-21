@@ -2,6 +2,7 @@
 <div class="description">
 Creating custom ("homebrew") D&D worlds and developing software are surprisingly similar as creative disciplines. In both, you create vast interconnected "worlds" which must remain cohesive while evolving over time.
 <span class="date-info"><span class="date">2025-04-21</span></span>
+<span class="tags">programming, art, worldbuilding</span>
 </div>
 
 ## Building Worlds
