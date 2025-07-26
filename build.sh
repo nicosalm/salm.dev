@@ -25,13 +25,13 @@ format_date_rfc() {
 
 setup_directories() {
   rm -rf dist
-  mkdir -p dist/{writing,sponsors,about,assets,styles}
+  mkdir -p dist/{writing,sponsors,about,links,assets,styles}
   cp -r src/assets/* dist/assets/
   cp -r src/styles/* dist/styles/
   cp src/index.html dist/
   cp src/about/index.html dist/about/
+  cp src/links/index.html dist/links/
   cp src/sponsors/index.html dist/sponsors/
-  cp src/assets/favicon.svg dist/assets/
   cp src/assets/88x31/88x31.gif dist/88x31.gif
   cp src/404.html dist/
 }
@@ -165,7 +165,7 @@ generate_tag_pages() {
 }
 
 generate_single_tag_page() {
-  local tag="$1" count="$2" max_count="$3"
+  local tag="$1"
 
   mkdir -p "dist/writing/tag/$tag"
 
@@ -182,9 +182,9 @@ generate_single_tag_page() {
     <title>$tag | writing | salm.dev</title>
 </head>
 <body>
-    <div class="content-wrapper">
-        <header><a href="/">home</a> / <a href="/writing">writing</a> / tag / $tag</header>
-        <h1>Tag: $tag</h1>
+    <header><a href="/">home</a> / <a href="/writing">writing</a> / tag / $tag</header>
+    <h1>Tag: $tag</h1>
+    <div>
 HTML
 
     local current_year="" first_year=true
@@ -206,7 +206,14 @@ HTML
 
         if [[ "$year" != "$current_year" ]]; then
           [[ -n "$current_year" ]] && echo "        </ul>"
-          echo "        <h4 class=\"year-heading\">$year</h4>"
+
+          if [[ "$first_year" == true ]]; then
+            echo "        <h4 class=\"year-heading first-year\">$year</h4>"
+            first_year=false
+          else
+            echo "        <h4 class=\"year-heading\">$year</h4>"
+          fi
+
           echo "        <ul>"
           current_year="$year"
         fi
@@ -237,11 +244,10 @@ generate_posts_index() {
     <title>writing | salm.dev</title>
 </head>
 <body>
-    <div class="content-wrapper">
-        <header><a href="/">home</a> / writing</header>
-        <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
-        <div class="writing-layout">
-            <div class="writing-main">
+    <header><a href="/">home</a> / writing</header>
+    <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
+    <div class="writing-layout">
+        <div class="writing-main">
 HTML
 
     local current_year="" first_year=true
@@ -271,12 +277,11 @@ HTML
 
     echo "        </ul>"
     echo "        <h4 class=\"tags-heading mobile-only\">Tags</h4>"
-    echo "            </div>"
-    echo "            <div class=\"tags-section\">"
+    echo "        </div>"
+    echo "        <div class=\"tags-section\">"
 
     [[ -f dist/writing/tag-cloud.html ]] && cat dist/writing/tag-cloud.html
 
-    echo "            </div>"
     echo "        </div>"
     echo "    </div>"
     echo "    <footer><p>© 2025 salm.dev</p></footer>"
