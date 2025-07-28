@@ -732,7 +732,7 @@ header.main-nav nav {
                 <p>How pattern matching, type systems, and functional
                 thinking transformed my approach to solving problems.
                 <span class="date-info"><span
-                class="date">2025-07-27</span></span></p>
+                class="date">2025-07-21</span></span></p>
                 </div>
                 <h2 id="learned-defaults">Learned Defaults</h2>
                 <p>Would you believe there is more to writing code than
@@ -744,13 +744,14 @@ header.main-nav nav {
                 <p>In my intro programming course, we learned basic
                 Java. After arrays, we jumped straight into
                 object-oriented design, data structures, and algorithms.
-                We skipped modern syntax like the Stream API, match
+                We (briefly) learned the Stream API, but not match
                 expressions,
                 <code>object instanceof ClassName newVar</code> (inline
-                type check and declaration), and <code>var</code>.<a
+                type check and declaration), or <code>var</code>.<a
                 href="#fn1" class="footnote-ref" id="fnref1"
                 role="doc-noteref"><sup>1</sup></a> The goal was to
-                teach us OOP—not to write high quality code.</p>
+                teach us OOP fundamentals—not necessarily to write
+                modern Java.</p>
                 <p>So we wrote code that was verbose, hard to follow,
                 and broke if you looked at it wrong. Functions could do
                 anything, fail mysteriously, or modify state in ways I
@@ -869,10 +870,10 @@ header.main-nav nav {
                 illegal states become unrepresentable, entire categories
                 of bugs just disappear.</p>
                 <p>Rust showed me this principle clearly, but once I
-                understood it, I started seeing opportunities
-                everywhere—TypeScript’s discriminated unions, even
-                factory functions in dynamic languages. The principle
-                transcends any particular type system.</p>
+                understood it, I could apply it elsewhere—with
+                TypeScript’s discriminated unions, or even factory
+                functions in dynamic languages. The principle transcends
+                any particular type system.</p>
                 <h2
                 id="pattern-3-from-for-loops-to-transformations">Pattern
                 3: From For Loops to Transformations</h2>
@@ -925,7 +926,7 @@ header.main-nav nav {
                 Handling</h2>
                 <p>Error handling was where my old patterns really broke
                 down. I went through a clear evolution that was honestly
-                humbling in retrospect:</p>
+                pretty embarrassing in retrospect:</p>
                 <h3 id="exception-hell">“Exception Hell”</h3>
                 <p>You’ve definitely been here before. Look
                 familiar?</p>
@@ -960,15 +961,15 @@ header.main-nav nav {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// at least now I know this function can fail</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
                 <p>This was better, but chaining these operations was
-                still awkward. Then I learned Rust.</p>
+                still awkward. Then I learned Rust!!</p>
                 <h3 id="the-way-of-rust">The Way of Rust</h3>
                 <p>Learning Rust’s <code>Result&lt;T, E&gt;</code> and
                 the <code>?</code> operator was transformative:</p>
                 <div class="sourceCode" id="cb10"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> brew_coffee(order<span class="op">:</span> <span class="op">&amp;</span>Order) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Coffee<span class="op">,</span> CoffeeError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>            <span class="co">// stop here if grind fails</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>  <span class="co">// stop here if heating fails</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span>           <span class="co">// stop here if brew fails</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>         <span class="co">// stop here if grind fails</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>         <span class="co">// stop here if heating fails</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span>  <span class="co">// stop here if brew fails</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(coffee)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
                 <p>Each <code>?</code> says “if this step fails, stop
@@ -977,11 +978,11 @@ header.main-nav nav {
                 exactly what can go wrong.</p>
                 <p>The <code>?</code> operator itself is Rust magic, but
                 the pattern—making errors explicit and composable—that’s
-                universal. I see it everywhere now: JavaScript Promises,
-                Go’s error returns, even optional chaining. The
-                principle is the same: make error cases explicit and
-                composable. Instead of hoping functions won’t throw, I
-                design them so they can’t hide their failure modes.</p>
+                universal: JavaScript Promises, Go’s error returns, even
+                optional chaining. All of these make error cases
+                explicit and composable. Instead of hoping functions
+                won’t throw, I design them so they can’t hide their
+                failure modes.</p>
                 <h2 id="pattern-5-ownership">Pattern 5: Ownership</h2>
                 <p>Rust’s ownership system completely changed how I
                 think about data relationships. Not just in Rust, but
@@ -1016,14 +1017,14 @@ header.main-nav nav {
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Quest:</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, quest_log):</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quest_log <span class="op">=</span> quest_log</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        quest_log.quests.append(<span class="va">self</span>)   <span class="co"># quest modifies its container!</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        quest_log.quests.append(<span class="va">self</span>)  <span class="co"># quest modifies its container!</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        quest_log.active_quest <span class="op">=</span> <span class="va">self</span>   <span class="co"># mutation from constructor!</span></span></code></pre></div>
                 <p>Rust’s ownership system enforces a “tree of values”
                 where each piece of data has exactly one owner:</p>
                 <div class="sourceCode" id="cb12"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> QuestLog <span class="op">{</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    quests<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Quest<span class="op">&gt;,</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    active_quest_id<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>QuestId<span class="op">&gt;,</span>  <span class="co">// reference by ID, not pointer</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    active_quest_id<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>QuestId<span class="op">&gt;,</span>  <span class="co">// ID-based reference pattern</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Quest <span class="op">{</span></span>
@@ -1031,13 +1032,18 @@ header.main-nav nav {
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    objectives<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Objective<span class="op">&gt;,</span>  <span class="co">// quest owns its objectives</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>Now here’s the thing: I can’t enforce these ownership
-                rules in Python or JavaScript. But understanding this
-                model transformed how I design systems everywhere.</p>
-                <h3 id="the-constraint-solving-mindset">The
-                Constraint-Solving Mindset</h3>
+                <p>Using IDs instead of direct references is a common
+                pattern in Rust (and game development generally) to work
+                around ownership restrictions while maintaining safety.
+                It’s basically a controlled form of indirection.</p>
+                <p>Now I’ll grant that I can’t enforce these ownership
+                rules in Python or JavaScript. But understanding the
+                model itself has transformed how I design systems
+                everywhere.</p>
+                <h3 id="the-constraint-solver-mindset">The
+                Constraint-Solver Mindset</h3>
                 <p>Everyone talks about “fighting the borrow checker,”
-                and yeah, at first it’s frustrating:</p>
+                and yeah, at first it’s infuriating:</p>
                 <div class="sourceCode" id="cb13"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this won&#39;t compile:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
@@ -1052,10 +1058,10 @@ header.main-nav nav {
                 pointer. The program might crash, or worse, silently
                 corrupt memory causing undefined behavior. Rust just
                 makes the problem visible at compile time.</p>
-                <p>This changed how I think about data dependencies
-                everywhere. Now I ask: What owns this data? What can
-                modify it, and when? How can I design this to minimize
-                shared mutable state?</p>
+                <p>This changed how I think about data dependencies. Now
+                I ask: What owns this data? What can modify it, and
+                when? How can I design this to minimize shared mutable
+                state?</p>
                 <p>And the whole time, the compiler is showing me
                 problems I didn’t even know existed. Hardly the nature
                 of an enemy.</p>
@@ -1102,10 +1108,10 @@ header.main-nav nav {
                 contract.</p>
                 <h2 id="pattern-7-monadic-composition">Pattern 7:
                 Monadic Composition</h2>
-                <p>Monads seemed like academic nonsense until I realized
-                I was already using them everywhere—they’re just about
-                chaining operations where each step depends on the
-                previous one’s result.</p>
+                <p>Monads seemed like academic wizardry when I first
+                heard about them, but really they’re just about chaining
+                operations where each step depends on the previous one’s
+                result.</p>
                 <div class="sourceCode" id="cb17"><pre
                 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">// sequential dependency (must be serial)</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> processUser <span class="op">=</span> <span class="kw">async</span> (id) <span class="kw">=&gt;</span> {</span>
@@ -1118,8 +1124,8 @@ header.main-nav nav {
                 Each step feeds its result to the next step, which can
                 examine that result and decide what to do. Once Rust
                 taught me to see this pattern, I realized I’d been using
-                monads all along—JavaScript Promises, optional chaining,
-                even error handling.</p>
+                monads all along in JavaScript Promises, optional
+                chaining, even error handling.</p>
                 <p>Error handling:</p>
                 <div class="sourceCode" id="cb18"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_data(input<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Output<span class="op">,</span> <span class="bu">Error</span><span class="op">&gt;</span> <span class="op">{</span></span>
@@ -1136,11 +1142,8 @@ header.main-nav nav {
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getSettings</span>()      <span class="co">// only if profile exists</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getTheme</span>()         <span class="co">// only if settings exist</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">??</span> defaultTheme<span class="op">;</span>     <span class="co">// fallback (if any step fails)</span></span></code></pre></div>
-                <p>I’d been using this pattern all along without knowing
-                it. Monads aren’t an abstract math concept in this
-                setting; they’re just a way to chain operations where
-                each step can look at the previous result and decide
-                what to do next.</p>
+                <p>Scary name, simple idea. It’s just chaining
+                operations together.</p>
                 <h2
                 id="pattern-8-performance-without-compromise">Pattern 8:
                 Performance Without Compromise</h2>
@@ -1162,18 +1165,18 @@ header.main-nav nav {
                 <p>I found that modern compilers could optimize my
                 functional patterns better because:</p>
                 <ol type="1">
-                <li>No aliasing - immutable data means no pointer
-                aliasing analysis needed</li>
                 <li>Clear data flow - transformations can be vectorized
                 automatically</li>
                 <li>No side effects - aggressive optimization is
                 safe</li>
                 <li>Parallelizable - no shared mutable state means easy
                 parallelization</li>
+                <li>Compiler can reorder operations - pure functions
+                give the compiler more freedom</li>
                 </ol>
-                <p>In my experience, the functional approach often
-                matched or beat my hand-written loops, especially when
-                the compiler could apply auto-vectorization.</p>
+                <p>In my experience, the functional approach had
+                negligible performance overhead while being much
+                clearer.</p>
                 <h3 id="memory-safety-without-garbage-collection">Memory
                 Safety Without Garbage Collection</h3>
                 <p>Rust taught me that the choice between performance
@@ -1191,13 +1194,16 @@ header.main-nav nav {
                 <p>By making ownership explicit in the type system, Rust
                 eliminates the runtime overhead of safety checks while
                 maintaining complete memory safety.</p>
-                <p>This level of performance with guaranteed safety is
-                Rust’s superpower. But the broader lesson, that
-                functional patterns don’t mean slow code, applies
-                everywhere. Modern JS engines optimize map/filter/reduce
-                chains. Java’s Stream API can beat manual loops. The key
-                is understanding what your language’s compiler or
-                runtime can optimize.</p>
+                <p>Rust shows that the choice between performance and
+                safety is false. You can have both. But the broader
+                lesson applies everywhere: functional patterns have
+                become fast enough that performance rarely justifies
+                avoiding them. Modern JS engines have largely closed the
+                gap between map/filter/reduce and manual loops. Java’s
+                Stream API trades some speed for readability and
+                parallelization, a worthwhile tradeoff for most code.
+                The old excuse of ‘functional programming is too slow’
+                just doesn’t hold up anymore.</p>
                 <h2 id="pattern-9-composition">Pattern 9:
                 Composition</h2>
                 <p>The final pattern that changed everything was
@@ -1232,66 +1238,57 @@ header.main-nav nav {
                 contract and no side effects. I can test them in
                 isolation, combine them in different ways, and reason
                 about the whole system by understanding the parts.</p>
-                <h2
-                id="the-mindset-shift-from-instructions-to-descriptions">The
-                Mindset Shift: From Instructions to Descriptions</h2>
-                <p>All of these patterns point to a fundamental shift in
-                how I think about programming. I’ve moved from asking
-                “how do I tell the computer what to do step by step?” to
-                “how do I describe what I want in terms of
-                transformations and compositions?” The focus shifted
-                from writing code that merely works to writing code I
-                can reason about, from handling every possible error to
-                designing systems where fewer things can go wrong in the
-                first place.</p>
-                <p>These patterns reinforce each other:</p>
-                <ul>
-                <li>Type safety makes refactoring fearless</li>
-                <li>Immutability makes parallelization trivial</li>
-                <li>Pure functions make testing straightforward</li>
-                <li>Explicit error handling makes debugging
-                targeted</li>
-                <li>Composition makes complexity manageable</li>
-                <li>Ownership makes performance predictable</li>
-                </ul>
-                <p>The result is code that’s not just more reliable—it’s
-                more maintainable, more performant, and honestly more
-                fun to work with.</p>
+                <h2 id="what-actually-changed">What Actually
+                Changed</h2>
+                <p>All of these patterns changed something fundamental
+                about how I write code. I used to obsess over the exact
+                sequence of steps: this loop, then that condition, then
+                update this variable. Now I think more about
+                transformations: take this data, filter it, transform
+                it, combine it.</p>
+                <p>This wasn’t only a philosophical journey. When I
+                stopped mutating everything in sight, parallelization
+                got easier (though ‘trivial’ is a stretch—concurrency is
+                still hard sometimes). When functions started telling
+                the truth about what they could fail at, I spent less
+                time in the debugger. When I learned to build big things
+                from small, composable pieces, the complexity became
+                less overwhelming.</p>
+                <p>Not everything improved. Rust’s ownership makes
+                performance more predictable, sure, but in other
+                languages I’m still guessing. And strong types only help
+                if you design them well. Bad types just move the
+                problems around.</p>
+                <p>But overall? The code is easier to reason about. Bugs
+                tend to be shallower. And yeah, it’s more fun to work
+                with systems where the pieces actually fit together.</p>
                 <h2 id="how-to-start">How to Start</h2>
-                <p>Don’t try to rewrite everything at once. I started
-                with pattern matching, replaced one complex if-else
-                chain with a lookup table. Then gradually added
-                transformations, explicit error handling, and
-                type-driven design.</p>
+                <p>I started small. I replaced one complex if-else chain
+                with a lookup table just to see what would happen. It
+                worked, so I tried another. Then I noticed some of my
+                for-loops were really just filters and maps in
+                disguise.</p>
                 <p>The compiler was vexing at first. Like, genuinely
                 maddening. But those moments when things finally
-                clicked—when I understood why the borrow checker was
+                clicked, when I understood why the borrow checker was
                 saving me from myself, when I saw how composition could
-                replace complexity—made it worth pushing through.</p>
-                <p>I started by picking one pattern and using it until
-                it felt natural. For me, the compound effect was what
-                mattered.</p>
+                replace complexity, made it worth pushing through.</p>
+                <p>What surprised me was the compound effect. Each
+                pattern made the next one easier to see. Pattern
+                matching led me to better data types, which made error
+                handling obvious. It builds on itself.</p>
                 <h2 id="where-this-leads">Where This Leads</h2>
-                <p>These patterns changed how I think about code, but
-                honestly, I’m still figuring things out. Half the time I
-                still write crude imperative code when I’m prototyping,
-                then come back and clean it up with these patterns.</p>
-                <p>The real shift wasn’t about mastering any particular
-                technique. It was learning to see programming as a
+                <p>I’m still figuring things out. Half the time I write
+                crude imperative code when I’m prototyping, then come
+                back and clean it up with these patterns.</p>
+                <p>The real shift was learning to see programming as a
                 design discipline rather than just instruction-writing.
-                The patterns I’ve shared aren’t rules—they’re tools I
+                The patterns I’ve shared aren’t rules. They’re tools I
                 reach for when the code starts feeling unwieldy.</p>
-                <p>Some of what I’ve shown—like the borrow checker and
-                zero-cost abstractions—are Rust’s unique gifts. But the
-                mental models they taught me? Those work everywhere.
-                Thinking in transformations, making illegal states
-                unrepresentable, explicit error handling, composition
-                over complexity—these patterns transformed how I write
+                <p>Some of what I’ve shown, like the borrow checker and
+                zero-cost abstractions, are Rust’s unique gifts. But the
+                mental models they taught me transformed how I write
                 JavaScript, Python, everything.</p>
-                <p>Pick one pattern that resonates and try it out. You
-                don’t need to adopt everything at once. Just gradually
-                shift from “how do I make the computer do this” to “how
-                do I describe what I want clearly.”</p>
                 <p>The rest tends to follow from there.</p>
             </article>
         </div>
