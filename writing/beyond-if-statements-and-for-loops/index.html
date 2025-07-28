@@ -755,8 +755,8 @@ header.main-nav nav {
                 and broke if you looked at it wrong. Functions could do
                 anything, fail mysteriously, or modify state in ways I
                 couldn’t trace. It was a labyrinth of side effects I
-                didn’t comprehend. Looking back, I was living in what I
-                now call the “sea of objects”<a href="#fn2"
+                couldn’t comprehend. Looking back, I was living in what
+                I now call the “sea of objects”<a href="#fn2"
                 class="footnote-ref" id="fnref2"
                 role="doc-noteref"><sup>2</sup></a>—everything
                 connected, state flowing unpredictably, dependencies
@@ -908,11 +908,11 @@ header.main-nav nav {
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>sum()</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>Beyond being fewer lines of code, it’s more honest
-                about intent. The chain of operations tells me exactly
-                what’s happening: filter active members, calculate their
-                damage with multipliers, sum the results. No hidden
-                state, no mutation, no surprises.</p>
+                <p>It’s more honest about intent. The chain of
+                operations tells me exactly what’s happening: filter
+                active members, calculate their damage with multipliers,
+                sum the results. No hidden state, no mutation, no
+                surprises.</p>
                 <h3 id="zero-cost-iterators">Zero-Cost Iterators</h3>
                 <p>These iterator chains compile to highly optimized
                 assembly. The compiler transforms them into tight loops
@@ -946,7 +946,7 @@ header.main-nav nav {
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> CoffeeError(<span class="st">&quot;Water heating failed&quot;</span>) <span class="im">from</span> e</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> GrindError <span class="im">as</span> e:</span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        log_error(e)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>  <span class="co"># Sometimes return None, sometimes raise? Great plan!</span></span></code></pre></div>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>  <span class="co"># sometimes return None, sometimes raise? great plan!</span></span></code></pre></div>
                 <p>I tried to get smarter about this by making errors
                 explicit in return types:</p>
                 <h3 id="again-but-with-explicit-results">Again, but with
@@ -966,9 +966,9 @@ header.main-nav nav {
                 the <code>?</code> operator was transformative:</p>
                 <div class="sourceCode" id="cb10"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> brew_coffee(order<span class="op">:</span> <span class="op">&amp;</span>Order) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Coffee<span class="op">,</span> CoffeeError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>     <span class="co">// Stop here if grind fails</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>     <span class="co">// Stop here if heating fails</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span> <span class="co">// Stop here if brew fails</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>            <span class="co">// stop here if grind fails</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>  <span class="co">// stop here if heating fails</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span>           <span class="co">// stop here if brew fails</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(coffee)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
                 <p>Each <code>?</code> says “if this step fails, stop
@@ -1066,7 +1066,7 @@ header.main-nav nav {
                 <div class="sourceCode" id="cb14"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this function promises it won&#39;t store the reference</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_temporarily(data<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>len()  <span class="co">// Just calculates length and returns</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>len()  <span class="co">// just calculates length and returns</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">// this admits it might fail</span></span>
@@ -1081,7 +1081,7 @@ header.main-nav nav {
                 signature tells me almost everything about what they do.
                 The Result type forces explicit error handling and makes
                 failure part of the type signature. Comments are hardly
-                necessary anymore—the type system does the
+                necessary anymore as the type system does the
                 documenting.</p>
                 <p>For me, JavaDoc-style comments became largely
                 unnecessary. Instead of:</p>
