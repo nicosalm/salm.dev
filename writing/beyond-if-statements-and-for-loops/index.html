@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<style>
+@font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'firacode';
+    src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #2a2a2a;
+    --text-secondary: #666666;
+    --link-color: #0066cc;
+    --border-color: #eee;
+    --code-bg: #f5f5f5;
+
+    --syntax-keyword: #954121;
+    --syntax-type: #b00040;
+    --syntax-number: #666666;
+    --syntax-string: #219161;
+    --syntax-prompt: #000080;
+    --syntax-output: #808080;
+    --syntax-comment: #808080;
+
+    --font-family-body: charter, "Times New Roman";
+    --font-family-code: firacode, monospace;
+    --font-size-base: 1rem;
+    --font-size-small: 0.9rem;
+    --line-height: 1.6;
+    --line-height-tight: 1.1;
+    --line-height-heading: 1.2;
+
+    --spacing-tiny: 0.25rem;
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-huge: 3rem;
+
+    --max-width: 850px;
+    --breakpoint-mobile: 576px;
+    --breakpoint-tablet: 768px;
+
+    --transition: 0.3s ease;
+    --border-standard: 1px solid var(--border-color);
+    --border-emphasis: 2px solid var(--text-color);
+    --heading-margin: var(--spacing-large) 0 var(--spacing-medium);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --text-secondary: #888888;
+        --link-color: #66aaff;
+        --border-color: #333;
+        --code-bg: #2a2a2a;
+
+        --syntax-keyword: #af5a54;
+        --syntax-type: #b64343;
+        --syntax-number: #688ec8;
+        --syntax-string: #718e72;
+        --syntax-prompt: #8a6ab1;
+        --syntax-output: #868686;
+        --syntax-comment: #868686;
+    }
+
+    header.main-nav img[src="/assets/logo-black.svg"] {
+        content: url("/assets/logo-white.svg");
+    }
+
+    .post-link[data-description]:hover::after {
+        background-color: #2a2a2a;
+        border: 1px solid #555;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    max-width: var(--max-width);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0 auto;
+    padding: 20px;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-body);
+    margin: var(--heading-margin);
+    line-height: var(--line-height-heading);
+    color: var(--text-color);
+    font-variant: small-caps;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 2.25rem;
+    text-align: center;
+    margin-top: var(--spacing-small);
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-top: var(--spacing-xl);
+    position: relative;
+    padding-bottom: 2px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--text-color);
+}
+
+h3 {
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: radial-gradient(circle, var(--text-color) 0.5px, transparent 0.5px);
+    background-size: 3px 1px;
+    background-repeat: repeat-x;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+.year-heading {
+    margin-top: var(--spacing-large);
+    margin-bottom: var(--spacing-medium);
+}
+
+.year-heading.first-year {
+    margin-top: var(--spacing-small);
+}
+
+.tags-heading {
+    margin: 0;
+}
+
+p {
+    margin-bottom: var(--spacing-medium);
+}
+
+small {
+    font-size: 0.875em;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
+
+ul,
+ol {
+    margin: var(--spacing-medium) 0;
+    padding-left: var(--spacing-xl);
+}
+
+li {
+    margin-bottom: var(--spacing-tiny);
+}
+
+h4.year-heading+ul {
+    margin-top: 0;
+}
+
+code {
+    font-family: var(--font-family-code);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    padding: 0.15rem 0.3rem;
+    border-radius: 0;
+    border: var(--border-standard);
+    font-size: var(--font-size-small);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre {
+    background-color: var(--code-bg);
+    padding: var(--spacing-medium);
+    border-radius: 0;
+    border: var(--border-standard);
+    overflow-x: auto;
+    margin: var(--spacing-medium) 0;
+    white-space: pre;
+}
+
+pre code {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    white-space: pre;
+    overflow-x: visible;
+}
+
+.o,
+.k,
+.kc,
+.kd,
+.kn,
+.nb,
+.cf,
+.kw,
+.op {
+    color: var(--syntax-keyword);
+}
+
+.kt,
+.dt {
+    color: var(--syntax-type);
+}
+
+.m,
+.mf,
+.mh,
+.mi,
+.mo {
+    color: var(--syntax-number);
+}
+
+.s,
+.sc,
+.st {
+    color: var(--syntax-string);
+}
+
+.gp {
+    color: var(--syntax-prompt);
+}
+
+.go {
+    color: var(--syntax-output);
+}
+
+.c1,
+.co {
+    color: var(--syntax-comment);
+}
+
+/* tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-medium) 0;
+    font-size: var(--font-size-base);
+}
+
+th,
+td {
+    padding: var(--spacing-small) var(--spacing-medium);
+    text-align: left;
+    border-bottom: var(--border-standard);
+}
+
+th {
+    font-weight: bold;
+    color: var(--text-color);
+    border-bottom: var(--border-emphasis);
+}
+
+/* quotes */
+blockquote {
+    margin: var(--spacing-large) 0;
+    padding: var(--spacing-medium);
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    font-style: normal;
+    border: var(--border-standard);
+    border-radius: 0;
+    position: relative;
+}
+
+blockquote p {
+    margin-bottom: var(--spacing-small);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+blockquote blockquote {
+    background-color: #e8e8e8;
+    color: var(--text-color);
+    border-color: #e8e8e8;
+}
+
+@media (prefers-color-scheme: dark) {
+    blockquote blockquote {
+        background-color: #777777;
+        border-color: #777777;
+    }
+}
+
+.quote-container {
+    padding: var(--spacing-large);
+    margin: var(--spacing-large) 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-medium);
+}
+
+.quote-container::before {
+    content: '“';
+    font-family: var(--font-family-body);
+    font-size: 4rem;
+    color: var(--text-secondary);
+    opacity: 0.4;
+    line-height: 1;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.quote-container::after {
+    content: '”';
+    font-family: var(--font-family-body);
+    font-size: 4rem;
+    color: var(--text-secondary);
+    opacity: 0.4;
+    line-height: 1;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.quote-content {
+    flex: 1;
+    text-align: center;
+}
+
+.quote-text {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    color: var(--text-color);
+    font-style: italic;
+    margin: 0 0 var(--spacing-small) 0;
+}
+
+.quote-author {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--text-color);
+    font-variant: small-caps;
+}
+
+/* media */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: var(--spacing-small) var(--spacing-tiny);
+}
+
+figure {
+    margin: 0;
+    text-align: center;
+}
+
+figcaption {
+    font-size: var(--font-size-small);
+    margin-top: 5px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* layout pieces */
+header {
+    margin-bottom: var(--spacing-medium);
+}
+
+footer {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-medium);
+    text-align: center;
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    border-top: var(--border-standard);
+}
+
+.footer-note {
+    color: var(--text-secondary);
+    font-size: var(--font-size-small);
+    font-style: italic;
+    margin-bottom: var(--spacing-small);
+}
+
+/* nav */
+header.main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing-large);
+}
+
+header.main-nav img {
+    margin-bottom: 15px;
+    margin-right: 0;
+}
+
+header.main-nav nav {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* post */
+.description {
+    text-align: center;
+    font-style: italic;
+    margin: var(--spacing-medium) 0;
+    color: var(--text-secondary);
+}
+
+.description .date,
+.description .updated {
+    display: inline;
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+}
+
+.description .date::before {
+    content: "Published ";
+}
+
+.description .updated::before {
+    content: " • Updated ";
+}
+
+.description .date-info {
+    display: block;
+    margin-top: var(--spacing-small);
+}
+
+.post-link {
+    position: relative;
+    display: inline-block;
+}
+
+.post-link[data-description]:hover::after {
+    content: attr(data-description);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 5px;
+    z-index: 1;
+    width: 320px;
+    background-color: var(--bg-color);
+    padding: 10px;
+    border: var(--border-standard);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text-secondary);
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+    pointer-events: none;
+    transition: all var(--transition);
+}
+
+/* writing page */
+.writing-layout {
+    display: flex;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+    position: relative;
+}
+
+.writing-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.tags-section {
+    position: absolute;
+    right: 0;
+    top: calc(var(--spacing-large) + 1rem);
+    width: 250px;
+    text-align: right;
+    word-wrap: break-word;
+    line-height: 1.8;
+}
+
+.tags-section a {
+    white-space: nowrap;
+    color: var(--link-color);
+    opacity: 0.8;
+    margin: 0 0 0.5rem 0.5rem;
+    display: inline-block;
+}
+
+.tags-heading.desktop-only {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: var(--spacing-small);
+    line-height: var(--line-height-heading);
+    font-size: 1.25rem;
+    text-align: right;
+}
+
+/* special */
+.buttons-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+}
+
+.button-88x31 {
+    width: 88px;
+    height: 31px;
+    margin: 0;
+}
+
+/* about page */
+.about-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* footnotes */
+.footnotes {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-medium);
+    border: var(--border-standard);
+    background-color: var(--code-bg);
+    border-radius: 4px;
+}
+
+.footnotes::before {
+    content: "Notes";
+    display: block;
+    font-weight: bold;
+    margin-bottom: var(--spacing-small);
+    color: var(--text-color);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footnotes hr {
+    display: none;
+}
+
+.footnotes ol {
+    margin: 0;
+    padding-left: var(--spacing-medium);
+}
+
+.footnotes li {
+    margin-bottom: var(--spacing-tiny);
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+}
+
+.footnotes p {
+    margin-bottom: var(--spacing-tiny);
+}
+
+/* utiliy */
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* media queries */
+@media (min-width: 576px) {
+    header.main-nav {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    header.main-nav img {
+        margin-right: 80px;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
+        margin-top: var(--spacing-xl) !important;
+        margin-bottom: var(--spacing-medium) !important;
+        margin-left: 0 !important;
+        position: static !important;
+        text-align: left !important;
+    }
+
+    .quote-container {
+        padding: var(--spacing-large) var(--spacing-medium);
+        gap: var(--spacing-small);
+    }
+
+    .quote-container::before,
+    .quote-container::after {
+        font-size: 3rem;
+    }
+
+    .quote-text {
+        font-size: 1.125rem;
+    }
+
+    .quote-author {
+        font-size: 0.9rem;
+    }
+
+    .writing-layout {
+        display: block;
+    }
+
+    .tags-section {
+        position: static;
+        width: 100%;
+        margin-top: var(--spacing-small);
+        margin-bottom: var(--spacing-xl);
+        text-align: left;
+    }
+
+    .tags-section a {
+        margin: 0 0.5rem 0.5rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .about-container img {
+        margin-bottom: 20px !important;
+        order: -1 !important;
+    }
+}
+</style>
+        <title>Beyond If Statements and For Loops | salm.dev</title>
+            </head>
+    <body>
+        <div>
+            <header>
+                <a href="/">home</a> / <a href="/writing/">writing</a>
+            </header>
+            <article>
+                <h1 id="beyond-if-statements-and-for-loops">Beyond If
+                Statements and For Loops</h1>
+                <div class="description">
+                <p>How pattern matching, type systems, and functional
+                thinking transformed my approach to solving problems.
+                <span class="date-info"><span
+                class="date">2025-07-27</span></span></p>
+                </div>
+                <h2 id="learned-defaults">Learned Defaults</h2>
+                <p>Would you believe there is more to writing code than
+                if-statements and for-loops? Revelatory, I know. My
+                programming flow has traditionally consisted of writing
+                nested conditionals, iterating through arrays, wrapping
+                errors in try-catches, and hopefully ending up with a
+                finished product that <em>works</em>.</p>
+                <p>In my intro programming course, we learned basic
+                Java. After arrays, we jumped straight into
+                object-oriented design, data structures, and algorithms.
+                We skipped modern syntax like the Stream API, match
+                expressions,
+                <code>object instanceof ClassName newVar</code> (inline
+                type check and declaration), and <code>var</code>.<a
+                href="#fn1" class="footnote-ref" id="fnref1"
+                role="doc-noteref"><sup>1</sup></a> The goal was to
+                teach us OOP—not to write high quality code.</p>
+                <p>So we wrote code that was verbose, hard to follow,
+                and broke if you looked at it wrong. Functions could do
+                anything, fail mysteriously, or modify state in ways I
+                couldn’t trace. It was a labyrinth of side effects I
+                didn’t comprehend. Looking back, I was living in what I
+                now call the “sea of objects”<a href="#fn2"
+                class="footnote-ref" id="fnref2"
+                role="doc-noteref"><sup>2</sup></a>—everything
+                connected, state flowing unpredictably, dependencies
+                knotted together beyond comprehension.</p>
+                <p>I spent some time this summer studying idiomatic Rust
+                and familiarizing myself with the functional programming
+                paradigm. Now, I can confidently say I can represent
+                many common programming patterns better than before.</p>
+                <p>What does ‘better’ mean? I’d argue we find
+                improvement when we discover patterns that represent our
+                work more efficiently, intuitively, or clearly.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-section"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>Thanks <a
+                href="https://ben.enterprises/">Ben</a> for the list!!<a
+                href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>This is terminology I learned in
+                <em>Programming Rust (2021)</em> describing the tangled
+                web of mutable references common in object-oriented
+                programming.<a href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
+                <h2
+                id="pattern-1-from-if-chains-to-pattern-matching">Pattern
+                1: From If Chains to Pattern Matching</h2>
+                <p>The first major shift happened when I realized most
+                of my if-else chains weren’t about control flow so much
+                as they were about destructuring data and handling
+                different shapes. Instead of asking “what should I do in
+                this situation?”, I started asking “what shape is my
+                data, and how do I handle each shape?”</p>
+                <p>Here’s an example of what I used to write:</p>
+                <div class="sourceCode" id="cb1"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_pokemon(pokemon_data):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pokemon_data.get(<span class="st">&#39;type&#39;</span>) <span class="op">==</span> <span class="st">&#39;dragon&#39;</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> pokemon_data.get(<span class="st">&#39;evolution_stage&#39;</span>) <span class="op">==</span> <span class="st">&#39;final&#39;</span>:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> unlock_legendary_moves(pokemon_data)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> locked_to_basic_moves(pokemon_data)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> pokemon_data.get(<span class="st">&#39;type&#39;</span>) <span class="op">==</span> <span class="st">&#39;normal&#39;</span>:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> access_normal_moves(pokemon_data)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fallback_struggle(pokemon_data)</span></code></pre></div>
+                <p>With match syntax, this becomes:</p>
+                <div class="sourceCode" id="cb2"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">match</span> (pokemon<span class="op">.</span>ptype<span class="op">,</span> pokemon<span class="op">.</span>evolution_stage) <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    (Dragon<span class="op">,</span> Final) <span class="op">=&gt;</span> unlock_legendary_moves(pokemon)<span class="op">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    (Dragon<span class="op">,</span> _)     <span class="op">=&gt;</span> locked_to_basic_moves(pokemon)<span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (Normal<span class="op">,</span> _)     <span class="op">=&gt;</span> access_normal_moves(pokemon)<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    (_<span class="op">,</span> _)          <span class="op">=&gt;</span> fallback_struggle(pokemon)<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>I’ll admit I was initially drawn to pattern matching
+                because it looked cleaner. What surprised me was how it
+                forced me to think about my data’s structure upfront and
+                handle all possible cases. The compiler literally won’t
+                let me forget an edge case.</p>
+                <p>Rust’s pattern matching opened my eyes to a pattern
+                I’d been approximating badly in other languages. Once I
+                saw it clearly, I realized it’s everywhere—Swift has it,
+                Python 3.10+ added it, and I can even fake it in
+                JavaScript:</p>
+                <div class="sourceCode" id="cb3"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// approximated in js w/ objects</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> moveHandlers <span class="op">=</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;dragon:final&#39;</span><span class="op">:</span> (pokemon) <span class="kw">=&gt;</span> <span class="fu">unlockLegendaryMoves</span>(pokemon)<span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;dragon:basic&#39;</span><span class="op">:</span> (pokemon) <span class="kw">=&gt;</span> <span class="fu">lockedToBasicMoves</span>(pokemon)<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;normal&#39;</span><span class="op">:</span> (pokemon) <span class="kw">=&gt;</span> <span class="fu">accessNormalMoves</span>(pokemon)<span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> key <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">type</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">evolutionStage</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> moveHandlers[key]<span class="op">?.</span>(pokemon) <span class="op">||</span> <span class="fu">fallbackStruggle</span>(pokemon)<span class="op">;</span></span></code></pre></div>
+                <p>The insight isn’t one of superior syntax. Rather,
+                it’s realizing that sometimes I am better served
+                thinking about data shapes instead of control flow.</p>
+                <h2
+                id="pattern-2-the-type-system-as-design-tool">Pattern 2:
+                The Type System as Design Tool</h2>
+                <p>Match syntax is a clean and effective way to process
+                different data shapes, but it’s just one part of the
+                puzzle. Another question is how we represent our data in
+                the first place.</p>
+                <p>Here’s the kind of code I used to write:</p>
+                <div class="sourceCode" id="cb4"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> questLog <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">status</span><span class="op">:</span> <span class="st">&#39;active&#39;</span><span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">questId</span><span class="op">:</span> <span class="st">&#39;save-the-village&#39;</span><span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">rewards</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>         <span class="co">// should only exist when completed</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">failureReason</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>   <span class="co">// should only exist when failed</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">currentObjective</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>   <span class="co">// meaningless when completed or failed</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+                <p>What I learned was to make illegal states
+                unrepresentable.</p>
+                <p>Now I design with the type system:</p>
+                <div class="sourceCode" id="cb5"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> QuestState <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    Available <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> requirements<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Requirement<span class="op">&gt;</span> <span class="op">},</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    Active <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> currentObjective<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> progress<span class="op">:</span> Progress <span class="op">},</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Completed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> rewards<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Reward<span class="op">&gt;,</span> completedAt<span class="op">:</span> DateTime <span class="op">},</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Failed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> reason<span class="op">:</span> FailureReason<span class="op">,</span> canRetry<span class="op">:</span> <span class="dt">bool</span> <span class="op">},</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Impossible states are now impossible to represent. I
+                literally cannot have a completed quest without rewards
+                or an active quest without progress tracking.</p>
+                <p>I’ve realized the value in using the type system to
+                encode business rules, not just data shapes. When
+                illegal states become unrepresentable, entire categories
+                of bugs just disappear.</p>
+                <p>Rust showed me this principle clearly, but once I
+                understood it, I started seeing opportunities
+                everywhere—TypeScript’s discriminated unions, even
+                factory functions in dynamic languages. The principle
+                transcends any particular type system.</p>
+                <h2
+                id="pattern-3-from-for-loops-to-transformations">Pattern
+                3: From For Loops to Transformations</h2>
+                <p>Another way I realized I could clean up my code is by
+                replacing many of my for-loops. I realized most of my
+                for-loops weren’t really used for iteration—they
+                executed transformations. I was manually implementing
+                map, filter, and reduce operations when I didn’t need
+                to.</p>
+                <p>My manual approach:</p>
+                <div class="sourceCode" id="cb6"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_raid_damage(party_members):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    total_damage <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> member <span class="kw">in</span> party_members:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> member.is_alive <span class="kw">and</span> <span class="kw">not</span> member.is_stunned:  <span class="co"># filter</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            damage <span class="op">=</span> member.base_damage <span class="op">*</span> member.gear_multiplier  <span class="co"># map</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> member.has_buff(<span class="st">&#39;berserk&#39;</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                damage <span class="op">*=</span> <span class="fl">1.5</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            total_damage <span class="op">+=</span> damage  <span class="co"># reduce</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total_damage</span></code></pre></div>
+                <p>What I learned:</p>
+                <div class="sourceCode" id="cb7"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> calculate_raid_damage(party<span class="op">:</span> <span class="op">&amp;</span>[PartyMember]) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    party<span class="op">.</span>iter()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>filter(<span class="op">|</span>member<span class="op">|</span> member<span class="op">.</span>is_alive <span class="op">&amp;&amp;</span> <span class="op">!</span>member<span class="op">.</span>is_stunned)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>member<span class="op">|</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">let</span> damage <span class="op">=</span> member<span class="op">.</span>base_damage <span class="op">*</span> member<span class="op">.</span>gear_multiplier<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> member<span class="op">.</span>has_buff(<span class="pp">BuffType::</span>Berserk) <span class="op">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                damage <span class="op">*</span> <span class="dv">1.5</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                damage</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>sum()</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Beyond being fewer lines of code, it’s more honest
+                about intent. The chain of operations tells me exactly
+                what’s happening: filter active members, calculate their
+                damage with multipliers, sum the results. No hidden
+                state, no mutation, no surprises.</p>
+                <h3 id="zero-cost-iterators">Zero-Cost Iterators</h3>
+                <p>These iterator chains compile to highly optimized
+                assembly. The compiler transforms them into tight loops
+                with minimal overhead—though “zero-cost” is more
+                aspiration than guarantee. Complex chains can sometimes
+                hit optimization limits. But for most code, you get
+                beautiful, functional patterns that run as fast as
+                manual loops.</p>
+                <h2 id="pattern-4-error-handling">Pattern 4: Error
+                Handling</h2>
+                <p>Error handling was where my old patterns really broke
+                down. I went through a clear evolution that was honestly
+                humbling in retrospect:</p>
+                <h3 id="exception-hell">“Exception Hell”</h3>
+                <p>You’ve definitely been here before. Look
+                familiar?</p>
+                <div class="sourceCode" id="cb8"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> brew_coffee(order):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        beans <span class="op">=</span> grind_beans(order.bean_type)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            water <span class="op">=</span> heat_water(order.temperature)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span>:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                coffee <span class="op">=</span> brew(beans, water, order.brew_time)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> coffee</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">except</span> BrewError <span class="im">as</span> e:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                log_error(e)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> WaterError <span class="im">as</span> e:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            log_error(e)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> CoffeeError(<span class="st">&quot;Water heating failed&quot;</span>) <span class="im">from</span> e</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> GrindError <span class="im">as</span> e:</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        log_error(e)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>  <span class="co"># Sometimes return None, sometimes raise? Great plan!</span></span></code></pre></div>
+                <p>I tried to get smarter about this by making errors
+                explicit in return types:</p>
+                <h3 id="again-but-with-explicit-results">Again, but with
+                Explicit Results</h3>
+                <div class="sourceCode" id="cb9"><pre
+                class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> BrewResult <span class="op">=</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> { success<span class="op">:</span> <span class="kw">true</span><span class="op">;</span> coffee<span class="op">:</span> Coffee }</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> { success<span class="op">:</span> <span class="kw">false</span><span class="op">;</span> error<span class="op">:</span> <span class="dt">string</span> }<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">brewCoffee</span>(order<span class="op">:</span> Order)<span class="op">:</span> BrewResult {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// at least now I know this function can fail</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+                <p>This was better, but chaining these operations was
+                still awkward. Then I learned Rust.</p>
+                <h3 id="the-way-of-rust">The Way of Rust</h3>
+                <p>Learning Rust’s <code>Result&lt;T, E&gt;</code> and
+                the <code>?</code> operator was transformative:</p>
+                <div class="sourceCode" id="cb10"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> brew_coffee(order<span class="op">:</span> <span class="op">&amp;</span>Order) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Coffee<span class="op">,</span> CoffeeError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>     <span class="co">// Stop here if grind fails</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>     <span class="co">// Stop here if heating fails</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span> <span class="co">// Stop here if brew fails</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(coffee)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Each <code>?</code> says “if this step fails, stop
+                here and return the error.” No hidden control flow, no
+                forgotten error cases. The function signature tells me
+                exactly what can go wrong.</p>
+                <p>The <code>?</code> operator itself is Rust magic, but
+                the pattern—making errors explicit and composable—that’s
+                universal. I see it everywhere now: JavaScript Promises,
+                Go’s error returns, even optional chaining. The
+                principle is the same: make error cases explicit and
+                composable. Instead of hoping functions won’t throw, I
+                design them so they can’t hide their failure modes.</p>
+                <h2 id="pattern-5-ownership">Pattern 5: Ownership</h2>
+                <p>Rust’s ownership system completely changed how I
+                think about data relationships. Not just in Rust, but
+                everywhere.</p>
+                <p>Traditional object-oriented thinking creates a
+                tangled mess where everything points to everything
+                else:</p>
+                <div
+                style="display: flex; justify-content: center; gap: 40px; margin: 20px 0;">
+                <div style="text-align: center;">
+                <img src="images/sea-of-objects.jpeg" alt="Sea of objects diagram" style="width: 300px;">
+                <div style="font-style: italic; margin-top: 8px;">
+                Sea of Objects (Traditional OOP)
+                </div>
+                </div>
+                <div style="text-align: center;">
+                <img src="images/tree-of-values.jpeg" alt="Tree of values diagram" style="width: 245px;">
+                <div style="font-style: italic; margin-top: 8px;">
+                Tree of Values (Rust’s Ownership)
+                </div>
+                </div>
+                </div>
+                <p>Following data flow becomes impossible in the
+                traditional model:</p>
+                <div class="sourceCode" id="cb11"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># complex &quot;web&quot; of mutable references</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> QuestLog:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quests <span class="op">=</span> []</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.active_quest <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Quest:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, quest_log):</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quest_log <span class="op">=</span> quest_log</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        quest_log.quests.append(<span class="va">self</span>)   <span class="co"># quest modifies its container!</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        quest_log.active_quest <span class="op">=</span> <span class="va">self</span>   <span class="co"># mutation from constructor!</span></span></code></pre></div>
+                <p>Rust’s ownership system enforces a “tree of values”
+                where each piece of data has exactly one owner:</p>
+                <div class="sourceCode" id="cb12"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> QuestLog <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    quests<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Quest<span class="op">&gt;,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    active_quest_id<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>QuestId<span class="op">&gt;,</span>  <span class="co">// reference by ID, not pointer</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Quest <span class="op">{</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> QuestId<span class="op">,</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    objectives<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Objective<span class="op">&gt;,</span>  <span class="co">// quest owns its objectives</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Now here’s the thing: I can’t enforce these ownership
+                rules in Python or JavaScript. But understanding this
+                model transformed how I design systems everywhere.</p>
+                <h3 id="the-constraint-solving-mindset">The
+                Constraint-Solving Mindset</h3>
+                <p>Everyone talks about “fighting the borrow checker,”
+                and yeah, at first it’s frustrating:</p>
+                <div class="sourceCode" id="cb13"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this won&#39;t compile:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> first <span class="op">=</span> <span class="op">&amp;</span>data[<span class="dv">0</span>]<span class="op">;</span>     <span class="co">// immutable borrow</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>data<span class="op">.</span>push(<span class="dv">6</span>)<span class="op">;</span>             <span class="co">// mutable borrow - ERROR! :(</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first)<span class="op">;</span>    <span class="co">// use of immutable borrow</span></span></code></pre></div>
+                <p>My first reaction was pure frustration. Why won’t the
+                compiler let me do this simple thing?</p>
+                <p>But then I realized: this code was always dangerous.
+                In C++, <code>data.push_back(6)</code> might reallocate
+                the vector, making <code>first</code> a dangling
+                pointer. The program might crash, or worse, silently
+                corrupt memory causing undefined behavior. Rust just
+                makes the problem visible at compile time.</p>
+                <p>This changed how I think about data dependencies
+                everywhere. Now I ask: What owns this data? What can
+                modify it, and when? How can I design this to minimize
+                shared mutable state?</p>
+                <p>And the whole time, the compiler is showing me
+                problems I didn’t even know existed. Hardly the nature
+                of an enemy.</p>
+                <h2 id="pattern-6-functions-that-tell-the-truth">Pattern
+                6: Functions That Tell the Truth</h2>
+                <p>I was pleasantly surprised to find that function
+                signatures in Rust are complete contracts:</p>
+                <div class="sourceCode" id="cb14"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this function promises it won&#39;t store the reference</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_temporarily(data<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>len()  <span class="co">// Just calculates length and returns</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">// this admits it might fail</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_number(s<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">,</span> ParseIntError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>parse()  <span class="co">// failure is part of the type, not hidden</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Put another way, I literally can’t write a function
+                that does sneaky stuff without declaring it upfront.
+                This is because the type system forces honesty through
+                lifetimes and ownership rules.</p>
+                <p>I learned to design functions so that reading the
+                signature tells me almost everything about what they do.
+                The Result type forces explicit error handling and makes
+                failure part of the type signature. Comments are hardly
+                necessary anymore—the type system does the
+                documenting.</p>
+                <p>For me, JavaDoc-style comments became largely
+                unnecessary. Instead of:</p>
+                <div class="sourceCode" id="cb15"><pre
+                class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Parses a string representation of a number</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>param s the string to parse</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>return the parsed integer</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>throws ParseIntError if parsing fails</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span></code></pre></div>
+                <p>Now I just write:</p>
+                <div class="sourceCode" id="cb16"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_number(input_string<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">,</span> ParseIntError<span class="op">&gt;</span></span></code></pre></div>
+                <p>The signature tells you everything: it takes a string
+                reference, might fail, returns an integer on success,
+                and specifies the exact error type. The function
+                signature has become a complete, compiler-verified
+                contract.</p>
+                <h2 id="pattern-7-monadic-composition">Pattern 7:
+                Monadic Composition</h2>
+                <p>Monads seemed like academic nonsense until I realized
+                I was already using them everywhere—they’re just about
+                chaining operations where each step depends on the
+                previous one’s result.</p>
+                <div class="sourceCode" id="cb17"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">// sequential dependency (must be serial)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> processUser <span class="op">=</span> <span class="kw">async</span> (id) <span class="kw">=&gt;</span> {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> user <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchUser</span>(id)<span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> profile <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchProfile</span>(user<span class="op">.</span><span class="at">profileId</span>)<span class="op">;</span>  <span class="co">// depends on user!</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> settings <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchSettings</span>(profile<span class="op">.</span><span class="at">type</span>)<span class="op">;</span>  <span class="co">// depends on profile!</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">combineData</span>(user<span class="op">,</span> profile<span class="op">,</span> settings)<span class="op">;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+                <p>That async/await chain? That’s monadic composition.
+                Each step feeds its result to the next step, which can
+                examine that result and decide what to do. Once Rust
+                taught me to see this pattern, I realized I’d been using
+                monads all along—JavaScript Promises, optional chaining,
+                even error handling.</p>
+                <p>Error handling:</p>
+                <div class="sourceCode" id="cb18"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_data(input<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Output<span class="op">,</span> <span class="bu">Error</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    parse_input(input)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>data<span class="op">|</span> validate_data(data))           <span class="co">// only runs if parse succeeded</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>valid<span class="op">|</span> transform_data(valid))        <span class="co">// only runs if validation succeeded</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>transformed<span class="op">|</span> save_data(transformed)) <span class="co">// only runs if transform succeeded</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Optional values:</p>
+                <div class="sourceCode" id="cb19"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getConfig <span class="op">=</span> (user) <span class="kw">=&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getUser</span>(user<span class="op">.</span><span class="at">id</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getProfile</span>()       <span class="co">// only if user exists</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getSettings</span>()      <span class="co">// only if profile exists</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getTheme</span>()         <span class="co">// only if settings exist</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">??</span> defaultTheme<span class="op">;</span>     <span class="co">// fallback (if any step fails)</span></span></code></pre></div>
+                <p>I’d been using this pattern all along without knowing
+                it. Monads aren’t an abstract math concept in this
+                setting; they’re just a way to chain operations where
+                each step can look at the previous result and decide
+                what to do next.</p>
+                <h2
+                id="pattern-8-performance-without-compromise">Pattern 8:
+                Performance Without Compromise</h2>
+                <p>One of the biggest revelations was that these
+                “high-level” patterns often produce faster code than
+                manual imperative approaches.</p>
+                <div class="sourceCode" id="cb20"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this functional-style code...</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_large_dataset(data<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">f64</span>]) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>par_iter()                    <span class="co">// parallel processing</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>filter(<span class="op">|&amp;&amp;</span>x<span class="op">|</span> x <span class="op">&gt;</span> <span class="dv">0.0</span>)         <span class="co">// skip negative values</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|&amp;</span>x<span class="op">|</span> x<span class="op">.</span>sqrt())            <span class="co">// square root transformation</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>x<span class="op">|</span> x <span class="op">*</span> <span class="dv">2.0</span>)              <span class="co">// scale by 2</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>sum()                         <span class="co">// parallel reduction</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...compiles to vectorized assembly that uses SIMD instructions</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">// and parallel execution across CPU cores</span></span></code></pre></div>
+                <p>I found that modern compilers could optimize my
+                functional patterns better because:</p>
+                <ol type="1">
+                <li>No aliasing - immutable data means no pointer
+                aliasing analysis needed</li>
+                <li>Clear data flow - transformations can be vectorized
+                automatically</li>
+                <li>No side effects - aggressive optimization is
+                safe</li>
+                <li>Parallelizable - no shared mutable state means easy
+                parallelization</li>
+                </ol>
+                <p>In my experience, the functional approach often
+                matched or beat my hand-written loops, especially when
+                the compiler could apply auto-vectorization.</p>
+                <h3 id="memory-safety-without-garbage-collection">Memory
+                Safety Without Garbage Collection</h3>
+                <p>Rust taught me that the choice between performance
+                and safety is a false dichotomy:</p>
+                <div class="sourceCode" id="cb21"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// rust: safe AND fast</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process(huge_dataset<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">String</span>]) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    huge_dataset<span class="op">.</span>iter()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>item<span class="op">|</span> expensive_transform(item))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>collect()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// memory safety guaranteed at compile time</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// no GC pauses, no leaks, no undefined behavior</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// performance identical to C++</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>By making ownership explicit in the type system, Rust
+                eliminates the runtime overhead of safety checks while
+                maintaining complete memory safety.</p>
+                <p>This level of performance with guaranteed safety is
+                Rust’s superpower. But the broader lesson, that
+                functional patterns don’t mean slow code, applies
+                everywhere. Modern JS engines optimize map/filter/reduce
+                chains. Java’s Stream API can beat manual loops. The key
+                is understanding what your language’s compiler or
+                runtime can optimize.</p>
+                <h2 id="pattern-9-composition">Pattern 9:
+                Composition</h2>
+                <p>The final pattern that changed everything was
+                learning to build complex behavior from simple,
+                composable pieces.</p>
+                <p>Before, I had massive, monolithic functions:</p>
+                <div class="sourceCode" id="cb22"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> craft_legendary_weapon(player, materials, recipe):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 200+ lines of mixed concerns:</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - validate materials, check requirements, consume resources</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - calculate success chance, apply buffs, handle failures, etc.</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
+                <p>Then, I tried refactoring to composable
+                pipelines:</p>
+                <div class="sourceCode" id="cb23"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> craft_legendary_weapon(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    player<span class="op">:</span> <span class="op">&amp;</span>Player<span class="op">,</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    materials<span class="op">:</span> Materials<span class="op">,</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    recipe<span class="op">:</span> Recipe<span class="op">,</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>LegendaryWeapon<span class="op">,</span> CraftingError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    recipe</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>validate_materials(<span class="op">&amp;</span>materials)<span class="op">?</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_player_level(player)<span class="op">?</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_crafting_skill(player)<span class="op">?</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>consume_materials(<span class="op">&amp;</span><span class="kw">mut</span> player<span class="op">.</span>inventory)<span class="op">?</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>calculate_success_chance(player<span class="op">.</span>stats)<span class="op">?</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>attempt_craft()<span class="op">?</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>apply_enchantments(player<span class="op">.</span>available_enchants)<span class="op">?</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>finalize()</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>I found this better because each function has a clear
+                contract and no side effects. I can test them in
+                isolation, combine them in different ways, and reason
+                about the whole system by understanding the parts.</p>
+                <h2
+                id="the-mindset-shift-from-instructions-to-descriptions">The
+                Mindset Shift: From Instructions to Descriptions</h2>
+                <p>All of these patterns point to a fundamental shift in
+                how I think about programming. I’ve moved from asking
+                “how do I tell the computer what to do step by step?” to
+                “how do I describe what I want in terms of
+                transformations and compositions?” The focus shifted
+                from writing code that merely works to writing code I
+                can reason about, from handling every possible error to
+                designing systems where fewer things can go wrong in the
+                first place.</p>
+                <p>These patterns reinforce each other:</p>
+                <ul>
+                <li>Type safety makes refactoring fearless</li>
+                <li>Immutability makes parallelization trivial</li>
+                <li>Pure functions make testing straightforward</li>
+                <li>Explicit error handling makes debugging
+                targeted</li>
+                <li>Composition makes complexity manageable</li>
+                <li>Ownership makes performance predictable</li>
+                </ul>
+                <p>The result is code that’s not just more reliable—it’s
+                more maintainable, more performant, and honestly more
+                fun to work with.</p>
+                <h2 id="how-to-start">How to Start</h2>
+                <p>Don’t try to rewrite everything at once. I started
+                with pattern matching, replaced one complex if-else
+                chain with a lookup table. Then gradually added
+                transformations, explicit error handling, and
+                type-driven design.</p>
+                <p>The compiler was vexing at first. Like, genuinely
+                maddening. But those moments when things finally
+                clicked—when I understood why the borrow checker was
+                saving me from myself, when I saw how composition could
+                replace complexity—made it worth pushing through.</p>
+                <p>I started by picking one pattern and using it until
+                it felt natural. For me, the compound effect was what
+                mattered.</p>
+                <h2 id="where-this-leads">Where This Leads</h2>
+                <p>These patterns changed how I think about code, but
+                honestly, I’m still figuring things out. Half the time I
+                still write crude imperative code when I’m prototyping,
+                then come back and clean it up with these patterns.</p>
+                <p>The real shift wasn’t about mastering any particular
+                technique. It was learning to see programming as a
+                design discipline rather than just instruction-writing.
+                The patterns I’ve shared aren’t rules—they’re tools I
+                reach for when the code starts feeling unwieldy.</p>
+                <p>Some of what I’ve shown—like the borrow checker and
+                zero-cost abstractions—are Rust’s unique gifts. But the
+                mental models they taught me? Those work everywhere.
+                Thinking in transformations, making illegal states
+                unrepresentable, explicit error handling, composition
+                over complexity—these patterns transformed how I write
+                JavaScript, Python, everything.</p>
+                <p>Pick one pattern that resonates and try it out. You
+                don’t need to adopt everything at once. Just gradually
+                shift from “how do I make the computer do this” to “how
+                do I describe what I want clearly.”</p>
+                <p>The rest tends to follow from there.</p>
+            </article>
+        </div>
+        <footer>
+            <p class="footer-note">
+                Enjoyed this? Check out <a href="/writing/">more posts</a> or <a href="/rss.xml">subscribe to RSS</a> for updates.
+            </p>
+            <p>© 2025 salm.dev</p>
+        </footer>
+    </body>
+</html>
