@@ -7,112 +7,6 @@
         <link rel="stylesheet" href="/styles/styles.css">
         <title>salm.dev</title>
         <meta name="description" content="Hi, I'm Nico! Computer Science and Data Science student at UW-Madison focused on systems and data at scale.">
-        <style>
-        .site-header {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .site-header .logo {
-            height: 25px;
-            width: auto;
-        }
-
-        .main-nav {
-            display: flex;
-            gap: var(--spacing-medium);
-            font-size: 1rem;
-        }
-
-        .content-layout {
-            display: grid;
-            grid-template-columns: 1fr 280px;
-            gap: var(--spacing-xl);
-            align-items: start;
-        }
-
-        .recent-post {
-            margin-bottom: var(--spacing-small);
-            padding-bottom: var(--spacing-small);
-            border-bottom: var(--border-standard);
-        }
-
-        .recent-post:last-child {
-            border-bottom: none;
-        }
-
-        .recent-post h3 {
-            font-size: 1rem;
-            margin: 0 0 var(--spacing-small) 0;
-            font-variant: normal;
-        }
-
-        .recent-post h3::after {
-            display: none;
-        }
-
-        .post-meta {
-            font-size: var(--font-size-small);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-small);
-        }
-
-        .post-description {
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .sidebar {
-            position: sticky;
-            top: var(--spacing-large);
-        }
-
-        .currently {
-            background-color: var(--code-bg);
-            padding: var(--spacing-medium);
-            border-radius: 4px;
-            margin-bottom: var(--spacing-large);
-        }
-
-        .currently h3 {
-            font-size: 1rem;
-            margin: 0 0 var(--spacing-small) 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-secondary);
-        }
-
-        .currently h3::after {
-            display: none;
-        }
-
-        .currently p {
-            margin: var(--spacing-tiny) 0;
-            font-size: var(--font-size-small);
-        }
-
-        .currently strong {
-            color: var(--text-color);
-        }
-
-        @media (max-width: 768px) {
-            .site-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .content-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: static;
-                order: 1;
-            }
-        }
-        </style>
     </head>
     <body>
         <header class="site-header">
@@ -129,64 +23,33 @@
             </nav>
         </header>
 
-        <div class="content-layout">
-            <main>
-                <section class="intro">
-                    <p>
-                        Hi, I'm <strong>Nico Salm</strong>! I study Computer Science and Data Science at <a href="https://www.wisc.edu/" target="_blank">UW-Madison</a>. My technical interests include big data systems, distributed computing, and statistical analysis.
-                    </p>
-                </section>
+        <p>
+            Hi, I'm <strong>Nico Salm</strong>! I study Computer Science and Data Science at <a href="https://www.wisc.edu/" target="_blank">UW-Madison</a>. My technical interests include big data systems, distributed computing, and statistical analysis.
+        </p>
 
-                <section>
-                    <h2>Recent Writing</h2>
+        <h2>Recent Writing</h2>
+        <ul class="recent-posts-list">
+            <li>
+                <span class="post-date">2025-07-27</span> :: <a href="/writing/beyond-if-statements-and-for-loops/" class="post-title post-link" data-description="Exploring advanced programming concepts and patterns that go beyond basic control structures to write more elegant and maintainable code.">Beyond If Statements and For Loops</a>
+            </li>
+            <li>
+                <span class="post-date">2025-06-27</span> :: <a href="/writing/create-dont-consume/" class="post-title post-link" data-description="Why actively creating content, projects, and solutions is more valuable than passively consuming information in today's digital age.">Create, Don't Consume</a>
+            </li>
+            <li>
+                <span class="post-date">2025-05-11</span> :: <a href="/writing/winning-pokemon-showdown/" class="post-title post-link" data-description="Strategic analysis and computational approaches to competitive Pokemon battling, including team building and prediction algorithms.">Winning Pokemon Showdown</a>
+            </li>
+        </ul>
+        <p class="view-all">
+            <em><a href="/writing/">Or, view all writing</a></em>
+        </p>
 
-                    <article class="recent-post">
-                        <div class="post-meta">July 27, 2025</div>
-                        <h3><a href="/writing/beyond-if-statements-and-for-loops/">Beyond If Statements and For Loops</a></h3>
-                        <p class="post-description">
-                            How pattern matching, type systems, and functional thinking transformed my approach to solving problems.
-                        </p>
-                    </article>
-
-                    <article class="recent-post">
-                        <div class="post-meta">June 27, 2025</div>
-                        <h3><a href="/writing/create-dont-consume/">Create, Don't Consume</a></h3>
-                        <p class="post-description">
-                            We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.
-                        </p>
-                    </article>
-
-                    <article class="recent-post">
-                        <div class="post-meta">May 11, 2025</div>
-                        <h3><a href="/writing/winning-pokemon-showdown/">Winning Pokemon Showdown</a></h3>
-                        <p class="post-description">
-                            We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies.
-                        </p>
-                    </article>
-
-                    <p style="text-align: right; padding-top: 0.5rem">
-                        <em><a href="/writing/">Or, view all writing</a></em>
-                    </p>
-                </section>
-            </main>
-
-            <aside class="sidebar">
-                <div class="currently">
-                    <h3>Currently</h3>
-                    <p><strong>Building:</strong> Analytics platforms </p>
-                    <p><strong>Reading:</strong> Probabilistic Machine Learning: An Introduction</p>
-                    <p><strong>Learning:</strong> Rust</p>
-                    <p><strong>Location:</strong> Madison, WI</p>
-                </div>
-
-                <div class="buttons-container">
-                    <a href="https://salm.dev/"><img src="/assets/88x31/88x31.gif" alt="Nico's 88x31" width="88" height="31" class="button-88x31"></a>
-                    <a href="/rss.xml" target="_blank"><img src="/assets/88x31/rss-button.gif" alt="RSS Feed" width="88" height="31" class="button-88x31"></a>
-                    <img src="/assets/88x31/rainbow_bev.gif" alt="Rainbow" width="88" height="31" class="button-88x31"/>
-                    <a href="https://www.vim.org/" target="_blank"><img src="/assets/88x31/vim_a.gif" width="88" height="31" alt="Made with Vim" class="button-88x31"></a>
-                    <a href="https://www.upl.cs.wisc.edu/" target="_blank"><img src="/assets/88x31/upl.gif" width="88" height="31" alt="Undergraduate Projects Lab" class="button-88x31"></a>
-                </div>
-            </aside>
+        <h2 class="buttons-heading">Buttons</h2>
+        <div class="buttons-container">
+            <a href="https://salm.dev/"><img src="/assets/88x31/88x31.gif" alt="Nico's 88x31" width="88" height="31" class="button-88x31"></a>
+            <a href="/rss.xml" target="_blank"><img src="/assets/88x31/rss-button.gif" alt="RSS Feed" width="88" height="31" class="button-88x31"></a>
+            <img src="/assets/88x31/rainbow_bev.gif" alt="Rainbow" width="88" height="31" class="button-88x31"/>
+            <a href="https://www.vim.org/" target="_blank"><img src="/assets/88x31/vim_a.gif" width="88" height="31" alt="Made with Vim" class="button-88x31"></a>
+            <a href="https://www.upl.cs.wisc.edu/" target="_blank"><img src="/assets/88x31/upl.gif" width="88" height="31" alt="Undergraduate Projects Lab" class="button-88x31"></a>
         </div>
     </body>
 </html>
