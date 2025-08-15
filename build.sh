@@ -51,6 +51,11 @@ has_code_content() {
   grep -qE '`[^`]+`' "$file"
 }
 
+is_featured() {
+  local file="$1"
+  grep -q '<span class="featured">featured</span>' "$file"
+}
+
 extract_tags() {
   local mdfile="$1"
   grep -o '<span class="tags">[^<]*</span>' "$mdfile" 2>/dev/null |
@@ -69,7 +74,7 @@ process_post() {
 
   mkdir -p "dist/writing/$name"
 
-  local title date date_rfc desc tags
+  local title date date_rfc desc tags featured
   title=$(head -n 1 "$mdfile" | sed 's/^# //')
   date=$(grep -o '<span class="date">[^<]*</span>' "$mdfile" | head -1 | sed 's/<span class="date">\([^<]*\)<\/span>/\1/')
   date_rfc=$(format_date_rfc "$date")
@@ -80,7 +85,13 @@ process_post() {
 
   tags=$(extract_tags "$mdfile")
 
-  POSTS+=("$date|$date_rfc|$title|$name|$desc")
+  if is_featured "$mdfile"; then
+    featured="true"
+  else
+    featured="false"
+  fi
+
+  POSTS+=("$date|$date_rfc|$title|$name|$desc|$featured")
 
   if [[ -n "$tags" ]]; then
     while IFS= read -r tag; do
@@ -93,7 +104,9 @@ process_post() {
   awk '
     /<span class="tags">/ { in_tags = 1 }
     /<\/span>/ && in_tags { in_tags = 0; next }
-    !in_tags { print }
+    /<span class="featured">/ { in_featured = 1 }
+    /<\/span>/ && in_featured { in_featured = 0; next }
+    !in_tags && !in_featured { print }
   ' "$mdfile" > "$tmpfile"
 
   local pandoc_cmd="pandoc $tmpfile --standalone --template=src/templates/post.html --reference-location=section"
@@ -188,7 +201,7 @@ generate_single_tag_page() {
 HTML
 
     local current_year="" first_year=true
-    while IFS="|" read -r date date_rfc title name desc; do
+    while IFS="|" read -r date date_rfc title name desc featured; do
       local has_tag=false
       for entry in "${POST_TAGS[@]}"; do
         IFS="|" read -r post_name post_tag <<< "$entry"
@@ -204,6 +217,11 @@ HTML
         local escaped_desc
         escaped_desc=$(escape "$desc")
 
+        local star_html=""
+        if [[ "$featured" == "true" ]]; then
+          star_html=" <span class=\"featured-star\">★</span>"
+        fi
+
         if [[ "$year" != "$current_year" ]]; then
           [[ -n "$current_year" ]] && echo "        </ul>"
 
@@ -218,7 +236,7 @@ HTML
           current_year="$year"
         fi
 
-        echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>"
+        echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$star_html</li>"
       fi
     done < <(printf '%s\n' "${POSTS[@]}" | sort -r)
 
@@ -246,16 +264,22 @@ generate_posts_index() {
 <body>
     <header><a href="/">home</a> / writing</header>
     <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
+    <p><small>* I find blog posts marked with a ★ to be particularly interesting</small></p>
     <div class="writing-layout">
         <div class="writing-main">
 HTML
 
     local current_year="" first_year=true
-    while IFS="|" read -r date date_rfc title name desc; do
+    while IFS="|" read -r date date_rfc title name desc featured; do
       local year="${date:0:4}"
       local short_date="${date:5}"
       local escaped_desc
       escaped_desc=$(escape "$desc")
+
+      local star_html=""
+      if [[ "$featured" == "true" ]]; then
+        star_html=" <span class=\"featured-star\">★</span>"
+      fi
 
       if [[ "$year" != "$current_year" ]]; then
         [[ -n "$current_year" ]] && echo "        </ul>"
@@ -272,7 +296,7 @@ HTML
         current_year="$year"
       fi
 
-      echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a></li>"
+      echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$star_html</li>"
     done < <(printf '%s\n' "${POSTS[@]}" | sort -r)
 
     echo "        </ul>"
@@ -305,7 +329,7 @@ generate_rss_feed() {
   <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
 XML
 
-    while IFS="|" read -r _ date_rfc title name desc; do
+    while IFS="|" read -r _ date_rfc title name desc featured; do
       cat << XML
   <item>
     <title>$(escape "$title")</title>

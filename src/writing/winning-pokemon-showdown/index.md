@@ -3,6 +3,7 @@
 We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies.
 <span class="date-info"><span class="date">2025-05-11</span></span>
 <span class="tags">game-theory, optimization, pokemon, math</span>
+<span class="featured">featured</span>
 </div>
 
 ## Premise
@@ -19,7 +20,7 @@ In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokém
   </tr>
 </table>
 
-When a player's Pokemon's HP reaches 0, the other player wins:
+When a player's Pokemon's <abbr title="Hitpoints">HP</abbr> reaches 0, the other player wins:
 
 <img src="./images/outcome.gif" alt="Battle outcome GIF" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
 

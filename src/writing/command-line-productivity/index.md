@@ -4,6 +4,7 @@
 I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill vim.
 <span class="date-info"><span class="date">2024-10-10</span><span class="updated">2025-07-13</span></span>
 <span class="tags">programming, productivity, vim, terminal</span>
+<span class="featured">featured</span>
 </div>
 
 ## Motivation
