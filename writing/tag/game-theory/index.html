@@ -65,8 +65,8 @@
     --syntax-output: #808080;
     --syntax-comment: #808080;
 
-    --font-family-body: charter, "Times New Roman";
-    --font-family-code: firacode, monospace;
+    --font-family-body: "Times New Roman", "Times", serif;
+    --font-family-code: "firacode", "Fira Code", "Consolas", monospace;
     --font-size-base: 1rem;
     --font-size-small: 0.9rem;
     --line-height: 1.6;
@@ -92,20 +92,19 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #1a1a1a;
+        --bg-color: #0d0d0d;
         --text-color: #e0e0e0;
-        --text-secondary: #888888;
+        --text-secondary: #777777;
         --link-color: #66aaff;
-        --border-color: #333;
-        --code-bg: #2a2a2a;
-
+        --border-color: #1a1a1a;
+        --code-bg: #151515;
         --syntax-keyword: #af5a54;
         --syntax-type: #b64343;
         --syntax-number: #688ec8;
         --syntax-string: #718e72;
         --syntax-prompt: #8a6ab1;
-        --syntax-output: #868686;
-        --syntax-comment: #868686;
+        --syntax-output: #888888;
+        --syntax-comment: #888888;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -113,9 +112,14 @@
     }
 
     .post-link[data-description]:hover::after {
-        background-color: #2a2a2a;
-        border: 1px solid #555;
+        background-color: #222222;
+        border: 1px solid #444;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    blockquote blockquote {
+        background-color: #555555;
+        border-color: #555555;
     }
 }
 
@@ -222,6 +226,15 @@ a {
     text-decoration: underline;
 }
 
+a[href^="http"]:not(.buttons-container a):after {
+    content: " ⧉";
+    font-size: 0.8em;
+}
+
+abbr {
+    font-variant: small-caps;
+}
+
 ul,
 ol {
     margin: var(--spacing-medium) 0;
@@ -240,7 +253,7 @@ code {
     font-family: var(--font-family-code);
     background-color: var(--code-bg);
     color: var(--text-color);
-    padding: 0.15rem 0.3rem;
+    padding: 0.1rem 0.2rem;
     border-radius: 0;
     border: var(--border-standard);
     font-size: var(--font-size-small);
@@ -353,13 +366,6 @@ blockquote blockquote {
     background-color: #e8e8e8;
     color: var(--text-color);
     border-color: #e8e8e8;
-}
-
-@media (prefers-color-scheme: dark) {
-    blockquote blockquote {
-        background-color: #777777;
-        border-color: #777777;
-    }
 }
 
 .quote-container {
@@ -502,6 +508,11 @@ header.main-nav nav {
     display: inline-block;
 }
 
+.featured-star {
+  color: var(--text-color);
+  margin-left: 0.25em;
+}
+
 .post-link[data-description]:hover::after {
     content: attr(data-description);
     position: absolute;
@@ -560,12 +571,6 @@ header.main-nav nav {
     line-height: var(--line-height-heading);
     font-size: 1.25rem;
     text-align: right;
-}
-
-.buttons-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
 }
 
 .buttons-container {
@@ -638,11 +643,6 @@ header.main-nav nav {
     align-items: center;
     gap: var(--spacing-large);
     margin-bottom: var(--spacing-medium);
-}
-
-.site-header .logo {
-    height: 25px;
-    width: auto;
 }
 
 .main-nav {
@@ -785,7 +785,7 @@ header.main-nav nav {
     <div>
         <h4 class="year-heading first-year">2025</h4>
         <ul>
-          <li>05-11 :: <a href="/writing/winning-pokemon-showdown/" class="post-link" data-description="We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies.">Winning Pokemon Showdown</a></li>
+          <li>05-11 :: <a href="/writing/winning-pokemon-showdown/" class="post-link" data-description="We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies.">Winning Pokemon Showdown</a> <span class="featured-star">★</span></li>
         </ul>
     </div>
     <footer><p>© 2025 salm.dev</p></footer>
