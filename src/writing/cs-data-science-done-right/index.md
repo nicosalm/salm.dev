@@ -71,6 +71,8 @@ Pairing CS with a more "pure" major like Math or Statistics avoids some of the d
 
 Instead, you develop deep mathematical or statistical maturity that carries you far beyond any specific tool or framework. Real analysis teaches you to think rigorously about limits and continuity---and yes, working through Rudin (our own UW-Madison Walter Rudin's *Principles of Mathematical Analysis*) will make you a fundamentally better thinker. Advanced statistical theory gives you the foundation to understand why methods work, not just how to apply them.
 
+Nevertheless, there is hardly a more efficient pathway than CS + Data Science for getting exposure to the entire ecosystem. You touch machine learning, databases, visualization, big data systems, and business applications all within a structured curriculum. For someone who wants to get into the field quickly and start contributing, it's hard to beat.
+
 That said, if I had to do it all over again, I think I'd choose CS + Math or CS + Stats. The mathematical maturity you develop creates a foundation that transcends any particular technology.
 
 Ultimately, the choice depends on your goals: breadth and efficiency (CS + DS) or depth and long-term foundation (CS + Math/Stats). The key is intentionally taking the right classes and collecting the right skills, rather than opting for the easy road, collecting credentials, and walking out the door.
