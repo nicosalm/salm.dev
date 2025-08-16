@@ -2,7 +2,7 @@
 <div class="description">
 How pattern matching, type systems, and functional thinking transformed my approach to solving problems.
 <span class="date-info"><span class="date">2025-07-27</span></span>
-<span class="tags">programming, functional-programming, rust</span>
+<span class="tags">programming, rust, fp</span>
 </div>
 
 ## Learned Defaults

@@ -1,6 +1,6 @@
 # Winning Pokemon Showdown
 <div class="description">
-We analyzed Pokémon Showdown battles using game theory and found the mathematically optimal strategies.
+We examined Pokémon Showdown battles using game theory and identified the mathematically optimal strategies.
 <span class="date-info"><span class="date">2025-05-11</span></span>
 <span class="tags">game-theory, optimization, pokemon, math</span>
 <span class="featured">featured</span>
