@@ -377,6 +377,6 @@ done
 generate_tag_pages
 generate_posts_index
 generate_rss_feed "$NOW"
-inline_css
+# inline_css
 
 echo "-- build done! --"
