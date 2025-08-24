@@ -7,7 +7,7 @@ Why most students waste this easy double major combination and how to actually b
 
 ## Introduction
 
-I am what feels like moments away from finishing my double major in Computer Science and Data Science, and I'll be receiving my piece of paper from UW-Madison soon (knock on wood). I consider myself principally a Computer Scientist, which is why it caught my attention when, during my time hanging around my Comp Sci friends, I heard over and over, "data science is a fake major!"---Now, granted, at my university I can understand the sentiment. At UW-Madison, if you start as a CS major, you only need to tack on five additional classes to get Data Science. And there's definitely a minimum resistance path where students can "skirt through" the more information-dense and challenging courses and learn essentially nothing. I'm writing this today to share what I did and how I feel I will leave UW not clueless about data science, but relatively well-versed in the tools of the Data Scientist.
+I am what feels like moments away from finishing my double major in Computer Science and Data Science, and I'll be receiving my piece of paper from UW-Madison soon (knock on wood). While I'm double majoring, I consider myself a Computer Scientist first, which is why it caught my attention when, during my time hanging around my Comp Sci friends, I heard over and over, "data science is a fake major!"---Now, granted, at my university I can understand the sentiment. At UW-Madison, if you start as a CS major, you only need to tack on five additional classes to get Data Science. And there's definitely a minimum resistance path where students can "skirt through" the more information-dense and challenging courses and learn essentially nothing. I'm writing this today to share what I did and how I feel I will leave UW not clueless about data science, but relatively well-versed in the tools of the Data Scientist.
 
 ## Disclaimer
 
@@ -17,7 +17,7 @@ I'm going to share with you *my* path. While I'm convinced it's near optimal wit
 
 ### The Boilerplate
 
-The boilerplate in the Data Science major is the set of classes I had to go through no matter what: the R programming and tidyverse tutorial (<abbr title="Data Science Modeling I">STAT 240</abbr>), AP Stats 2.0 (<abbr title="Data Science Modeling II">STAT 340</abbr>), and the yucky gobbledygook of intro to "data science programming," a.k.a. Python (<abbr title="Data Science Programming I">CS 220</abbr> & <abbr title="Data Science Programming II">CS 320</abbr>). I endured that slog, and then I was out! Only interesting classes remained.
+The boilerplate in the Data Science major is the set of classes I had to go through no matter what: the R programming and tidyverse tutorial (<abbr title="Data Science Modeling I">STAT 240</abbr>), AP Stats 2.0 (<abbr title="Data Science Modeling II">STAT 340</abbr>), and the yucky gobbledygook of intro to "data science programming," a.k.a. Python (<abbr title="Data Science Programming I">CS 220</abbr> & <abbr title="Data Science Programming II">CS 320</abbr>). I endured that slog, and then I was out! Only interesting classes remain.
 
 ### Good Courses
 
@@ -45,17 +45,6 @@ It's frustrating, it's wonderful, and you learn a ton.
 
 [^1]: Strategic level focuses on high-level business goals and long-term impact (e.g., "This model increased customer retention by 15%"). Tactical level focuses on specific technical implementations and immediate deliverables (e.g., "Built a feature engineering pipeline that reduced processing time by 40%").
 
-## For Readers: Probabilistic Machine Learning
-
-If you are a reader looking for a tome to study and study well, look no further than <a href="https://www.goodreads.com/book/show/58064710-probabilistic-machine-learning" target="_blank">*Probabilistic Machine Learning: An Introduction*</a>.[^2] The book covers foundations (probability, statistics, linear algebra), linear models, deep neural networks, nonparametric methods, and advanced topics like clustering and recommender systems. This book takes *time* and I'm hardly done, but I've done a ton of research online and this is the best book out there right now. Murphy also has a second volume, *Probabilistic Machine Learning: Advanced Topics*,[^3] which dives into cutting-edge research areas like variational inference, generative models (VAEs, GANs, diffusion models), reinforcement learning, and causal inference.
-
-If you've looked around for similar texts, you've probably heard of <abbr title="Introduction to Statistical Learning">ISL</abbr> and <abbr title="Elements of Statistical Learning">ESL</abbr>. The *Introduction to Statistical Learning*[^4] and *Elements of Statistical Learning*[^5] are the classic statistics-focused texts that most people recommend. The <abbr title="Probabilistic Machine Learning">PML</abbr> is for computer scientists what this pair of books is for statisticians---two sides of the same coin. It's worth mentioning the PML is more up to date and approaches machine learning from a more algorithmic, computational perspective rather than the statistical inference focus of ISL/ESL.
-
-[^2]: Murphy, Kevin P. *Probabilistic Machine Learning: An Introduction*. MIT Press, 2022.
-[^3]: Murphy, Kevin P. *Probabilistic Machine Learning: Advanced Topics*. MIT Press, 2023.
-[^4]: James, Gareth, et al. *An Introduction to Statistical Learning*. Springer, 2021.
-[^5]: Hastie, Trevor, et al. *The Elements of Statistical Learning*. Springer, 2009.
-
 ## Comparing Math, Stats, and DS for CS Majors
 
 They say a picture is worth a thousand words:
@@ -75,6 +64,6 @@ Nevertheless, there is hardly a more efficient pathway than CS + Data Science fo
 
 That said, if I had to do it all over again, I think I'd choose CS + Math or CS + Stats. The mathematical maturity you develop creates a foundation that transcends any particular technology.
 
-Ultimately, the choice depends on your goals: breadth and efficiency (CS + DS) or depth and long-term foundation (CS + Math/Stats). The key is intentionally taking the right classes and collecting the right skills, rather than opting for the easy road, collecting credentials, and walking out the door.
+Ultimately, the choice depends on your goals: breadth and efficiency (CS + DS) or depth and long-term foundation (CS + Math/Stats). No matter which option you choose, the key is intentionally taking the right classes and collecting the right skills, rather than opting for the easy road, collecting credentials, and walking out the door.
 
 [^6]: Source: Flatiron School
