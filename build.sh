@@ -127,6 +127,8 @@ process_post() {
     mkdir -p "dist/writing/$name/images"
     cp -r "${dir}images/"* "dist/writing/$name/images/" 2>/dev/null || true
   fi
+
+  POST_DATA+=("$name|$title|$date|$tags")
 }
 
 generate_tag_pages() {
@@ -264,7 +266,6 @@ generate_posts_index() {
 <body>
     <header><a href="/">home</a> / writing</header>
     <h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
-    <p><small>* I find blog posts marked with a ★ to be particularly interesting</small></p>
     <div class="writing-layout">
         <div class="writing-main">
 HTML
@@ -308,10 +309,117 @@ HTML
 
     echo "        </div>"
     echo "    </div>"
+    echo "    <p class=\"footer-note\">★ marks posts I find particularly interesting</p>"
     echo "    <footer><p>© 2025 salm.dev</p></footer>"
     echo "</body>"
     echo "</html>"
   } > dist/writing/index.html
+}
+
+generate_similar_writing() {
+  local current_name="$1"
+  local current_tags="$2"
+  local current_date="$3"
+
+  local prev_post="" next_post=""
+  local sorted_posts
+  sorted_posts=$(printf '%s\n' "${POSTS[@]}" | sort -r)
+
+  local found_current=false
+  while IFS="|" read -r date date_rfc title name desc featured; do
+    if [[ "$found_current" == true && -z "$prev_post" ]]; then
+      prev_post="$title|$name"
+    fi
+    if [[ "$name" == "$current_name" ]]; then
+      found_current=true
+    elif [[ "$found_current" == false ]]; then
+      next_post="$title|$name"
+    fi
+  done <<< "$sorted_posts"
+
+  local related_posts=""
+  local max_related=3
+  local count=0
+
+  if [[ -n "$current_tags" ]]; then
+    local tag_array
+    IFS=',' read -ra tag_array <<< "$(echo "$current_tags" | tr '\n' ',' | sed 's/,$//')"
+
+    local post_scores=""
+    for post_entry in "${POSTS[@]}"; do
+      IFS="|" read -r date date_rfc title name desc featured <<< "$post_entry"
+      [[ "$name" == "$current_name" ]] && continue
+
+      local shared_count=0
+      for tag in "${tag_array[@]}"; do
+        tag=$(echo "$tag" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        for pt in "${POST_TAGS[@]}"; do
+          IFS="|" read -r pt_name pt_tag <<< "$pt"
+          if [[ "$pt_name" == "$name" && "$pt_tag" == "$tag" ]]; then
+            ((shared_count++))
+            break
+          fi
+        done
+      done
+
+      if [[ $shared_count -gt 0 ]]; then
+        post_scores="${post_scores}${shared_count}|${title}|${name}\n"
+      fi
+    done
+
+    if [[ -n "$post_scores" ]]; then
+      related_posts=$(printf '%b' "$post_scores" | sort -t'|' -k1,1nr | head -n $max_related)
+    fi
+  fi
+
+  local html="<div class=\"the-end\">~ fin ~</div>"
+  html="${html}<div class=\"similar-writing\">"
+  html="${html}<h3>Adjacent Writing</h3>"
+
+  html="${html}<div class=\"post-navigation\">"
+  if [[ -n "$prev_post" ]]; then
+    IFS="|" read -r prev_title prev_name <<< "$prev_post"
+    html="${html}<div class=\"nav-prev\">← Previous: <a href=\"/writing/${prev_name}/\">${prev_title}</a></div>"
+  fi
+  if [[ -n "$next_post" ]]; then
+    IFS="|" read -r next_title next_name <<< "$next_post"
+    html="${html}<div class=\"nav-next\">Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</div>"
+  fi
+  html="${html}</div>"
+
+  if [[ -n "$related_posts" ]]; then
+    html="${html}<div class=\"related-posts\"><h4>Thematically aligned:</h4><ul>"
+    while IFS='|' read -r score title name; do
+      html="${html}<li><a href=\"/writing/${name}/\">${title}</a></li>"
+    done <<< "$related_posts"
+    html="${html}</ul></div>"
+  fi
+
+  html="${html}</div>"
+  echo "$html"
+}
+
+inject_similar_writing() {
+  for post_data in "${POST_DATA[@]}"; do
+    IFS="|" read -r name title date tags <<< "$post_data"
+    local similar_html
+    similar_html=$(generate_similar_writing "$name" "$tags" "$date")
+
+    local post_file="dist/writing/$name/index.html"
+    if [[ -f "$post_file" ]]; then
+      local tmpfile
+      tmpfile=$(mktemp)
+      awk -v similar="$similar_html" '
+        /<\/article>/ {
+          print $0
+          print similar
+          next
+        }
+        { print }
+      ' "$post_file" > "$tmpfile"
+      mv "$tmpfile" "$post_file"
+    fi
+  done
 }
 
 generate_rss_feed() {
@@ -345,28 +453,10 @@ XML
   } > dist/rss.xml
 }
 
-inline_css() {
-  while IFS= read -r html_file; do
-    if grep -q '<link rel="stylesheet" href="/styles/styles.css">' "$html_file"; then
-      tmp_file=$(mktemp)
-      awk '{
-        if ($0 ~ /<link rel="stylesheet" href="\/styles\/styles.css">/) {
-          print "<style>"
-          system("cat dist/styles/styles.css")
-          print "</style>"
-        } else {
-          print $0
-        }
-      }' "$html_file" > "$tmp_file"
-      mv "$tmp_file" "$html_file"
-    fi
-  done < <(find dist -name "*.html")
-  echo "css inlined."
-}
-
 NOW=$(date "+%a, %d %b %Y %H:%M:%S %z")
 POSTS=()
 POST_TAGS=()
+POST_DATA=()
 
 setup_directories
 
@@ -376,7 +466,7 @@ done
 
 generate_tag_pages
 generate_posts_index
+inject_similar_writing
 generate_rss_feed "$NOW"
-# inline_css
 
 echo "-- build done! --"

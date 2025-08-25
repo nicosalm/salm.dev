@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'firacode';
+    src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --bg-color: #ffffff;
     --text-color: #2a2a2a;
@@ -16,8 +24,8 @@
 
     --font-family-body: "Times New Roman", "Times", serif;
     --font-family-code: "firacode", "Fira Code", "Consolas", monospace;
-    --font-size-base: 1rem;
-    --font-size-small: 0.9rem;
+    --font-size-base: 1.0625rem;
+    --font-size-small: 0.95rem;
     --line-height: 1.6;
     --line-height-tight: 1.1;
     --line-height-heading: 1.2;
@@ -41,19 +49,19 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #0d0d0d;
-        --text-color: #e0e0e0;
-        --text-secondary: #777777;
-        --link-color: #66aaff;
-        --border-color: #1a1a1a;
-        --code-bg: #151515;
-        --syntax-keyword: #af5a54;
-        --syntax-type: #b64343;
-        --syntax-number: #688ec8;
-        --syntax-string: #718e72;
-        --syntax-prompt: #8a6ab1;
-        --syntax-output: #888888;
-        --syntax-comment: #888888;
+        --bg-color: #0e0e12;
+        --text-color: #e3e3e8;
+        --text-secondary: #9090a0;
+        --link-color: #8ab4f8;
+        --border-color: #2a2a3e;
+        --code-bg: #16161e;
+        --syntax-keyword: #c792ea;
+        --syntax-type: #ffab70;
+        --syntax-number: #82aaff;
+        --syntax-string: #a3be8c;
+        --syntax-prompt: #b39ddb;
+        --syntax-output: #a0a0b0;
+        --syntax-comment: #7a7a90;
     }
 
     header.main-nav img[src="/assets/logo-black.svg"] {
@@ -61,14 +69,14 @@
     }
 
     .post-link[data-description]:hover::after {
-        background-color: #222222;
-        border: 1px solid #444;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        background-color: #1a1a24;
+        border: 1px solid #35354a;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
 
     blockquote blockquote {
-        background-color: #555555;
-        border-color: #555555;
+        background-color: #24243a;
+        border-color: #35354a;
     }
 }
 
@@ -105,13 +113,13 @@ h6 {
 }
 
 h1 {
-    font-size: 2.25rem;
+    font-size: 2.375rem;
     text-align: center;
     margin-top: var(--spacing-small);
 }
 
 h2 {
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     margin-top: var(--spacing-xl);
     position: relative;
     padding-bottom: 2px;
@@ -128,7 +136,7 @@ h2::after {
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     position: relative;
     padding-bottom: 2px;
 }
@@ -146,7 +154,7 @@ h3::after {
 }
 
 h4 {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
 }
 
 .year-heading {
@@ -355,7 +363,7 @@ blockquote blockquote {
 }
 
 .quote-text {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     line-height: 1.4;
     color: var(--text-color);
     font-style: italic;
@@ -363,7 +371,7 @@ blockquote blockquote {
 }
 
 .quote-author {
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: normal;
     color: var(--text-color);
     font-variant: small-caps;
@@ -405,7 +413,9 @@ footer {
     color: var(--text-secondary);
     font-size: var(--font-size-small);
     font-style: italic;
-    margin-bottom: var(--spacing-small);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-medium);
+    text-align: center;
 }
 
 header.main-nav {
@@ -519,7 +529,7 @@ header.main-nav nav {
     top: 0;
     margin-top: var(--spacing-small);
     line-height: var(--line-height-heading);
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     text-align: right;
 }
 
@@ -598,7 +608,7 @@ header.main-nav nav {
 .main-nav {
     display: flex;
     gap: var(--spacing-medium);
-    font-size: 1rem;
+    font-size: 1.0625rem;
 }
 
 .recent-posts-list {
@@ -680,11 +690,11 @@ header.main-nav nav {
     }
 
     .quote-text {
-        font-size: 1.125rem;
+        font-size: 1.1875rem;
     }
 
     .quote-author {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .writing-layout {
@@ -712,6 +722,77 @@ header.main-nav nav {
     .recent-posts-list li {
         padding-left: var(--spacing-small);
     }
+}
+
+.similar-writing {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-medium);
+    background-color: var(--code-bg);
+    border: var(--border-standard);
+    border-radius: 4px;
+}
+
+.the-end {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    margin-top: var(--spacing-large);
+    margin-bottom: var(--spacing-medium);
+    font-family: var(--font-family-body);
+    opacity: 0.5;
+    letter-spacing: 0.2em;
+}
+
+.similar-writing h3 {
+    font-size: var(--font-size-small);
+    margin-top: 0;
+    margin-bottom: var(--spacing-small);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-color);
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+    flex-wrap: wrap;
+    font-size: var(--font-size-base);
+}
+
+.nav-prev, .nav-next {
+    flex: 1;
+    min-width: 200px;
+}
+
+.nav-next {
+    text-align: right;
+}
+
+.related-posts {
+    margin-top: var(--spacing-medium);
+    padding-top: var(--spacing-medium);
+    border-top: var(--border-standard);
+}
+
+.related-posts h4 {
+    font-size: var(--font-size-base);
+    margin-top: 0;
+    margin-bottom: var(--spacing-small);
+    font-weight: normal;
+}
+
+.related-posts ul {
+    margin: 0;
+    padding-left: var(--spacing-medium);
+}
+
+.related-posts li {
+    margin-bottom: var(--spacing-tiny);
+    line-height: 1.4;
 }
 
 @media (max-width: 576px) {
