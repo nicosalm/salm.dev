@@ -2,7 +2,7 @@
 <div class="description">
 We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.
 <span class="date-info"><span class="date">2025-06-27</span></span>
-<span class="tags">productivity, psychology, health</span>
+<span class="tags">workflow, psychology, philosophy</span>
 </div>
 
 ## Introduction
