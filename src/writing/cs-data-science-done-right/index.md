@@ -50,7 +50,7 @@ It's frustrating, it's wonderful, and you learn a ton.
 They say a picture is worth a thousand words:
 
 <div style="text-align: center; margin: 20px 0;">
-<img src="./images/venn.jpg" alt="Data Science Venn Diagram" width="250" height="250" style="display: block; margin: 0 auto;">
+<img src="./images/venn.jpg" loading="lazy" alt="Data Science Venn Diagram" width="250" height="250" style="display: block; margin: 0 auto;">
 <div style="font-style: italic; margin-top: 8px;">Data Science = Programming ∩ Math/Stats ∩ Business Intelligence[^6]</div>
 </div>
 

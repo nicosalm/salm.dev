@@ -374,7 +374,6 @@ generate_similar_writing() {
 
   local html="<div class=\"the-end\">~ fin ~</div>"
   html="${html}<div class=\"similar-writing\">"
-  html="${html}<h3>Adjacent Writing</h3>"
 
   html="${html}<div class=\"post-navigation\">"
   if [[ -n "$prev_post" ]]; then
@@ -388,7 +387,7 @@ generate_similar_writing() {
   html="${html}</div>"
 
   if [[ -n "$related_posts" ]]; then
-    html="${html}<div class=\"related-posts\"><h4>Thematically aligned:</h4><ul>"
+    html="${html}<div class=\"related-posts\"><h4>Related by Tag:</h4><ul>"
     while IFS='|' read -r score title name; do
       html="${html}<li><a href=\"/writing/${name}/\">${title}</a></li>"
     done <<< "$related_posts"
