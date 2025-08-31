@@ -5,6 +5,8 @@ We're trading long-term fulfillment for short-term dopamine hits, and each trade
 <span class="tags">workflow, psychology, philosophy</span>
 </div>
 
+<img src="./images/pit.jpeg" style="display: block; margin: 0 auto; width: 60%;" alt="Three individuals gazing into a bottomless pit in the earth">
+
 ## Introduction
 
 Nothing technical today in the traditional sense; rather, I've come to share a bit of introspection. This morning I jotted down my "time wasters"---a list I feel almost anyone these days can relate to:
