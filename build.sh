@@ -443,6 +443,7 @@ XML
     <link>https://salm.dev/writing/$name/</link>
     <guid>https://salm.dev/writing/$name/</guid>
     <pubDate>$date_rfc</pubDate>
+    <author>Nico Salm</author>
     <description><![CDATA[ $(escape "$desc") ]]></description>
   </item>
 XML
