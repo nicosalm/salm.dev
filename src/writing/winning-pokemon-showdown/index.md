@@ -2,7 +2,7 @@
 <div class="description">
 We examined Pokémon Showdown battles using game theory and identified the mathematically optimal strategies.
 <span class="date-info"><span class="date">2025-05-11</span></span>
-<span class="tags">math, pokemon, learning, stats</span>
+<span class="tags">math, game theory, learning, stats</span>
 <span class="featured">featured</span>
 </div>
 

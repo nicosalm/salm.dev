@@ -2,7 +2,7 @@
 <div class="description">
 Why most students waste this easy double major combination and how to actually build valuable skills instead of just collecting credentials.
 <span class="date-info"><span class="date">2025-08-15</span></span>
-<span class="tags">college, programming, math, stats</span>
+<span class="tags">college, stats</span>
 </div>
 
 ## Introduction
