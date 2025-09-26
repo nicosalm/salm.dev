@@ -1,3 +1,7 @@
+html {
+    scrollbar-gutter: stable;
+}
+
 @font-face {
     font-family: 'firacode';
     src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
@@ -22,7 +26,7 @@
     --syntax-output: #808080;
     --syntax-comment: #808080;
 
-    --font-family-body: "Times New Roman", "Times", serif;
+    --font-family-body: "Arial", sans-serif;
     --font-family-code: "firacode", "Fira Code", "Consolas", monospace;
     --font-size-base: 1.0625rem;
     --font-size-small: 0.95rem;
@@ -469,8 +473,9 @@ header.main-nav nav {
 }
 
 .featured-star {
-  color: var(--text-color);
-  margin-left: 0.25em;
+    color: var(--text-color);
+    margin-left: 0.1em;
+
 }
 
 .post-link[data-description]:hover::after {
