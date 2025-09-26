@@ -1,3 +1,7 @@
+html {
+    scrollbar-gutter: stable;
+}
+
 @font-face {
     font-family: 'firacode';
     src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
