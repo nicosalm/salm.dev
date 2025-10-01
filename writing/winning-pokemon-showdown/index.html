@@ -75,10 +75,8 @@
                 <p>First, we needed to understand how each Pokémon
                 matchup plays out when both players use optimal
                 strategies. We built turn-based payoff matrices for each
-                possible matchup (representing them as <a
-                href="https://en.wikipedia.org/wiki/Normal-form_game">normal
-                form games</a>), calculating expected damage and effects
-                for every move combination using Showdown’s <a
+                possible matchup, calculating expected damage and
+                effects for every move combination using Showdown’s <a
                 href="https://calc.pokemonshowdown.com/">Pokémon Damage
                 Calculator</a>.</p>
                 <img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
@@ -90,10 +88,8 @@
                 critical hits, and damage ranges. We handled these with
                 <a
                 href="https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html">expectimax
-                trees</a> (a variant of <a
-                href="https://en.wikipedia.org/wiki/Extensive-form_game">extensive
-                form games</a>) that calculate expected outcomes for
-                each decision.</p>
+                trees</a> that calculate expected outcomes for each
+                decision.</p>
                 <img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
                 <p style="text-align: center; font-style: italic; margin-top: 10px;">
                 Example of a battle decision tree showing Hyper Beam
@@ -114,9 +110,8 @@
                 Behind Nash Equilibrium</h3>
                 <p>Pokemon battles are zero-sum games (one trainer’s win
                 is the other’s loss), which means we can actually
-                compute exact Nash equilibria efficiently using <a
-                href="https://en.wikipedia.org/wiki/Linear_programming">linear
-                programming</a>. As I explore in <a
+                compute exact Nash equilibria efficiently using linear
+                programming. As I explore in <a
                 href="../nash-equilibria-hide-from-algorithms">Nash
                 Equilibria Hide from Algorithms</a>, this tractability
                 is special to zero-sum games:</p>
@@ -176,11 +171,8 @@
                 <p style="text-align: center; font-style: italic; margin-top: 10px;">
                 Matchup win probability matrix
                 </p>
-                <p>Using this matrix, we could then solve for Nash
-                equilibria in the team selection phase. The <a
-                href="https://en.wikipedia.org/wiki/Minimax_theorem">minimax
-                theorem</a> guarantees these equilibria exist and that
-                our linear programming approach will find them.</p>
+                <p>Using this matrix, we could then solve for the
+                optimal team selection strategies.</p>
                 <h3 id="analyzing-team-performance">Analyzing Team
                 Performance</h3>
                 <p>We analyzed all 35 possible team combinations using
@@ -189,7 +181,7 @@
                 rates:</p>
                 <div class="sourceCode" id="cb2"><pre
                 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_matchup(team_a, team_b, win_probabilities):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Analyze matchup, return win probability for team_a&quot;&quot;&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Calculate team_a&#39;s win probability against team_b&quot;&quot;&quot;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    payoff_matrix <span class="op">=</span> create_payoff_matrix(team_a, team_b, win_probabilities)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    _, _, game_value <span class="op">=</span> compute_nash_equilibrium(payoff_matrix)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> game_value</span>
@@ -271,9 +263,8 @@
                 mathematical model.</p>
                 <h2 id="nash-equilibria-in-team-selection">Nash
                 Equilibria in Team Selection</h2>
-                <p>Some team matchups resulted in <a
-                href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Pure_and_mixed_strategies">pure
-                Nash equilibria</a> with dominant strategies:</p>
+                <p>Some team matchups resulted in pure Nash equilibria
+                with dominant strategies:</p>
                 <img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" loading="lazy" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
                 <p style="text-align: center; font-style: italic; margin-top: 10px;">
                 Example of a pure Nash equilibrium in team selection
@@ -294,15 +285,11 @@
                 role="doc-endnotes">
                 <hr />
                 <ol>
-                <li id="fn1"><p>This demonstrates the “<a
-                href="https://en.wikipedia.org/wiki/Intransitivity">intransitivity</a>”
-                property in Pokémon team selection. Just because Team A
-                beats Team B and Team B beats Team C doesn’t necessarily
-                mean Team A beats Team C. This creates a complex
-                competitive landscape where no single team dominates
-                everything. This situation is also similar to the <a
-                href="https://en.wikipedia.org/wiki/Condorcet_paradox">Condorcet
-                paradox</a> in social choice theory.<a href="#fnref1"
+                <li id="fn1"><p>This is rock-paper-scissors at the team
+                level. Just because Team A beats Team B and Team B beats
+                Team C doesn’t necessarily mean Team A beats Team C.
+                This creates a complex competitive landscape where no
+                single team dominates everything.<a href="#fnref1"
                 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
                 </ol>
                 </aside>
@@ -320,11 +307,8 @@
                 counterplay.</p>
                 <p>One limitation was our decision to use fixed
                 movesets. In competitive play, moveset variation is
-                crucial, with Pokémon like Iron Valiant (<a
-                href="https://www.smogon.com/stats/">currently #1 in
-                1v1</a>) being powerful precisely because of its
-                unpredictable moveset options.<a href="#fn3"
-                class="footnote-ref" id="fnref3"
+                crucial for creating unpredictability and gaining an
+                edge.<a href="#fn3" class="footnote-ref" id="fnref3"
                 role="doc-noteref"><sup>3</sup></a></p>
                 <aside id="footnotes"
                 class="footnotes footnotes-end-of-section"
@@ -339,9 +323,7 @@
                 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
                 <li id="fn3"><p>While we used the standard Smogon
                 Strategy Dex movesets for consistency, competitive
-                players often use surprise movesets to gain an edge.
-                This “meta-gaming” aspect creates another layer of game
-                theory that could be explored in future work.<a
+                players often use surprise movesets to gain an edge.<a
                 href="#fnref3" class="footnote-back"
                 role="doc-backlink">↩︎</a></p></li>
                 </ol>
@@ -360,13 +342,10 @@
                 state space. That said, it’s possible! (We might just
                 have to rewrite our Python in Rust…)</p>
                 <p>Looking ahead, we’d like to expand to the top 50
-                Pokémon in the current meta. We’d need <a
-                href="https://en.wikipedia.org/wiki/Bayesian_game">Bayesian
-                games</a> to handle unknown movesets and <a
-                href="https://en.wikipedia.org/wiki/Stochastic_game">stochastic
-                game</a> modeling for the randomness. Eventually we want
-                to tackle 6v6 with switching. That’s 9 choices per turn
-                instead of 4.</p>
+                Pokémon in the current meta. We’d need to account for
+                unknown movesets and better handle the randomness.
+                Eventually we want to tackle 6v6 with switching. That’s
+                9 choices per turn instead of 4.</p>
                 <p>Our <a
                 href="https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf">paper</a>
                 and <a
