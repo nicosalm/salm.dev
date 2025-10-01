@@ -41,14 +41,14 @@ We modeled these battles in two key stages:
 
 ## The Battling Phase (Finding Optimal Move Strategies)
 
-First, we needed to understand how each Pokémon matchup plays out when both players use optimal strategies. We built turn-based payoff matrices for each possible matchup (representing them as [normal form games](https://en.wikipedia.org/wiki/Normal-form_game)), calculating expected damage and effects for every move combination using Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
+First, we needed to understand how each Pokémon matchup plays out when both players use optimal strategies. We built turn-based payoff matrices for each possible matchup, calculating expected damage and effects for every move combination using Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
 
 <img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   This payoff matrix shows damage ranges between Garchomp and Sylveon's moves
 </p>
 
-Pokémon battles have random elements: move accuracy, critical hits, and damage ranges. We handled these with [expectimax trees](https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html) (a variant of [extensive form games](https://en.wikipedia.org/wiki/Extensive-form_game)) that calculate expected outcomes for each decision.
+Pokémon battles have random elements: move accuracy, critical hits, and damage ranges. We handled these with [expectimax trees](https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html) that calculate expected outcomes for each decision.
 
 <img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
@@ -64,7 +64,7 @@ Some moves like *Sucker Punch* (which only works if the opponent uses an attacki
 
 ### The Math Behind Nash Equilibrium
 
-Pokemon battles are zero-sum games (one trainer's win is the other's loss), which means we can actually compute exact Nash equilibria efficiently using [linear programming](https://en.wikipedia.org/wiki/Linear_programming). As I explore in [Nash Equilibria Hide from Algorithms](../nash-equilibria-hide-from-algorithms), this tractability is special to zero-sum games:
+Pokemon battles are zero-sum games (one trainer's win is the other's loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. As I explore in [Nash Equilibria Hide from Algorithms](../nash-equilibria-hide-from-algorithms), this tractability is special to zero-sum games:
 
 ```python
 def compute_nash_equilibrium(payoff_matrix):
@@ -115,7 +115,7 @@ With optimal move strategies worked out for individual battles, we turned to the
   Matchup win probability matrix
 </p>
 
-Using this matrix, we could then solve for Nash equilibria in the team selection phase. The [minimax theorem](https://en.wikipedia.org/wiki/Minimax_theorem) guarantees these equilibria exist and that our linear programming approach will find them.
+Using this matrix, we could then solve for the optimal team selection strategies.
 
 ### Analyzing Team Performance
 
@@ -123,7 +123,7 @@ We analyzed all 35 possible team combinations using our 7 selected Pokémon, eva
 
 ```python
 def analyze_matchup(team_a, team_b, win_probabilities):
-    """Analyze matchup, return win probability for team_a"""
+    """Calculate team_a's win probability against team_b"""
     payoff_matrix = create_payoff_matrix(team_a, team_b, win_probabilities)
     _, _, game_value = compute_nash_equilibrium(payoff_matrix)
     return game_value
@@ -198,7 +198,7 @@ Even with perfect play from both sides, Rillaboom wins 69.5% of the time.
 Jake, our Pokémon expert (with over 5000 hours?!), predicted almost identical strategies to our mathematical model.
 
 ## Nash Equilibria in Team Selection
-Some team matchups resulted in [pure Nash equilibria](https://en.wikipedia.org/wiki/Strategy_(game_theory)#Pure_and_mixed_strategies) with dominant strategies:
+Some team matchups resulted in pure Nash equilibria with dominant strategies:
 
 <img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" loading="lazy" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
@@ -214,7 +214,7 @@ While others required mixed strategies, creating a Rock-Paper-Scissors dynamic:
 
 When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.[^3]
 
-[^3]: This demonstrates the "[intransitivity](https://en.wikipedia.org/wiki/Intransitivity)" property in Pokémon team selection. Just because Team A beats Team B and Team B beats Team C doesn't necessarily mean Team A beats Team C. This creates a complex competitive landscape where no single team dominates everything. This situation is also similar to the [Condorcet paradox](https://en.wikipedia.org/wiki/Condorcet_paradox) in social choice theory.
+[^3]: This is rock-paper-scissors at the team level. Just because Team A beats Team B and Team B beats Team C doesn't necessarily mean Team A beats Team C. This creates a complex competitive landscape where no single team dominates everything.
 
 ## Challenges & Limitations
 
@@ -222,11 +222,11 @@ Our biggest challenge was Pokémon's randomness. With 16 possible damage rolls p
 
 At first, Rillaboom was broken. It had no bad matchups (worst case: 50% win rate against itself). We added Zapdos and Garchomp to create actual counterplay.
 
-One limitation was our decision to use fixed movesets. In competitive play, moveset variation is crucial, with Pokémon like Iron Valiant ([currently #1 in 1v1](https://www.smogon.com/stats/)) being powerful precisely because of its unpredictable moveset options.[^2]
+One limitation was our decision to use fixed movesets. In competitive play, moveset variation is crucial for creating unpredictability and gaining an edge.[^2]
 
 [^1]: Our final solution involved running over 1 million simulations for each matchup to accurately account for all possible random outcomes. This was computationally intensive but necessary to get statistically significant results.
 
-[^2]: While we used the standard Smogon Strategy Dex movesets for consistency, competitive players often use surprise movesets to gain an edge. This "meta-gaming" aspect creates another layer of game theory that could be explored in future work.
+[^2]: While we used the standard Smogon Strategy Dex movesets for consistency, competitive players often use surprise movesets to gain an edge.
 
 ## Conclusion & Future Work
 
@@ -234,6 +234,6 @@ We successfully found optimal Pokémon strategies using game theory.
 
 The computational complexity explodes as we add Pokémon. With just 7 Pokémon, we evaluated 595 unique matchups. With 50 Pokémon, we'd need to analyze over 230,000 team combinations and millions of matchups. For n Pokémon, we'd need approximately O(n² + (n choose 3)²) matchups. Pokémon battles hit a sweet spot where optimal strategies exist but are hard to find due to the massive state space. That said, it's possible! (We might just have to rewrite our Python in Rust...)
 
-Looking ahead, we'd like to expand to the top 50 Pokémon in the current meta. We'd need [Bayesian games](https://en.wikipedia.org/wiki/Bayesian_game) to handle unknown movesets and [stochastic game](https://en.wikipedia.org/wiki/Stochastic_game) modeling for the randomness. Eventually we want to tackle 6v6 with switching. That's 9 choices per turn instead of 4.
+Looking ahead, we'd like to expand to the top 50 Pokémon in the current meta. We'd need to account for unknown movesets and better handle the randomness. Eventually we want to tackle 6v6 with switching. That's 9 choices per turn instead of 4.
 
 Our [paper](https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf) and [code](https://github.com/nicosalm/pokemon-expectimax/tree/main) are available on GitHub if you'd like to explore our methods or build upon our work. Special thanks to Professor Manolis Vlatakis for being an encouraging mentor through this process! This project spawned out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).
