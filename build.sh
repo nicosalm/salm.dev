@@ -378,18 +378,18 @@ generate_similar_writing() {
   html="${html}<div class=\"post-navigation\">"
   if [[ -n "$prev_post" ]]; then
     IFS="|" read -r prev_title prev_name <<< "$prev_post"
-    html="${html}<div class=\"nav-prev\">← Previous: <a href=\"/writing/${prev_name}/\">${prev_title}</a></div>"
+    html="${html}<div class=\"nav-prev\"><small>← Prev: <a href=\"/writing/${prev_name}/\">${prev_title}</a></small></div>"
   fi
   if [[ -n "$next_post" ]]; then
     IFS="|" read -r next_title next_name <<< "$next_post"
-    html="${html}<div class=\"nav-next\">Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</div>"
+    html="${html}<div class=\"nav-next\"><small>Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</small></div>"
   fi
   html="${html}</div>"
 
   if [[ -n "$related_posts" ]]; then
     html="${html}<div class=\"related-posts\"><h4>Related by Tag:</h4><ul>"
     while IFS='|' read -r score title name; do
-      html="${html}<li><a href=\"/writing/${name}/\">${title}</a></li>"
+      html="${html}<li><small><a href=\"/writing/${name}/\">${title}</a></small></li>"
     done <<< "$related_posts"
     html="${html}</ul></div>"
   fi
