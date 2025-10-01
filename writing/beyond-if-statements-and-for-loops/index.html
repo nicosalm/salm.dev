@@ -37,16 +37,15 @@
                 type check and declaration), or <code>var</code>.<a
                 href="#fn1" class="footnote-ref" id="fnref1"
                 role="doc-noteref"><sup>1</sup></a> The goal was to
-                teach us OOP fundamentals—not necessarily to write
+                teach us OOP fundamentals, not necessarily to write
                 modern Java.</p>
                 <p>So we wrote code that was verbose, hard to follow,
                 and broke if you looked at it wrong. Functions could do
                 anything, fail mysteriously, or modify state in ways I
-                couldn’t trace. It was a labyrinth of side effects I
-                couldn’t comprehend. Looking back, I was living in what
-                I now call the “sea of objects”<a href="#fn2"
+                couldn’t trace. Looking back, I was living in what I now
+                call the “sea of objects”<a href="#fn2"
                 class="footnote-ref" id="fnref2"
-                role="doc-noteref"><sup>2</sup></a>—everything
+                role="doc-noteref"><sup>2</sup></a>. Everything
                 connected, state flowing unpredictably, dependencies
                 knotted together beyond comprehension.</p>
                 <p>I spent some time this summer studying idiomatic Rust
@@ -72,15 +71,14 @@
                 role="doc-backlink">↩︎</a></p></li>
                 </ol>
                 </aside>
-                <h2
-                id="pattern-1-from-if-chains-to-pattern-matching">Pattern
-                1: From If Chains to Pattern Matching</h2>
+                <h2 id="pattern-1-pattern-matching">Pattern 1: Pattern
+                Matching</h2>
                 <p>The first major shift happened when I realized most
-                of my if-else chains weren’t about control flow so much
-                as they were about destructuring data and handling
-                different shapes. Instead of asking “what should I do in
-                this situation?”, I started asking “what shape is my
-                data, and how do I handle each shape?”</p>
+                of my if-else chains weren’t about control flow. They
+                were about destructuring data and handling different
+                shapes. Instead of asking “what should I do in this
+                situation?”, I started asking “what shape is my data,
+                and how do I handle each shape?”</p>
                 <p>Here’s an example of what I used to write:</p>
                 <div class="sourceCode" id="cb1"><pre
                 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_pokemon(pokemon_data):</span>
@@ -108,8 +106,8 @@
                 let me forget an edge case.</p>
                 <p>Rust’s pattern matching opened my eyes to a pattern
                 I’d been approximating badly in other languages. Once I
-                saw it clearly, I realized it’s everywhere—Swift has it,
-                Python 3.10+ added it, and I can even fake it in
+                saw it clearly, I realized it’s everywhere. Swift has
+                it, Python 3.10+ added it, and I can even fake it in
                 JavaScript:</p>
                 <div class="sourceCode" id="cb3"><pre
                 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// approximated in js w/ objects</span></span>
@@ -120,12 +118,10 @@
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> key <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">type</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">evolutionStage</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> moveHandlers[key]<span class="op">?.</span>(pokemon) <span class="op">||</span> <span class="fu">fallbackStruggle</span>(pokemon)<span class="op">;</span></span></code></pre></div>
-                <p>The insight isn’t one of superior syntax. Rather,
-                it’s realizing that sometimes I am better served
-                thinking about data shapes instead of control flow.</p>
-                <h2
-                id="pattern-2-the-type-system-as-design-tool">Pattern 2:
-                The Type System as Design Tool</h2>
+                <p>The insight isn’t superior syntax. It’s realizing
+                that sometimes I’m better served thinking about data
+                shapes instead of control flow.</p>
+                <h2 id="pattern-2-types">Pattern 2: Types</h2>
                 <p>Match syntax is a clean and effective way to process
                 different data shapes, but it’s just one part of the
                 puzzle. Another question is how we represent our data in
@@ -135,8 +131,8 @@
                 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> questLog <span class="op">=</span> {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">status</span><span class="op">:</span> <span class="st">&#39;active&#39;</span><span class="op">,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">questId</span><span class="op">:</span> <span class="st">&#39;save-the-village&#39;</span><span class="op">,</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">rewards</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>         <span class="co">// should only exist when completed</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">failureReason</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>   <span class="co">// should only exist when failed</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">rewards</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>         <span class="co">// only exists when completed</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">failureReason</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>   <span class="co">// only exists when failed</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">currentObjective</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>   <span class="co">// meaningless when completed or failed</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
                 <p>What I learned was to make illegal states
@@ -149,27 +145,24 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Completed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> rewards<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Reward<span class="op">&gt;,</span> completedAt<span class="op">:</span> DateTime <span class="op">},</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Failed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> reason<span class="op">:</span> FailureReason<span class="op">,</span> canRetry<span class="op">:</span> <span class="dt">bool</span> <span class="op">},</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>Impossible states are now impossible to represent. I
-                literally cannot have a completed quest without rewards
-                or an active quest without progress tracking.</p>
+                <p>I literally cannot have a completed quest without
+                rewards or an active quest without progress
+                tracking.</p>
                 <p>I’ve realized the value in using the type system to
                 encode business rules, not just data shapes. When
                 illegal states become unrepresentable, entire categories
-                of bugs just disappear.</p>
+                of bugs disappear.</p>
                 <p>Rust showed me this principle clearly, but once I
-                understood it, I could apply it elsewhere—with
+                understood it, I could apply it elsewhere. With
                 TypeScript’s discriminated unions, or even factory
-                functions in dynamic languages. The principle transcends
-                any particular type system.</p>
-                <h2
-                id="pattern-3-from-for-loops-to-transformations">Pattern
-                3: From For Loops to Transformations</h2>
+                functions in dynamic languages.</p>
+                <h2 id="pattern-3-transformations">Pattern 3:
+                Transformations</h2>
                 <p>Another way I realized I could clean up my code is by
-                replacing many of my for-loops. I realized most of my
-                for-loops weren’t really used for iteration—they
-                executed transformations. I was manually implementing
-                map, filter, and reduce operations when I didn’t need
-                to.</p>
+                replacing many of my for-loops. Most of them weren’t
+                really for iteration. They were transformations. I was
+                manually implementing map, filter, and reduce operations
+                when I didn’t need to.</p>
                 <p>My manual approach:</p>
                 <div class="sourceCode" id="cb6"><pre
                 class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_raid_damage(party_members):</span>
@@ -199,12 +192,11 @@
                 <p>It’s more honest about intent. The chain of
                 operations tells me exactly what’s happening: filter
                 active members, calculate their damage with multipliers,
-                sum the results. No hidden state, no mutation, no
-                surprises.</p>
+                sum the results.</p>
                 <h3 id="zero-cost-iterators">Zero-Cost Iterators</h3>
                 <p>These iterator chains compile to highly optimized
                 assembly. The compiler transforms them into tight loops
-                with minimal overhead—though “zero-cost” is more
+                with minimal overhead, though “zero-cost” is more
                 aspiration than guarantee. Complex chains can sometimes
                 hit optimization limits. But for most code, you get
                 beautiful, functional patterns that run as fast as
@@ -234,7 +226,7 @@
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> CoffeeError(<span class="st">&quot;Water heating failed&quot;</span>) <span class="im">from</span> e</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> GrindError <span class="im">as</span> e:</span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        log_error(e)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>  <span class="co"># sometimes return None, sometimes raise? great plan!</span></span></code></pre></div>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span>  <span class="co"># sometimes return None, sometimes raise?</span></span></code></pre></div>
                 <p>I tried to get smarter about this by making errors
                 explicit in return types:</p>
                 <h3 id="again-but-with-explicit-results">Again, but with
@@ -254,26 +246,164 @@
                 the <code>?</code> operator was transformative:</p>
                 <div class="sourceCode" id="cb10"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> brew_coffee(order<span class="op">:</span> <span class="op">&amp;</span>Order) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Coffee<span class="op">,</span> CoffeeError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>         <span class="co">// stop here if grind fails</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>         <span class="co">// stop here if heating fails</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span>  <span class="co">// stop here if brew fails</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> beans <span class="op">=</span> grind_beans(<span class="op">&amp;</span>order<span class="op">.</span>bean_type)<span class="op">?;</span>         <span class="co">// stop if grind fails</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> water <span class="op">=</span> heat_water(order<span class="op">.</span>temperature)<span class="op">?;</span>         <span class="co">// stop if heating fails</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> coffee <span class="op">=</span> brew(beans<span class="op">,</span> water<span class="op">,</span> order<span class="op">.</span>brew_time)<span class="op">?;</span>  <span class="co">// stop if brew fails</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(coffee)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
                 <p>Each <code>?</code> says “if this step fails, stop
-                here and return the error.” No hidden control flow, no
-                forgotten error cases. The function signature tells me
-                exactly what can go wrong.</p>
+                here and return the error.” The function signature tells
+                me exactly what can go wrong.</p>
                 <p>The <code>?</code> operator itself is Rust magic, but
-                the pattern—making errors explicit and composable—that’s
+                the pattern of making errors explicit and composable is
                 universal: JavaScript Promises, Go’s error returns, even
-                optional chaining. All of these make error cases
-                explicit and composable. Instead of hoping functions
-                won’t throw, I design them so they can’t hide their
-                failure modes.</p>
-                <h2 id="pattern-5-ownership">Pattern 5: Ownership</h2>
-                <p>Rust’s ownership system completely changed how I
-                think about data relationships. Not just in Rust, but
-                everywhere.</p>
+                optional chaining. Instead of hoping functions won’t
+                throw, I design them so they can’t hide their failure
+                modes.</p>
+                <h2 id="pattern-5-functions-that-tell-the-truth">Pattern
+                5: Functions That Tell the Truth</h2>
+                <p>I was pleasantly surprised to find that function
+                signatures in Rust are complete contracts:</p>
+                <div class="sourceCode" id="cb11"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this function promises it won&#39;t store the reference</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_temporarily(data<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>len()  <span class="co">// calculates length and returns</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">// this admits it might fail</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_number(s<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">,</span> ParseIntError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>parse()  <span class="co">// failure is part of the type</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Put another way, I literally can’t write a function
+                that does sneaky stuff without declaring it upfront. The
+                signature tells you everything: it takes a string
+                reference, might fail, returns an integer on success,
+                and specifies the exact error type.</p>
+                <p>This honesty extends to how functions compose. What
+                seemed like academic wizardry (monads!) turned out to be
+                just chaining operations where each step depends on the
+                previous one’s result.</p>
+                <div class="sourceCode" id="cb12"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// sequential dependency (must be serial)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> processUser <span class="op">=</span> <span class="kw">async</span> (id) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> user <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchUser</span>(id)<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> profile <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchProfile</span>(user<span class="op">.</span><span class="at">profileId</span>)<span class="op">;</span>  <span class="co">// depends on user</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> settings <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchSettings</span>(profile<span class="op">.</span><span class="at">type</span>)<span class="op">;</span>  <span class="co">// depends on profile</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">combineData</span>(user<span class="op">,</span> profile<span class="op">,</span> settings)<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+                <p>That async/await chain? That’s monadic composition.
+                Each step feeds its result to the next step, which can
+                examine that result and decide what to do. Once Rust
+                taught me to see this pattern, I realized I’d been using
+                monads all along in JavaScript Promises, optional
+                chaining, even error handling.</p>
+                <p>Error handling:</p>
+                <div class="sourceCode" id="cb13"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_data(input<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Output<span class="op">,</span> <span class="bu">Error</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    parse_input(input)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>data<span class="op">|</span> validate_data(data))           <span class="co">// runs if parse succeeded</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>valid<span class="op">|</span> transform_data(valid))        <span class="co">// runs if validation succeeded</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>transformed<span class="op">|</span> save_data(transformed)) <span class="co">// runs if transform succeeded</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Optional values:</p>
+                <div class="sourceCode" id="cb14"><pre
+                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getConfig <span class="op">=</span> (user) <span class="kw">=&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getUser</span>(user<span class="op">.</span><span class="at">id</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getProfile</span>()       <span class="co">// only if user exists</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getSettings</span>()      <span class="co">// only if profile exists</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getTheme</span>()         <span class="co">// only if settings exist</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">??</span> defaultTheme<span class="op">;</span>     <span class="co">// fallback if any step fails</span></span></code></pre></div>
+                <p>Scary name, simple idea. It’s just chaining
+                operations.</p>
+                <h2
+                id="pattern-6-performance-without-compromise">Pattern 6:
+                Performance Without Compromise</h2>
+                <p>One of the biggest revelations was that these
+                “high-level” patterns often produce faster code than
+                manual imperative approaches.</p>
+                <div class="sourceCode" id="cb15"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this functional-style code...</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_large_dataset(data<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">f64</span>]) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>par_iter()                    <span class="co">// parallel processing</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>filter(<span class="op">|&amp;&amp;</span>x<span class="op">|</span> x <span class="op">&gt;</span> <span class="dv">0.0</span>)         <span class="co">// skip negative values</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|&amp;</span>x<span class="op">|</span> x<span class="op">.</span>sqrt())            <span class="co">// square root transformation</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>x<span class="op">|</span> x <span class="op">*</span> <span class="dv">2.0</span>)              <span class="co">// scale by 2</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>sum()                         <span class="co">// parallel reduction</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...compiles to vectorized assembly that uses SIMD instructions</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">// and parallel execution across CPU cores</span></span></code></pre></div>
+                <p>I found that modern compilers could optimize my
+                functional patterns better because:</p>
+                <ol type="1">
+                <li>Clear data flow: transformations can be vectorized
+                automatically</li>
+                <li>No side effects: aggressive optimization is
+                safe</li>
+                <li>Parallelizable: no shared mutable state means easy
+                parallelization</li>
+                <li>Compiler can reorder operations: pure functions give
+                the compiler more freedom</li>
+                </ol>
+                <h3 id="memory-safety-without-garbage-collection">Memory
+                Safety Without Garbage Collection</h3>
+                <p>Rust taught me that the choice between performance
+                and safety is a false dichotomy:</p>
+                <div class="sourceCode" id="cb16"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// rust: safe AND fast</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process(huge_dataset<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">String</span>]) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    huge_dataset<span class="op">.</span>iter()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>item<span class="op">|</span> expensive_transform(item))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>collect()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// memory safety guaranteed at compile time</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// no GC pauses, no leaks, no undefined behavior</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// performance identical to C++</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>By making ownership explicit in the type system, Rust
+                eliminates the runtime overhead of safety checks.</p>
+                <p>Rust shows that the choice between performance and
+                safety is false. You can have both. The broader lesson
+                applies everywhere: modern engines have largely closed
+                the performance gap between functional patterns and
+                manual loops. The old excuse of ‘functional programming
+                is too slow’ doesn’t hold up anymore.</p>
+                <h2 id="pattern-7-composition">Pattern 7:
+                Composition</h2>
+                <p>Another crucial pattern was learning to build complex
+                behavior from simple, composable pieces.</p>
+                <p>Before, I had massive, monolithic functions:</p>
+                <div class="sourceCode" id="cb17"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> craft_legendary_weapon(player, materials, recipe):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 200+ lines of mixed concerns:</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># validate materials, check requirements, consume resources</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate success chance, apply buffs, handle failures, etc.</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
+                <p>Then, I tried refactoring to composable
+                pipelines:</p>
+                <div class="sourceCode" id="cb18"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> craft_legendary_weapon(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    player<span class="op">:</span> <span class="op">&amp;</span>Player<span class="op">,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    materials<span class="op">:</span> Materials<span class="op">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    recipe<span class="op">:</span> Recipe<span class="op">,</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>LegendaryWeapon<span class="op">,</span> CraftingError<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    recipe</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>validate_materials(<span class="op">&amp;</span>materials)<span class="op">?</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_player_level(player)<span class="op">?</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_crafting_skill(player)<span class="op">?</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>consume_materials(<span class="op">&amp;</span><span class="kw">mut</span> player<span class="op">.</span>inventory)<span class="op">?</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>calculate_success_chance(player<span class="op">.</span>stats)<span class="op">?</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>attempt_craft()<span class="op">?</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>apply_enchantments(player<span class="op">.</span>available_enchants)<span class="op">?</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>finalize()</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <p>Each function has a clear contract and no side
+                effects. I can test them in isolation, combine them in
+                different ways, and reason about the whole system by
+                understanding the parts.</p>
+                <h2 id="pattern-8-ownership">Pattern 8: Ownership!</h2>
+                <p>Here we are at last! Rust’s ownership system
+                transformed how I think about data relationships, not
+                just in Rust, but everywhere.</p>
                 <p>Traditional object-oriented thinking creates a
                 tangled mess where everything points to everything
                 else:</p>
@@ -294,35 +424,35 @@
                 </div>
                 <p>Following data flow becomes impossible in the
                 traditional model:</p>
-                <div class="sourceCode" id="cb11"><pre
-                class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># complex &quot;web&quot; of mutable references</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> QuestLog:</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quests <span class="op">=</span> []</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.active_quest <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Quest:</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, quest_log):</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quest_log <span class="op">=</span> quest_log</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        quest_log.quests.append(<span class="va">self</span>)  <span class="co"># quest modifies its container!</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        quest_log.active_quest <span class="op">=</span> <span class="va">self</span>   <span class="co"># mutation from constructor!</span></span></code></pre></div>
+                <div class="sourceCode" id="cb19"><pre
+                class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># complex &quot;web&quot; of mutable references</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> QuestLog:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quests <span class="op">=</span> []</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.active_quest <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Quest:</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, quest_log):</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.quest_log <span class="op">=</span> quest_log</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        quest_log.quests.append(<span class="va">self</span>)  <span class="co"># quest modifies its container</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        quest_log.active_quest <span class="op">=</span> <span class="va">self</span>   <span class="co"># mutation from constructor</span></span></code></pre></div>
                 <p>Rust’s ownership system enforces a “tree of values”
                 where each piece of data has exactly one owner:</p>
-                <div class="sourceCode" id="cb12"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> QuestLog <span class="op">{</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    quests<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Quest<span class="op">&gt;,</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    active_quest_id<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>QuestId<span class="op">&gt;,</span>  <span class="co">// ID-based reference pattern</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Quest <span class="op">{</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> QuestId<span class="op">,</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    objectives<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Objective<span class="op">&gt;,</span>  <span class="co">// quest owns its objectives</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+                <div class="sourceCode" id="cb20"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> QuestLog <span class="op">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    quests<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Quest<span class="op">&gt;,</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    active_quest_id<span class="op">:</span> <span class="dt">Option</span><span class="op">&lt;</span>QuestId<span class="op">&gt;,</span>  <span class="co">// ID-based reference</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Quest <span class="op">{</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> QuestId<span class="op">,</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    objectives<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Objective<span class="op">&gt;,</span>  <span class="co">// quest owns its objectives</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
                 <p>Using IDs instead of direct references is a common
                 pattern in Rust (and game development generally) to work
-                around ownership restrictions while maintaining safety.
-                It’s basically a controlled form of indirection.</p>
+                around ownership restrictions while maintaining
+                safety.</p>
                 <p>Now I’ll grant that I can’t enforce these ownership
                 rules in Python or JavaScript. But understanding the
                 model itself has transformed how I design systems
@@ -331,20 +461,20 @@
                 Constraint-Solver Mindset</h3>
                 <p>Everyone talks about “fighting the borrow checker,”
                 and yeah, at first it’s infuriating:</p>
-                <div class="sourceCode" id="cb13"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this won&#39;t compile:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> first <span class="op">=</span> <span class="op">&amp;</span>data[<span class="dv">0</span>]<span class="op">;</span>     <span class="co">// immutable borrow</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>data<span class="op">.</span>push(<span class="dv">6</span>)<span class="op">;</span>             <span class="co">// mutable borrow - ERROR! :(</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first)<span class="op">;</span>    <span class="co">// use of immutable borrow</span></span></code></pre></div>
+                <div class="sourceCode" id="cb21"><pre
+                class="sourceCode rust"><code class="sourceCode rust"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this won&#39;t compile:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">mut</span> data <span class="op">=</span> <span class="pp">vec!</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> first <span class="op">=</span> <span class="op">&amp;</span>data[<span class="dv">0</span>]<span class="op">;</span>     <span class="co">// immutable borrow</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>data<span class="op">.</span>push(<span class="dv">6</span>)<span class="op">;</span>             <span class="co">// mutable borrow - ERROR!</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> first)<span class="op">;</span>    <span class="co">// use of immutable borrow</span></span></code></pre></div>
                 <p>My first reaction was pure frustration. Why won’t the
                 compiler let me do this simple thing?</p>
                 <p>But then I realized: this code was always dangerous.
                 In C++, <code>data.push_back(6)</code> might reallocate
                 the vector, making <code>first</code> a dangling
                 pointer. The program might crash, or worse, silently
-                corrupt memory causing undefined behavior. Rust just
-                makes the problem visible at compile time.</p>
+                corrupt memory. Rust just makes the problem visible at
+                compile time.</p>
                 <p>This changed how I think about data dependencies. Now
                 I ask: What owns this data? What can modify it, and
                 when? How can I design this to minimize shared mutable
@@ -352,233 +482,41 @@
                 <p>And the whole time, the compiler is showing me
                 problems I didn’t even know existed. Hardly the nature
                 of an enemy.</p>
-                <h2 id="pattern-6-functions-that-tell-the-truth">Pattern
-                6: Functions That Tell the Truth</h2>
-                <p>I was pleasantly surprised to find that function
-                signatures in Rust are complete contracts:</p>
-                <div class="sourceCode" id="cb14"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this function promises it won&#39;t store the reference</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_temporarily(data<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>len()  <span class="co">// just calculates length and returns</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">// this admits it might fail</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_number(s<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">,</span> ParseIntError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>parse()  <span class="co">// failure is part of the type, not hidden</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>Put another way, I literally can’t write a function
-                that does sneaky stuff without declaring it upfront.
-                This is because the type system forces honesty through
-                lifetimes and ownership rules.</p>
-                <p>I learned to design functions so that reading the
-                signature tells me almost everything about what they do.
-                The Result type forces explicit error handling and makes
-                failure part of the type signature. Comments are hardly
-                necessary anymore as the type system does the
-                documenting.</p>
-                <p>For me, JavaDoc-style comments became largely
-                unnecessary. Instead of:</p>
-                <div class="sourceCode" id="cb15"><pre
-                class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Parses a string representation of a number</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>param s the string to parse</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>return the parsed integer</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>throws ParseIntError if parsing fails</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span></code></pre></div>
-                <p>Now I just write:</p>
-                <div class="sourceCode" id="cb16"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> parse_number(input_string<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">i32</span><span class="op">,</span> ParseIntError<span class="op">&gt;</span></span></code></pre></div>
-                <p>The signature tells you everything: it takes a string
-                reference, might fail, returns an integer on success,
-                and specifies the exact error type. The function
-                signature has become a complete, compiler-verified
-                contract.</p>
-                <h2 id="pattern-7-monadic-composition">Pattern 7:
-                Monadic Composition</h2>
-                <p>Monads seemed like academic wizardry when I first
-                heard about them, but really they’re just about chaining
-                operations where each step depends on the previous one’s
-                result.</p>
-                <div class="sourceCode" id="cb17"><pre
-                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">// sequential dependency (must be serial)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> processUser <span class="op">=</span> <span class="kw">async</span> (id) <span class="kw">=&gt;</span> {</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> user <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchUser</span>(id)<span class="op">;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> profile <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchProfile</span>(user<span class="op">.</span><span class="at">profileId</span>)<span class="op">;</span>  <span class="co">// depends on user!</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> settings <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetchSettings</span>(profile<span class="op">.</span><span class="at">type</span>)<span class="op">;</span>  <span class="co">// depends on profile!</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">combineData</span>(user<span class="op">,</span> profile<span class="op">,</span> settings)<span class="op">;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
-                <p>That async/await chain? That’s monadic composition.
-                Each step feeds its result to the next step, which can
-                examine that result and decide what to do. Once Rust
-                taught me to see this pattern, I realized I’d been using
-                monads all along in JavaScript Promises, optional
-                chaining, even error handling.</p>
-                <p>Error handling:</p>
-                <div class="sourceCode" id="cb18"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_data(input<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>Output<span class="op">,</span> <span class="bu">Error</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    parse_input(input)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>data<span class="op">|</span> validate_data(data))           <span class="co">// only runs if parse succeeded</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>valid<span class="op">|</span> transform_data(valid))        <span class="co">// only runs if validation succeeded</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>and_then(<span class="op">|</span>transformed<span class="op">|</span> save_data(transformed)) <span class="co">// only runs if transform succeeded</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>Optional values:</p>
-                <div class="sourceCode" id="cb19"><pre
-                class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> getConfig <span class="op">=</span> (user) <span class="kw">=&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getUser</span>(user<span class="op">.</span><span class="at">id</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getProfile</span>()       <span class="co">// only if user exists</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getSettings</span>()      <span class="co">// only if profile exists</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">?.</span><span class="fu">getTheme</span>()         <span class="co">// only if settings exist</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">??</span> defaultTheme<span class="op">;</span>     <span class="co">// fallback (if any step fails)</span></span></code></pre></div>
-                <p>Scary name, simple idea. It’s just chaining
-                operations together.</p>
-                <h2
-                id="pattern-8-performance-without-compromise">Pattern 8:
-                Performance Without Compromise</h2>
-                <p>One of the biggest revelations was that these
-                “high-level” patterns often produce faster code than
-                manual imperative approaches.</p>
-                <div class="sourceCode" id="cb20"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">// this functional-style code...</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process_large_dataset(data<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">f64</span>]) <span class="op">-&gt;</span> <span class="dt">f64</span> <span class="op">{</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">.</span>par_iter()                    <span class="co">// parallel processing</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>filter(<span class="op">|&amp;&amp;</span>x<span class="op">|</span> x <span class="op">&gt;</span> <span class="dv">0.0</span>)         <span class="co">// skip negative values</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|&amp;</span>x<span class="op">|</span> x<span class="op">.</span>sqrt())            <span class="co">// square root transformation</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>x<span class="op">|</span> x <span class="op">*</span> <span class="dv">2.0</span>)              <span class="co">// scale by 2</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>sum()                         <span class="co">// parallel reduction</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...compiles to vectorized assembly that uses SIMD instructions</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">// and parallel execution across CPU cores</span></span></code></pre></div>
-                <p>I found that modern compilers could optimize my
-                functional patterns better because:</p>
-                <ol type="1">
-                <li>Clear data flow - transformations can be vectorized
-                automatically</li>
-                <li>No side effects - aggressive optimization is
-                safe</li>
-                <li>Parallelizable - no shared mutable state means easy
-                parallelization</li>
-                <li>Compiler can reorder operations - pure functions
-                give the compiler more freedom</li>
-                </ol>
-                <p>In my experience, the functional approach had
-                negligible performance overhead while being much
-                clearer.</p>
-                <h3 id="memory-safety-without-garbage-collection">Memory
-                Safety Without Garbage Collection</h3>
-                <p>Rust taught me that the choice between performance
-                and safety is a false dichotomy:</p>
-                <div class="sourceCode" id="cb21"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// rust: safe AND fast</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> process(huge_dataset<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">String</span>]) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    huge_dataset<span class="op">.</span>iter()</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map(<span class="op">|</span>item<span class="op">|</span> expensive_transform(item))</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>collect()</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// memory safety guaranteed at compile time</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// no GC pauses, no leaks, no undefined behavior</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// performance identical to C++</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>By making ownership explicit in the type system, Rust
-                eliminates the runtime overhead of safety checks while
-                maintaining complete memory safety.</p>
-                <p>Rust shows that the choice between performance and
-                safety is false. You can have both. But the broader
-                lesson applies everywhere: functional patterns have
-                become fast enough that performance rarely justifies
-                avoiding them. Modern JS engines have largely closed the
-                gap between map/filter/reduce and manual loops. Java’s
-                Stream API trades some speed for readability and
-                parallelization, a worthwhile tradeoff for most code.
-                The old excuse of ‘functional programming is too slow’
-                just doesn’t hold up anymore.</p>
-                <h2 id="pattern-9-composition">Pattern 9:
-                Composition</h2>
-                <p>The final pattern that changed everything was
-                learning to build complex behavior from simple,
-                composable pieces.</p>
-                <p>Before, I had massive, monolithic functions:</p>
-                <div class="sourceCode" id="cb22"><pre
-                class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> craft_legendary_weapon(player, materials, recipe):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 200+ lines of mixed concerns:</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - validate materials, check requirements, consume resources</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># - calculate success chance, apply buffs, handle failures, etc.</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
-                <p>Then, I tried refactoring to composable
-                pipelines:</p>
-                <div class="sourceCode" id="cb23"><pre
-                class="sourceCode rust"><code class="sourceCode rust"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> craft_legendary_weapon(</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    player<span class="op">:</span> <span class="op">&amp;</span>Player<span class="op">,</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    materials<span class="op">:</span> Materials<span class="op">,</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    recipe<span class="op">:</span> Recipe<span class="op">,</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>LegendaryWeapon<span class="op">,</span> CraftingError<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    recipe</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>validate_materials(<span class="op">&amp;</span>materials)<span class="op">?</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_player_level(player)<span class="op">?</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>check_crafting_skill(player)<span class="op">?</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>consume_materials(<span class="op">&amp;</span><span class="kw">mut</span> player<span class="op">.</span>inventory)<span class="op">?</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>calculate_success_chance(player<span class="op">.</span>stats)<span class="op">?</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>attempt_craft()<span class="op">?</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>apply_enchantments(player<span class="op">.</span>available_enchants)<span class="op">?</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>finalize()</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>I found this better because each function has a clear
-                contract and no side effects. I can test them in
-                isolation, combine them in different ways, and reason
-                about the whole system by understanding the parts.</p>
-                <h2 id="what-actually-changed">What Actually
-                Changed</h2>
-                <p>All of these patterns changed something fundamental
-                about how I write code. I used to obsess over the exact
-                sequence of steps: this loop, then that condition, then
-                update this variable. Now I think more about
-                transformations: take this data, filter it, transform
-                it, combine it.</p>
-                <p>This wasn’t only a philosophical journey. When I
-                stopped mutating everything in sight, parallelization
-                got easier (though ‘trivial’ is a stretch—concurrency is
-                still hard sometimes). When functions started telling
-                the truth about what they could fail at, I spent less
-                time in the debugger. When I learned to build big things
-                from small, composable pieces, the complexity became
-                less overwhelming.</p>
-                <p>Not everything improved. Rust’s ownership makes
-                performance more predictable, sure, but in other
-                languages I’m still guessing. And strong types only help
-                if you design them well. Bad types just move the
-                problems around.</p>
-                <p>But overall? The code is easier to reason about. Bugs
-                tend to be shallower. And yeah, it’s more fun to work
-                with systems where the pieces actually fit together.</p>
-                <h2 id="how-to-start">How to Start</h2>
-                <p>I started small. I replaced one complex if-else chain
-                with a lookup table just to see what would happen. It
-                worked, so I tried another. Then I noticed some of my
-                for-loops were really just filters and maps in
-                disguise.</p>
-                <p>The compiler was vexing at first. Like, genuinely
-                maddening. But those moments when things finally
-                clicked, when I understood why the borrow checker was
-                saving me from myself, when I saw how composition could
-                replace complexity, made it worth pushing through.</p>
-                <p>What surprised me was the compound effect. Each
-                pattern made the next one easier to see. Pattern
-                matching led me to better data types, which made error
-                handling obvious. It builds on itself.</p>
-                <h2 id="where-this-leads">Where This Leads</h2>
-                <p>I’m still figuring things out. Half the time I write
-                crude imperative code when I’m prototyping, then come
-                back and clean it up with these patterns.</p>
-                <p>The real shift was learning to see programming as a
-                design discipline rather than just instruction-writing.
-                The patterns I’ve shared aren’t rules. They’re tools I
-                reach for when the code starts feeling unwieldy.</p>
-                <p>Some of what I’ve shown, like the borrow checker and
-                zero-cost abstractions, are Rust’s unique gifts. But the
-                mental models they taught me transformed how I write
-                JavaScript, Python, everything.</p>
-                <p>The rest tends to follow from there.</p>
+                <h2 id="beyond-the-defaults">Beyond the Defaults</h2>
+                <p>All of these patterns changed something fundamental.
+                I used to obsess over the exact sequence of steps: this
+                loop, then that condition, then update this variable.
+                Now I think more about transformations: take this data,
+                filter it, transform it, combine it.</p>
+                <p>When I stopped mutating everything in sight,
+                parallelization got easier. When functions started
+                telling the truth about what they could fail at, I spent
+                less time in the debugger. When I learned to build big
+                things from small, composable pieces, the complexity
+                became less overwhelming. Not everything improved—Rust’s
+                ownership makes performance more predictable, sure, but
+                in other languages I’m still guessing. But overall? The
+                code is easier to reason about. Bugs tend to be
+                shallower.</p>
+                <p>I started small. One complex if-else chain became a
+                lookup table. Then I noticed some of my for-loops were
+                really just filters and maps in disguise. The compiler
+                was vexing at first. Like, genuinely maddening. But
+                those moments when things finally clicked, when I
+                understood why the borrow checker was saving me from
+                myself, made it worth pushing through. Each pattern made
+                the next one easier to see.</p>
+                <p>I still write if-statements and for-loops. Of course
+                I do. But now I know when I’m choosing them, not
+                defaulting to them. When I reach for a nested
+                conditional now, I pause. Is this about control flow, or
+                am I destructuring data? When I start a for-loop, I ask:
+                am I iterating, or transforming?</p>
+                <p>Would you believe there is more to writing code than
+                if-statements and for-loops? Turns out, yeah. There
+                really is.</p>
             </article>
-<div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Previous: <a href="/writing/create-dont-consume/">Create, Don't Consume</a></div><div class="nav-next">Next: <a href="/writing/cs-data-science-done-right/">CS + Data Science Done Right</a> →</div></div><div class="related-posts"><h4>Related by Tag:</h4><ul><li><a href="/writing/command-line-productivity/">Command Line Productivity</a></li><li><a href="/writing/dungeons-dragons-and-development/">Dungeons, Dragons & Development</a></li></ul></div></div>
+<div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev"><small>← Prev: <a href="/writing/create-dont-consume/">Create, Don't Consume</a></small></div><div class="nav-next"><small>Next: <a href="/writing/cs-data-science-done-right/">CS + Data Science Done Right</a> →</small></div></div><div class="related-posts"><h4>Related by Tag:</h4><ul><li><small><a href="/writing/command-line-productivity/">Command Line Productivity</a></small></li><li><small><a href="/writing/dungeons-dragons-and-development/">Dungeons, Dragons & Development</a></small></li></ul></div></div>
         </div>
         <footer>
             <p>© 2025 salm.dev</p>

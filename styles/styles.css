@@ -3,6 +3,42 @@ html {
 }
 
 @font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: normal;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: normal;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'charter';
+    font-style: italic;
+    font-weight: bold;
+    font-stretch: normal;
+    font-display: swap;
+    src: url('/assets/fonts/charter_bold_italic.woff2') format('woff2');
+}
+
+@font-face {
     font-family: 'firacode';
     src: url('/assets/fonts/firacode_regular.woff2') format('woff2');
     font-weight: normal;
@@ -26,7 +62,7 @@ html {
     --syntax-output: #808080;
     --syntax-comment: #808080;
 
-    --font-family-body: "Arial", sans-serif;
+    --font-family-body: "charter", sans-serif;
     --font-family-code: "firacode", "Fira Code", "Consolas", monospace;
     --font-size-base: 1.0625rem;
     --font-size-small: 0.95rem;
@@ -456,6 +492,10 @@ header.main-nav nav {
 
 .description .date::before {
     content: "Posted ";
+}
+
+.description .date::after {
+    content: " by Nico Salm";
 }
 
 .description .updated::before {
