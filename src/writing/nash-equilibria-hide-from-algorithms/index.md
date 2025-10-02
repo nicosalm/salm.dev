@@ -8,7 +8,7 @@ Mathematics proves Nash equilibria must exist in every game, but computer scienc
 
 When Uber and Lyft set prices in your neighborhood, their algorithms are competing in a game. Lower prices attract riders but hurt profits. Higher prices boost margins but lose customers. Both pricing algorithms update every few minutes, responding to one another.
 
-This is game theory in the real world, with millions of pricing decisions daily, no communication, and an equilibrium that must exist---but that nobody can compute efficiently.
+This is an example of game theory in the real world, with millions of pricing decisions daily, no communication, and an equilibrium that must exist, but that nobody can compute efficiently.
 
 ## What's a Game?
 
