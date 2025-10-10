@@ -378,11 +378,11 @@ generate_similar_writing() {
   html="${html}<div class=\"post-navigation\">"
   if [[ -n "$prev_post" ]]; then
     IFS="|" read -r prev_title prev_name <<< "$prev_post"
-    html="${html}<div class=\"nav-prev\"><small>← Prev: <a href=\"/writing/${prev_name}/\">${prev_title}</a></small></div>"
+    html="${html}<div class=\"nav-prev\">← Prev: <a href=\"/writing/${prev_name}/\">${prev_title}</a></div>"
   fi
   if [[ -n "$next_post" ]]; then
     IFS="|" read -r next_title next_name <<< "$next_post"
-    html="${html}<div class=\"nav-next\"><small>Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</small></div>"
+    html="${html}<div class=\"nav-next\">Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</div>"
   fi
   html="${html}</div>"
 

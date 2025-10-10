@@ -85,12 +85,16 @@ In Rock-Paper-Scissors, the equilibrium has each player mixing uniformly: $x_1^*
 
 ## Cycles
 
-You might think the obvious approach would work: start somewhere, have each player switch to their best response, repeat until nobody wants to change. This is how we solve most optimization problems.
+Game theory assumes players are rational. They maximize their payoffs given what others do. This suggests a natural algorithm. Start anywhere, have each player switch to their best response, then repeat until nobody wants to change.
 
-The best response operator selects the strategy that maximizes a player's payoff:
+Say you play only Rock. My best response is to play only Paper, winning every round. Once you notice, your best response shifts to Scissors. Then I switch to Rock, you switch to Paper, and we're back where we started. The cycle repeats forever through pure strategies.
+
+The same cycling happens with mixed strategies, just in a higher-dimensional space. Instead of jumping between Rock, Paper, and Scissors, probability distributions rotate continuously around the equilibrium without converging.
+
+The best response operator formalizes this. Player $i$ chooses the strategy maximizing their payoff given everyone else's choices.
 $$BestResponse_i(x_{-i}) = \arg\max_{x_i \in X_i} u_i(x_i, x_{-i})$$
 
-But in Rock-Paper-Scissors, this approach loops forever. We know an equilibrium exists (playing each option with probability 1/3), but our algorithm just circles around it, never converging.
+Iterating this operator in Rock-Paper-Scissors loops forever. We know an equilibrium exists at $(1/3, 1/3, 1/3)$, but best response dynamics circle around it.
 
 <img src="images/best_response_cycle.jpeg" alt="Best response cycle diagram" loading="lazy" style="display: block; margin: 0 auto; max-width: 350px; width: 100%; height: auto;">
 
