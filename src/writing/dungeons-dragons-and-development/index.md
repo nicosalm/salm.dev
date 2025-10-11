@@ -2,7 +2,7 @@
 <div class="description">
 In both homebrew D&D worlds and software development, you create vast interconnected systems that must remain cohesive while evolving over time.
 <span class="date-info"><span class="date">2025-04-21</span></span>
-<span class="tags">programming, psychology, art, worldbuilding</span>
+<span class="tags">programming</span>
 </div>
 
 ## Building Worlds

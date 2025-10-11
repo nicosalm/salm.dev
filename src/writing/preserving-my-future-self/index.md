@@ -3,7 +3,7 @@
 <div class="description">
 I underwent an ergonomic overhaul to improve health and reduce strain. Or: I bought an expensive new split-keyboard. Either way, an adventure worth sharing.
 <span class="date-info"><span class="date">2024-08-18</span></span>
-<span class="tags">workflow, psychology, college, learning</span>
+<span class="tags">productivity, college, learning</span>
 </div>
 
 **(!!!) - This post is being updated.**
