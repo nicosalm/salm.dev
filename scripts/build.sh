@@ -101,6 +101,8 @@ process_post() {
 
   local tmpfile
   tmpfile=$(mktemp)
+  mv "$tmpfile" "${tmpfile}.md"
+  tmpfile="${tmpfile}.md"
   awk '
     /<span class="tags">/ { in_tags = 1 }
     /<\/span>/ && in_tags { in_tags = 0; next }
@@ -117,7 +119,7 @@ process_post() {
   fi
 
   if has_code_content "$mdfile"; then
-    pandoc_cmd="$pandoc_cmd --highlight-style=pygments"
+    pandoc_cmd="$pandoc_cmd --syntax-highlighting=pygments"
   fi
 
   $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title"
