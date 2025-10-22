@@ -119,7 +119,7 @@ process_post() {
   fi
 
   if has_code_content "$mdfile"; then
-    pandoc_cmd="$pandoc_cmd --syntax-highlighting=pygments"
+    pandoc_cmd="$pandoc_cmd --highlight-style=pygments"
   fi
 
   $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title"
