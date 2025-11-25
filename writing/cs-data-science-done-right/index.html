@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>CS + Data Science Done Right | salm.dev</title>
             </head>
     <body>
@@ -140,8 +142,13 @@
                 <abbr title="Key Performance Indicators">KPIs</abbr> and
                 deliverables. I learned to frame my accomplishments in a
                 way my audience would understand—either at the strategic
-                or tactical level<a href="#fn1" class="footnote-ref"
-                id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+                or tactical level<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> Strategic level focuses on high-level
+                business goals and long-term impact (e.g., “This model
+                increased customer retention by 15%”). Tactical level
+                focuses on specific technical implementations and
+                immediate deliverables (e.g., “Built a feature
+                engineering pipeline that reduced processing time by
+                40%”).</span>.</p>
                 <p>I learned how to interact with other human beings,
                 work together, hash out issues and team up. I learned
                 how gritty real-world data is, how messy a database can
@@ -150,33 +157,11 @@
                 “I’m working with what I’ve got and that’s okay.”</p>
                 <p>It’s frustrating, it’s wonderful, and you learn a
                 ton.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>Strategic level focuses on high-level
-                business goals and long-term impact (e.g., “This model
-                increased customer retention by 15%”). Tactical level
-                focuses on specific technical implementations and
-                immediate deliverables (e.g., “Built a feature
-                engineering pipeline that reduced processing time by
-                40%”).<a href="#fnref1" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2
                 id="comparing-math-stats-and-ds-for-cs-majors">Comparing
                 Math, Stats, and DS for CS Majors</h2>
                 <p>They say a picture is worth a thousand words:</p>
-                <div style="text-align: center; margin: 20px 0;">
-                <img src="./images/venn.jpg" loading="lazy" alt="Data Science Venn Diagram" width="250" height="250" style="display: block; margin: 0 auto;">
-                <div style="font-style: italic; margin-top: 8px;">
-                Data Science = Programming ∩ Math/Stats ∩ Business
-                Intelligence<a href="#fn2" class="footnote-ref"
-                id="fnref2" role="doc-noteref"><sup>2</sup></a>
-                </div>
-                </div>
+                <p><img src="./images/venn.jpg" loading="lazy" alt="Data Science Venn Diagram" width="250" height="250" style="display: block; margin: 0 auto;"></p>
                 <p>As a hybrid major, data science gives you a taste of
                 everything but mastery of none. The diagram above shows
                 the reality of what this field actually is—not a
@@ -217,19 +202,30 @@
                 opting for the easy road, collecting credentials, and
                 walking out the door.</p>
                 <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
+                class="footnotes footnotes-end-of-document"
                 role="doc-endnotes">
                 <hr />
-                <ol start="2">
-                <li id="fn2"><p>Source: Flatiron School<a href="#fnref2"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <ol>
+                <li id="fn1"><p>Strategic level focuses on high-level
+                business goals and long-term impact (e.g., “This model
+                increased customer retention by 15%”). Tactical level
+                focuses on specific technical implementations and
+                immediate deliverables (e.g., “Built a feature
+                engineering pipeline that reduced processing time by
+                40%”).<a href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
                 </ol>
                 </aside>
             </article>
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/beyond-if-statements-and-for-loops/">Beyond If Statements and For Loops</a></div><div class="nav-next">Next: <a href="/writing/nash-equilibria-hide-from-algorithms/">Nash Equilibria Hide from Algorithms</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Command Line Productivity | salm.dev</title>
                 <script src="/assets/js/mathjax-config.js"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -24,9 +26,7 @@
                 overload. In this article, I describe my minimal,
                 focused, keyboard-centric workflow where I do my best
                 work. In other words: I shill Vim. <span
-                class="date-info"><span
-                class="date">2024-10-10</span><span
-                class="updated">2025-07-13</span></span></p>
+                class="date">2024-10-10</span></p>
                 </div>
                 <h2 id="motivation">Motivation</h2>
                 <p>The purpose of this article isn’t to persuade you to
@@ -96,9 +96,11 @@
                 Much bigger!</p>
                 <p>Now, for the content of substance. First I had to
                 configure the shell. That means creating aliases to
-                eliminate the <em>friction</em><a href="#fn1"
-                class="footnote-ref" id="fnref1"
-                role="doc-noteref"><sup>1</sup></a> from my daily
+                eliminate the <em>friction</em><sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> The objective is reducing the most
+                common sources of friction in your everyday routine.
+                Instead of trying to find a quicker way to do everything
+                under the sun, reflect on your routines and make those
+                processes swifter.</span> from my daily
                 workflow:</p>
                 <div class="sourceCode" id="cb1"><pre
                 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> v=<span class="st">&#39;nvim&#39;</span>                          <span class="co"># why type 4 letters when 1 will do?</span></span>
@@ -131,9 +133,10 @@
                 into a focused workspace. One command for a complete
                 context switch.</p>
                 <p>In general, the goal isn’t to memorize every flag and
-                option. The goal is to configure my environment once<a
-                href="#fn2" class="footnote-ref" id="fnref2"
-                role="doc-noteref"><sup>2</sup></a>, correctly, so that
+                option. The goal is to configure my environment once<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> If you don’t want to set up your shell
+                yourself, here is an <a
+                href="https://github.com/jo%20tyGill/ezsh">elegant
+                script</a>.</span>, correctly, so that
                 the most efficient way to do something is also the most
                 natural way.</p>
                 <p><strong>DISCLAIMER:</strong> There is something worth
@@ -147,24 +150,6 @@
                 absolutely need, and discard the rest. Just because
                 something is flashy doesn’t mean you <em>need</em>
                 it.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>The objective is reducing the most
-                common sources of friction in your everyday routine.
-                Instead of trying to find a quicker way to do everything
-                under the sun, reflect on your routines and make those
-                processes swifter.<a href="#fnref1"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                <li id="fn2"><p>If you don’t want to set up your shell
-                yourself, here is an <a
-                href="https://github.com/jo%20tyGill/ezsh">elegant
-                script</a>.<a href="#fnref2" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="essential-command-line-tools">Essential Command
                 Line Tools</h2>
                 <p>Now that my shell is properly configured (and my
@@ -271,47 +256,26 @@ tmux kill-server                    # kill the server
 tmux a -t session_name              # attach to a session
 tmux a                              # attach to the last session</code></pre>
                 <h3 id="customization">Customization</h3>
-                <p>When I start Tmux, the program looks for a .dotfile<a
-                href="#fn3" class="footnote-ref" id="fnref3"
-                role="doc-noteref"><sup>3</sup></a> at
-                <code>~/.tmux.conf</code>. This plain-text file is where
-                I can configure and “rice out”<a href="#fn4"
-                class="footnote-ref" id="fnref4"
-                role="doc-noteref"><sup>4</sup></a> my multiplexer. I
-                began by adding a plugin manager, <a
-                href="https://github.com/tmux-plugins/tpm">tpm</a>, and
-                then used it to load a few plugins and a nice theme<a
-                href="#fn5" class="footnote-ref" id="fnref5"
-                role="doc-noteref"><sup>5</sup></a>.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="3">
-                <li id="fn3"><p>Many programs store their configuration
+                <p>When I start Tmux, the program looks for a .dotfile<sup class="fnref"><a href="#fn3" id="note3" title="Footnote 3">3</a></sup><span class="footnote" id="fn3"><a class="fnref" href="#note3" title="Footnote 3 Reference">3</a> Many programs store their configuration
                 files in plain text files. These are usually (but not
                 always) in your <code>~</code> or
                 <code>~/.config/~</code> directories. Dotfiles are
                 configuration files for various programs. What sets them
                 apart from regular files and directories is their
                 prefix: a dot (<code>.</code>). Note: On Unix based
-                systems, dotfiles are hidden by the OS by default.<a
-                href="#fnref3" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn4"><p>Ricing is a process in which one
+                systems, dotfiles are hidden by the OS by default.</span> at
+                <code>~/.tmux.conf</code>. This plain-text file is where
+                I can configure and “rice out”<sup class="fnref"><a href="#fn4" id="note4" title="Footnote 4">4</a></sup><span class="footnote" id="fn4"><a class="fnref" href="#note4" title="Footnote 4 Reference">4</a> Ricing is a process in which one
                 customizes their OS or programs to improve the
-                aesthetics or refine their workflow.<a href="#fnref4"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                <li id="fn5"><p>In earlier drafts, I recommended <a
+                aesthetics or refine their workflow.</span> my multiplexer. I
+                began by adding a plugin manager, <a
+                href="https://github.com/tmux-plugins/tpm">tpm</a>, and
+                then used it to load a few plugins and a nice theme<sup class="fnref"><a href="#fn5" id="note5" title="Footnote 5">5</a></sup><span class="footnote" id="fn5"><a class="fnref" href="#note5" title="Footnote 5 Reference">5</a> In earlier drafts, I recommended <a
                 href="https://github.com/catppuccin/tmux">catppuccin</a>
                 (mocha) or <a
                 href="https://github.com/folke/tokyonight.nvim">tokyonight</a>
                 by Folke; these days, I like a simpler, higher contrast
-                theme like one of the built vim defaults, elflord.<a
-                href="#fnref5" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                theme like one of the built vim defaults, elflord.</span>.</p>
                 <h3 id="alternatively-wezterm-or-zellij">Alternatively:
                 WezTerm or Zellij</h3>
                 <p>If Tmux doesn’t tickle your fancy, try <a
@@ -433,17 +397,8 @@ tmux a                              # attach to the last session</code></pre>
                 extensible text editor in your terminal built to make
                 creating and changing any kind of text very efficient.
                 My friend <a href="https://scharenbroch.dev/">Lucas</a>
-                rather aptly put:</p>
-                <div class="quote-container">
-                    <div class="quote-content">
-                        <div class="quote-text">
-                            Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
-                        </div>
-                        <div class="quote-author">
-                            Lucas Scharenbroch
-                        </div>
-                    </div>
-                </div>
+                rather aptly put that “Vim is the bliss of Ctrl C/V but
+                applied to every facet of the editor.”</p>
                 <p>I think that’s a really good way to describe it. Vim
                 recognizes and eliminates the vast majority of typing
                 inefficiencies. The result is blazingly fast precision,
@@ -454,17 +409,17 @@ tmux a                              # attach to the last session</code></pre>
                 never learned them all at the same time. I started with
                 a subset, and gradually expanded it.</p>
                 <p>A contention I often receive is, “well, how do I
-                debug in Vim?” I don’t. I use separate programs<a
-                href="#fn6" class="footnote-ref" id="fnref6"
-                role="doc-noteref"><sup>6</sup></a>. Each program is
+                debug in Vim?” I don’t. I use separate programs<sup class="fnref"><a href="#fn6" id="note6" title="Footnote 6">6</a></sup><span class="footnote" id="fn6"><a class="fnref" href="#note6" title="Footnote 6 Reference">6</a> In the case of debugging, one might opt
+                for <code>gdb</code>, the browser, or the python
+                debugger, etc.</span>. Each program is
                 good at what it does. If I build a hodgepodge of
                 functionality I end up with an IDE and that’s precisely
                 what I’m trying to escape.</p>
                 <p>I will concede, however, that Vim is not beginner
                 friendly. There’s a learning curve. However, Vim is
-                exceptionally user friendly<a href="#fn7"
-                class="footnote-ref" id="fnref7"
-                role="doc-noteref"><sup>7</sup></a>. Once I got the hang
+                exceptionally user friendly<sup class="fnref"><a href="#fn7" id="note7" title="Footnote 7">7</a></sup><span class="footnote" id="fn7"><a class="fnref" href="#note7" title="Footnote 7 Reference">7</a> I’m paraphrasing <a
+                href="https://github.com/ThePrimeagen">ThePrimeagen</a>,
+                a Neovim enjoyer and popular streamer.</span>. Once I got the hang
                 of things, and it clicked, it became really, really fun
                 to use. Here’s <a
                 href="https://scharenbroch.dev/blog/vim/">Lucas’
@@ -475,33 +430,15 @@ tmux a                              # attach to the last session</code></pre>
                 take. I’m a bit weird. I like to cold turkey and learn
                 things from the ground up right away. But that’s a
                 digression.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="6">
-                <li id="fn6"><p>In the case of debugging, one might opt
-                for <code>gdb</code>, the browser, or the python
-                debugger, etc.<a href="#fnref6" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn7"><p>I’m paraphrasing <a
-                href="https://github.com/ThePrimeagen">ThePrimeagen</a>,
-                a Neovim enjoyer and popular streamer.<a href="#fnref7"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h3 id="neovim">Neovim</h3>
-                <p>Vim’s extensibility takes it to the next level.
-                Enter: Neovim. Taken from the <a
-                href="https://neovim.io/charter/">Neovim
-                Charter</a>:</p>
-                <blockquote>
-                <p>Neovim is a refactor, and sometimes redactor, in the
+                <p>Vim’s extensibility takes it to the next level. Enter
+                Neovim. From the <a
+                href="https://neovim.io/charter/">Neovim Charter</a>:
+                “Neovim is a refactor, and sometimes redactor, in the
                 tradition of Vim. It is not a rewrite but a continuation
                 and extension of Vim. Many clones and derivatives exist,
                 some very clever—but none are Vim. Neovim is built for
-                users who want the good parts of Vim, and more.</p>
-                </blockquote>
+                users who want the good parts of Vim, and more.”</p>
                 <p>Neovim’s component-like plugin structure allows me to
                 drop in and take out functionality easily. I can bring
                 in an <a
@@ -778,11 +715,64 @@ tmux a                              # attach to the last session</code></pre>
                 <p>And as always, remember: <strong><em>Life is like
                 Vim: There are a lot of shortcuts and you should take
                 them.</em></strong></p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-document"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>The objective is reducing the most
+                common sources of friction in your everyday routine.
+                Instead of trying to find a quicker way to do everything
+                under the sun, reflect on your routines and make those
+                processes swifter.<a href="#fnref1"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>If you don’t want to set up your shell
+                yourself, here is an <a
+                href="https://github.com/jo%20tyGill/ezsh">elegant
+                script</a>.<a href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn3"><p>Many programs store their configuration
+                files in plain text files. These are usually (but not
+                always) in your <code>~</code> or
+                <code>~/.config/~</code> directories. Dotfiles are
+                configuration files for various programs. What sets them
+                apart from regular files and directories is their
+                prefix: a dot (<code>.</code>). Note: On Unix based
+                systems, dotfiles are hidden by the OS by default.<a
+                href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn4"><p>Ricing is a process in which one
+                customizes their OS or programs to improve the
+                aesthetics or refine their workflow.<a href="#fnref4"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <li id="fn5"><p>In earlier drafts, I recommended <a
+                href="https://github.com/catppuccin/tmux">catppuccin</a>
+                (mocha) or <a
+                href="https://github.com/folke/tokyonight.nvim">tokyonight</a>
+                by Folke; these days, I like a simpler, higher contrast
+                theme like one of the built vim defaults, elflord.<a
+                href="#fnref5" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn6"><p>In the case of debugging, one might opt
+                for <code>gdb</code>, the browser, or the python
+                debugger, etc.<a href="#fnref6" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn7"><p>I’m paraphrasing <a
+                href="https://github.com/ThePrimeagen">ThePrimeagen</a>,
+                a Neovim enjoyer and popular streamer.<a href="#fnref7"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
             </article>
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/preserving-my-future-self/">Preserving My Future Self</a></div><div class="nav-next">Next: <a href="/writing/dungeons-dragons-and-development/">Dungeons, Dragons & Development</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

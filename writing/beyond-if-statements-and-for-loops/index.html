@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Beyond If Statements and For Loops | salm.dev</title>
             </head>
     <body>
@@ -34,18 +36,18 @@
                 We (briefly) learned the Stream API, but not match
                 expressions,
                 <code>object instanceof ClassName newVar</code> (inline
-                type check and declaration), or <code>var</code>.<a
-                href="#fn1" class="footnote-ref" id="fnref1"
-                role="doc-noteref"><sup>1</sup></a> The goal was to
+                type check and declaration), or <code>var</code>.<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> Thanks <a
+                href="https://ben.enterprises/">Ben</a> for the list!!</span> The goal was to
                 teach us OOP fundamentals, not necessarily to write
                 modern Java.</p>
                 <p>So we wrote code that was verbose, hard to follow,
                 and broke if you looked at it wrong. Functions could do
                 anything, fail mysteriously, or modify state in ways I
                 couldn’t trace. Looking back, I was living in what I now
-                call the “sea of objects”<a href="#fn2"
-                class="footnote-ref" id="fnref2"
-                role="doc-noteref"><sup>2</sup></a>. Everything
+                call the “sea of objects”<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> This is terminology I learned in
+                <em>Programming Rust (2021)</em> describing the tangled
+                web of mutable references common in object-oriented
+                programming.</span>. Everything
                 connected, state flowing unpredictably, dependencies
                 knotted together beyond comprehension.</p>
                 <p>I spent some time this summer studying idiomatic Rust
@@ -55,22 +57,6 @@
                 <p>What does ‘better’ mean? I’d argue we find
                 improvement when we discover patterns that represent our
                 work more efficiently, intuitively, or clearly.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>Thanks <a
-                href="https://ben.enterprises/">Ben</a> for the list!!<a
-                href="#fnref1" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn2"><p>This is terminology I learned in
-                <em>Programming Rust (2021)</em> describing the tangled
-                web of mutable references common in object-oriented
-                programming.<a href="#fnref2" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="pattern-1-pattern-matching">Pattern 1: Pattern
                 Matching</h2>
                 <p>The first major shift happened when I realized most
@@ -407,8 +393,7 @@
                 <p>Traditional object-oriented thinking creates a
                 tangled mess where everything points to everything
                 else:</p>
-                <div
-                style="display: flex; justify-content: center; gap: 40px; margin: 20px 0;">
+                <div style="display: flex; gap: 40px; margin: 20px 0;">
                 <div style="text-align: center;">
                 <img src="images/sea-of-objects.jpeg" alt="Sea of objects diagram" style="width: 300px;">
                 <div style="font-style: italic; margin-top: 8px;">
@@ -515,11 +500,32 @@
                 <p>Would you believe there is more to writing code than
                 if-statements and for-loops? Turns out, yeah. There
                 really is.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-document"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>Thanks <a
+                href="https://ben.enterprises/">Ben</a> for the list!!<a
+                href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>This is terminology I learned in
+                <em>Programming Rust (2021)</em> describing the tangled
+                web of mutable references common in object-oriented
+                programming.<a href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
             </article>
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/create-dont-consume/">Create, Don't Consume</a></div><div class="nav-next">Next: <a href="/writing/cs-data-science-done-right/">CS + Data Science Done Right</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

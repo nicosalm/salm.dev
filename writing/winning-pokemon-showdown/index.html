@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Winning Pokemon Showdown | salm.dev</title>
             </head>
     <body>
@@ -28,12 +30,12 @@
                 for each battle. No switching allowed, so it’s pure
                 strategic decision-making. A game has two phases:
                 choosing your Pokémon (left) and battling (right):</p>
-                <table style="margin: 0 auto; border-collapse: collapse;">
+                <table style="border-collapse: collapse;">
                 <tr>
-                <td style="padding: 10px; text-align: center;">
+                <td style="padding: 10px;">
                 <img src="./images/choosing-phase.jpeg" alt="choosing phase">
                 </td>
-                <td style="padding: 10px; text-align: center;">
+                <td style="padding: 10px;">
                 <img src="./images/battle-phase.jpeg" alt="battling phase">
                 </td>
                 </tr>
@@ -47,11 +49,7 @@
                 <p>For our project, my friends and I focused on seven of
                 the most commonly used Pokémon in the January 2021
                 Pokémon Showdown 1v1 leaderboard:</p>
-                <img src="./images/top-7.jpeg" loading="lazy" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Primarina, Sylveon, Heatran, Urshifu, Rillaboom,
-                Garchomp, and Zapdos
-                </p>
+                <p><img src="./images/top-7.jpeg" loading="lazy" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block;"></p>
                 <p>Each Pokémon has its own unique typing, movesets, and
                 stats that create diverse strategic matchups. For
                 consistency, we used the most popular standard moveset
@@ -79,7 +77,7 @@
                 effects for every move combination using Showdown’s <a
                 href="https://calc.pokemonshowdown.com/">Pokémon Damage
                 Calculator</a>.</p>
-                <img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+                <img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block;">
                 <p style="text-align: center; font-style: italic; margin-top: 10px;">
                 This payoff matrix shows damage ranges between Garchomp
                 and Sylveon’s moves
@@ -90,7 +88,7 @@
                 href="https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html">expectimax
                 trees</a> that calculate expected outcomes for each
                 decision.</p>
-                <img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
+                <img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block;">
                 <p style="text-align: center; font-style: italic; margin-top: 10px;">
                 Example of a battle decision tree showing Hyper Beam
                 outcomes between Primarina and Sylveon
@@ -102,10 +100,7 @@
                 strategy Nash equilibria</a>. When the payoff matrices
                 got too complex, we turned to reinforcement learning to
                 find strategies we’d never spot by hand.</p>
-                <img src="./images/sucker-punch.jpeg" loading="lazy" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Sucker Punch move
-                </p>
+                <p><img src="./images/sucker-punch.jpeg" loading="lazy" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block;"></p>
                 <h3 id="the-math-behind-nash-equilibrium">The Math
                 Behind Nash Equilibrium</h3>
                 <p>Pokemon battles are zero-sum games (one trainer’s win
@@ -167,10 +162,7 @@
                 meta-game. After simulating over 1 million battles for
                 each possible matchup, we built a payoff matrix of win
                 probabilities:</p>
-                <img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Matchup win probability matrix
-                </p>
+                <p><img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block;"></p>
                 <p>Using this matrix, we could then solve for the
                 optimal team selection strategies.</p>
                 <h3 id="analyzing-team-performance">Analyzing Team
@@ -202,10 +194,7 @@
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort teams by average win rate</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>best_teams <span class="op">=</span> <span class="bu">sorted</span>(team_results.items(), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-                <img src="./images/team-performance-ranking.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Team performance ranking based on average win rates
-                </p>
+                <p><img src="./images/team-performance-ranking.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block;"></p>
                 <h2 id="key-findings">Key Findings</h2>
                 <p>The strongest team turned out to be Heatran, Sylveon,
                 and Zapdos with a 62.4% average win rate across all
@@ -213,11 +202,7 @@
                 struggled at just 29.7%. Sylveon was the MVP,
                 maintaining a 55.3% win rate across all team
                 compositions.</p>
-                <img src="./images/avg-winrate.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Best and worst performing Pokémon based on Nash
-                equilibrium calculations
-                </p>
+                <p><img src="./images/avg-winrate.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;"></p>
                 <p>Teams with Sylveon and Zapdos consistently won in our
                 simulations. Pairing Heatran with Urshifu was a recipe
                 for disaster.</p>
@@ -228,10 +213,7 @@
                 matchups. Despite Garchomp’s fearsome reputation,
                 Heatran wins 81.7% of the time when both players play
                 optimally.</p>
-                <img src="./images/matchup-heatran-garchomp.jpeg" loading="lazy" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Battle setup and outcome for Heatran vs. Garchomp
-                </p>
+                <p><img src="./images/matchup-heatran-garchomp.jpeg" loading="lazy" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;"></p>
                 <p>Heatran should open with <em>Will-O-Wisp</em> to burn
                 and halve Garchomp’s attack, then spam <em>Dragon
                 Pulse</em>. Garchomp’s best bet is <em>Stone Edge</em>
@@ -242,18 +224,11 @@
                 games get real. <em>Sucker Punch</em> only works against
                 attacking moves, so neither Pokémon has a dominant
                 strategy.</p>
-                <img src="./images/payoff-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Payoff matrix for Rillaboom vs. Urshifu involving the
-                move Sucker Punch
-                </p>
+                <p><img src="./images/payoff-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;"></p>
                 <p>The math says Urshifu should mix Sucker Punch and
                 Wicked Blow 50/50 after turn 2, while Rillaboom adapts
                 to the situation:</p>
-                <img src="./images/matchup-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Battle setup and outcome for Rillaboom vs. Urshifu
-                </p>
+                <p><img src="./images/matchup-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;"></p>
                 <p>Even with perfect play from both sides, Rillaboom
                 wins 69.5% of the time.</p>
                 <h2 id="an-interesting-convergence">An Interesting
@@ -265,42 +240,27 @@
                 Equilibria in Team Selection</h2>
                 <p>Some team matchups resulted in pure Nash equilibria
                 with dominant strategies:</p>
-                <img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" loading="lazy" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Example of a pure Nash equilibrium in team selection
-                </p>
+                <p><img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" loading="lazy" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;"></p>
                 <p>While others required mixed strategies, creating a
                 Rock-Paper-Scissors dynamic:</p>
-                <img src="./images/mixed.jpeg" loading="lazy" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
-                <p style="text-align: center; font-style: italic; margin-top: 10px;">
-                Example of a mixed Nash equilibrium in team selection
-                </p>
+                <p><img src="./images/mixed.jpeg" loading="lazy" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;"></p>
                 <p>When our best team (Heatran, Sylveon, Zapdos) faced
                 our worst team (Garchomp, Heatran, Urshifu), the best
-                team only won 50.5% of the time.<a href="#fn1"
-                class="footnote-ref" id="fnref1"
-                role="doc-noteref"><sup>1</sup></a></p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>This is rock-paper-scissors at the team
+                team only won 50.5% of the time.<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> This is rock-paper-scissors at the team
                 level. Just because Team A beats Team B and Team B beats
                 Team C doesn’t necessarily mean Team A beats Team C.
                 This creates a complex competitive landscape where no
-                single team dominates everything.<a href="#fnref1"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                single team dominates everything.</span></p>
                 <h2 id="challenges-limitations">Challenges &amp;
                 Limitations</h2>
                 <p>Our biggest challenge was Pokémon’s randomness. With
                 16 possible damage rolls per move and multi-turn
                 battles, we needed tons of simulations rather than pure
-                expectimax trees to get reliable win rates.<a
-                href="#fn2" class="footnote-ref" id="fnref2"
-                role="doc-noteref"><sup>2</sup></a></p>
+                expectimax trees to get reliable win rates.<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> Our final solution involved running over
+                1 million simulations for each matchup to accurately
+                account for all possible random outcomes. This was
+                computationally intensive but necessary to get
+                statistically significant results.</span></p>
                 <p>At first, Rillaboom was broken. It had no bad
                 matchups (worst case: 50% win rate against itself). We
                 added Zapdos and Garchomp to create actual
@@ -308,26 +268,9 @@
                 <p>One limitation was our decision to use fixed
                 movesets. In competitive play, moveset variation is
                 crucial for creating unpredictability and gaining an
-                edge.<a href="#fn3" class="footnote-ref" id="fnref3"
-                role="doc-noteref"><sup>3</sup></a></p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="2">
-                <li id="fn2"><p>Our final solution involved running over
-                1 million simulations for each matchup to accurately
-                account for all possible random outcomes. This was
-                computationally intensive but necessary to get
-                statistically significant results.<a href="#fnref2"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                <li id="fn3"><p>While we used the standard Smogon
+                edge.<sup class="fnref"><a href="#fn3" id="note3" title="Footnote 3">3</a></sup><span class="footnote" id="fn3"><a class="fnref" href="#note3" title="Footnote 3 Reference">3</a> While we used the standard Smogon
                 Strategy Dex movesets for consistency, competitive
-                players often use surprise movesets to gain an edge.<a
-                href="#fnref3" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                players often use surprise movesets to gain an edge.</span></p>
                 <h2 id="conclusion-future-work">Conclusion &amp; Future
                 Work</h2>
                 <p>We successfully found optimal Pokémon strategies
@@ -356,11 +299,40 @@
                 mentor through this process! This project spawned out of
                 his graduate class at UW-Madison: Game Theory,
                 Optimization, and Learning (in Spring ’25).</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-document"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>This is rock-paper-scissors at the team
+                level. Just because Team A beats Team B and Team B beats
+                Team C doesn’t necessarily mean Team A beats Team C.
+                This creates a complex competitive landscape where no
+                single team dominates everything.<a href="#fnref1"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>Our final solution involved running over
+                1 million simulations for each matchup to accurately
+                account for all possible random outcomes. This was
+                computationally intensive but necessary to get
+                statistically significant results.<a href="#fnref2"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <li id="fn3"><p>While we used the standard Smogon
+                Strategy Dex movesets for consistency, competitive
+                players often use surprise movesets to gain an edge.<a
+                href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
             </article>
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/dungeons-dragons-and-development/">Dungeons, Dragons & Development</a></div><div class="nav-next">Next: <a href="/writing/create-dont-consume/">Create, Don't Consume</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

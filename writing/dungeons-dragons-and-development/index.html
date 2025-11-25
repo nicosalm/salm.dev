@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Dungeons, Dragons & Development | salm.dev</title>
             </head>
     <body>
@@ -24,12 +26,23 @@
                 </div>
                 <h2 id="building-worlds">Building Worlds</h2>
                 <p>I have been roleplaying and building worlds for a
-                decade this May<a href="#fn1" class="footnote-ref"
-                id="fnref1" role="doc-noteref"><sup>1</sup></a>. In that
+                decade this May<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> Over the years, I’ve explored roleplay
+                across many mediums, from Star Wars forum RP and MMOs to
+                tabletop games like D&amp;D 5e. During COVID, I invested
+                heavily in both DayZ roleplay and a 42-week D&amp;D
+                campaign with friends (June 13, 2021 to August 7, 2022,
+                with my friends from high school), which cemented my
+                focus on tabletop RPGs. I learned a ton about
+                worldbuilding and “on the fly” planning during those 14
+                months. Going with the flow became just as important as
+                preparation.</span>. In that
                 time, I’ve learned a tremendous amount about what works
                 in worldbuilding and how to build player trust as a game
-                master<a href="#fn2" class="footnote-ref" id="fnref2"
-                role="doc-noteref"><sup>2</sup></a> (GM). When I’m not
+                master<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> “Game master” is the most generalizable
+                title for the player who acts as storyteller, referee,
+                and world-builder, guiding the adventure for other
+                players. In D&amp;D, this role is called the “Dungeon
+                Master.”</span> (GM). When I’m not
                 at the table with friends, I’m programming. I’m
                 graduating soon with a Computer Science and Data Science
                 degree from the <a
@@ -46,20 +59,6 @@
                 state that can never be fully reached. This gap between
                 vision and implementation persists regardless of effort
                 invested.</p>
-                <div style="display: flex; justify-content: space-between; margin: 20px 0; padding: 20px 20px;">
-                  <div style="text-align: center;">
-                    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px; margin: 10px 0;">
-                    <div style="font-style: italic;">Map A. The Isles (2020)</div>
-                  </div>
-                  <div style="text-align: center;">
-                    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px; margin: 10px 0;">
-                    <div style="font-style: italic;">Map B. Aldria (2021)</div>
-                  </div>
-                  <div style="text-align: center;">
-                    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px; margin: 10px 0;">
-                    <div style="font-style: italic;">Map C. El'kora (2024)</div>
-                  </div>
-                </div>
                 <p>This model works equally well for programming.
                 Programmers build “worlds” of their own, maintaining
                 coherence internally through well-structured code and
@@ -89,30 +88,6 @@
                 quickly falls out of sync with evolving codebases.</p>
                 <p>Both disciplines require creators to balance
                 ambitious ideas with practical constraints.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>Over the years, I’ve explored roleplay
-                across many mediums, from Star Wars forum RP and MMOs to
-                tabletop games like D&amp;D 5e. During COVID, I invested
-                heavily in both DayZ roleplay and a 42-week D&amp;D
-                campaign with friends (June 13, 2021 to August 7, 2022,
-                with my friends from high school), which cemented my
-                focus on tabletop RPGs. I learned a ton about
-                worldbuilding and “on the fly” planning during those 14
-                months. Going with the flow became just as important as
-                preparation.<a href="#fnref1" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn2"><p>“Game master” is the most generalizable
-                title for the player who acts as storyteller, referee,
-                and world-builder, guiding the adventure for other
-                players. In D&amp;D, this role is called the “Dungeon
-                Master.”<a href="#fnref2" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="fighting-bloat-and-feature-creep">Fighting Bloat
                 and Feature Creep</h2>
                 <p>When designing a world or software, it takes
@@ -129,8 +104,14 @@
                 unveil it. The players walked right past every hint I
                 dropped, completely ignored the mysterious NPCs trying
                 to guide them there, and decided to start a tavern
-                business instead<a href="#fn3" class="footnote-ref"
-                id="fnref3" role="doc-noteref"><sup>3</sup></a>. All
+                business instead<sup class="fnref"><a href="#fn3" id="note3" title="Footnote 3">3</a></sup><span class="footnote" id="fn3"><a class="fnref" href="#note3" title="Footnote 3 Reference">3</a> Turns out the tavern business was
+                brilliant! It naturally became their home base where I
+                could hide secret rooms and things to discover inside
+                (and below) the building. They could have agents work
+                out of it to gather information, and it gave them
+                something meaningful to spend gold on, reducing gold
+                inflation. Sometimes the players’ ideas are way better
+                than yours.</span>. All
                 that preparation became expensive scratch paper.</p>
                 <p>Building intricacies in my world is therapeutic, but
                 I have to rein myself in and remember that while my mind
@@ -152,22 +133,6 @@
                 system feel hearty and fully fleshed out, without
                 creating an overwhelming noise-to-signal ratio, is one
                 of the hardest skills to develop.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="3">
-                <li id="fn3"><p>Turns out the tavern business was
-                brilliant! It naturally became their home base where I
-                could hide secret rooms and things to discover inside
-                (and below) the building. They could have agents work
-                out of it to gather information, and it gave them
-                something meaningful to spend gold on, reducing gold
-                inflation. Sometimes the players’ ideas are way better
-                than yours.<a href="#fnref3" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="preventing-burnout">Preventing Burnout</h2>
                 <p>The creative drive that fuels both worldbuilding and
                 programming can be all-consuming. I’ve definitely had
@@ -176,13 +141,6 @@
                 backstory my players might never even meet. This passion
                 is a double-edged sword, driving creation but leading to
                 burnout when unchecked.</p>
-                <figure style="text-align: center; margin: 20px 0;">
-                <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 15px auto;">
-                <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">
-                Wiki-style lore respositories I’ve written (where each
-                page contains a character, location, or info page, etc.)
-                </figcaption>
-                </figure>
                 <p>Game masters often feel pressure to constantly
                 innovate, balancing preparation with improvisation as
                 player actions derail planned scenarios. After months of
@@ -234,9 +192,12 @@
                 government. I had this whole rebellion storyline planned
                 out. Instead, my players turned that character in to the
                 authorities and started helping who I was trying to
-                assert was the “enemy!”<a href="#fn4"
-                class="footnote-ref" id="fnref4"
-                role="doc-noteref"><sup>4</sup></a> I had to completely
+                assert was the “enemy!”<sup class="fnref"><a href="#fn4" id="note4" title="Footnote 4">4</a></sup><span class="footnote" id="fn4"><a class="fnref" href="#note4" title="Footnote 4 Reference">4</a> There goes 7 pages of rebellion notes!
+                Needless to say, I threw them into an improvised combat
+                encounter to buy me time to figure out what to do next.
+                The lesson: always have a random encounter table ready
+                for when your players completely derail your carefully
+                laid plans.</span> I had to completely
                 redesign the campaign on the fly, turning my carefully
                 crafted rebels into the antagonists and making the
                 authoritarian regime actually reasonable. It was
@@ -251,8 +212,15 @@
                 players become genuinely immersed. Conversely, when you
                 railroad players along predetermined paths, their
                 engagement evaporates as they realize they’re merely
-                pawns in your<a href="#fn5" class="footnote-ref"
-                id="fnref5" role="doc-noteref"><sup>5</sup></a>
+                pawns in your<sup class="fnref"><a href="#fn5" id="note5" title="Footnote 5">5</a></sup><span class="footnote" id="fn5"><a class="fnref" href="#note5" title="Footnote 5 Reference">5</a> As the Dungeon Master, you have <a
+                href="https://cdn.salm.dev/u/eAYkcU.gif"><em>unlimited
+                power</em></a> within your world, but that power must
+                exist solely to enhance your players’ experience.
+                Everything has to serve their enjoyment, not your ego.
+                They allocate time and trust to you. The same principle
+                applies to software: technical brilliance means nothing
+                if it doesn’t solve users’ problems in an intuitive
+                way.</span>
                 story.</p>
                 <p>Software development follows a similar pattern. My
                 most successful coding projects have been those where I
@@ -271,30 +239,6 @@
                 accommodate ongoing feedback. If you build from the
                 outset with flexibility in mind, you don’t have a messy
                 web anymore, but an organized map.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="4">
-                <li id="fn4"><p>There goes 7 pages of rebellion notes!
-                Needless to say, I threw them into an improvised combat
-                encounter to buy me time to figure out what to do next.
-                The lesson: always have a random encounter table ready
-                for when your players completely derail your carefully
-                laid plans.<a href="#fnref4" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn5"><p>As the Dungeon Master, you have <a
-                href="https://cdn.salm.dev/u/eAYkcU.gif"><em>unlimited
-                power</em></a> within your world, but that power must
-                exist solely to enhance your players’ experience.
-                Everything has to serve their enjoyment, not your ego.
-                They allocate time and trust to you. The same principle
-                applies to software: technical brilliance means nothing
-                if it doesn’t solve users’ problems in an intuitive
-                way.<a href="#fnref5" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="collaborating">Collaborating</h2>
                 <p>At its core, worldbuilding thrives on collaboration.
                 My most memorable roleplaying scenarios weren’t those
@@ -307,9 +251,10 @@
                 projects demonstrate this perfectly: communities of
                 developers contributing to codebases that exceed what
                 any individual could create alone. Even proprietary
-                software benefits from beta testing<a href="#fn6"
-                class="footnote-ref" id="fnref6"
-                role="doc-noteref"><sup>6</sup></a>, user feedback
+                software benefits from beta testing<sup class="fnref"><a href="#fn6" id="note6" title="Footnote 6">6</a></sup><span class="footnote" id="fn6"><a class="fnref" href="#note6" title="Footnote 6 Reference">6</a> Do make sure you <em>pay</em> your beta
+                testers. The gaming industry especially does this weird
+                thing where they expect fans to test for free when they
+                really should be hiring a specialized team.</span>, user feedback
                 loops, and cross-functional teams.</p>
                 <p>I’ve noticed different types of collaboration in both
                 domains. Sometimes it’s planned, like co-creating a
@@ -331,19 +276,6 @@
                 <p>The most rewarding creative experiences happen when
                 we step back from being the sole author and create
                 spaces where others can contribute meaningfully.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="6">
-                <li id="fn6"><p>Do make sure you <em>pay</em> your beta
-                testers. The gaming industry especially does this weird
-                thing where they expect fans to test for free when they
-                really should be hiring a specialized team.<a
-                href="#fnref6" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="using-what-you-have">Using What You Have</h2>
                 <p>Both game masters and programmers must balance
                 technical mastery with creative expression. As a GM,
@@ -379,11 +311,72 @@
                 <p>I plan to continue worldbuilding, both as a software
                 engineer and a game master, for the foreseeable
                 future.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-document"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>Over the years, I’ve explored roleplay
+                across many mediums, from Star Wars forum RP and MMOs to
+                tabletop games like D&amp;D 5e. During COVID, I invested
+                heavily in both DayZ roleplay and a 42-week D&amp;D
+                campaign with friends (June 13, 2021 to August 7, 2022,
+                with my friends from high school), which cemented my
+                focus on tabletop RPGs. I learned a ton about
+                worldbuilding and “on the fly” planning during those 14
+                months. Going with the flow became just as important as
+                preparation.<a href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>“Game master” is the most generalizable
+                title for the player who acts as storyteller, referee,
+                and world-builder, guiding the adventure for other
+                players. In D&amp;D, this role is called the “Dungeon
+                Master.”<a href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn3"><p>Turns out the tavern business was
+                brilliant! It naturally became their home base where I
+                could hide secret rooms and things to discover inside
+                (and below) the building. They could have agents work
+                out of it to gather information, and it gave them
+                something meaningful to spend gold on, reducing gold
+                inflation. Sometimes the players’ ideas are way better
+                than yours.<a href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn4"><p>There goes 7 pages of rebellion notes!
+                Needless to say, I threw them into an improvised combat
+                encounter to buy me time to figure out what to do next.
+                The lesson: always have a random encounter table ready
+                for when your players completely derail your carefully
+                laid plans.<a href="#fnref4" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn5"><p>As the Dungeon Master, you have <a
+                href="https://cdn.salm.dev/u/eAYkcU.gif"><em>unlimited
+                power</em></a> within your world, but that power must
+                exist solely to enhance your players’ experience.
+                Everything has to serve their enjoyment, not your ego.
+                They allocate time and trust to you. The same principle
+                applies to software: technical brilliance means nothing
+                if it doesn’t solve users’ problems in an intuitive
+                way.<a href="#fnref5" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn6"><p>Do make sure you <em>pay</em> your beta
+                testers. The gaming industry especially does this weird
+                thing where they expect fans to test for free when they
+                really should be hiring a specialized team.<a
+                href="#fnref6" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                </ol>
+                </aside>
             </article>
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/command-line-productivity/">Command Line Productivity</a></div><div class="nav-next">Next: <a href="/writing/winning-pokemon-showdown/">Winning Pokemon Showdown</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Create, Don't Consume | salm.dev</title>
             </head>
     <body>
@@ -32,9 +34,6 @@
                 <li>scrolling</li>
                 <li>YouTube videos and short-form content</li>
                 <li>Discord conversations</li>
-                <li>“dooming”<a href="#fn1" class="footnote-ref"
-                id="fnref1" role="doc-noteref"><sup>1</sup></a> about
-                big milestones I have not achieved</li>
                 <li>using AI (*when passive)</li>
                 </ul>
                 <p>Looking at this list, there’s a pattern I’ve been
@@ -52,19 +51,6 @@
                 <p>And while I’ve identified this grouping of problems,
                 I’m still far away from being able to conquer them
                 myself.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>“Dooming”, by my count, refers to
-                obsessively dwelling on negative thoughts about future
-                outcomes or personal failures, often worsened by social
-                media comparisons and societal expectations about where
-                you “should be” in life.<a href="#fnref1"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
                 <h2 id="vocabulary">Vocabulary</h2>
                 <p>Let me introduce some vocabulary to clarify this
                 pattern.</p>
@@ -102,8 +88,10 @@
                 its quick fix.</p>
                 <p>Daniel Lieberman calls this an “<a
                 href="https://www.cell.com/current-biology/pdf/S0960-9822(14)00257-7.pdf">evolutionary
-                mismatch</a>”<a href="#fn2" class="footnote-ref"
-                id="fnref2" role="doc-noteref"><sup>2</sup></a>, and
+                mismatch</a>”<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> From Daniel Lieberman’s “The Story of
+                the Human Body,” which explores how traits that evolved
+                for ancestral environments can become problematic in
+                modern contexts.</span>, and
                 describes how behaviors that once helped us survive now
                 work against our wellbeing. For most of human history,
                 conserving energy and seeking quick rewards were
@@ -111,9 +99,12 @@
                 rewards over uncertain future benefits were the ones
                 that lived to reproduce.</p>
                 <p>The struggle comes from processes running at
-                different priority levels<a href="#fn3"
-                class="footnote-ref" id="fnref3"
-                role="doc-noteref"><sup>3</sup></a>: your evolutionary
+                different priority levels<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> Though this cheeky computing metaphor
+                simplifies the actual neuroscience, research on
+                dual-process theory and ego depletion does show that
+                conscious control requires more cognitive resources and
+                can be overwhelmed by automatic processes, especially
+                under stress or fatigue.</span>: your evolutionary
                 brain operates with high priority, optimizing for
                 immediate survival, while your conscious mind runs in
                 the background trying to optimize for long-term meaning
@@ -124,21 +115,14 @@
                 href="https://www.youtube.com/watch?v=v8mlrSIMhD8&amp;list=WL&amp;index=2">an
                 interview</a> (don’t bristle at the title! it’s a good
                 video) and was genuinely surprised with what he had to
-                say! He captured this perfectly: video games serve as “a
+                say. He captured this perfectly: video games serve as “a
                 proxy for career” while online porn acts as “a proxy for
                 sex.” These activities provide the neurochemical rewards
                 of real accomplishment and connection without any of the
-                actual benefits:</p>
-                <div class="quote-container">
-                    <div class="quote-content">
-                        <div class="quote-text">
-                            George Orwell wasn't right—our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine.
-                        </div>
-                        <div class="quote-author">
-                            Jimmy Carr, <a href="https://www.youtube.com/watch?v=uHLAazKUU68" target="_blank">"The Diary of a CEO"</a>
-                        </div>
-                    </div>
-                </div>
+                actual benefits. In his words, “George Orwell wasn’t
+                right—our power won’t be taken away from us by some
+                authoritarian master, we’re going to give it away for
+                cheap dopamine.”</p>
                 <p>All of these consumptive behaviors (the scrolling,
                 the videos, etc.) are forms of mental escape from the
                 present moment. They pull us away from engaging with
@@ -149,37 +133,14 @@
                 feels like a dark, dull pit—going through the motions of
                 easy pleasures that no longer even feel that good, while
                 the meaningful activities that could lift you out seem
-                impossibly difficult to begin. Like Huxley’s soma<a
-                href="#fn4" class="footnote-ref" id="fnref4"
-                role="doc-noteref"><sup>4</sup></a>, these easy
-                pleasures numb us to the richer rewards that come from
-                actual engagement with life.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="2">
-                <li id="fn2"><p>From Daniel Lieberman’s “The Story of
-                the Human Body,” which explores how traits that evolved
-                for ancestral environments can become problematic in
-                modern contexts.<a href="#fnref2" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn3"><p>Though this cheeky computing metaphor
-                simplifies the actual neuroscience, research on
-                dual-process theory and ego depletion does show that
-                conscious control requires more cognitive resources and
-                can be overwhelmed by automatic processes, especially
-                under stress or fatigue.<a href="#fnref3"
-                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-                <li id="fn4"><p>In Aldous Huxley’s <em>Brave New
+                impossibly difficult to begin. Like Huxley’s soma<sup class="fnref"><a href="#fn3" id="note3" title="Footnote 3">3</a></sup><span class="footnote" id="fn3"><a class="fnref" href="#note3" title="Footnote 3 Reference">3</a> In Aldous Huxley’s <em>Brave New
                 World</em>, soma is a drug that provides instant
                 pleasure and escape, keeping citizens docile and
                 preventing them from seeking deeper meaning. This book
                 has frightened me far more than <em>1984</em> ever
-                could.<a href="#fnref4" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                could.</span>, these easy
+                pleasures numb us to the richer rewards that come from
+                actual engagement with life.</p>
                 <h2 id="where-im-at">Where I’m At</h2>
                 <p>I wish I could offer a clear path forward, but
                 honestly, I’m still working through this cycle myself.
@@ -199,21 +160,45 @@
                 different approaches and hopefully develop some
                 practical insights. For now, I have clearer language for
                 what I’m fighting against. I’d be curious to hear what
-                consumptive<a href="#fn5" class="footnote-ref"
-                id="fnref5" role="doc-noteref"><sup>5</sup></a> patterns
-                others recognize in themselves.</p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="5">
-                <li id="fn5"><p>These activities aren’t inherently good
+                consumptive<sup class="fnref"><a href="#fn4" id="note4" title="Footnote 4">4</a></sup><span class="footnote" id="fn4"><a class="fnref" href="#note4" title="Footnote 4 Reference">4</a> These activities aren’t inherently good
                 or bad. Really, it depends on how you engage with them.
                 Playing video games with friends can build real
                 relationships; creating content on social media can
                 develop genuine skills. What matters is whether you’re
                 passively consuming or actively creating, connecting,
-                and growing.<a href="#fnref5" class="footnote-back"
+                and growing.</span> patterns
+                others recognize in themselves.</p>
+                <aside id="footnotes"
+                class="footnotes footnotes-end-of-document"
+                role="doc-endnotes">
+                <hr />
+                <ol>
+                <li id="fn1"><p>From Daniel Lieberman’s “The Story of
+                the Human Body,” which explores how traits that evolved
+                for ancestral environments can become problematic in
+                modern contexts.<a href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>Though this cheeky computing metaphor
+                simplifies the actual neuroscience, research on
+                dual-process theory and ego depletion does show that
+                conscious control requires more cognitive resources and
+                can be overwhelmed by automatic processes, especially
+                under stress or fatigue.<a href="#fnref2"
+                class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+                <li id="fn3"><p>In Aldous Huxley’s <em>Brave New
+                World</em>, soma is a drug that provides instant
+                pleasure and escape, keeping citizens docile and
+                preventing them from seeking deeper meaning. This book
+                has frightened me far more than <em>1984</em> ever
+                could.<a href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn4"><p>These activities aren’t inherently good
+                or bad. Really, it depends on how you engage with them.
+                Playing video games with friends can build real
+                relationships; creating content on social media can
+                develop genuine skills. What matters is whether you’re
+                passively consuming or actively creating, connecting,
+                and growing.<a href="#fnref4" class="footnote-back"
                 role="doc-backlink">↩︎</a></p></li>
                 </ol>
                 </aside>
@@ -221,7 +206,12 @@
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/winning-pokemon-showdown/">Winning Pokemon Showdown</a></div><div class="nav-next">Next: <a href="/writing/beyond-if-statements-and-for-loops/">Beyond If Statements and For Loops</a> →</div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

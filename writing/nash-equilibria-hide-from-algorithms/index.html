@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>Nash Equilibria Hide from Algorithms | salm.dev</title>
                 <script src="/assets/js/mathjax-config.js"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -47,6 +49,9 @@
                 outcome.</p>
                 <p>We can represent Rock-Paper-Scissors as:</p>
                 <style>
+                .table-wrapper {
+                    max-width: 40em;
+                }
                 .payoff-matrix {
                     width: auto;
                     margin: 2em auto;
@@ -78,6 +83,7 @@
                     font-weight: bold;
                 }
                 </style>
+                <div class="table-wrapper">
                 <table class="payoff-matrix">
                 <tr>
                 <th>
@@ -135,6 +141,7 @@
                 </td>
                 </tr>
                 </table>
+                </div>
                 <p>The numbers (0, 1, -1) are arbitrary. We could use
                 (5, 10, 0) or any values that preserve the ordering.
                 Winning beats tying beats losing, and the payoffs just
@@ -271,27 +278,15 @@
                 class="math inline">\(\phi\)</span> maps mixed
                 strategies to mixed strategies continuously. <a
                 href="https://en.wikipedia.org/wiki/Brouwer_fixed-point_theorem">Brouwer’s
-                theorem</a> then guarantees a fixed point<a href="#fn1"
-                class="footnote-ref" id="fnref1"
-                role="doc-noteref"><sup>1</sup></a>. But the theorem is
-                non-constructive: it proves equilibria must exist
-                without telling us how to find them.</p>
-                <p><img src="images/nash_fixed_point.jpeg" alt="Nash's fixed point function visualization" loading="lazy" style="display: block; margin: 0 auto; max-width: 700px; width: 100%; height: auto;"></p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol>
-                <li id="fn1"><p>Brouwer’s theorem says any continuous
+                theorem</a> then guarantees a fixed point<sup class="fnref"><a href="#fn1" id="note1" title="Footnote 1">1</a></sup><span class="footnote" id="fn1"><a class="fnref" href="#note1" title="Footnote 1 Reference">1</a> Brouwer’s theorem says any continuous
                 function from a compact convex set to itself must have a
                 fixed point. Since mixed strategies form such a set and
                 <span class="math inline">\(\phi\)</span> is continuous,
                 a fixed point (Nash equilibrium) must exist. The catch
-                is the theorem doesn’t tell us how to find it.<a
-                href="#fnref1" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                is the theorem doesn’t tell us how to find it.</span>. But the theorem is
+                non-constructive: it proves equilibria must exist
+                without telling us how to find them.</p>
+                <p><img src="images/nash_fixed_point.jpeg" alt="Nash's fixed point function visualization" loading="lazy" style="display: block; margin: 0 auto; max-width: 700px; width: 100%; height: auto;"></p>
                 <h2 id="the-computational-complexity-gap">The
                 Computational Complexity Gap</h2>
                 <p>We know equilibria exist. Actually finding them
@@ -299,8 +294,11 @@
                 cases.</p>
                 <p>Zero-sum games, where one player’s gain equals the
                 other’s loss at every outcome, yield to linear
-                programming<a href="#fn2" class="footnote-ref"
-                id="fnref2" role="doc-noteref"><sup>2</sup></a>. The
+                programming<sup class="fnref"><a href="#fn2" id="note2" title="Footnote 2">2</a></sup><span class="footnote" id="fn2"><a class="fnref" href="#note2" title="Footnote 2 Reference">2</a> Von Neumann’s minimax theorem (1928)
+                showed that zero-sum games always have a well-defined
+                value where both players’ optimal strategies meet. We
+                can use linear programming here because the theorem
+                guarantees the LP will find the equilibrium.</span>. The
                 equilibrium computation reduces to:</p>
                 <p><span class="math display">\[
                 \begin{array}{ll}
@@ -320,44 +318,20 @@
                 action <span class="math inline">\(a_2\)</span>. This
                 linear program solves in polynomial time.</p>
                 <p>General-sum games, where players’ interests partially
-                align, belong to PPAD-complete<a href="#fn3"
-                class="footnote-ref" id="fnref3"
-                role="doc-noteref"><sup>3</sup></a>.</p>
+                align, belong to PPAD-complete<sup class="fnref"><a href="#fn3" id="note3" title="Footnote 3">3</a></sup><span class="footnote" id="fn3"><a class="fnref" href="#note3" title="Footnote 3 Reference">3</a> PPAD (Polynomial Parity Arguments on
+                Directed graphs) is a complexity class for problems we
+                know have solutions but can’t find efficiently.
+                Daskalakis et al. (2006) proved that computing Nash
+                equilibria belongs to this class, meaning we likely
+                can’t solve them in polynomial time even though they
+                must exist.</span>.</p>
                 <p>The mixed strategy space grows exponentially with
                 actions. You might think we could settle for “close
                 enough” solutions, but even <span
                 class="math inline">\(\varepsilon\)</span>-approximation
                 remains PPAD-complete for <span
                 class="math inline">\(\varepsilon =
-                1/\text{poly}(n)\)</span><a href="#fn4"
-                class="footnote-ref" id="fnref4"
-                role="doc-noteref"><sup>4</sup></a>.</p>
-                <p>Add an arbitrarily small non-zero-sum component to
-                any zero-sum game and the complexity jumps from P to
-                PPAD-complete. The slightest cooperation breaks our
-                algorithms.</p>
-                <p><img src="./images/cycling_vs_convergent.jpeg" alt="Comparison: Cycling vs convergent dynamics" loading="lazy" style="display: block; margin: 0 auto; max-width: 700px; width: 100%; height: auto;"></p>
-                <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
-                role="doc-endnotes">
-                <hr />
-                <ol start="2">
-                <li id="fn2"><p>Von Neumann’s minimax theorem (1928)
-                showed that zero-sum games always have a well-defined
-                value where both players’ optimal strategies meet. We
-                can use linear programming here because the theorem
-                guarantees the LP will find the equilibrium.<a
-                href="#fnref2" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn3"><p>PPAD (Polynomial Parity Arguments on
-                Directed graphs) is a complexity class for problems we
-                know have solutions but can’t find efficiently.
-                Daskalakis et al. (2006) proved that computing Nash
-                equilibria belongs to this class, meaning we likely
-                can’t solve them in polynomial time even though they
-                must exist.<a href="#fnref3" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                <li id="fn4"><p>An <span
+                1/\text{poly}(n)\)</span><sup class="fnref"><a href="#fn4" id="note4" title="Footnote 4">4</a></sup><span class="footnote" id="fn4"><a class="fnref" href="#note4" title="Footnote 4 Reference">4</a> An <span
                 class="math inline">\(\varepsilon\)</span>-Nash
                 equilibrium allows players to be slightly suboptimal. If
                 <span class="math inline">\(\varepsilon = 0.01\)</span>,
@@ -365,11 +339,12 @@
                 switching strategies. You’d think this relaxation would
                 make the problem easier, but it remains PPAD-complete
                 for polynomially small values of <span
-                class="math inline">\(\varepsilon\)</span>.<a
-                href="#fnref4" class="footnote-back"
-                role="doc-backlink">↩︎</a></p></li>
-                </ol>
-                </aside>
+                class="math inline">\(\varepsilon\)</span>.</span>.</p>
+                <p>Add an arbitrarily small non-zero-sum component to
+                any zero-sum game and the complexity jumps from P to
+                PPAD-complete. The slightest cooperation breaks our
+                algorithms.</p>
+                <p><img src="./images/cycling_vs_convergent.jpeg" alt="Comparison: Cycling vs convergent dynamics" loading="lazy" style="display: block; margin: 0 auto; max-width: 700px; width: 100%; height: auto;"></p>
                 <h2
                 id="practical-workarounds-in-different-fields">Practical
                 Workarounds in Different Fields</h2>
@@ -422,8 +397,10 @@
                 learning system. A hundred pages prove we can’t find
                 them efficiently. The mathematics guarantees they’re
                 there, while computer science proves they’re out of
-                reach<a href="#fn5" class="footnote-ref" id="fnref5"
-                role="doc-noteref"><sup>5</sup></a>.</p>
+                reach<sup class="fnref"><a href="#fn5" id="note5" title="Footnote 5">5</a></sup><span class="footnote" id="fn5"><a class="fnref" href="#note5" title="Footnote 5 Reference">5</a> Thanks to Prof. Manolis Vlatakis and his
+                grad course “Game Theory, Optimization, and Learning” at
+                UW-Madison, which I took in my third year of undergrad.
+                I had a lot of fun learning all of this.</span>.</p>
                 <p>Every GAN that refuses to converge, every pricing
                 algorithm that oscillates, every market that behaves
                 unpredictably is seeking an equilibrium we can’t
@@ -433,10 +410,44 @@
                 We observe their effects daily. We just can’t find
                 them.</p>
                 <aside id="footnotes"
-                class="footnotes footnotes-end-of-section"
+                class="footnotes footnotes-end-of-document"
                 role="doc-endnotes">
                 <hr />
-                <ol start="5">
+                <ol>
+                <li id="fn1"><p>Brouwer’s theorem says any continuous
+                function from a compact convex set to itself must have a
+                fixed point. Since mixed strategies form such a set and
+                <span class="math inline">\(\phi\)</span> is continuous,
+                a fixed point (Nash equilibrium) must exist. The catch
+                is the theorem doesn’t tell us how to find it.<a
+                href="#fnref1" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn2"><p>Von Neumann’s minimax theorem (1928)
+                showed that zero-sum games always have a well-defined
+                value where both players’ optimal strategies meet. We
+                can use linear programming here because the theorem
+                guarantees the LP will find the equilibrium.<a
+                href="#fnref2" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn3"><p>PPAD (Polynomial Parity Arguments on
+                Directed graphs) is a complexity class for problems we
+                know have solutions but can’t find efficiently.
+                Daskalakis et al. (2006) proved that computing Nash
+                equilibria belongs to this class, meaning we likely
+                can’t solve them in polynomial time even though they
+                must exist.<a href="#fnref3" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
+                <li id="fn4"><p>An <span
+                class="math inline">\(\varepsilon\)</span>-Nash
+                equilibrium allows players to be slightly suboptimal. If
+                <span class="math inline">\(\varepsilon = 0.01\)</span>,
+                no player could improve their payoff by more than 1% by
+                switching strategies. You’d think this relaxation would
+                make the problem easier, but it remains PPAD-complete
+                for polynomially small values of <span
+                class="math inline">\(\varepsilon\)</span>.<a
+                href="#fnref4" class="footnote-back"
+                role="doc-backlink">↩︎</a></p></li>
                 <li id="fn5"><p>Thanks to Prof. Manolis Vlatakis and his
                 grad course “Game Theory, Optimization, and Learning” at
                 UW-Madison, which I took in my third year of undergrad.
@@ -449,7 +460,12 @@
 <div class="the-end">~ fin ~</div><div class="similar-writing"><div class="post-navigation"><div class="nav-prev">← Prev: <a href="/writing/cs-data-science-done-right/">CS + Data Science Done Right</a></div></div></div>
         </div>
         <footer>
-            <p>© 2025 salm.dev</p>
+            <p>© 2025 salm.dev | nico@salm.dev</p>
         </footer>
+        <script
+        src="https://tracking.salm.dev/api/script.js"
+        data-site-id="a3641cc346e8"
+        defer
+    ></script>
     </body>
 </html>

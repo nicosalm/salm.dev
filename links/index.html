@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-        <link rel="stylesheet" href="/styles/styles.css">
+        <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+        <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
         <title>links | salm.dev</title>
         <meta name="description" content="links and resources from salm.dev">
     </head>
@@ -15,43 +17,48 @@
         <h1>Links</h1>
         <p>Articles I keep bringing up in conversations:</p>
         <h4>Big Ideas</h2>
-        <ul>
-            <li><a href="https://opowell.com/post/talks-that-changed-the-way-i-think-about-programming/" target="_blank">Talks That Changed The Way I Think About Programming</a> :: Paradigm-shifting presentations</li>
-            <li><a href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/" target="_blank">The Law of Leaky Abstractions</a> :: Why you need to understand what's beneath abstractions</li>
-            <li><a href="https://open.substack.com/pub/andresc/p/why-i-find-it-hard-to-learn-with" target="_blank">Why I Find It Hard to Learn With AI</a> :: How AI assistants can interfere with deep learning</li>
-            <li><a href="https://www.youtube.com/watch?v=sZ60bY2pJfo" target="_blank">It Only Takes Two Weeks</a> :: Advice for learning and life</li>
-            <li><a href="https://www.justfuckingcode.com/" target="_blank">Just Fucking Code</a> :: (True) satire: "The bar for programming is in the dirt..."</li>
-        </ul>
+            <ul>
+                <li><a href="https://opowell.com/post/talks-that-changed-the-way-i-think-about-programming/" target="_blank">Talks That Changed The Way I Think About Programming</a> :: Paradigm-shifting presentations</li>
+                <li><a href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/" target="_blank">The Law of Leaky Abstractions</a> :: Why you need to understand what's beneath abstractions</li>
+                <li><a href="https://open.substack.com/pub/andresc/p/why-i-find-it-hard-to-learn-with" target="_blank">Why I Find It Hard to Learn With AI</a> :: How AI assistants can interfere with deep learning</li>
+                <li><a href="https://www.youtube.com/watch?v=sZ60bY2pJfo" target="_blank">It Only Takes Two Weeks</a> :: Advice for learning and life</li>
+                <li><a href="https://www.justfuckingcode.com/" target="_blank">Just Fucking Code</a> :: (True) satire: "The bar for programming is in the dirt..."</li>
+            </ul>
 
-        <h4>Tools</h2>
-        <ul>
-            <li><a href="https://godbolt.org/" target="_blank">Godbolt Compiler Explorer</a> :: See how your code compiles to assembly in real-time</li>
-            <li><a href="https://cheatsheetseries.owasp.org/IndexTopTen.html" target="_blank">OWASP Cheat Sheets</a> :: Concise high value info on specific application security topics</li>
-            <li><a href="https://scharenbroch.dev/blog/vim-bindings/" target="_blank">Vim Bindings</a> :: Every Vim binding Lucas knows</li>
-        </ul>
+            <h4>Tools</h2>
+                <ul>
+                    <li><a href="https://godbolt.org/" target="_blank">Godbolt Compiler Explorer</a> :: See how your code compiles to assembly in real-time</li>
+                    <li><a href="https://cheatsheetseries.owasp.org/IndexTopTen.html" target="_blank">OWASP Cheat Sheets</a> :: Concise high value info on specific application security topics</li>
+                    <li><a href="https://scharenbroch.dev/blog/vim-bindings/" target="_blank">Vim Bindings</a> :: Every Vim binding Lucas knows</li>
+                </ul>
 
-        <h4>Best Practices</h2>
-        <ul>
-            <li><a href="https://www.cloudbees.com/blog/best-practices-for-a-new-go-developer" target="_blank">Best Practices for a New Go Developer</a> :: Essential reading if you plan to code in Go</li>
-            <li><a href="https://calpaterson.com/against-database-teardown.html" target="_blank">Against Database Teardown</a> :: Why you should stop resetting your test database</li>
-        </ul>
+                <h4>Best Practices</h2>
+                    <ul>
+                        <li><a href="https://www.cloudbees.com/blog/best-practices-for-a-new-go-developer" target="_blank">Best Practices for a New Go Developer</a> :: Essential reading if you plan to code in Go</li>
+                        <li><a href="https://calpaterson.com/against-database-teardown.html" target="_blank">Against Database Teardown</a> :: Why you should stop resetting your test database</li>
+                    </ul>
 
-        <h4>Talks</h2>
-        <ul>
+                    <h4>Talks</h2>
+                        <ul>
                             <li><a href="https://www.youtube.com/watch?v=443UNeGrFoM" target="_blank">How I program in C</a> :: First you seek results, later you seek control</li>
-            <li><a href="https://www.destroyallsoftware.com/talks/wat" target="_blank">Wat</a> :: Wat! A lightning talk by Gary Bernhardt</li>
-        </ul>
+                            <li><a href="https://www.destroyallsoftware.com/talks/wat" target="_blank">Wat</a> :: Wat! A lightning talk by Gary Bernhardt</li>
+                        </ul>
 
-        <h3>Oh, you were looking for social links?</h3>
-        <p>
-            I'm afraid I don't use social media much, but I'm flattered you'd like to connect.
-            <a href="mailto:hello@salm.dev">Email me</a> if you want to chat.
-            I have a <a href="https://bsky.app/profile/salm.dev" target="_blank">Bluesky</a>, though I'm on it sparingly. Rest in peace, Twitter.
-        </p>
+                        <h3>Oh, you were looking for social links?</h3>
+                        <p>
+                            I'm afraid I don't use social media much, but I'm flattered you'd like to connect.
+                            <a href="mailto:hello@salm.dev">Email me</a> if you want to chat.
+                            I have a <a href="https://bsky.app/profile/salm.dev" target="_blank">Bluesky</a>, though I'm on it sparingly. Rest in peace, Twitter.
+                        </p>
 
-        <footer>
-            <p>© 2025 salm.dev</p>
-        </footer>
+                        <footer>
+                            <p>© 2025 salm.dev | nico@salm.dev</p>
+                        </footer>
+                        <script
+                        src="https://tracking.salm.dev/api/script.js"
+                        data-site-id="a3641cc346e8"
+                        defer
+                        ></script>
     </body>
 </html>
 
