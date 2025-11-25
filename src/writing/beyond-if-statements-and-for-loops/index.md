@@ -365,7 +365,7 @@ Here we are at last! Rust's ownership system transformed how I think about data 
 
 Traditional object-oriented thinking creates a tangled mess where everything points to everything else:
 
-<div style="display: flex; justify-content: center; gap: 40px; margin: 20px 0;"><div style="text-align: center;"><img src="images/sea-of-objects.jpeg" alt="Sea of objects diagram" style="width: 300px;"><div style="font-style: italic; margin-top: 8px;">Sea of Objects (Traditional OOP)</div></div><div style="text-align: center;"><img src="images/tree-of-values.jpeg" alt="Tree of values diagram" style="width: 245px;"><div style="font-style: italic; margin-top: 8px;">Tree of Values (Rust's Ownership)</div></div></div>
+<div style="display: flex; gap: 40px; margin: 20px 0;"><div style="text-align: center;"><img src="images/sea-of-objects.jpeg" alt="Sea of objects diagram" style="width: 300px;"><div style="font-style: italic; margin-top: 8px;">Sea of Objects (Traditional OOP)</div></div><div style="text-align: center;"><img src="images/tree-of-values.jpeg" alt="Tree of values diagram" style="width: 245px;"><div style="font-style: italic; margin-top: 8px;">Tree of Values (Rust's Ownership)</div></div></div>
 
 Following data flow becomes impossible in the traditional model:
 

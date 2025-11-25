@@ -80,7 +80,7 @@ process_post() {
   date_rfc=$(format_date_rfc "$date")
   [[ -z "$date" ]] && date="1970-01-01"
 
-  desc=$(awk '/<div class="description">/{flag=1; next} /<span class="date-info">/{flag=0} flag' "$mdfile" | tr '\n' ' ' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  desc=$(awk '/<div class="description">/{flag=1; next} /<span class="date">/{flag=0} flag' "$mdfile" | tr '\n' ' ' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
   [[ -z "$desc" ]] && desc="Read more at salm.dev!"
 
   tags=$(extract_tags "$mdfile")
@@ -111,7 +111,7 @@ process_post() {
     !in_tags && !in_featured { print }
   ' "$mdfile" > "$tmpfile"
 
-  local pandoc_cmd="pandoc $tmpfile --standalone --template=src/templates/post.html --reference-location=section"
+  local pandoc_cmd="pandoc $tmpfile --standalone --template=src/templates/post.html --reference-location=document"
 
   if has_math_content "$mdfile"; then
     pandoc_cmd="$pandoc_cmd --mathjax -V has_math=true"
@@ -123,6 +123,10 @@ process_post() {
   fi
 
   $pandoc_cmd -o "dist/writing/$name/index.html" -V title="$title"
+
+  # Convert footnotes to sidenotes
+  python3 scripts/process-sidenotes.py "dist/writing/$name/index.html"
+
   rm "$tmpfile"
 
   if [[ -d "${dir}images" ]]; then
@@ -246,7 +250,7 @@ HTML
 
     echo "        </ul>"
     echo "    </div>"
-    echo "    <footer><p>© 2025 salm.dev</p></footer>"
+    echo "    <footer><p>© 2025 salm.dev | nico@salm.dev</p></footer>"
     echo "</body>"
     echo "</html>"
   } > "dist/writing/tag/$tag/index.html"
@@ -311,8 +315,7 @@ HTML
 
     echo "        </div>"
     echo "    </div>"
-    echo "    <p class=\"footer-note\">★ marks posts I find particularly interesting</p>"
-    echo "    <footer><p>© 2025 salm.dev</p></footer>"
+    echo "    <footer><p>© 2025 salm.dev | nico@salm.dev</p></footer>"
     echo "</body>"
     echo "</html>"
   } > dist/writing/index.html

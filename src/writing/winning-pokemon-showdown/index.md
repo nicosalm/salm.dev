@@ -9,12 +9,12 @@ We used game theory to find the mathematically optimal strategies in Pokémon Sh
 ## Premise
 In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it's pure strategic decision-making. A game has two phases: choosing your Pokémon (left) and battling (right):
 
-<table style="margin: 0 auto; border-collapse: collapse;">
+<table style="border-collapse: collapse;">
   <tr>
-    <td style="padding: 10px; text-align: center;">
+    <td style="padding: 10px;">
       <img src="./images/choosing-phase.jpeg" alt="choosing phase">
     </td>
-    <td style="padding: 10px; text-align: center;">
+    <td style="padding: 10px;">
       <img src="./images/battle-phase.jpeg" alt="battling phase">
     </td>
   </tr>
@@ -27,10 +27,7 @@ When a player's Pokemon's <abbr title="Hitpoints">HP</abbr> reaches 0, the other
 ## The Seven Pokemon We Analyzed
 For our project, my friends and I focused on seven of the most commonly used Pokémon in the January 2021 Pokémon Showdown 1v1 leaderboard:
 
-<img src="./images/top-7.jpeg" loading="lazy" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Primarina, Sylveon, Heatran, Urshifu, Rillaboom, Garchomp, and Zapdos
-</p>
+<img src="./images/top-7.jpeg" loading="lazy" alt="All seven Pokémon analyzed" style="width: 100%; max-width: 700px; display: block;">
 
 Each Pokémon has its own unique typing, movesets, and stats that create diverse strategic matchups. For consistency, we used the most popular standard moveset for each Pokémon according to [Smogon's Strategy Dex](https://www.smogon.com/dex/ss/pokemon/).
 
@@ -43,24 +40,21 @@ We modeled these battles in two key stages:
 
 First, we needed to understand how each Pokémon matchup plays out when both players use optimal strategies. We built turn-based payoff matrices for each possible matchup, calculating expected damage and effects for every move combination using Showdown's [Pokémon Damage Calculator](https://calc.pokemonshowdown.com/).
 
-<img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
+<img src="./images/single-turn-payoff.jpeg" loading="lazy" alt="Pokémon Move Damage Matrix" style="width: 100%; max-width: 600px; display: block;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   This payoff matrix shows damage ranges between Garchomp and Sylveon's moves
 </p>
 
 Pokémon battles have random elements: move accuracy, critical hits, and damage ranges. We handled these with [expectimax trees](https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html) that calculate expected outcomes for each decision.
 
-<img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block; margin: 0 auto;">
+<img src="./images/example-game-tree.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 50%; max-width: 600px; display: block;">
 <p style="text-align: center; font-style: italic; margin-top: 10px;">
   Example of a battle decision tree showing Hyper Beam outcomes between Primarina and Sylveon
 </p>
 
 Some moves like *Sucker Punch* (which only works if the opponent uses an attacking move) create rock-paper-scissors style mind games that require [mixed strategy Nash equilibria](https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy). When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we'd never spot by hand.
 
-<img src="./images/sucker-punch.jpeg" loading="lazy" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-   Sucker Punch move
-</p>
+<img src="./images/sucker-punch.jpeg" loading="lazy" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block;">
 
 ### The Math Behind Nash Equilibrium
 
@@ -110,10 +104,7 @@ The code above computes the mathematically optimal mixed strategy for each playe
 
 With optimal move strategies worked out for individual battles, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:
 
-<img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Matchup win probability matrix
-</p>
+<img src="./images/payoff-matrix-full.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block;">
 
 Using this matrix, we could then solve for the optimal team selection strategies.
 
@@ -146,19 +137,13 @@ for team in all_team_combinations:
 best_teams = sorted(team_results.items(), key=lambda x: x[1], reverse=True)
 ```
 
-<img src="./images/team-performance-ranking.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Team performance ranking based on average win rates
-</p>
+<img src="./images/team-performance-ranking.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 600px; display: block;">
 
 ## Key Findings
 
 The strongest team turned out to be Heatran, Sylveon, and Zapdos with a 62.4% average win rate across all matchups. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.
 
 <img src="./images/avg-winrate.jpeg" loading="lazy" alt="Win Probabilities Matrix" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Best and worst performing Pokémon based on Nash equilibrium calculations
-</p>
 
 Teams with Sylveon and Zapdos consistently won in our simulations. Pairing Heatran with Urshifu was a recipe for disaster.
 
@@ -169,9 +154,6 @@ Teams with Sylveon and Zapdos consistently won in our simulations. Pairing Heatr
 *Heatran vs. Garchomp* was one of the simpler matchups. Despite Garchomp's fearsome reputation, Heatran wins 81.7% of the time when both players play optimally.
 
 <img src="./images/matchup-heatran-garchomp.jpeg" loading="lazy" alt="Heatran vs Garchomp" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Battle setup and outcome for Heatran vs. Garchomp
-</p>
 
 Heatran should open with *Will-O-Wisp* to burn and halve Garchomp's attack, then spam *Dragon Pulse*. Garchomp's best bet is *Stone Edge* despite its 80% accuracy.
 
@@ -180,16 +162,10 @@ Heatran should open with *Will-O-Wisp* to burn and halve Garchomp's attack, then
 *Rillaboom vs. Urshifu* is where the mind games get real. *Sucker Punch* only works against attacking moves, so neither Pokémon has a dominant strategy.
 
 <img src="./images/payoff-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-   Payoff matrix for Rillaboom vs. Urshifu involving the move Sucker Punch
-</p>
 
 The math says Urshifu should mix Sucker Punch and Wicked Blow 50/50 after turn 2, while Rillaboom adapts to the situation:
 
 <img src="./images/matchup-rillaboom-urshifu.jpeg" loading="lazy" alt="Rillaboom vs Urshifu" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-   Battle setup and outcome for Rillaboom vs. Urshifu
-</p>
 
 Even with perfect play from both sides, Rillaboom wins 69.5% of the time.
 
@@ -201,16 +177,10 @@ Jake, our Pokémon expert (with over 5000 hours?!), predicted almost identical s
 Some team matchups resulted in pure Nash equilibria with dominant strategies:
 
 <img src="./images/pne.jpeg" alt="Pure Nash Equilibrium" loading="lazy" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Example of a pure Nash equilibrium in team selection
-</p>
 
 While others required mixed strategies, creating a Rock-Paper-Scissors dynamic:
 
 <img src="./images/mixed.jpeg" loading="lazy" alt="Mixed Nash Equilibrium" style="width: 100%; max-width: 1000px; display: block; margin: 0 auto;">
-<p style="text-align: center; font-style: italic; margin-top: 10px;">
-  Example of a mixed Nash equilibrium in team selection
-</p>
 
 When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.[^3]
 

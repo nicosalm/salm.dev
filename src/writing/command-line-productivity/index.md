@@ -2,7 +2,7 @@
 
 <div class="description">
 I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim.
-<span class="date-info"><span class="date">2024-10-10</span><span class="updated">2025-07-13</span></span>
+<span class="date">2024-10-10</span>
 <span class="tags">programming, productivity, learning</span>
 <span class="featured">featured</span>
 </div>
@@ -178,20 +178,7 @@ Notice how, for some, the phonetic sound of the command matches the action. `d` 
 
 ### Vim (The Program)
 
-Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient. My friend [Lucas](https://scharenbroch.dev/) rather aptly put:
-
-```{=html}
-<div class="quote-container">
-    <div class="quote-content">
-        <div class="quote-text">
-            Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
-        </div>
-        <div class="quote-author">
-            Lucas Scharenbroch
-        </div>
-    </div>
-</div>
-```
+Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient. My friend [Lucas](https://scharenbroch.dev/) rather aptly put that "Vim is the bliss of Ctrl C/V but applied to every facet of the editor."
 
 I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
 
@@ -205,9 +192,7 @@ A lot of people recommend learning Vim Motions on your current editor first befo
 
 ### Neovim
 
-Vim's extensibility takes it to the next level. Enter: Neovim. Taken from the [Neovim Charter](https://neovim.io/charter/):
-
-> Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
+Vim's extensibility takes it to the next level. Enter Neovim. From the [Neovim Charter](https://neovim.io/charter/): "Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more."
 
 Neovim's component-like plugin structure allows me to drop in and take out functionality easily. I can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. I can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
 

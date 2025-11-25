@@ -49,10 +49,7 @@ It's frustrating, it's wonderful, and you learn a ton.
 
 They say a picture is worth a thousand words:
 
-<div style="text-align: center; margin: 20px 0;">
 <img src="./images/venn.jpg" loading="lazy" alt="Data Science Venn Diagram" width="250" height="250" style="display: block; margin: 0 auto;">
-<div style="font-style: italic; margin-top: 8px;">Data Science = Programming ∩ Math/Stats ∩ Business Intelligence[^6]</div>
-</div>
 
 As a hybrid major, data science gives you a taste of everything but mastery of none. The diagram above shows the reality of what this field actually is---not a standalone discipline, but the overlap between three distinct areas of expertise.
 

@@ -17,6 +17,9 @@ Every finite game needs three things. Players $\mathcal{N} = \{1, 2, ..., n\}$ w
 We can represent Rock-Paper-Scissors as:
 
 <style>
+.table-wrapper {
+    max-width: 40em;
+}
 .payoff-matrix {
     width: auto;
     margin: 2em auto;
@@ -49,12 +52,14 @@ We can represent Rock-Paper-Scissors as:
 }
 </style>
 
+<div class="table-wrapper">
 <table class="payoff-matrix">
 <tr><th></th><th>Rock</th><th>Paper</th><th>Scissors</th></tr>
 <tr><td>Rock</td><td>0,0</td><td>-1,1</td><td>1,-1</td></tr>
 <tr><td>Paper</td><td>1,-1</td><td>0,0</td><td>-1,1</td></tr>
 <tr><td>Scissors</td><td>-1,1</td><td>1,-1</td><td>0,0</td></tr>
 </table>
+</div>
 
 The numbers (0, 1, -1) are arbitrary. We could use (5, 10, 0) or any values that preserve the ordering. Winning beats tying beats losing, and the payoffs just encode these preferences.
 

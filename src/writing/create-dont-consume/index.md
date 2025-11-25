@@ -16,7 +16,6 @@ Nothing technical today in the traditional sense; rather, I've come to share a b
 - scrolling
 - YouTube videos and short-form content
 - Discord conversations
-- "dooming"[^1] about big milestones I have not achieved
 - using AI (*when passive)
 
 Looking at this list, there's a pattern I've been thinking about a lot recently: these are all low-effort activities that deliver quick dopamine hits. They feel rewarding in the moment, yet leave me empty afterward.
@@ -47,20 +46,7 @@ Daniel Lieberman calls this an "[evolutionary mismatch](https://www.cell.com/cur
 
 The struggle comes from processes running at different priority levels[^3]: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.
 
-These consumptive behaviors often function as sophisticated counterfeits of the real thing. I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say! He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits:
-
-```{=html}
-<div class="quote-container">
-    <div class="quote-content">
-        <div class="quote-text">
-            George Orwell wasn't right—our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine.
-        </div>
-        <div class="quote-author">
-            Jimmy Carr, <a href="https://www.youtube.com/watch?v=uHLAazKUU68" target="_blank">"The Diary of a CEO"</a>
-        </div>
-    </div>
-</div>
-```
+These consumptive behaviors often function as sophisticated counterfeits of the real thing. I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say. He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits. In his words, "George Orwell wasn't right—our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine."
 
 All of these consumptive behaviors (the scrolling, the videos, etc.) are forms of mental escape from the present moment. They pull us away from engaging with what's actually in front of us.
 

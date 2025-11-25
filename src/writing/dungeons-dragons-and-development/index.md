@@ -10,23 +10,6 @@ I have been roleplaying and building worlds for a decade this May[^1]. In that t
 
 Creating homebrew worlds mirrors designing software. The worldbuilding process is an asymptotic journey toward an ideal. You begin with an empty canvas, add and strip away elements, and refine towards a "just right" state that can never be fully reached. This gap between vision and implementation persists regardless of effort invested.
 
-```{=html}
-<div style="display: flex; justify-content: space-between; margin: 20px 0; padding: 20px 20px;">
-  <div style="text-align: center;">
-    <img src="./images/map1.jpeg" alt="The Isles" style="width: 200px; margin: 10px 0;">
-    <div style="font-style: italic;">Map A. The Isles (2020)</div>
-  </div>
-  <div style="text-align: center;">
-    <img src="./images/map2.jpeg" alt="Aldria" style="width: 200px; margin: 10px 0;">
-    <div style="font-style: italic;">Map B. Aldria (2021)</div>
-  </div>
-  <div style="text-align: center;">
-    <img src="./images/map3.jpeg" alt="El'kora" style="width: 200px; margin: 10px 0;">
-    <div style="font-style: italic;">Map C. El'kora (2024)</div>
-  </div>
-</div>
-```
-
 This model works equally well for programming. Programmers build "worlds" of their own, maintaining coherence internally through well-structured code and externally through intuitive interfaces. We design data structures, algorithms, and establish design patterns. Like worldbuilders, programmers must understand how each component affects the entire system.
 
 One challenge in both disciplines is adding new elements without disrupting the existing system. As a GM, when I introduce a new culture or type of magic, I must weave it into existing lore without creating contradictions. When I created a seafaring merchant kingdom (Tayrest on map A), I ensured their cultural practices made sense given their proximity to existing nations. Similarly, software engineers adding features must ensure compatibility with existing functionality while avoiding regression issues. In both domains, you must anticipate how additions will ripple through your creation.
@@ -50,11 +33,6 @@ I've found that balancing enough content to make the system feel hearty and full
 ## Preventing Burnout
 
 The creative drive that fuels both worldbuilding and programming can be all-consuming. I've definitely had nights up past 3 AM sketching political conflicts between fictional kingdoms or perfecting an NPC's backstory my players might never even meet. This passion is a double-edged sword, driving creation but leading to burnout when unchecked.
-
-<figure style="text-align: center; margin: 20px 0;">
-    <img src="./images/wikia.jpeg" loading="lazy" alt="Screenshot of wiki-style lore respositories I've written with hundreds of pages" style="width: 80%; margin: 15px auto;">
-    <figcaption style="text-align: center; font-style: italic; margin-bottom: 10px;">Wiki-style lore respositories I've written (where each page contains a character, location, or info page, etc.)</figcaption>
-</figure>
 
 Game masters often feel pressure to constantly innovate, balancing preparation with improvisation as player actions derail planned scenarios. After months of this cycle, even the most enthusiastic GM can find their creative well running dry. The cruel irony is that the hobby once chosen as an escape transforms into something they themselves now feel the need to escape from.
 
