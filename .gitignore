@@ -9,3 +9,4 @@ dist/
 .env
 /target
 /src/writing/ideas.txt
+/src/writing/todo

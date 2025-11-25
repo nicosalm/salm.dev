@@ -198,7 +198,9 @@ generate_single_tag_page() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="stylesheet" href="/styles/styles.css">
+    <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+    <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>$tag | writing | salm.dev</title>
 </head>
@@ -225,9 +227,9 @@ HTML
         local escaped_desc
         escaped_desc=$(escape "$desc")
 
-        local star_html=""
+        local icons_html=""
         if [[ "$featured" == "true" ]]; then
-          star_html=" <span class=\"featured-star\">★</span>"
+          icons_html="$icons_html <span class=\"featured-star\">★</span>"
         fi
 
         if [[ "$year" != "$current_year" ]]; then
@@ -244,13 +246,14 @@ HTML
           current_year="$year"
         fi
 
-        echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$star_html</li>"
+        echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$icons_html</li>"
       fi
     done < <(printf '%s\n' "${POSTS[@]}" | sort -r)
 
     echo "        </ul>"
     echo "    </div>"
     echo "    <footer><p>© 2025 salm.dev | nico@salm.dev</p></footer>"
+    echo "    <script src=\"https://tracking.salm.dev/api/script.js\" data-site-id=\"a3641cc346e8\" defer></script>"
     echo "</body>"
     echo "</html>"
   } > "dist/writing/tag/$tag/index.html"
@@ -265,7 +268,9 @@ generate_posts_index() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="stylesheet" href="/styles/styles.css">
+    <style>:root{--bg-color:#fff;--text-color:#2a2a2a;--text-secondary:#666;--link-color:#06c;--border-color:#eee;--code-bg:#f5f5f5;--font-family-body:"charter",sans-serif;--font-family-code:"firacode","Fira Code","Consolas",monospace;--font-size-base:1rem;--font-size-small:.95rem;--line-height:1.6;--line-height-heading:1.2;--spacing-tiny:.25rem;--spacing-small:.5rem;--spacing-medium:1rem;--spacing-large:1.5rem;--spacing-xl:2rem;--transition:.3s ease;--border-standard:1px solid var(--border-color);--heading-margin:var(--spacing-large) 0 var(--spacing-medium)}@media (prefers-color-scheme:dark){:root{--bg-color:#0e0e12;--text-color:#e3e3e8;--text-secondary:#9090a0;--link-color:#8ab4f8;--border-color:#2a2a3e;--code-bg:#16161e}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-body);font-size:var(--font-size-base);line-height:var(--line-height);max-width:1400px;color:var(--text-color);background-color:var(--bg-color);margin:0 auto;padding:20px}h1,h2,h3,h4,h5,h6{font-family:var(--font-family-body);margin:var(--heading-margin);line-height:var(--line-height-heading);color:var(--text-color);font-variant:small-caps;max-width:35em}h1{font-size:2.375rem;margin-top:var(--spacing-small)}h2{font-size:1.875rem;margin-top:var(--spacing-xl)}h3{font-size:1.625rem}h4{font-size:1.375rem}p{margin-bottom:var(--spacing-medium);max-width:40em}a{color:var(--link-color);text-decoration:underline}header{margin-bottom:var(--spacing-medium)}.site-header{display:flex;align-items:center;gap:var(--spacing-large);margin-bottom:var(--spacing-medium)}.main-nav{display:flex;gap:var(--spacing-medium);font-size:1rem}</style>
+    <link rel="stylesheet" href="/styles/styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles/styles.css"></noscript>
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>writing | salm.dev</title>
 </head>
@@ -283,9 +288,9 @@ HTML
       local escaped_desc
       escaped_desc=$(escape "$desc")
 
-      local star_html=""
+      local icons_html=""
       if [[ "$featured" == "true" ]]; then
-        star_html=" <span class=\"featured-star\">★</span>"
+        icons_html="$icons_html <span class=\"featured-star\">★</span>"
       fi
 
       if [[ "$year" != "$current_year" ]]; then
@@ -303,7 +308,7 @@ HTML
         current_year="$year"
       fi
 
-      echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$star_html</li>"
+      echo "          <li>$short_date :: <a href=\"/writing/$name/\" class=\"post-link\" data-description=\"$escaped_desc\">$title</a>$icons_html</li>"
     done < <(printf '%s\n' "${POSTS[@]}" | sort -r)
 
     echo "        </ul>"
@@ -316,6 +321,7 @@ HTML
     echo "        </div>"
     echo "    </div>"
     echo "    <footer><p>© 2025 salm.dev | nico@salm.dev</p></footer>"
+    echo "    <script src=\"https://tracking.salm.dev/api/script.js\" data-site-id=\"a3641cc346e8\" defer></script>"
     echo "</body>"
     echo "</html>"
   } > dist/writing/index.html
@@ -323,8 +329,6 @@ HTML
 
 generate_similar_writing() {
   local current_name="$1"
-  local current_tags="$2"
-  local current_date="$3"
 
   local prev_post="" next_post=""
   local sorted_posts

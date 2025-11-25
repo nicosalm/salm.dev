@@ -181,6 +181,13 @@ h4 {
     margin: 0;
 }
 
+.writing-key {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: var(--spacing-small) 0 var(--spacing-medium) 0;
+}
+
 p {
     margin-bottom: var(--spacing-medium);
     text-align: justify;
@@ -403,11 +410,6 @@ footer {
     content: ")";
 }
 
-.description .date {
-    display: block;
-    margin-top: var(--spacing-small);
-}
-
 .post-link {
     position: relative;
     display: inline-block;
@@ -416,7 +418,16 @@ footer {
 .featured-star {
     color: var(--text-color);
     margin-left: 0.1em;
+}
 
+.book-review-icon {
+    color: var(--text-color);
+    margin-left: 0.1em;
+}
+
+.project-icon {
+    color: var(--text-color);
+    margin-left: 0.1em;
 }
 
 .post-link[data-description]:hover::after {
@@ -497,8 +508,6 @@ footer {
     justify-content: space-between;
     align-items: flex-start;
 }
-
-/* Footnotes - RedPenguin style */
 
 .fnref {
     vertical-align: baseline;
