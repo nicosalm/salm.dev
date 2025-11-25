@@ -339,41 +339,6 @@ generate_similar_writing() {
     fi
   done <<< "$sorted_posts"
 
-  local related_posts=""
-  local max_related=3
-  local count=0
-
-  if [[ -n "$current_tags" ]]; then
-    local tag_array
-    IFS=',' read -ra tag_array <<< "$(echo "$current_tags" | tr '\n' ',' | sed 's/,$//')"
-
-    local post_scores=""
-    for post_entry in "${POSTS[@]}"; do
-      IFS="|" read -r date date_rfc title name desc featured <<< "$post_entry"
-      [[ "$name" == "$current_name" ]] && continue
-
-      local shared_count=0
-      for tag in "${tag_array[@]}"; do
-        tag=$(echo "$tag" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-        for pt in "${POST_TAGS[@]}"; do
-          IFS="|" read -r pt_name pt_tag <<< "$pt"
-          if [[ "$pt_name" == "$name" && "$pt_tag" == "$tag" ]]; then
-            ((shared_count++))
-            break
-          fi
-        done
-      done
-
-      if [[ $shared_count -gt 0 ]]; then
-        post_scores="${post_scores}${shared_count}|${title}|${name}\n"
-      fi
-    done
-
-    if [[ -n "$post_scores" ]]; then
-      related_posts=$(printf '%b' "$post_scores" | sort -t'|' -k1,1nr | head -n $max_related)
-    fi
-  fi
-
   local html="<div class=\"the-end\">~ fin ~</div>"
   html="${html}<div class=\"similar-writing\">"
 
@@ -387,14 +352,6 @@ generate_similar_writing() {
     html="${html}<div class=\"nav-next\">Next: <a href=\"/writing/${next_name}/\">${next_title}</a> →</div>"
   fi
   html="${html}</div>"
-
-  if [[ -n "$related_posts" ]]; then
-    html="${html}<div class=\"related-posts\"><h4>Related by Tag:</h4><ul>"
-    while IFS='|' read -r score title name; do
-      html="${html}<li><small><a href=\"/writing/${name}/\">${title}</a></small></li>"
-    done <<< "$related_posts"
-    html="${html}</ul></div>"
-  fi
 
   html="${html}</div>"
   echo "$html"
