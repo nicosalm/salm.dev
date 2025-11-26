@@ -502,13 +502,6 @@ footer {
     margin: 0;
 }
 
-.about-container {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
 .fnref {
     vertical-align: baseline;
     position: relative;
@@ -714,16 +707,4 @@ a.fnref,
 
 .nav-next {
     text-align: right;
-}
-
-@media (max-width: 576px) {
-    .about-container {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    .about-container img {
-        margin-bottom: 20px !important;
-        order: -1 !important;
-    }
 }

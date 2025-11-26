@@ -29,7 +29,7 @@
                 programming flow has traditionally consisted of writing
                 nested conditionals, iterating through arrays, wrapping
                 errors in try-catches, and hopefully ending up with a
-                finished product that <em>works</em>.</p>
+                finished program that <em>works</em>.</p>
                 <p>In my intro programming course, we learned basic
                 Java. After arrays, we jumped straight into
                 object-oriented design, data structures, and algorithms.
@@ -57,8 +57,7 @@
                 <p>What does ‘better’ mean? I’d argue we find
                 improvement when we discover patterns that represent our
                 work more efficiently, intuitively, or clearly.</p>
-                <h2 id="pattern-1-pattern-matching">Pattern 1: Pattern
-                Matching</h2>
+                <h2 id="pattern-1-matching">Pattern 1: Matching</h2>
                 <p>The first major shift happened when I realized most
                 of my if-else chains weren’t about control flow. They
                 were about destructuring data and handling different
@@ -91,9 +90,9 @@
                 handle all possible cases. The compiler literally won’t
                 let me forget an edge case.</p>
                 <p>Rust’s pattern matching opened my eyes to a pattern
-                I’d been approximating badly in other languages. Once I
-                saw it clearly, I realized it’s everywhere. Swift has
-                it, Python 3.10+ added it, and I can even fake it in
+                I’d been approximating badly in other languages.
+                Actually Swift has pattern matching too, as does Python
+                3.10+… I can even sort of approximate it in
                 JavaScript:</p>
                 <div class="sourceCode" id="cb3"><pre
                 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// approximated in js w/ objects</span></span>
@@ -104,9 +103,10 @@
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> key <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">type</span><span class="sc">}</span><span class="vs">:</span><span class="sc">${</span>pokemon<span class="op">.</span><span class="at">evolutionStage</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> moveHandlers[key]<span class="op">?.</span>(pokemon) <span class="op">||</span> <span class="fu">fallbackStruggle</span>(pokemon)<span class="op">;</span></span></code></pre></div>
-                <p>The insight isn’t superior syntax. It’s realizing
-                that sometimes I’m better served thinking about data
-                shapes instead of control flow.</p>
+                <p>The point here isn’t that the syntax is
+                <em>better</em>, per se, rather it’s that in order to
+                write my code like this I have to think about the
+                <em>shape</em> of the data instead of control flow.</p>
                 <h2 id="pattern-2-types">Pattern 2: Types</h2>
                 <p>Match syntax is a clean and effective way to process
                 different data shapes, but it’s just one part of the
@@ -121,9 +121,13 @@
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">failureReason</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>   <span class="co">// only exists when failed</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">currentObjective</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>   <span class="co">// meaningless when completed or failed</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
-                <p>What I learned was to make illegal states
+                <p>So this is bad, obviously. It’s just incredibly vague
+                and you have a bunch of <code>null</code> sentinels
+                which means sometimes the the value doesn’t exist.
+                Instead, I’ve learned to make illegal states
                 unrepresentable.</p>
-                <p>Now I design with the type system:</p>
+                <p>Consider this alternative which properly uses the
+                type system:</p>
                 <div class="sourceCode" id="cb5"><pre
                 class="sourceCode rust"><code class="sourceCode rust"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">enum</span> QuestState <span class="op">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    Available <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> requirements<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Requirement<span class="op">&gt;</span> <span class="op">},</span></span>
@@ -131,15 +135,15 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Completed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> rewards<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Reward<span class="op">&gt;,</span> completedAt<span class="op">:</span> DateTime <span class="op">},</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Failed <span class="op">{</span> questId<span class="op">:</span> QuestId<span class="op">,</span> reason<span class="op">:</span> FailureReason<span class="op">,</span> canRetry<span class="op">:</span> <span class="dt">bool</span> <span class="op">},</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-                <p>I literally cannot have a completed quest without
-                rewards or an active quest without progress
-                tracking.</p>
+                <p>With this code, I literally cannot have a completed
+                quest without rewards or an active quest without
+                progress tracking.</p>
                 <p>I’ve realized the value in using the type system to
                 encode business rules, not just data shapes. When
                 illegal states become unrepresentable, entire categories
                 of bugs disappear.</p>
                 <p>Rust showed me this principle clearly, but once I
-                understood it, I could apply it elsewhere. With
+                understood it, I could apply it elsewhere with
                 TypeScript’s discriminated unions, or even factory
                 functions in dynamic languages.</p>
                 <h2 id="pattern-3-transformations">Pattern 3:
