@@ -563,6 +563,17 @@ a.fnref,
     font-size: 1.0rem;
 }
 
+.nav-separator {
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+    height: 0;
+    margin: 0 var(--spacing-medium);
+}
+
+.header-right-text {
+    color: var(--text-secondary);
+}
+
 .recent-posts-list {
     margin: 0;
     padding-left: 0;
