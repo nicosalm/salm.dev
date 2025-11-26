@@ -130,7 +130,7 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
     margin: 0 auto;
-    padding: 40px 20px 20px 0;
+    padding: 40px 20px 20px 20px;
     transition: background-color var(--transition), color var(--transition);
 }
 
