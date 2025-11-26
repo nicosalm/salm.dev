@@ -3,6 +3,7 @@ dist/
 .vscode/
 .idea/
 *.swp
+.claude/
 *~
 *.log
 *.tmp
