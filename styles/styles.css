@@ -563,6 +563,10 @@ a.fnref,
     font-size: 1.0rem;
 }
 
+.nav-bracket {
+    color: var(--border-color);
+}
+
 .nav-separator {
     flex: 1;
     border-bottom: 1px solid var(--border-color);
