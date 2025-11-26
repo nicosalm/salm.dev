@@ -7,7 +7,7 @@ How pattern matching, type systems, and functional thinking transformed my appro
 
 ## Learned Defaults
 
-Would you believe there is more to writing code than if-statements and for-loops? Revelatory, I know. My programming flow has traditionally consisted of writing nested conditionals, iterating through arrays, wrapping errors in try-catches, and hopefully ending up with a finished product that _works_.
+Would you believe there is more to writing code than if-statements and for-loops? Revelatory, I know. My programming flow has traditionally consisted of writing nested conditionals, iterating through arrays, wrapping errors in try-catches, and hopefully ending up with a finished program that _works_.
 
 In my intro programming course, we learned basic Java. After arrays, we jumped straight into object-oriented design, data structures, and algorithms. We (briefly) learned the Stream API, but not match expressions, `object instanceof ClassName newVar` (inline type check and declaration), or `var`.[^1] The goal was to teach us OOP fundamentals, not necessarily to write modern Java.
 
@@ -21,7 +21,7 @@ What does 'better' mean? I'd argue we find improvement when we discover patterns
 
 [^2]: This is terminology I learned in _Programming Rust (2021)_ describing the tangled web of mutable references common in object-oriented programming.
 
-## Pattern 1: Pattern Matching
+## Pattern 1: Matching
 
 The first major shift happened when I realized most of my if-else chains weren't about control flow. They were about destructuring data and handling different shapes. Instead of asking "what should I do in this situation?", I started asking "what shape is my data, and how do I handle each shape?"
 
@@ -55,7 +55,7 @@ match (pokemon.ptype, pokemon.evolution_stage) {
 
 I'll admit I was initially drawn to pattern matching because it looked cleaner. What surprised me was how it forced me to think about my data's structure upfront and handle all possible cases. The compiler literally won't let me forget an edge case.
 
-Rust's pattern matching opened my eyes to a pattern I'd been approximating badly in other languages. Once I saw it clearly, I realized it's everywhere. Swift has it, Python 3.10+ added it, and I can even fake it in JavaScript:
+Rust's pattern matching opened my eyes to a pattern I'd been approximating badly in other languages. Actually Swift has pattern matching too, as does Python 3.10+... I can even sort of approximate it in JavaScript:
 
 ```javascript
 // approximated in js w/ objects
@@ -69,7 +69,7 @@ return moveHandlers[key]?.(pokemon) || fallbackStruggle(pokemon);
 
 ```
 
-The insight isn't superior syntax. It's realizing that sometimes I'm better served thinking about data shapes instead of control flow.
+The point here isn't that the syntax is *better*, per se, rather it's that in order to write my code like this I have to think about the *shape* of the data instead of control flow.
 
 ## Pattern 2: Types
 
@@ -88,9 +88,9 @@ const questLog = {
 
 ```
 
-What I learned was to make illegal states unrepresentable.
+So this is bad, obviously. It's just incredibly vague and you have a bunch of `null` sentinels which means sometimes the the value doesn't exist. Instead, I've learned to make illegal states unrepresentable.
 
-Now I design with the type system:
+Consider this alternative which properly uses the type system:
 
 ```rust
 enum QuestState {
@@ -102,11 +102,11 @@ enum QuestState {
 
 ```
 
-I literally cannot have a completed quest without rewards or an active quest without progress tracking.
+With this code, I literally cannot have a completed quest without rewards or an active quest without progress tracking.
 
 I've realized the value in using the type system to encode business rules, not just data shapes. When illegal states become unrepresentable, entire categories of bugs disappear.
 
-Rust showed me this principle clearly, but once I understood it, I could apply it elsewhere. With TypeScript's discriminated unions, or even factory functions in dynamic languages.
+Rust showed me this principle clearly, but once I understood it, I could apply it elsewhere with TypeScript's discriminated unions, or even factory functions in dynamic languages.
 
 ## Pattern 3: Transformations
 

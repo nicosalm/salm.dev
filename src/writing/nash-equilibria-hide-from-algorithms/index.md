@@ -6,9 +6,12 @@ Mathematics proves Nash equilibria must exist in every game, but computer scienc
 <span class="tags">math, game theory</span>
 </div>
 
-When Uber and Lyft set prices in your neighborhood, their algorithms are competing in a game. Lower prices attract riders but hurt profits. Higher prices boost margins but lose customers. Both pricing algorithms update every few minutes, responding to one another.
+When Uber and Lyft set prices in your neighborhood, their algorithms are competing in a game[^bayesian]. Lower prices attract riders but hurt profits. Higher prices boost margins but lose customers. Both pricing algorithms update every few minutes, responding to one another.
 
-This is an example of game theory in the real world, with millions of pricing decisions daily, no communication, and an equilibrium that must exist, but that nobody can compute efficiently.
+This is an example of game theory in the real world, with millions of pricing decisions daily, no communication, and an equilibrium that must exist, but that nobody[^nphard] can compute efficiently.
+
+[^bayesian]: Technically, these are repeated Bayesian games with incomplete information, dynamic payoffs, and some uncertainty in each agent’s model of the environment.
+[^nphard]: Not literally “nobody”, just nobody with a polynomial-time algorithm.
 
 ## What's a Game?
 
@@ -74,9 +77,11 @@ A mixed strategy assigns probabilities to each pure action. Let $x_{i,a_i}$ deno
 In general, where $x$ represents the mixed strategy profile of all players:
 $$u_i(x) = \sum_{a_1 \in A_1} \cdots \sum_{a_n \in A_n} x_{1,a_1} \cdots x_{n,a_n} \cdot u_i(a_1, \ldots, a_n)$$
 
-We calculate the expected payoff by considering every possible outcome of the game. For each outcome, we multiply the payoff by the probability it occurs (which is the product of all players' individual action probabilities), then sum everything up.
+We calculate the expected payoff by considering every possible outcome of the game. For each outcome, we multiply the payoff by the probability it occurs (which is the product of all players' individual action probabilities), then sum everything up[^totalexpectation].
 
 For example, if both players mix uniformly in Rock-Paper-Scissors with $x_{1,\text{Rock}} = x_{1,\text{Paper}} = x_{1,\text{Scissors}} = \frac{1}{3}$, each of the 9 outcomes occurs with probability $\frac{1}{9}$. The three wins, three losses, and three ties balance perfectly, giving expected payoff 0.
+
+[^totalexpectation]: This is just the law of total expectation.
 
 ## Nash Equilibrium
 
