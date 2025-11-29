@@ -53,6 +53,8 @@ html {
     --link-color: #0066dd;
     --border-color: #eee;
     --code-bg: #f5f5f5;
+    --blockquote-nested-bg: #e8e8e8;
+    --blockquote-nested-border: #e8e8e8;
 
     --syntax-keyword: #954121;
     --syntax-type: #b00040;
@@ -95,6 +97,8 @@ html {
         --link-color: #6699ff;
         --border-color: #2a2a3e;
         --code-bg: #16161e;
+        --blockquote-nested-bg: #24243a;
+        --blockquote-nested-border: #35354a;
         --syntax-keyword: #c792ea;
         --syntax-type: #ffab70;
         --syntax-number: #82aaff;
@@ -108,11 +112,6 @@ html {
         background-color: #1a1a24;
         border: 1px solid #35354a;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    blockquote blockquote {
-        background-color: #24243a;
-        border-color: #35354a;
     }
 }
 
@@ -329,14 +328,16 @@ th {
 }
 
 blockquote {
-    margin: var(--spacing-large) 0;
+    margin: var(--spacing-medium) 0;
     padding: var(--spacing-medium);
     background-color: var(--code-bg);
     color: var(--text-color);
     font-style: normal;
-    border: var(--border-standard);
-    border-radius: 0;
+    border: none;
+    border-left: 4px solid var(--text-secondary);
+    border-radius: 3px;
     position: relative;
+    max-width: 40em;
 }
 
 blockquote p {
@@ -348,9 +349,8 @@ blockquote p:last-child {
 }
 
 blockquote blockquote {
-    background-color: #e8e8e8;
+    background-color: var(--blockquote-nested-bg);
     color: var(--text-color);
-    border-color: #e8e8e8;
 }
 
 
