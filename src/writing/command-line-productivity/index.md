@@ -3,7 +3,7 @@
 <div class="description">
 I am not a fan of bloated workflows or feature overload. In this article, I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim.
 <span class="date">2024-10-10</span>
-<span class="tags">programming, productivity, learning</span>
+<span class="tags">programming, productivity</span>
 <span class="featured">featured</span>
 </div>
 
