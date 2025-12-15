@@ -250,7 +250,7 @@ HTML
 
     echo "        </ul>"
     echo "    </div>"
-    echo "    <footer><p>© 2025 salm.dev | nico@salm.dev | <a href="https://status.salm.dev/" target="_blank">status</a></p></footer>"
+    echo "    <footer><p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p></footer>"
     echo "    <script src=\"https://tracking.salm.dev/api/script.js\" data-site-id=\"a3641cc346e8\" defer></script>"
     echo "</body>"
     echo "</html>"
@@ -317,7 +317,7 @@ HTML
 
     echo "        </div>"
     echo "    </div>"
-    echo "    <footer><p>© 2025 salm.dev | nico@salm.dev | <a href="https://status.salm.dev/" target="_blank">status</a></p></footer>"
+    echo "    <footer><p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p></footer>"
     echo "    <script src=\"https://tracking.salm.dev/api/script.js\" data-site-id=\"a3641cc346e8\" defer></script>"
     echo "</body>"
     echo "</html>"
