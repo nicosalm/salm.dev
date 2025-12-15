@@ -113,6 +113,10 @@ html {
         border: 1px solid #35354a;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
+
+    img.diagram {
+        filter: invert(1) hue-rotate(180deg);
+    }
 }
 
 * {
