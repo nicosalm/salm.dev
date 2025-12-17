@@ -129,7 +129,7 @@ body {
     font-family: var(--font-family-body);
     font-size: var(--font-size-base);
     line-height: var(--line-height);
-    max-width: 1400px;
+    max-width: 1350px;
     color: var(--text-color);
     background-color: var(--bg-color);
     margin: 0 auto;
@@ -626,14 +626,11 @@ a.fnref,
     }
 
     .footnote {
-        float: none;
-        width: 100%;
-        margin-right: 0;
-        margin-left: var(--spacing-medium);
-        margin-top: var(--spacing-small);
-        margin-bottom: var(--spacing-medium);
-        padding-left: var(--spacing-medium);
-        border-left: 2px solid var(--border-color);
+        display: none;
+    }
+
+    .footnotes {
+        display: block;
     }
 
 
