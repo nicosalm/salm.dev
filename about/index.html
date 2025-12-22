@@ -1,62 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-        <link rel="preconnect" href="https://tracking.salm.dev" />
-        <link rel="stylesheet" href="/styles/styles.css">
-        <title>about | salm.dev</title>
-    </head>
-    <body>
-        <header><a href="/">home</a> / about</header>
-        <h1>Hi, I'm Nico!</h1>
-        <p>
-            Welcome to my website. The content here is centered around computing, math, stats, philosophy, and history. My technical interests span machine learning and multi-agent systems, and performance-oriented backend systems. I work with <span style="color: #3776ab">Python</span>, <span style="color: #00add8">Go</span>, <span style="color: #ce422b">Rust</span>, <span style="color: #5967d8">C</span>, and <span style="color: #3178c6">TypeScript</span>. I enjoy building things that need to be fast and scale well.
-        </p>
-        <h2>Studies</h2>
-        <p>
-            I am a student at the University of Wisconsin-Madison, majoring in Computer Science and Data Science. I spend most of my time hanging out in the
-            <a href="https://www.upl.cs.wisc.edu/" target="blank">UPL</a> on campus with my friends.
-        </p>
-        <p>Here is a list of some of my favorite classes:</p>
-        <ul>
-            <li>Theory of Multi-agent Machine Learning (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
-            <li>Game Theory, Learning and Optimization (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
-            <li>Data Exploration, Cleaning, and Integration for Data Science (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
-            <li>Intro to Operating Systems (<a href="https://pages.cs.wisc.edu/~swift" target="_blank">Michael Swift</a>)</li>
-            <li>Intro to Big Data Systems (a.k.a. Intro to Distributed Systems) (<a href="https://tyler.caraza-harter.com/" target="_blank">Tyler Caraza-Harter</a>)</li>
-        </ul>
-        <small>Note: The first three courses listed are graduate-level</small>
-        <h2>Writing</h2>
-        <p>
-            I try to stay away from being prescriptive and instead prefer to frame my experiences and how I've learned or grown from them. I focus on my interests in programming, statistics, psychology, philosophy, and
-            history, and that's what I <a href="/writing">write about</a>.
-        </p>
-        <p>
-            Writing helps me think. I'm always open to critiques, fact checking, or revising to cover angles I didn't anticipate. Reach me at nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev!
-        </p>
-        <h2>Colophon</h2>
-        <p>
-            A colophon is a brief statement that appears at the end of a book, providing information about its production. I got the idea from <a href="https://www.amoses.dev/" target="_blank">Andrew</a>:
-        </p>
-        <p>
-            The site is intentionally minimal, built with HTML/CSS, a build.sh script, and <a href="https://pandoc.org/" target="_blank">Pandoc</a> for processing Markdown. No JavaScript except for conditional MathJax loading
-            on posts with LaTeX. The build process includes font subsetting with pyftsubset to include only used characters, significantly reducing file sizes.
-            I've enjoyed building from scratch—it forces me to really consider what I actually want.
-        </p>
-        <p>For those interested, the website source code is <a href="https://github.com/nicosalm/salm.dev/" target="_blank">available here</a>.</p>
-        <p>If you'd like to link back to my site, feel free to use my <code>88x31</code> button—a nod to the early web:</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preload" href="/assets/fonts/charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preconnect" href="https://tracking.salm.dev">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
+    <title>about | salm.dev</title>
+    
 
-        <pre><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://salm.dev"</span> <span class="na">target</span><span class="o">=</span><span class="s">"_blank"</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://salm.dev/88x31.gif"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"salm.dev"</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre>
-        <footer>
-            <p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p>
-        </footer>
+    <meta property="og:title" content="about | salm.dev">
+    <meta property="og:description" content="Hot takes and cool things from Nico Salm.">
+    <meta property="og:image" content="https://salm.dev/assets/og-image.png">
+    <meta property="og:url" content="https://salm.dev/about/">
+    <meta property="og:type" content="website">
 
-        <script
-        src="https://tracking.salm.dev/api/script.js"
-        data-site-id="a3641cc346e8"
-        defer
-        ></script>
-    </body>
+    
+</head>
+<body>
+    <header><a href="/">home</a> / about</header>
+<h1>Hi, I'm Nico!</h1>
+<p>
+    Welcome to my website. The content here is centered around computing, math, stats, philosophy, and history. My technical interests span machine learning and multi-agent systems, and performance-oriented backend systems. I work with <span style="color: #3776ab">Python</span>, <span style="color: #00add8">Go</span>, <span style="color: #ce422b">Rust</span>, <span style="color: #5967d8">C</span>, and <span style="color: #3178c6">TypeScript</span>. I enjoy building things that need to be fast and scale well.
+</p>
+<h2>Studies</h2>
+<p>
+    I am a student at the University of Wisconsin-Madison, majoring in Computer Science and Data Science. I spend most of my time hanging out in the
+    <a href="https://www.upl.cs.wisc.edu/" target="blank">UPL</a> on campus with my friends.
+</p>
+<p>Here is a list of some of my favorite classes:</p>
+<ul>
+    <li>Theory of Multi-agent Machine Learning (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
+    <li>Game Theory, Learning and Optimization (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
+    <li>Data Exploration, Cleaning, and Integration (<a href="https://pages.cs.wisc.edu/~anhai/" target="_blank">AnHai Doan</a>)</li>
+    <li>Intro to Operating Systems (<a href="https://pages.cs.wisc.edu/~swift" target="_blank">Michael Swift</a>)</li>
+    <li>Intro to Big Data Systems (a.k.a. Intro to Distributed Systems) (<a href="https://tyler.caraza-harter.com/" target="_blank">Tyler Caraza-Harter</a>)</li>
+</ul>
+<small>Note: The first three courses listed are graduate-level</small>
+<h2>Writing</h2>
+<p>
+    I try to stay away from being prescriptive and instead prefer to frame my experiences and how I've learned or grown from them. I focus on my interests in programming, statistics, psychology, philosophy, and
+    history, and that's what I <a href="/writing">write about</a>.
+</p>
+<p>
+    Writing helps me think. I'm always open to critiques, fact checking, or revising to cover angles I didn't anticipate. Reach me at nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev!
+</p>
+<h2>Colophon</h2>
+<p>
+    A colophon is a brief statement that appears at the end of a book, providing information about its production. I got the idea from <a href="https://www.amoses.dev/" target="_blank">Andrew</a>:
+</p>
+<p>
+    The site is intentionally minimal, built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a> and plain HTML/CSS. No JavaScript except for conditional MathJax loading on posts with LaTeX and a simple table of contents generator.
+    I've enjoyed building from scratch—it forces me to really consider what I actually want.
+</p>
+<p>For those interested, the website source code is <a href="https://github.com/nicosalm/salm.dev/" target="_blank">available here</a>.</p>
+<p>If you'd like to link back to my site, feel free to use my <code>88x31</code> button—a nod to the early web:</p>
+
+<pre><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://salm.dev"</span> <span class="na">target</span><span class="o">=</span><span class="s">"_blank"</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://salm.dev/88x31.gif"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"salm.dev"</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre>
+<footer>
+    <p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p>
+</footer>
+
+    <script src="https://tracking.salm.dev/api/script.js" data-site-id="a3641cc346e8" defer=""></script>
+</body>
 </html>
