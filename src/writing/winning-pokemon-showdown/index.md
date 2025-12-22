@@ -63,7 +63,7 @@ Some moves like *Sucker Punch* (which only works if the opponent uses an attacki
 
 ### The Math Behind Nash Equilibrium
 
-Pokemon battles are zero-sum games (one trainer's win is the other's loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. As I explore in [Nash Equilibria Hide from Algorithms](../nash-equilibria-hide-from-algorithms), this tractability is special to zero-sum games:
+Pokemon battles are zero-sum games (one trainer's win is the other's loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. This tractability is special to zero-sum games:
 
 ```python
 def compute_nash_equilibrium(payoff_matrix):
