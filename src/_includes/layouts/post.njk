@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+<div>
+    <header>
+        <a href="/">home</a> / <a href="/writing/">writing</a>
+    </header>
+    <article>
+        <h1>{{ title }}</h1>
+        <div class="post-meta">
+            <span class="post-date">{{ date | dateFormat }}</span>, {{ content | readingTime }}
+        </div>
+        {% if tags %}
+        <div class="post-tags">
+            {%- for tag in tags %}{% if tag != "post" %}<a href="/writing/tag/{{ tag }}/">#{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endif %}{%- endfor %}
+        </div>
+        {% endif %}
+        {% if description %}
+        <p class="post-description">{{ description }}</p>
+        {% endif %}
+        {{ content | safe }}
+        <div class="the-end">~ fin ~</div>
+        <div class="similar-writing">
+            <div class="post-navigation">
+                {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+                {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+                {% if previousPost %}
+                <div class="nav-prev">← Prev: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
+                {% endif %}
+                {% if nextPost %}
+                <div class="nav-next">Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a> →</div>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+</div>
+<footer>
+    <p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p>
+</footer>
+<script src="/assets/js/toc.js"></script>
+<script src="/assets/js/sidenotes.js"></script>

@@ -1,10 +1,15 @@
-# Winning Pokemon Showdown
-<div class="description">
-We used game theory to find the mathematically optimal strategies in Pokémon Showdown battles.
-<span class="date-info"><span class="date">2025-05-11</span></span>
-<span class="tags">project, math, game theory, stats</span>
-<span class="featured">featured</span>
-</div>
+---
+title: Winning Pokemon Showdown
+description: We used game theory to find the mathematically optimal strategies in Pokémon Showdown battles.
+date: 2025-05-11
+tags:
+  - project
+  - math
+  - game theory
+  - stats
+featured: true
+layout: layouts/post.njk
+---
 
 ## Premise
 In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it's pure strategic decision-making. A game has two phases: choosing your Pokémon (left) and battling (right):

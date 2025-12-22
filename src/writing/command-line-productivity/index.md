@@ -1,13 +1,15 @@
-# Command Line Productivity
+---
+title: Command Line Productivity
+description: "I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim."
+date: 2024-10-10
+tags:
+  - programming
+  - productivity
+featured: false
+layout: layouts/post.njk
+---
 
-<div class="description">
-I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim.
-<span class="date">2024-10-10</span>
-<span class="tags">programming, productivity</span>
-<span class="featured">featured</span>
-</div>
-
-The purpose of this article[^yt] isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.
+The purpose of this article[^yt] isn't to persuade you to radically overhaul your development workflow overnight, nor is it a critique of "mainstream" editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.
 
 In my view, there are two distinct areas of technical productivity:
 
@@ -19,17 +21,17 @@ In my view, there are two distinct areas of technical productivity:
 
 ## Multiplexing
 
-When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
+When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There's a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
 
-I found something much better. It does exactly what I want. It’s called TMUX.
+I found something much better. It does exactly what I want. It's called TMUX.
 
-A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>k</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
+A terminal multiplexer is a program that transparently "sits between" your active terminal connection and <i>k</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
 
 With a plugin, these sessions can even persist across system restarts.
 
 TMUX is incredibly useful, and if you plan on doing **any** serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.
 
-```
+```bash
 pacman -S tmux      # Arch Linux
 apt install tmux    # Debian or Ubuntu
 brew install tmux   # macOS (using Homebrew)
@@ -38,7 +40,7 @@ You can create a new session with `tmux new -s session_name`, detach with `CTRL-
 
 Some other useful commands include:
 
-```
+```bash
 tmux ls                             # list sessions
 tmux kill-session -t session_name   # kill a session
 tmux kill-server                    # kill the server
@@ -48,23 +50,22 @@ tmux a                              # attach to the last session
 
 ### Customization
 
-When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. This plain-text file is where you can configure and "rice out"[^2] your multiplexer. You’ll begin by adding a plugin manager, [tpm](https://github.com/tmux-plugins/tpm), and then use it to load a few plugins and a nice theme[^3].
+When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. This plain-text file is where you can configure and "rice out"[^2] your multiplexer. You'll begin by adding a plugin manager, [tpm](https://github.com/tmux-plugins/tpm), and then use it to load a few plugins and a nice theme[^3].
 
 ## Vim As Your Editor
 
-I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: `vim` (the program), or Vim Motions.
+I've been using Vim for about two years. When we mention Vim, it's usually in one of two contexts: `vim` (the program), or Vim Motions.
 
-Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.
+Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They're available on all text editors and IDEs.
 
 Vim, by contrast, is a highly configurable, extensible text editor built to make creating and changing any kind of text very efficient.
 
 ### Vim Motions
 
-There is only one type of grammar in Vim: the grammar of Vim Motions. It’s a language that allows you to move around the text.
+There is only one type of grammar in Vim: the grammar of Vim Motions. It's a language that allows you to move around the text.
 
 Here's a quick reference of some common Vim Motions:
 
-<br />
 
 | Category | Command | Description                                          |
 | -------- | ------- | ---------------------------------------------------- |
@@ -79,7 +80,6 @@ Here's a quick reference of some common Vim Motions:
 |          | d       | Delete text and save to register                     |
 |          | c       | Delete text, save to register, and start insert mode |
 
-<br />
 
 More generally, the syntax looks like: `[count] + operator + motion`. For example, `3dw` would delete three words. `2yy` would yank two lines. `c$` would delete to the end of the line and start insert mode. `dap` would delete a paragraph.
 
@@ -95,21 +95,21 @@ My friend [Lucas](https://scharenbroch.dev/) rather aptly put:
 
 I think that's a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
 
-A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.
+A contention I often receive is, "well, how do I debug in Vim?" You don't. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that's precisely what I'm trying to escape.
 
-I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly[^5]. Once you get the hang of things, and it clicks, it’s really, really fun to use.
+I will concede, however, that Vim is not beginner friendly. There's a learning curve. However, Vim is exceptionally user friendly[^5]. Once you get the hang of things, and it clicks, it's really, really fun to use.
 
-A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn’t do this, but it’s the path most people take. I’m a bit weird. I like to cold turkey and learn things from the ground up right away. But that’s a digression.
+A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn't do this, but it's the path most people take. I'm a bit weird. I like to cold turkey and learn things from the ground up right away. But that's a digression.
 
 ### Neovim
 
-Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:
+Vim's extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:
 
 > Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
 
-Neovim’s component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. You can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
+Neovim's component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. You can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
 
-What’s more, since YOU configure Neovim, you’ll come away with a complete understanding of how each tool works, and how they interact with one another to create a complete ecosystem. By contrast, other editors and IDEs abstract this away.
+What's more, since YOU configure Neovim, you'll come away with a complete understanding of how each tool works, and how they interact with one another to create a complete ecosystem. By contrast, other editors and IDEs abstract this away.
 
 I know I just said a lot of words. The takeaway is this: With Neovim, you know exactly why everything works the way it does, and you can make it work exactly the way you want it to. The possibilities are, in fact, endless.
 
@@ -137,4 +137,3 @@ And as always, remember: ***Life is like Vim: There are a lot of shortcuts and y
 [^4]: In the case of debugging, one might opt for `gdb`, the browser, or the python debugger, etc.
 
 [^5]: I'm paraphrasing [ThePrimeagen](https://github.com/ThePrimeagen), a Neovim enjoyer and popular streamer.
-

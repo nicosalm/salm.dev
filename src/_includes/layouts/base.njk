@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preload" href="/assets/fonts/charter_regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://tracking.salm.dev">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
+    <title>{% if title %}{{ title }} | {% endif %}salm.dev</title>
+    {% if description %}
+    <meta name="description" content="{{ description }}">
+    {% endif %}
+
+    <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}salm.dev">
+    <meta property="og:description" content="{{ description | default('Hot takes and cool things from Nico Salm.') }}">
+    <meta property="og:image" content="https://salm.dev/assets/og-image.png">
+    <meta property="og:url" content="https://salm.dev{{ page.url }}">
+    <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
+
+    {% if math %}
+    <script src="/assets/js/mathjax-config.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" as="script">
+    {% endif %}
+</head>
+<body>
+    {{ content | safe }}
+    <script src="https://tracking.salm.dev/api/script.js" data-site-id="a3641cc346e8" defer></script>
+</body>
+</html>

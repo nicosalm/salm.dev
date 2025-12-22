@@ -1,0 +1,46 @@
+---
+layout: layouts/base.njk
+title: sponsors
+---
+<style>
+.sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 2rem 0;
+}
+.sponsor-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+.sponsor-avatar {
+    width: 48px;
+    height: 48px;
+    margin: 0;
+}
+@media (max-width: 576px) {
+    .sponsors-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+<div>
+    <header>
+        <a href="/">home</a> / sponsors
+    </header>
+    <h1>Sponsors</h1>
+    <p>
+        Thanks to these wonderful people for <a href="https://github.com/sponsors/nicosalm" target="_blank">sponsoring me</a>! Check them out:
+    </p>
+    <div class="sponsors-grid">
+        <div class="sponsor-item">
+            <img src="/assets/sponsors/kotx.jpg" alt="kotx" class="sponsor-avatar">
+            <a href="https://github.com/kotx" target="_blank">kotx</a>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p>
+</footer>

@@ -1,0 +1,37 @@
+---
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - posts
+    - featuredPosts
+permalink: /writing/tag/{{ tag }}/
+layout: layouts/base.njk
+---
+<header><a href="/">home</a> / <a href="/writing">writing</a> / tag / {{ tag }}</header>
+<h1>Tag: {{ tag }}</h1>
+<div>
+    {%- set currentYear = null %}
+    {%- set firstYear = true %}
+    {%- for post in collections[tag] | reverse %}
+        {%- set postYear = post.date | year %}
+        {%- if postYear != currentYear %}
+            {%- if currentYear != null %}
+    </ul>
+            {%- endif %}
+            {%- if firstYear %}
+    <h4 class="year-heading first-year">{{ postYear }}</h4>
+                {%- set firstYear = false %}
+            {%- else %}
+    <h4 class="year-heading">{{ postYear }}</h4>
+            {%- endif %}
+    <ul>
+            {%- set currentYear = postYear %}
+        {%- endif %}
+        <li>{{ post.date | dateFormatShort }} :: <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %} <span class="featured-star">★</span>{% endif %}</li>
+    {%- endfor %}
+    </ul>
+</div>
+<footer><p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p></footer>
