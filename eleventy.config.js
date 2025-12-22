@@ -1,5 +1,5 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import { feedPlugin } from "@11ty/eleventy-plugin-rss";
+import pluginRss from "@11ty/eleventy-plugin-rss";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
@@ -29,18 +29,7 @@ export default function(eleventyConfig) {
     }
   });
 
-  eleventyConfig.addPlugin(feedPlugin, {
-    type: "rss",
-    outputPath: "/rss.xml",
-    collection: { name: "posts", limit: 20 },
-    metadata: {
-      language: "en",
-      title: "salm.dev",
-      subtitle: "Hot takes and cool things",
-      base: "https://salm.dev/",
-      author: { name: "Nico Salm", email: "nico@salm.dev" }
-    }
-  });
+  eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addTransform("sidenotes", (content, outputPath) => {
     if (outputPath?.endsWith(".html")) {
