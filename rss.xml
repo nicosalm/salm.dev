@@ -1,331 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="https://salm.dev/" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>salm.dev</title>
     <link>https://salm.dev/</link>
-    <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://salm.dev/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
-      <title>Command Line Productivity</title>
-      <link>https://salm.dev/writing/command-line-productivity/</link>
-      <description>&lt;p&gt;The purpose of this article&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt; isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.&lt;/p&gt;
-&lt;p&gt;In my view, there are two distinct areas of technical productivity:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;On one side, you have tools for version control (Git) and repository hosting (GitHub, GitLab) – these vital systems fundamentally improve how you manage projects. They’re your safety net and scaffolding for when things go wrong and should be part of every developer’s workflow. These tools form a backbone for collaboration, creating a shared context that allows teams of any size to coordinate their efforts effectively. However, they aren’t our focus.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;On the other side, there are tools designed to genuinely accelerate your coding process and task completion. These tools are what I will be highlighting today.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;Multiplexing&lt;/h2&gt;
-&lt;p&gt;When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly &lt;code&gt;ALT-TAB&lt;/code&gt; between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.&lt;/p&gt;
-&lt;p&gt;I found something much better. It does exactly what I want. It’s called TMUX.&lt;/p&gt;
-&lt;p&gt;A terminal multiplexer is a program that transparently “sits between” your active terminal connection and &lt;i&gt;k&lt;/i&gt; spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.&lt;/p&gt;
-&lt;p&gt;With a plugin, these sessions can even persist across system restarts.&lt;/p&gt;
-&lt;p&gt;TMUX is incredibly useful, and if you plan on doing &lt;strong&gt;any&lt;/strong&gt; serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.&lt;/p&gt;
-&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;pacman &lt;span class=&quot;token parameter variable&quot;&gt;-S&lt;/span&gt; tmux      &lt;span class=&quot;token comment&quot;&gt;# Arch Linux&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; tmux    &lt;span class=&quot;token comment&quot;&gt;# Debian or Ubuntu&lt;/span&gt;
-brew &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; tmux   &lt;span class=&quot;token comment&quot;&gt;# macOS (using Homebrew)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can create a new session with &lt;code&gt;tmux new -s session_name&lt;/code&gt;, detach with &lt;code&gt;CTRL-B D&lt;/code&gt;, and reattach with &lt;code&gt;tmux attach -t session_name&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Some other useful commands include:&lt;/p&gt;
-&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;tmux &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt;                             &lt;span class=&quot;token comment&quot;&gt;# list sessions&lt;/span&gt;
-tmux kill-session &lt;span class=&quot;token parameter variable&quot;&gt;-t&lt;/span&gt; session_name   &lt;span class=&quot;token comment&quot;&gt;# kill a session&lt;/span&gt;
-tmux kill-server                    &lt;span class=&quot;token comment&quot;&gt;# kill the server&lt;/span&gt;
-tmux a &lt;span class=&quot;token parameter variable&quot;&gt;-t&lt;/span&gt; session_name              &lt;span class=&quot;token comment&quot;&gt;# attach to a session&lt;/span&gt;
-tmux a                              &lt;span class=&quot;token comment&quot;&gt;# attach to the last session&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;Customization&lt;/h3&gt;
-&lt;p&gt;When you start TMUX, the program looks for a .dotfile&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt; at &lt;code&gt;~/.tmux.conf&lt;/code&gt;. This plain-text file is where you can configure and “rice out”&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn3&quot; id=&quot;fnref3&quot;&gt;[3]&lt;/a&gt;&lt;/sup&gt; your multiplexer. You’ll begin by adding a plugin manager, &lt;a href=&quot;https://github.com/tmux-plugins/tpm&quot;&gt;tpm&lt;/a&gt;, and then use it to load a few plugins and a nice theme&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn4&quot; id=&quot;fnref4&quot;&gt;[4]&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;h2&gt;Vim As Your Editor&lt;/h2&gt;
-&lt;p&gt;I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: &lt;code&gt;vim&lt;/code&gt; (the program), or Vim Motions.&lt;/p&gt;
-&lt;p&gt;Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.&lt;/p&gt;
-&lt;p&gt;Vim, by contrast, is a highly configurable, extensible text editor built to make creating and changing any kind of text very efficient.&lt;/p&gt;
-&lt;h3&gt;Vim Motions&lt;/h3&gt;
-&lt;p&gt;There is only one type of grammar in Vim: the grammar of Vim Motions. It’s a language that allows you to move around the text.&lt;/p&gt;
-&lt;p&gt;Here’s a quick reference of some common Vim Motions:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Category&lt;/th&gt;
-&lt;th&gt;Command&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;motion&lt;/td&gt;
-&lt;td&gt;h&lt;/td&gt;
-&lt;td&gt;Left&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;j&lt;/td&gt;
-&lt;td&gt;Down&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;k&lt;/td&gt;
-&lt;td&gt;Up&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;l&lt;/td&gt;
-&lt;td&gt;Right&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;w&lt;/td&gt;
-&lt;td&gt;Move forward to the beginning of the next word&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;}&lt;/td&gt;
-&lt;td&gt;Jump to the next paragraph&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;$&lt;/td&gt;
-&lt;td&gt;Go to the end of the line&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;operator&lt;/td&gt;
-&lt;td&gt;y&lt;/td&gt;
-&lt;td&gt;Yank text (copy)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;td&gt;Delete text and save to register&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;Delete text, save to register, and start insert mode&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;More generally, the syntax looks like: &lt;code&gt;[count] + operator + motion&lt;/code&gt;. For example, &lt;code&gt;3dw&lt;/code&gt; would delete three words. &lt;code&gt;2yy&lt;/code&gt; would yank two lines. &lt;code&gt;c$&lt;/code&gt; would delete to the end of the line and start insert mode. &lt;code&gt;dap&lt;/code&gt; would delete a paragraph.&lt;/p&gt;
-&lt;p&gt;Notice how, for some, the phonetic sound of the command matches the action. &lt;code&gt;d&lt;/code&gt; for delete, &lt;code&gt;y&lt;/code&gt; for yank, &lt;code&gt;c&lt;/code&gt; for change. This is a mnemonic device to help you remember the commands. Delete a paragraph? &lt;code&gt;dap&lt;/code&gt;. Change a word? &lt;code&gt;caw&lt;/code&gt;.&lt;/p&gt;
-&lt;h3&gt;Vim (The Program)&lt;/h3&gt;
-&lt;p&gt;Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient.&lt;/p&gt;
-&lt;p&gt;My friend &lt;a href=&quot;https://scharenbroch.dev/&quot;&gt;Lucas&lt;/a&gt; rather aptly put:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Vim is the bliss of Ctrl C/V but applied to every facet of the editor.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;I think that’s a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.&lt;/p&gt;
-&lt;p&gt;A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn5&quot; id=&quot;fnref5&quot;&gt;[5]&lt;/a&gt;&lt;/sup&gt;. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.&lt;/p&gt;
-&lt;p&gt;I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/command-line-productivity/#fn6&quot; id=&quot;fnref6&quot;&gt;[6]&lt;/a&gt;&lt;/sup&gt;. Once you get the hang of things, and it clicks, it’s really, really fun to use.&lt;/p&gt;
-&lt;p&gt;A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn’t do this, but it’s the path most people take. I’m a bit weird. I like to cold turkey and learn things from the ground up right away. But that’s a digression.&lt;/p&gt;
-&lt;h3&gt;Neovim&lt;/h3&gt;
-&lt;p&gt;Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Neovim’s component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an &lt;a href=&quot;https://github.com/neovim/nvim-lspconfig&quot;&gt;LSP&lt;/a&gt;, &lt;a href=&quot;https://github.com/hrsh7th/nvim-cmp&quot;&gt;completions&lt;/a&gt;, &lt;a href=&quot;https://github.com/L3MON4D3/LuaSnip&quot;&gt;snippets&lt;/a&gt;, &lt;a href=&quot;https://github.com/tpope/vim-fugitive&quot;&gt;git&lt;/a&gt;, and &lt;a href=&quot;https://github.com/nvim-neotest/neotest&quot;&gt;testing&lt;/a&gt; infrastructure. You can get new things too: &lt;a href=&quot;https://github.com/nvim-treesitter&quot;&gt;Treesitter&lt;/a&gt;, &lt;a href=&quot;https://github.com/nvim-telescope/telescope.nvim&quot;&gt;Telescope&lt;/a&gt; FZF (fuzzy finding), Scoped grep string searches, and &lt;a href=&quot;https://github.com/ThePrimeagen/harpoon/tree/harpoon2&quot;&gt;Harpoon&lt;/a&gt; anchor points to jump around.&lt;/p&gt;
-&lt;p&gt;What’s more, since YOU configure Neovim, you’ll come away with a complete understanding of how each tool works, and how they interact with one another to create a complete ecosystem. By contrast, other editors and IDEs abstract this away.&lt;/p&gt;
-&lt;p&gt;I know I just said a lot of words. The takeaway is this: With Neovim, you know exactly why everything works the way it does, and you can make it work exactly the way you want it to. The possibilities are, in fact, endless.&lt;/p&gt;
-&lt;p&gt;Want functionality but there’s no plugin for it? Your config is in Lua and everything in Lua is easy. Make it, maintain it, push it to the Neovim community! The Neovim community is vibrant and full of passionate creators and maintainers who work hard to support the editor they love.&lt;/p&gt;
-&lt;h2&gt;Wrapping up&lt;/h2&gt;
-&lt;p&gt;In exploring the minimalist, keyboard-centric workflow of command line tools and editors like Vim and Neovim, we uncover a significant truth about productivity in software development: simplicity and customization can profoundly enhance efficiency. By adopting tools such as Tmux and Vim, developers are equipped to create a highly personalized development environment. This environment not only streamlines tasks but also keeps the focus on coding, reducing distractions inherent in more complex IDEs. Embracing these tools may involve a learning curve, but the long-term gains in speed, understanding, and adaptability make this investment worthwhile.&lt;/p&gt;
-&lt;p&gt;For those willing to explore these command line utilities and text editors, the payoff is a more intuitive and efficient coding experience that aligns perfectly with the unique needs of each developer.&lt;/p&gt;
-&lt;p&gt;And as always, remember: &lt;em&gt;&lt;strong&gt;Life is like Vim: There are a lot of shortcuts and you should take them.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-
-
-</description>
-      <pubDate>Thu, 10 Oct 2024 24:00:00 GMT</pubDate>
+      <title>Create, Don&#39;t Consume</title>
+      <link>https://salm.dev/writing/create-dont-consume/</link>
+      <description>We&#39;re trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist.</description>
+      <pubDate>Fri, 27 Jun 2025 24:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
-      <guid>https://salm.dev/writing/command-line-productivity/</guid>
+      <guid>https://salm.dev/writing/create-dont-consume/</guid>
     </item>
     <item>
       <title>Winning Pokemon Showdown</title>
       <link>https://salm.dev/writing/winning-pokemon-showdown/</link>
-      <description>&lt;h2&gt;Premise&lt;/h2&gt;
-&lt;p&gt;In &lt;a href=&quot;https://pokemonshowdown.com/&quot;&gt;Pokémon Showdown&lt;/a&gt;, you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it’s pure strategic decision-making. A game has two phases: choosing your Pokémon (left) and battling (right):&lt;/p&gt;
-&lt;table style=&quot;border-collapse: collapse;&quot;&gt;
-  &lt;tr&gt;
-    &lt;td style=&quot;padding: 10px;&quot;&gt;
-      &lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/vqrhbKqRqt-1683.webp 1683w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/vqrhbKqRqt-1683.jpeg&quot; alt=&quot;choosing phase&quot; width=&quot;1683&quot; height=&quot;1196&quot;&gt;&lt;/picture&gt;
-    &lt;/td&gt;
-    &lt;td style=&quot;padding: 10px;&quot;&gt;
-      &lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/_AhFxbVrQA-1678.webp 1678w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/_AhFxbVrQA-1678.jpeg&quot; alt=&quot;battling phase&quot; width=&quot;1678&quot; height=&quot;1223&quot;&gt;&lt;/picture&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;p&gt;When a player’s Pokemon’s &lt;abbr title=&quot;Hitpoints&quot;&gt;HP&lt;/abbr&gt; reaches 0, the other player wins:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/X2gcL_XMRO-800.webp 800w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/X2gcL_XMRO-800.jpeg&quot; alt=&quot;Battle outcome GIF&quot; style=&quot;width: 100%; max-width: 700px; display: block; margin: 0 auto;&quot; width=&quot;800&quot; height=&quot;450&quot;&gt;&lt;/picture&gt;
-&lt;h2&gt;The Seven Pokemon We Analyzed&lt;/h2&gt;
-&lt;p&gt;For our project, my friends and I focused on seven of the most commonly used Pokémon in the January 2021 Pokémon Showdown 1v1 leaderboard:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.webp 1928w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.jpeg&quot; alt=&quot;All seven Pokémon analyzed&quot; style=&quot;width: 100%; max-width: 700px; display: block;&quot; width=&quot;1928&quot; height=&quot;1442&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;Each Pokémon has its own unique typing, movesets, and stats that create diverse strategic matchups. For consistency, we used the most popular standard moveset for each Pokémon according to &lt;a href=&quot;https://www.smogon.com/dex/ss/pokemon/&quot;&gt;Smogon’s Strategy Dex&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Our Approach&lt;/h2&gt;
-&lt;p&gt;Pokémon battles are &lt;a href=&quot;https://en.wikipedia.org/wiki/Zero-sum_game&quot;&gt;zero-sum games&lt;/a&gt;: one player’s win is the other’s loss. Both players select moves simultaneously each turn, creating the exact type of strategic interaction game theory was built to solve. Crucially, zero-sum games are one of the few cases where we can efficiently compute Nash equilibria, unlike the general games that resist computation.&lt;/p&gt;
-&lt;p&gt;We modeled these battles in two key stages:&lt;/p&gt;
-&lt;h2&gt;The Battling Phase (Finding Optimal Move Strategies)&lt;/h2&gt;
-&lt;p&gt;First, we needed to understand how each Pokémon matchup plays out when both players use optimal strategies. We built turn-based payoff matrices for each possible matchup, calculating expected damage and effects for every move combination using Showdown’s &lt;a href=&quot;https://calc.pokemonshowdown.com/&quot;&gt;Pokémon Damage Calculator&lt;/a&gt;.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/stp-_bXdo1-1972.webp 1972w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/stp-_bXdo1-1972.jpeg&quot; alt=&quot;Pokémon Move Damage Matrix&quot; style=&quot;width: 100%; max-width: 600px; display: block;&quot; width=&quot;1972&quot; height=&quot;326&quot;&gt;&lt;/picture&gt;
-&lt;p style=&quot;text-align: center; font-style: italic; margin-top: 10px;&quot;&gt;
-  This payoff matrix shows damage ranges between Garchomp and Sylveon&#39;s moves
-&lt;/p&gt;
-&lt;p&gt;Pokémon battles have random elements: move accuracy, critical hits, and damage ranges. We handled these with &lt;a href=&quot;https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html&quot;&gt;expectimax trees&lt;/a&gt; that calculate expected outcomes for each decision.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.webp 1406w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.jpeg&quot; alt=&quot;Win Probabilities Matrix&quot; style=&quot;width: 50%; max-width: 600px; display: block;&quot; width=&quot;1406&quot; height=&quot;1762&quot;&gt;&lt;/picture&gt;
-&lt;p style=&quot;text-align: center; font-style: italic; margin-top: 10px;&quot;&gt;
-  Example of a battle decision tree showing Hyper Beam outcomes between Primarina and Sylveon
-&lt;/p&gt;
-&lt;p&gt;Some moves like &lt;em&gt;Sucker Punch&lt;/em&gt; (which only works if the opponent uses an attacking move) create rock-paper-scissors style mind games that require &lt;a href=&quot;https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy&quot;&gt;mixed strategy Nash equilibria&lt;/a&gt;. When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we’d never spot by hand.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/NkzhdDduoA-474.webp 474w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/NkzhdDduoA-474.jpeg&quot; alt=&quot;Sucker punch move&quot; style=&quot;width: 100%; max-width: 300px; display: block;&quot; width=&quot;474&quot; height=&quot;248&quot;&gt;&lt;/picture&gt;
-&lt;h3&gt;The Math Behind Nash Equilibrium&lt;/h3&gt;
-&lt;p&gt;Pokemon battles are zero-sum games (one trainer’s win is the other’s loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. As I explore in &lt;a href=&quot;https://salm.dev/writing/nash-equilibria-hide-from-algorithms&quot;&gt;Nash Equilibria Hide from Algorithms&lt;/a&gt;, this tractability is special to zero-sum games:&lt;/p&gt;
-&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;compute_nash_equilibrium&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;payoff_matrix&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;
-    Compute Nash equilibrium for zero-sum game via linear programming.
-    payoff_matrix[i,j] = payoff when P1 plays i, P2 plays j
-    Returns: (p1_strategy, p2_strategy, game_value)
-    &quot;&quot;&quot;&lt;/span&gt;
-    num_rows&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; num_cols &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; payoff_matrix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape
-
-    &lt;span class=&quot;token comment&quot;&gt;# Set up Player 1&#39;s LP&lt;/span&gt;
-    c &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_rows &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    c&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;# maximize game value v&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;# Expected payoff &gt;= v against any P2 strategy&lt;/span&gt;
-    A_ub &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_cols&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; num_rows &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; j &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_cols&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-        A_ub&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;payoff_matrix&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; j&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-        A_ub&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;j&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
-    b_ub &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_cols&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;# Probabilities sum to 1&lt;/span&gt;
-    A_eq &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; num_rows &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    A_eq&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
-    b_eq &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; np&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ones&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-    bounds &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;num_rows&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-
-    &lt;span class=&quot;token comment&quot;&gt;# Solve&lt;/span&gt;
-    res1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; linprog&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; A_ub&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;A_ub&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b_ub&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;b_ub&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; A_eq&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;A_eq&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b_eq&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;b_eq&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
-                   bounds&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;bounds&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; method&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;highs&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-
-    p1_strategy &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; res1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
-    v &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;res1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fun
-
-    &lt;span class=&quot;token comment&quot;&gt;# Player 2&#39;s LP omitted...&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; p1_strategy&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; p2_strategy&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; v&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The code above computes the mathematically optimal mixed strategy for each player. In the &lt;em&gt;Rillaboom vs. Urshifu&lt;/em&gt; matchup, the math confirmed what top players already knew: Urshifu should mix &lt;em&gt;Sucker Punch&lt;/em&gt; and &lt;em&gt;Wicked Blow&lt;/em&gt; exactly 50/50 in late turns, while Rillaboom adapts between &lt;em&gt;Swords Dance&lt;/em&gt; and &lt;em&gt;Grassy Glide&lt;/em&gt; based on the situation.&lt;/p&gt;
-&lt;h2&gt;The Choosing Phase (Team Selection Strategies)&lt;/h2&gt;
-&lt;p&gt;With optimal move strategies worked out for individual battles, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.webp 1553w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.jpeg&quot; alt=&quot;Win Probabilities Matrix&quot; style=&quot;width: 100%; max-width: 600px; display: block;&quot; width=&quot;1553&quot; height=&quot;1317&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;Using this matrix, we could then solve for the optimal team selection strategies.&lt;/p&gt;
-&lt;h3&gt;Analyzing Team Performance&lt;/h3&gt;
-&lt;p&gt;We analyzed all 35 possible team combinations using our 7 selected Pokémon, evaluating a total of 595 unique matchups. Here’s how we calculated the average win rates:&lt;/p&gt;
-&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;analyze_matchup&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team_a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; team_b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; win_probabilities&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;token triple-quoted-string string&quot;&gt;&quot;&quot;&quot;Calculate team_a&#39;s win probability against team_b&quot;&quot;&quot;&lt;/span&gt;
-    payoff_matrix &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; create_payoff_matrix&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team_a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; team_b&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; win_probabilities&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    _&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; game_value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; compute_nash_equilibrium&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;payoff_matrix&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; game_value
-
-&lt;span class=&quot;token comment&quot;&gt;# Calculate win rates&lt;/span&gt;
-team_results &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; team &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; all_team_combinations&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-    total_win_rate &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.0&lt;/span&gt;
-    total_matchups &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
-
-    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; opponent_team &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; all_team_combinations&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; team &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; opponent_team&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
-            win_rate &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; analyze_matchup&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opponent_team&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; win_probabilities&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-            total_win_rate &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; win_rate
-            total_matchups &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
-
-    team_results&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; total_win_rate &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; total_matchups
-
-&lt;span class=&quot;token comment&quot;&gt;# Sort teams by average win rate&lt;/span&gt;
-best_teams &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team_results&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;items&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; key&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;lambda&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; reverse&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/dNf_2KEuen-2058.webp 2058w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/dNf_2KEuen-2058.jpeg&quot; alt=&quot;Win Probabilities Matrix&quot; style=&quot;width: 100%; max-width: 600px; display: block;&quot; width=&quot;2058&quot; height=&quot;1970&quot;&gt;&lt;/picture&gt;
-&lt;h2&gt;Key Findings&lt;/h2&gt;
-&lt;p&gt;The strongest team turned out to be Heatran, Sylveon, and Zapdos with a 62.4% average win rate across all matchups. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.webp 1614w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.jpeg&quot; alt=&quot;Win Probabilities Matrix&quot; style=&quot;width: 100%; max-width: 500px; display: block; margin: 0 auto;&quot; width=&quot;1614&quot; height=&quot;1292&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;Teams with Sylveon and Zapdos consistently won in our simulations. Pairing Heatran with Urshifu was a recipe for disaster.&lt;/p&gt;
-&lt;h2&gt;Cool Matchup Examples&lt;/h2&gt;
-&lt;h3&gt;Heatran vs. Garchomp&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;Heatran vs. Garchomp&lt;/em&gt; was one of the simpler matchups. Despite Garchomp’s fearsome reputation, Heatran wins 81.7% of the time when both players play optimally.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/VXlkLASEBy-1812.webp 1812w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/VXlkLASEBy-1812.jpeg&quot; alt=&quot;Heatran vs Garchomp&quot; style=&quot;width: 100%; max-width: 500px; display: block; margin: 0 auto;&quot; width=&quot;1812&quot; height=&quot;560&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;Heatran should open with &lt;em&gt;Will-O-Wisp&lt;/em&gt; to burn and halve Garchomp’s attack, then spam &lt;em&gt;Dragon Pulse&lt;/em&gt;. Garchomp’s best bet is &lt;em&gt;Stone Edge&lt;/em&gt; despite its 80% accuracy.&lt;/p&gt;
-&lt;h3&gt;Rillaboom vs. Urshifu&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;Rillaboom vs. Urshifu&lt;/em&gt; is where the mind games get real. &lt;em&gt;Sucker Punch&lt;/em&gt; only works against attacking moves, so neither Pokémon has a dominant strategy.&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.webp 1568w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.jpeg&quot; alt=&quot;Rillaboom vs Urshifu&quot; style=&quot;width: 100%; max-width: 500px; display: block; margin: 0 auto;&quot; width=&quot;1568&quot; height=&quot;1438&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;The math says Urshifu should mix Sucker Punch and Wicked Blow 50/50 after turn 2, while Rillaboom adapts to the situation:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/48NET0Lc42-968.webp 968w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/48NET0Lc42-968.jpeg&quot; alt=&quot;Rillaboom vs Urshifu&quot; style=&quot;width: 100%; max-width: 500px; display: block; margin: 0 auto;&quot; width=&quot;968&quot; height=&quot;668&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;Even with perfect play from both sides, Rillaboom wins 69.5% of the time.&lt;/p&gt;
-&lt;h2&gt;An Interesting Convergence&lt;/h2&gt;
-&lt;p&gt;Jake, our Pokémon expert (with over 5000 hours?!), predicted almost identical strategies to our mathematical model.&lt;/p&gt;
-&lt;h2&gt;Nash Equilibria in Team Selection&lt;/h2&gt;
-&lt;p&gt;Some team matchups resulted in pure Nash equilibria with dominant strategies:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/cQqg783SGU-1332.webp 1332w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/cQqg783SGU-1332.jpeg&quot; alt=&quot;Pure Nash Equilibrium&quot; style=&quot;width: 100%; max-width: 500px; display: block; margin: 0 auto;&quot; width=&quot;1332&quot; height=&quot;1062&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;While others required mixed strategies, creating a Rock-Paper-Scissors dynamic:&lt;/p&gt;
-&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.webp 2272w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.jpeg&quot; alt=&quot;Mixed Nash Equilibrium&quot; style=&quot;width: 100%; max-width: 1000px; display: block; margin: 0 auto;&quot; width=&quot;2272&quot; height=&quot;730&quot;&gt;&lt;/picture&gt;
-&lt;p&gt;When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/winning-pokemon-showdown/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-&lt;h2&gt;Challenges &amp;amp; Limitations&lt;/h2&gt;
-&lt;p&gt;Our biggest challenge was Pokémon’s randomness. With 16 possible damage rolls per move and multi-turn battles, we needed tons of simulations rather than pure expectimax trees to get reliable win rates.&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/winning-pokemon-showdown/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-&lt;p&gt;At first, Rillaboom was broken. It had no bad matchups (worst case: 50% win rate against itself). We added Zapdos and Garchomp to create actual counterplay.&lt;/p&gt;
-&lt;p&gt;One limitation was our decision to use fixed movesets. In competitive play, moveset variation is crucial for creating unpredictability and gaining an edge.&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/winning-pokemon-showdown/#fn3&quot; id=&quot;fnref3&quot;&gt;[3]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-&lt;h2&gt;Conclusion &amp;amp; Future Work&lt;/h2&gt;
-&lt;p&gt;We successfully found optimal Pokémon strategies using game theory.&lt;/p&gt;
-&lt;p&gt;The computational complexity explodes as we add Pokémon. With just 7 Pokémon, we evaluated 595 unique matchups. With 50 Pokémon, we’d need to analyze over 230,000 team combinations and millions of matchups. For n Pokémon, we’d need approximately O(n² + (n choose 3)²) matchups. Pokémon battles hit a sweet spot where optimal strategies exist but are hard to find due to the massive state space. That said, it’s possible! (We might just have to rewrite our Python in Rust…)&lt;/p&gt;
-&lt;p&gt;Looking ahead, we’d like to expand to the top 50 Pokémon in the current meta. We’d need to account for unknown movesets and better handle the randomness. Eventually we want to tackle 6v6 with switching. That’s 9 choices per turn instead of 4.&lt;/p&gt;
-&lt;p&gt;Our &lt;a href=&quot;https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf&quot;&gt;paper&lt;/a&gt; and &lt;a href=&quot;https://github.com/nicosalm/pokemon-expectimax/tree/main&quot;&gt;code&lt;/a&gt; are available on GitHub if you’d like to explore our methods or build upon our work. Special thanks to Professor Manolis Vlatakis for being an encouraging mentor through this process! This project spawned out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring &#39;25).&lt;/p&gt;
-
-
-</description>
+      <description>We used game theory to find the mathematically optimal strategies in Pokémon Showdown battles.</description>
       <pubDate>Sun, 11 May 2025 24:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
       <guid>https://salm.dev/writing/winning-pokemon-showdown/</guid>
     </item>
     <item>
-      <title>Create, Don&#39;t Consume</title>
-      <link>https://salm.dev/writing/create-dont-consume/</link>
-      <description>&lt;picture&gt;&lt;source type=&quot;image/webp&quot; srcset=&quot;https://salm.dev/writing/create-dont-consume/0z84UWoaGP-1000.webp 1000w&quot;&gt;&lt;img loading=&quot;lazy&quot; decoding=&quot;async&quot; src=&quot;https://salm.dev/writing/create-dont-consume/0z84UWoaGP-1000.jpeg&quot; style=&quot;display: block; margin: 0 auto; width: 60%;&quot; alt=&quot;Three individuals gazing into a bottomless pit in the earth&quot; width=&quot;1000&quot; height=&quot;561&quot;&gt;&lt;/picture&gt;
-&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Nothing technical today in the traditional sense; rather, I’ve come to share a bit of introspection. This morning I jotted down my “time wasters”—a list I feel almost anyone these days can relate to:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;not going to bed right away&lt;/li&gt;
-&lt;li&gt;not waking up right away&lt;/li&gt;
-&lt;li&gt;scrolling&lt;/li&gt;
-&lt;li&gt;YouTube videos and short-form content&lt;/li&gt;
-&lt;li&gt;Discord conversations&lt;/li&gt;
-&lt;li&gt;using AI (*when passive)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Looking at this list, there’s a pattern I’ve been thinking about a lot recently: these are all low-effort activities that deliver quick dopamine hits. They feel rewarding in the moment, yet leave me empty afterward.&lt;/p&gt;
-&lt;p&gt;It’s rather obvious that if something wastes your time, it is preventing you from doing other things. And though they may present reward in the moment, later, all you feel is regret. I’m training my brain to want instant gratification over doing hard things. Each time I pick the easy dopamine hit, finding motivation for real work becomes that much harder.&lt;/p&gt;
-&lt;p&gt;And while I’ve identified this grouping of problems, I’m still far away from being able to conquer them myself.&lt;/p&gt;
-&lt;h2&gt;Vocabulary&lt;/h2&gt;
-&lt;p&gt;Let me introduce some vocabulary to clarify this pattern.&lt;/p&gt;
-&lt;p&gt;I’ll call these two opposing action sets &lt;strong&gt;consumptive&lt;/strong&gt; versus &lt;strong&gt;generative&lt;/strong&gt; behaviors:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Consumptive behaviors&lt;/strong&gt; are low-effort activities that provide high momentary reward (scrolling feels good while you’re doing it) but offer little lasting reward (nothing meaningful to show for it afterward) and minimal dopamine upon completion (no real sense of accomplishment).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Generative behaviors&lt;/strong&gt; require effort and sustained attention, providing low or delayed momentary reward (the work feels hard initially) but high lasting reward (real skills, relationships, health, accomplishments) and significant dopamine upon completion (genuine satisfaction from finishing something worthwhile).&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The consumptive activities feel immediately rewarding but train your brain to crave easy gratification. The generative ones often feel difficult to start but gradually become more rewarding as your dopamine system recalibrates to appreciate sustained effort.&lt;/p&gt;
-&lt;h2&gt;Down in a Hole&lt;/h2&gt;
-&lt;p&gt;I am no psychologist, but I believe the key point is this: &lt;em&gt;&lt;strong&gt;your brain actively fights against choosing generative behaviors.&lt;/strong&gt;&lt;/em&gt; It has been conditioned to expect easy dopamine hits, so when faced with something that requires effort—even something you know will ultimately be more fulfilling—your mind will push you toward the consumptive alternatives. It wants its quick fix.&lt;/p&gt;
-&lt;p&gt;Daniel Lieberman calls this an “&lt;a href=&quot;https://www.cell.com/current-biology/pdf/S0960-9822(14)00257-7.pdf&quot;&gt;evolutionary mismatch&lt;/a&gt;”&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/create-dont-consume/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;, and describes how behaviors that once helped us survive now work against our wellbeing. For most of human history, conserving energy and seeking quick rewards were essential for survival. Brains that chose certain, easy rewards over uncertain future benefits were the ones that lived to reproduce.&lt;/p&gt;
-&lt;p&gt;The struggle comes from processes running at different priority levels&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/create-dont-consume/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.&lt;/p&gt;
-&lt;p&gt;These consumptive behaviors often function as sophisticated counterfeits of the real thing. I recently stumbled across comedian Jimmy Carr in &lt;a href=&quot;https://www.youtube.com/watch?v=v8mlrSIMhD8&amp;amp;list=WL&amp;amp;index=2&quot;&gt;an interview&lt;/a&gt; (don’t bristle at the title! it’s a good video) and was genuinely surprised with what he had to say. He captured this perfectly: video games serve as “a proxy for career” while online porn acts as “a proxy for sex.” These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits. In his words, “George Orwell wasn’t right—our power won’t be taken away from us by some authoritarian master, we’re going to give it away for cheap dopamine.”&lt;/p&gt;
-&lt;p&gt;All of these consumptive behaviors (the scrolling, the videos, etc.) are forms of mental escape from the present moment. They pull us away from engaging with what’s actually in front of us.&lt;/p&gt;
-&lt;p&gt;This creates a dangerous cycle. The more you give in to consumptive behaviors, the harder generative ones become to start. Eventually, you find yourself in what feels like a dark, dull pit—going through the motions of easy pleasures that no longer even feel that good, while the meaningful activities that could lift you out seem impossibly difficult to begin. Like Huxley’s soma&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/create-dont-consume/#fn3&quot; id=&quot;fnref3&quot;&gt;[3]&lt;/a&gt;&lt;/sup&gt;, these easy pleasures numb us to the richer rewards that come from actual engagement with life.&lt;/p&gt;
-&lt;h2&gt;Where I’m At&lt;/h2&gt;
-&lt;p&gt;I wish I could offer a clear path forward, but honestly, I’m still working through this cycle myself. Part of me keeps hoping I’ll stumble across some font of inspiration that will suddenly make everything clear. I recognize real change requires the hard work of building new habits day by day. I’ve identified the problem and understand the psychology behind it, but I’m still in the messy middle of actually changing. I fall back into old patterns regularly, but I’m learning.&lt;/p&gt;
-&lt;p&gt;Given how ubiquitous these behaviors are, this seems to be the defining challenge of our digital age (especially with the emergence of AI, which can be profoundly consumptive when used as a replacement for thinking rather than a tool to enhance it).&lt;/p&gt;
-&lt;p&gt;I plan to revisit this post as I experiment with different approaches and hopefully develop some practical insights. For now, I have clearer language for what I’m fighting against. I’d be curious to hear what consumptive&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://salm.dev/writing/create-dont-consume/#fn4&quot; id=&quot;fnref4&quot;&gt;[4]&lt;/a&gt;&lt;/sup&gt; patterns others recognize in themselves.&lt;/p&gt;
-
-
-</description>
-      <pubDate>Fri, 27 Jun 2025 24:00:00 GMT</pubDate>
+      <title>Command Line Productivity</title>
+      <link>https://salm.dev/writing/command-line-productivity/</link>
+      <description>I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim.</description>
+      <pubDate>Thu, 10 Oct 2024 24:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
-      <guid>https://salm.dev/writing/create-dont-consume/</guid>
+      <guid>https://salm.dev/writing/command-line-productivity/</guid>
     </item>
   </channel>
 </rss>
