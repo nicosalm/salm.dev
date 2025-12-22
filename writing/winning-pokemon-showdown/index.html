@@ -73,7 +73,7 @@
 <p>Some moves like <em>Sucker Punch</em> (which only works if the opponent uses an attacking move) create rock-paper-scissors style mind games that require <a href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy">mixed strategy Nash equilibria</a>. When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we’d never spot by hand.</p>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/NkzhdDduoA-474.webp 474w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/NkzhdDduoA-474.jpeg" alt="Sucker punch move" style="width: 100%; max-width: 300px; display: block;" width="474" height="248"></picture>
 <h3>The Math Behind Nash Equilibrium</h3>
-<p>Pokemon battles are zero-sum games (one trainer’s win is the other’s loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. As I explore in <a href="../nash-equilibria-hide-from-algorithms">Nash Equilibria Hide from Algorithms</a>, this tractability is special to zero-sum games:</p>
+<p>Pokemon battles are zero-sum games (one trainer’s win is the other’s loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. This tractability is special to zero-sum games:</p>
 <pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">compute_nash_equilibrium</span><span class="token punctuation">(</span>payoff_matrix<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""
     Compute Nash equilibrium for zero-sum game via linear programming.
