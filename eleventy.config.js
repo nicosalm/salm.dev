@@ -90,6 +90,31 @@ export default function(eleventyConfig) {
     return Object.entries(grouped).sort((a, b) => b[0] - a[0]);
   });
 
+  eleventyConfig.addFilter("groupByCategory", (posts) => {
+    const categoryOrder = ['computing', 'history', 'philosophy'];
+    const grouped = {};
+
+    posts.forEach(post => {
+      const category = post.data.category || 'uncategorized';
+      if (!grouped[category]) grouped[category] = [];
+      grouped[category].push(post);
+    });
+
+    return categoryOrder
+      .filter(cat => grouped[cat] && grouped[cat].length > 0)
+      .map(cat => ({ name: cat, posts: grouped[cat] }));
+  });
+
+  eleventyConfig.addFilter("groupCategoryByYear", (posts) => {
+    const grouped = {};
+    posts.forEach(post => {
+      const year = new Date(post.date).getFullYear();
+      if (!grouped[year]) grouped[year] = [];
+      grouped[year].push(post);
+    });
+    return Object.entries(grouped).sort((a, b) => b[0] - a[0]);
+  });
+
   eleventyConfig.addFilter("escape", (str) => {
     if (!str) return "";
     return str
@@ -115,7 +140,7 @@ export default function(eleventyConfig) {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 20)
       .map(([name, count]) => {
-        const size = 0.875 + 0.625 * Math.log(count) / Math.log(maxCount);
+        const size = maxCount === 1 ? 0.875 : 0.875 + 0.625 * Math.log(count) / Math.log(maxCount);
         return { name, count, size: size.toFixed(3) };
       });
   });

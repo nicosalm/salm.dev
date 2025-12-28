@@ -10,11 +10,9 @@ layout: layouts/base.njk
         <div class="post-meta">
             <span class="post-date">{{ date | dateFormat }}</span>, {{ content | readingTime }}
         </div>
-        {% if tags %}
         <div class="post-tags">
-            {%- for tag in tags %}{% if tag != "post" %}<a href="/writing/tag/{{ tag }}/">#{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endif %}{%- endfor %}
+            {% if category %}<a href="/writing/?category={{ category }}" class="post-category">{{ category }}</a>{% endif %}{% if tags %}{%- for tag in tags %}{% if tag != "post" %}<a href="/writing/tag/{{ tag }}/">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endif %}{%- endfor %}{% endif %}
         </div>
-        {% endif %}
         {% if description %}
         <p class="post-description">{{ description }}</p>
         {% endif %}
@@ -22,8 +20,8 @@ layout: layouts/base.njk
         <div class="the-end">~ fin ~</div>
         <div class="similar-writing">
             <div class="post-navigation">
-                {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
-                {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+                {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
+                {%- set nextPost = collections.posts | getPreviousCollectionItem(page) %}
                 {% if previousPost %}
                 <div class="nav-prev">← Prev: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
                 {% endif %}

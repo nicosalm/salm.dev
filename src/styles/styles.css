@@ -65,7 +65,7 @@ html {
     --syntax-comment: #808080;
 
     --font-family-body: "minion", serif;
-    --font-family-code: "firacode", "Fira Code", "Consolas", monospace;
+    --font-family-code: "firacode", monospace;
     --font-size-base: 1.0rem;
     --font-size-small: 0.95rem;
     --line-height: 1.6;
@@ -181,6 +181,44 @@ h4 {
 
 .tags-heading {
     margin: 0;
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    margin-bottom: var(--spacing-large);
+}
+
+.category-filter {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-small);
+    font-variant: small-caps;
+    padding: var(--spacing-tiny) var(--spacing-small);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.category-filter:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.category-filter.active {
+    border-color: var(--text-color);
+    color: var(--text-color);
+    background: var(--code-bg);
+}
+
+.post-item.hidden {
+    display: none;
+}
+
+.year-heading.hidden {
+    display: none;
 }
 
 .writing-key {
@@ -418,6 +456,11 @@ footer {
 
 .post-tags a {
     color: var(--link-color);
+}
+
+.post-category {
+    font-variant: small-caps;
+    margin-right: var(--spacing-small);
 }
 
 .post-description {
