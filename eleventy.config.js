@@ -1,5 +1,4 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import pluginRss from "@11ty/eleventy-plugin-rss";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
@@ -29,7 +28,9 @@ export default function(eleventyConfig) {
     }
   });
 
-  eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addNunjucksFilter("dateToRfc822", (date) => {
+    return new Date(date).toUTCString();
+  });
 
   eleventyConfig.addTransform("sidenotes", (content, outputPath) => {
     if (outputPath?.endsWith(".html")) {
