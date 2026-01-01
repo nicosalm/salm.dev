@@ -19,8 +19,11 @@
     });
 
     yearHeadings.forEach(heading => {
-      const ul = heading.nextElementSibling;
-      if (ul && ul.tagName === 'UL') {
+      let ul = heading.nextElementSibling;
+      while (ul && ul.tagName !== 'UL') {
+        ul = ul.nextElementSibling;
+      }
+      if (ul) {
         const visiblePosts = ul.querySelectorAll('.post-item:not(.hidden)');
         heading.classList.toggle('hidden', visiblePosts.length === 0);
       }
