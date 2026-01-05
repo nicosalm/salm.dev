@@ -2,22 +2,22 @@
 title: Command Line Productivity
 description: "I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim."
 date: 2024-10-10
+category: computing
 tags:
-  - programming
-  - productivity
+  - tooling
+  - workflow
 featured: false
+authorNote: "This article was originally a talk I gave for the <a href='https://www.youtube.com/watch?v=33fdznhms3c'>UPL</a>. My setup has evolved since then, so check my <a href='https://github.com/nicosalm/dotfiles'>dotfiles</a> for the latest configuration."
 layout: layouts/post.njk
 ---
 
-The purpose of this article[^yt] isn't to persuade you to radically overhaul your development workflow overnight, nor is it a critique of "mainstream" editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.
+The purpose of this article isn't to persuade you to radically overhaul your development workflow overnight, nor is it a critique of "mainstream" editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.
 
 In my view, there are two distinct areas of technical productivity:
 
 1. On one side, you have tools for version control (Git) and repository hosting (GitHub, GitLab) -- these vital systems fundamentally improve how you manage projects. They're your safety net and scaffolding for when things go wrong and should be part of every developer's workflow. These tools form a backbone for collaboration, creating a shared context that allows teams of any size to coordinate their efforts effectively. However, they aren't our focus.
 
 2. On the other side, there are tools designed to genuinely accelerate your coding process and task completion. These tools are what I will be highlighting today.
-
-[^yt]: There's also a talk I gave on YouTube for the Undergraduate Projects Lab (my CS friends) [here](https://www.youtube.com/watch?v=33fdznhms3c) >:)
 
 ## Multiplexing
 

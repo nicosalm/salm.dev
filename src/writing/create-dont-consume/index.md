@@ -2,14 +2,14 @@
 title: "Create, Don't Consume"
 description: "We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist."
 date: 2025-06-27
+category: philosophy
 tags:
-  - productivity
-  - philosophy
+  - life
 featured: false
 layout: layouts/post.njk
 ---
 
-<img src="./images/pit.jpeg" style="display: block; margin: 0 auto; width: 60%;" alt="Three individuals gazing into a bottomless pit in the earth">
+<img src="./images/pit.jpeg" style="margin: 0 auto; width: 60%;" alt="Three individuals gazing into a bottomless pit in the earth">
 
 ## Introduction
 
@@ -36,9 +36,9 @@ Let me introduce some vocabulary to clarify this pattern.
 
 I'll call these two opposing action sets **consumptive** versus **generative** behaviors:
 
-- <strong>Consumptive behaviors</strong> are low-effort activities that provide high momentary reward (scrolling feels good while you're doing it) but offer little lasting reward (nothing meaningful to show for it afterward) and minimal dopamine upon completion (no real sense of accomplishment).
+- Consumptive behaviors are low-effort activities that provide high momentary reward (scrolling feels good while you're doing it) but offer little lasting reward (nothing meaningful to show for it afterward) and minimal dopamine upon completion (no real sense of accomplishment).
 
-- <strong>Generative behaviors</strong> require effort and sustained attention, providing low or delayed momentary reward (the work feels hard initially) but high lasting reward (real skills, relationships, health, accomplishments) and significant dopamine upon completion (genuine satisfaction from finishing something worthwhile).
+- Generative behaviors require effort and sustained attention, providing low or delayed momentary reward (the work feels hard initially) but high lasting reward (real skills, relationships, health, accomplishments) and significant dopamine upon completion (genuine satisfaction from finishing something worthwhile).
 
 The consumptive activities feel immediately rewarding but train your brain to crave easy gratification. The generative ones often feel difficult to start but gradually become more rewarding as your dopamine system recalibrates to appreciate sustained effort.
 
@@ -69,5 +69,6 @@ I wish I could offer a clear path forward, but honestly, I'm still working throu
 Given how ubiquitous these behaviors are, this seems to be the defining challenge of our digital age (especially with the emergence of AI, which can be profoundly consumptive when used as a replacement for thinking rather than a tool to enhance it).
 
 I plan to revisit this post as I experiment with different approaches and hopefully develop some practical insights. For now, I have clearer language for what I'm fighting against. I'd be curious to hear what consumptive[^5] patterns others recognize in themselves.
+
 
 [^5]: These activities aren't inherently good or bad. Really, it depends on how you engage with them. Playing video games with friends can build real relationships; creating content on social media can develop genuine skills. What matters is whether you're passively consuming or actively creating, connecting, and growing.
