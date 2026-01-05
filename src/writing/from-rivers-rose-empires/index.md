@@ -38,7 +38,7 @@ This was the foundation of the first city-states. An emerging warrior caste did 
 We've spoken now of Egypt along the Nile, and the Sumerians in Mesopotamia, who possessed both the Tigris and the Euphrates.
 
 <figure class="float-right">
-<img src="./images/nile-river-basin.jpg" alt="">
+<img src="./images/nile-river-basin.jpg" alt="The Nile River Basin, spanning eleven nations from Egypt to Tanzania. The White Nile and Blue Nile converge at Khartoum before snaking north through Sudan and Egypt to the delta. Dams, capital cities, lakes, and protected areas marked throughout.">
 <figcaption>The Nile River Basin</figcaption>
 </figure>
 
@@ -65,7 +65,7 @@ Through these same markets traveled institutions. Ideas were not adopted overnig
 The Rhine has always been the lifeblood of Central Europe. It begins high in the Swiss Alps, travels a course across Germany, and empties into the North Sea via the lowlands of the Netherlands. For centuries, the river has been contested territory. Medieval princes squabbled over it. Napoleon's Continental System[^continental-system] depended on controlling its trade. By contrast, today's EU cooperates on Rhine navigation in ways that would have seemed impossible a century ago.
 
 <figure>
-<img src="./images/rhine.jpg" style="border-style: solid; border-width: thin; width: 100%;" alt="">
+<img src="./images/rhine.jpg" style="border-style: solid; border-width: thin; width: 100%;" alt="The Rhine, from its origins in the Swiss Alps to Rotterdam and the North Sea. Major cities line its course---Basel, Strasbourg, Mainz, Cologne, Düsseldorf---with tributaries like the Moselle and Neckar feeding into it.">
 <figcaption>The Rhine, from the Swiss Alps to the North Sea</figcaption>
 </figure>
 
@@ -90,7 +90,7 @@ During the American Civil War, the Mississippi River was the primary conduit for
 And so Grant[^grant] (in true Grant fashion) set out on a <a href="https://www.youtube.com/watch?v=1eSgimZ8GKQ" target="_blank">daring and unorthodox campaign</a> to capture the city, against the advice of his friends and all accepted military theories of war held by his superiors at the time.
 
 <figure>
-<img src="./images/vicksburg.jpg" style="border-style: solid; border-width: thin; width: 100%;" alt="">
+<img src="./images/vicksburg.jpg" style="border-style: solid; border-width: thin; width: 100%;" alt="Grant's Vicksburg Campaign. Blue arrows trace his march south from Milliken's Bend, across the Mississippi at Bruinsburg, then east to Jackson before turning west to besiege the city. Confederate defenses marked in red.">
 <figcaption>Grant's Vicksburg Campaign, 1863</figcaption>
 </figure>
 
