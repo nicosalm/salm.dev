@@ -40,4 +40,21 @@
     } else {
         article.appendChild(tocWrapper);
     }
+
+    // put author's note below TOC on large screens
+    function positionAuthorsNote() {
+        const note = document.querySelector('.authors-note-wrapper');
+        if (!note) return;
+
+        if (window.innerWidth >= 1200) {
+            const tocHeight = tocWrapper.offsetHeight;
+            note.style.top = (tocHeight + 16) + 'px';
+        } else {
+            note.style.top = '';
+        }
+    }
+
+    positionAuthorsNote();
+    window.addEventListener('resize', positionAuthorsNote);
+    tocWrapper.addEventListener('toggle', positionAuthorsNote);
 })();

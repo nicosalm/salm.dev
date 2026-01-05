@@ -32,12 +32,20 @@
             <span class="post-date">2024-10-10</span>, 8 min read
         </div>
         <div class="post-tags">
-            <a href="/writing/tag/programming/">#programming</a> <a href="/writing/tag/productivity/">#productivity</a>
+            <a href="/writing/?category=computing" class="post-category">computing</a><a href="/writing/tag/tooling/">#tooling</a> <a href="/writing/tag/workflow/">#workflow</a>
         </div>
         
         <p class="post-description">I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim.</p>
         
-        <p>The purpose of this article<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> There’s also a talk I gave on YouTube for the Undergraduate Projects Lab (my CS friends) <a href="https://www.youtube.com/watch?v=33fdznhms3c">here</a> &gt;:)</span> isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.</p>
+        
+        <details class="authors-note-wrapper">
+            <summary>Author's Note</summary>
+            <div class="authors-note-content">
+                This article was originally a talk I gave for the <a href="https://www.youtube.com/watch?v=33fdznhms3c">UPL</a>. My setup has evolved since then, so check my <a href="https://github.com/nicosalm/dotfiles">dotfiles</a> for the latest configuration.
+            </div>
+        </details>
+        
+        <p>The purpose of this article isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.</p>
 <p>In my view, there are two distinct areas of technical productivity:</p>
 <ol>
 <li>
@@ -64,11 +72,11 @@ tmux kill-server                    <span class="token comment"># kill the serve
 tmux a <span class="token parameter variable">-t</span> session_name              <span class="token comment"># attach to a session</span>
 tmux a                              <span class="token comment"># attach to the last session</span></code></pre>
 <h3>Customization</h3>
-<p>When you start TMUX, the program looks for a .dotfile<sup class="fnref" data-sidenote="sn2"><a href="#sn2" id="snref2" title="Sidenote 2">2</a></sup><span class="footnote" id="sn2" data-sidenote="sn2"><a class="fnref" href="#snref2" title="Sidenote 2 Reference">2</a> Many programs store their configuration files in plain text files. These
+<p>When you start TMUX, the program looks for a .dotfile<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> Many programs store their configuration files in plain text files. These
 are usually (but not always) in your <code>~</code> or <code>~/.config/~</code> directories. Dotfiles
 are configuration files for various programs. What sets them apart
 from regular files and directories is their prefix: a dot (<code>.</code>).
-Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at <code>~/.tmux.conf</code>. This plain-text file is where you can configure and “rice out”<sup class="fnref" data-sidenote="sn3"><a href="#sn3" id="snref3" title="Sidenote 3">3</a></sup><span class="footnote" id="sn3" data-sidenote="sn3"><a class="fnref" href="#snref3" title="Sidenote 3 Reference">3</a> Ricing is a process in which one customizes their OS or programs to improve the aesthetics or refine their workflow.</span> your multiplexer. You’ll begin by adding a plugin manager, <a href="https://github.com/tmux-plugins/tpm">tpm</a>, and then use it to load a few plugins and a nice theme<sup class="fnref" data-sidenote="sn4"><a href="#sn4" id="snref4" title="Sidenote 4">4</a></sup><span class="footnote" id="sn4" data-sidenote="sn4"><a class="fnref" href="#snref4" title="Sidenote 4 Reference">4</a> I highly reccommend <a href="https://github.com/rose-pine/tmux">rose-pine</a> or <a href="https://github.com/catppuccin/tmux">catppuccin</a> (mocha).</span>.</p>
+Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at <code>~/.tmux.conf</code>. This plain-text file is where you can configure and “rice out”<sup class="fnref" data-sidenote="sn2"><a href="#sn2" id="snref2" title="Sidenote 2">2</a></sup><span class="footnote" id="sn2" data-sidenote="sn2"><a class="fnref" href="#snref2" title="Sidenote 2 Reference">2</a> Ricing is a process in which one customizes their OS or programs to improve the aesthetics or refine their workflow.</span> your multiplexer. You’ll begin by adding a plugin manager, <a href="https://github.com/tmux-plugins/tpm">tpm</a>, and then use it to load a few plugins and a nice theme<sup class="fnref" data-sidenote="sn3"><a href="#sn3" id="snref3" title="Sidenote 3">3</a></sup><span class="footnote" id="sn3" data-sidenote="sn3"><a class="fnref" href="#snref3" title="Sidenote 3 Reference">3</a> I highly reccommend <a href="https://github.com/rose-pine/tmux">rose-pine</a> or <a href="https://github.com/catppuccin/tmux">catppuccin</a> (mocha).</span>.</p>
 <h2>Vim As Your Editor</h2>
 <p>I’ve been using Vim for about two years. When we mention Vim, it’s usually in one of two contexts: <code>vim</code> (the program), or Vim Motions.</p>
 <p>Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.</p>
@@ -146,8 +154,8 @@ Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at
 <p>Vim is the bliss of Ctrl C/V but applied to every facet of the editor.</p>
 </blockquote>
 <p>I think that’s a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.</p>
-<p>A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs<sup class="fnref" data-sidenote="sn5"><a href="#sn5" id="snref5" title="Sidenote 5">5</a></sup><span class="footnote" id="sn5" data-sidenote="sn5"><a class="fnref" href="#snref5" title="Sidenote 5 Reference">5</a> In the case of debugging, one might opt for <code>gdb</code>, the browser, or the python debugger, etc.</span>. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.</p>
-<p>I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly<sup class="fnref" data-sidenote="sn6"><a href="#sn6" id="snref6" title="Sidenote 6">6</a></sup><span class="footnote" id="sn6" data-sidenote="sn6"><a class="fnref" href="#snref6" title="Sidenote 6 Reference">6</a> I’m paraphrasing <a href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a Neovim enjoyer and popular streamer.</span>. Once you get the hang of things, and it clicks, it’s really, really fun to use.</p>
+<p>A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs<sup class="fnref" data-sidenote="sn4"><a href="#sn4" id="snref4" title="Sidenote 4">4</a></sup><span class="footnote" id="sn4" data-sidenote="sn4"><a class="fnref" href="#snref4" title="Sidenote 4 Reference">4</a> In the case of debugging, one might opt for <code>gdb</code>, the browser, or the python debugger, etc.</span>. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.</p>
+<p>I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly<sup class="fnref" data-sidenote="sn5"><a href="#sn5" id="snref5" title="Sidenote 5">5</a></sup><span class="footnote" id="sn5" data-sidenote="sn5"><a class="fnref" href="#snref5" title="Sidenote 5 Reference">5</a> I’m paraphrasing <a href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a Neovim enjoyer and popular streamer.</span>. Once you get the hang of things, and it clicks, it’s really, really fun to use.</p>
 <p>A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn’t do this, but it’s the path most people take. I’m a bit weird. I like to cold turkey and learn things from the ground up right away. But that’s a digression.</p>
 <h3>Neovim</h3>
 <p>Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:</p>
@@ -165,7 +173,7 @@ Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at
 
 
 
-        <div class="the-end">~ fin ~</div>
+        <div class="the-end">❦</div>
         <div class="similar-writing">
             <div class="post-navigation">
                 

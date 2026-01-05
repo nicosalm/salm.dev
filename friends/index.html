@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preload" href="/assets/fonts/charter_regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preconnect" href="https://tracking.salm.dev">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
+    <title>friends | salm.dev</title>
+    
+
+    <meta property="og:title" content="friends | salm.dev">
+    <meta property="og:description" content="Hot takes and cool things from Nico Salm.">
+    <meta property="og:image" content="https://salm.dev/assets/og-image.png">
+    <meta property="og:url" content="https://salm.dev/friends/">
+    <meta property="og:type" content="website">
+
+    
+</head>
+<body>
+    <style>
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 2rem 0;
+}
+.friend-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+.friend-avatar {
+    width: 48px;
+    height: 48px;
+    margin: 0;
+}
+.friend-info {
+    display: flex;
+    flex-direction: column;
+}
+.friend-username {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+}
+@media (max-width: 576px) {
+    .friends-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+<div>
+    <header>
+        <a href="/">home</a> / friends
+    </header>
+    <h1>Friends</h1>
+    <p>
+        Some wonderful people I know:
+    </p>
+    <div class="friends-grid">
+        <div class="friend-item">
+            <picture><source type="image/webp" srcset="/img/vHfLvn3QcX-460.webp 460w"><img loading="lazy" decoding="async" src="/img/vHfLvn3QcX-460.jpeg" alt="andrewdtr" class="friend-avatar" width="460" height="460"></picture>
+            <div class="friend-info">
+                <a href="https://github.com/andrewdtr" target="_blank">Andrew</a>
+                <span class="friend-username">@AndrewDTR</span>
+            </div>
+        </div>
+        <div class="friend-item">
+            <picture><source type="image/webp" srcset="/img/WMO49xcyzr-460.webp 460w"><img loading="lazy" decoding="async" src="/img/WMO49xcyzr-460.jpeg" alt="coolmineman" class="friend-avatar" width="460" height="460"></picture>
+            <div class="friend-info">
+                <a href="https://github.com/coolmineman" target="_blank">Ben</a>
+                <span class="friend-username">@coolMineman</span>
+            </div>
+        </div>
+        <div class="friend-item">
+            <picture><source type="image/webp" srcset="/img/7mzKWUhd19-420.webp 420w"><img loading="lazy" decoding="async" src="/img/7mzKWUhd19-420.jpeg" alt="friedgil" class="friend-avatar" width="420" height="420"></picture>
+            <div class="friend-info">
+                <a href="https://github.com/friedgil" target="_blank">Gil</a>
+                <span class="friend-username">@FriedGil</span>
+            </div>
+        </div>
+        <div class="friend-item">
+            <picture><source type="image/webp" srcset="/img/UIvD-o_Fwf-433.webp 433w"><img loading="lazy" decoding="async" src="/img/UIvD-o_Fwf-433.jpeg" alt="kotx" class="friend-avatar" width="433" height="433"></picture>
+            <div class="friend-info">
+                <a href="https://github.com/kotx" target="_blank">Kot</a>
+                <span class="friend-username">@kotx</span>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>© 2025 salm.dev | nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | <a href="https://status.salm.dev/" target="_blank">status</a></p>
+</footer>
+
+    <script src="https://tracking.salm.dev/api/script.js" data-site-id="a3641cc346e8" defer=""></script>
+</body>
+</html>
