@@ -16,8 +16,16 @@ layout: layouts/base.njk
         {% if description %}
         <p class="post-description">{{ description }}</p>
         {% endif %}
+        {% if authorNote %}
+        <details class="authors-note-wrapper">
+            <summary>Author's Note</summary>
+            <div class="authors-note-content">
+                {{ authorNote | safe }}
+            </div>
+        </details>
+        {% endif %}
         {{ content | safe }}
-        <div class="the-end">~ fin ~</div>
+        <div class="the-end">❦</div>
         <div class="similar-writing">
             <div class="post-navigation">
                 {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
