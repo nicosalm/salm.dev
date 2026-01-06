@@ -4,6 +4,10 @@ title: null
 description: Website of Nico Salm. I study Computer Science at UW-Madison. My technical interests include machine learning, multi-agent systems, and performance-oriented backend systems.
 ---
 <style>
+.rectangle {
+    display: flex;
+}
+
 @media (max-width: 768px) {
     .site-header {
         flex-direction: column;
@@ -11,6 +15,9 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
         gap: 0.5rem;
     }
     .nav-separator {
+        display: none;
+    }
+    .rectangle {
         display: none;
     }
 }
@@ -49,7 +56,7 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
 </ul>
 
 <h2 style="margin-top: 1rem; margin-bottom: 0.5rem;">Buttons</h2>
-<div style="display: flex; gap: 1rem;">
+<div class="buttons-section" style="display: flex; gap: 1rem;">
     <div class="buttons-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; width: calc(88px * 3 + 0.5rem * 2);">
         <a href="https://salm.dev/"><img src="/assets/88x31/88x31.gif" alt="Nico's 88x31" style="width: 88px; height: 31px; margin: 0;" /></a>
         <a href="/rss.xml" target="_blank"><img src="/assets/88x31/rss-button.gif" alt="RSS Feed" style="width: 88px; height: 31px; margin: 0;" /></a>
@@ -59,5 +66,5 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
         <a href="https://www.firefox.com/en-US/" target="_blank"><img src="/assets/88x31/firefox.gif" style="width: 88px; height: 31px; margin: 0;" alt="Browse with Firefox" /></a>
         <a href="https://tilde.town/~nico/" target="_blank"><img src="/assets/88x31/tildetown.gif" style="width: 88px; height: 31px; margin: 0;" alt="nico's place in ~town" /></a>
     </div>
-    <div style="flex: 1; border: 1px solid #000; background-color: lightgreen; display: flex; align-items: center; justify-content: center;">box with nothing in it yet</div>
+    <div class="rectangle" style="flex: 1; border: 1px solid var(--text-color); background-color: lightgreen; align-items: center; justify-content: center; height: calc(31px * 3 + 0.5rem * 2);">box with nothing in it yet</div>
 </div>
