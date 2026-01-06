@@ -1,4 +1,3 @@
-import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
@@ -15,8 +14,6 @@ export default function(eleventyConfig) {
   md.use(markdownItFootnote);
   md.use(markdownItAttrs);
   eleventyConfig.setLibrary("md", md);
-
-  eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",

@@ -121,7 +121,7 @@ In exploring the minimalist, keyboard-centric workflow of command line tools and
 
 For those willing to explore these command line utilities and text editors, the payoff is a more intuitive and efficient coding experience that aligns perfectly with the unique needs of each developer.
 
-And as always, remember: ***Life is like Vim: There are a lot of shortcuts and you should take them.***
+And as always, remember: *Life is like Vim: There are a lot of shortcuts and you should take them.*
 
 [^1]:
     Many programs store their configuration files in plain text files. These
