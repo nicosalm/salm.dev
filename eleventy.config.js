@@ -74,6 +74,10 @@ export default function(eleventyConfig) {
     return new Date(date).getFullYear();
   });
 
+  eleventyConfig.addFilter("currentYear", () => {
+    return new Date().getFullYear();
+  });
+
   eleventyConfig.addFilter("readingTime", (content) => {
     if (!content) return "1 min read";
     const words = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
