@@ -72,6 +72,14 @@ html {
         --blockquote-nested-bg: #24243a;
     }
 
+    a {
+        color: #5c9ef5;
+    }
+
+    a:visited {
+        color: #c770f5;
+    }
+
     .post-link[data-description]:hover::after {
         background-color: #1a1a24;
         border: 1px solid #35354a;

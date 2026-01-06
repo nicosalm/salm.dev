@@ -31,6 +31,13 @@
     .nav-separator {
         display: none;
     }
+    .buttons-wrapper {
+        flex-direction: column;
+    }
+    .empty-box {
+        width: 100%;
+        min-height: 150px;
+    }
 }
 </style>
 <header class="site-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
@@ -69,7 +76,7 @@
 </ul>
 
 <h2 style="margin-top: 1rem; margin-bottom: 0.5rem;">Buttons</h2>
-<div style="display: flex; gap: 1rem;">
+<div class="buttons-wrapper" style="display: flex; gap: 1rem;">
     <div class="buttons-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; width: calc(88px * 3 + 0.5rem * 2);">
         <a href="https://salm.dev/"><picture><source type="image/webp" srcset="/img/xqrN8oEBew-88.webp 88w"><img loading="lazy" decoding="async" src="/img/xqrN8oEBew-88.jpeg" alt="Nico's 88x31" style="width: 88px; height: 31px; margin: 0;" width="88" height="31"></picture></a>
         <a href="/rss.xml" target="_blank"><picture><source type="image/webp" srcset="/img/Kol-L171Oe-88.webp 88w"><img loading="lazy" decoding="async" src="/img/Kol-L171Oe-88.jpeg" alt="RSS Feed" style="width: 88px; height: 31px; margin: 0;" width="88" height="31"></picture></a>
@@ -79,7 +86,7 @@
         <a href="https://www.firefox.com/en-US/" target="_blank"><picture><source type="image/webp" srcset="/img/4RcxYm0wei-88.webp 88w"><img loading="lazy" decoding="async" src="/img/4RcxYm0wei-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="Browse with Firefox" width="88" height="31"></picture></a>
         <a href="https://tilde.town/~nico/" target="_blank"><picture><source type="image/webp" srcset="/img/fi9tHTbJoS-88.webp 88w"><img loading="lazy" decoding="async" src="/img/fi9tHTbJoS-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="nico's place in ~town" width="88" height="31"></picture></a>
     </div>
-    <div style="flex: 1; border: 1px solid #000; background-color: lightgreen; display: flex; align-items: center; justify-content: center;">box with nothing in it yet</div>
+    <div class="empty-box" style="flex: 1; border: 1px solid var(--text-color); background-color: lightgreen; display: flex; align-items: center; justify-content: center;">box with nothing in it yet</div>
 </div>
 
     <script src="https://rybbit.salm.dev/api/script.js" data-site-id="7669c2a9f361" defer=""></script>
