@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: writing
 ---
 <header><a href="/">home</a> / writing</header>
-<h1>Writing (<a href="../rss.xml">RSS</a>)</h1>
+<h1><span>Writing (<a href="../rss.xml">RSS</a>)</span></h1>
 <div class="writing-layout">
     <div class="writing-main">
         <div class="category-filters">
@@ -30,7 +30,7 @@ title: writing
         <ul>
                 {%- set currentYear = postYear %}
             {%- endif %}
-            <li class="post-item" data-category="{{ post.data.category }}">{{ post.date | dateFormatShort }} :: <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %} <span class="featured-star">★</span>{% endif %}</li>
+            <li class="post-item" data-category="{{ post.data.category }}"><span class="post-date">{{ post.date | dateFormatShort }}</span> :: <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %} <span class="featured-star">★</span>{% endif %}</li>
         {%- endfor %}
         </ul>
         <h4 class="tags-heading mobile-only">Tags</h4>

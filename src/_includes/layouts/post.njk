@@ -6,7 +6,7 @@ layout: layouts/base.njk
         <a href="/">home</a> / <a href="/writing/">writing</a>
     </header>
     <article>
-        <h1>{{ title }}</h1>
+        <h1><span>{{ title }}</span></h1>
         <div class="post-meta">
             <span class="post-date">{{ date | dateFormat }}</span>, {{ content | readingTime }}
         </div>

@@ -193,6 +193,20 @@ h4 {
     background: var(--code-bg);
 }
 
+.post-item {
+    list-style: none;
+    padding-left: var(--spacing-medium);
+    position: relative;
+    margin-bottom: var(--spacing-tiny);
+}
+
+.post-item::before {
+    content: '/';
+    position: absolute;
+    left: 0;
+    color: var(--text-secondary);
+}
+
 .post-item.hidden {
     display: none;
 }
@@ -451,6 +465,12 @@ footer {
     min-width: 0;
 }
 
+.writing-main ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
 .tags-section {
     position: absolute;
     right: 0;
@@ -545,19 +565,6 @@ article {
     list-style: none;
 }
 
-.recent-posts-list li {
-    margin-bottom: var(--spacing-tiny);
-    padding-left: var(--spacing-medium);
-    position: relative;
-}
-
-.recent-posts-list li::before {
-    content: '/';
-    position: absolute;
-    left: 0;
-    color: var(--text-secondary);
-}
-
 .post-date {
     font-size: var(--font-size-small);
     color: var(--text-secondary);
@@ -602,7 +609,7 @@ article {
         margin: 0 0.5rem 0.5rem 0;
     }
 
-    .recent-posts-list li {
+    .recent-posts-list .post-item {
         padding-left: var(--spacing-small);
     }
 

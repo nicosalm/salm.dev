@@ -44,7 +44,7 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
 <h2>Recent Writing</h2>
 <ul class="recent-posts-list">
     {%- for post in collections.posts | head(3) %}
-    <li>
+    <li class="post-item">
         <span class="post-date">{{ post.date | dateFormat }}</span> ::
         <a
             href="{{ post.url }}"
@@ -66,5 +66,5 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
         <a href="https://www.firefox.com/en-US/" target="_blank"><img src="/assets/88x31/firefox.gif" style="width: 88px; height: 31px; margin: 0;" alt="Browse with Firefox" /></a>
         <a href="https://tilde.town/~nico/" target="_blank"><img src="/assets/88x31/tildetown.gif" style="width: 88px; height: 31px; margin: 0;" alt="nico's place in ~town" /></a>
     </div>
-    <div class="rectangle" style="flex: 1; border: 1px solid var(--text-color); background-color: lightgreen; align-items: center; justify-content: center; height: calc(31px * 3 + 0.5rem * 2);">box with nothing in it yet</div>
+    <div class="rectangle" style="flex: 1; border: 1px solid var(--text-color); background-color: lightgreen; align-items: center; justify-content: center; height: calc(31px * 3 + 0.5rem * 2);">the box with nothing in it</div>
 </div>
