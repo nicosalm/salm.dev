@@ -21,19 +21,31 @@
     
 </head>
 <body>
-    <header class="site-header">
-    <svg class="site-logo" viewBox="0 0 503.43 447.75" aria-label="salm.dev logo"><path d="M178.24 375.97c0 10.75-24.09 25.41-72.27 43.95-48.19 18.55-77.8 27.83-88.86 27.83-4.89 0-7.33-1.47-7.33-4.39s2.84-6.66 8.55-11.22c5.69-4.56 12.03-9.03 19.03-13.44 7-4.39 11.14-7.23 12.45-8.55 11.06-11.39 17.66-24.17 19.78-38.33 2.11-14.16 3.17-45.5 3.17-94v-31.73c0-55-3.34-97.48-10.02-127.44-6.67-29.94-18.62-44.92-35.88-44.92-.98 0-2.3.17-3.92.48-1.62.33-3.17.81-4.64 1.47s-3.09 1.22-4.88 1.7c-1.8.5-3.5.91-5.12 1.22-1.62.33-3.09.58-4.39.73-1.31.17-2.28-.06-2.94-.72S0 76.99 0 75.67c0-5.86 6.09-14.81 18.31-26.86 12.2-12.03 27.02-23.19 44.42-33.44S95.07 0 107.44 0c10.09 0 19.12 3.59 27.09 10.75s14 15.88 18.06 26.12 7.16 19.53 9.28 27.83c2.11 8.3 3.17 14.89 3.17 19.77 22.47-21.47 41.02-36.94 55.67-46.39C259.79 12.7 302.75 0 349.63 0c33.19 0 61.83 9.94 85.92 29.78 24.09 19.86 38.42 44.77 42.98 74.7.97 6.19 1.62 17.34 1.95 33.45l.48 46.39-.25 60.8-.23 55.17c0 15.95 1.22 28.64 3.66 38.08s5.05 15.06 7.81 16.84c2.77 1.8 5.38 3.09 7.81 3.91s3.67 1.72 3.67 2.69c0 8.8-11.56 23.53-34.67 44.2-23.12 20.67-40.05 31-50.78 31-14.33 0-23.94-11.22-28.81-33.69-4.89-22.47-7.33-55.19-7.33-98.16l.73-59.08.73-62.5c0-31.56-11.64-58.17-34.92-79.83s-50.86-32.48-82.75-32.48c-8.14 0-15.88.66-23.2 1.95-7.33 1.31-13.67 2.86-19.05 4.64-5.38 1.8-10.58 4.33-15.62 7.58s-9.11 6.11-12.2 8.55-6.34 5.7-9.77 9.77-5.78 7.08-7.08 9.03l-5.61 8.55-4.16 6.58c.97 14.33 1.7 52.66 2.2 115 .48 62.34 2.36 103.59 5.61 123.78.97 5.22 1.47 8.3 1.47 9.27h.02z"></path></svg>
-    <nav class="main-nav">
-        <span class="nav-bracket">[</span>
+    <style>
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    .nav-separator {
+        display: none;
+    }
+}
+</style>
+<header class="site-header" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+    <svg style="width: 27px; height: 24px; flex-shrink: 0; fill: currentColor;" viewBox="0 0 503.43 447.75" aria-label="salm.dev logo"><path d="M178.24 375.97c0 10.75-24.09 25.41-72.27 43.95-48.19 18.55-77.8 27.83-88.86 27.83-4.89 0-7.33-1.47-7.33-4.39s2.84-6.66 8.55-11.22c5.69-4.56 12.03-9.03 19.03-13.44 7-4.39 11.14-7.23 12.45-8.55 11.06-11.39 17.66-24.17 19.78-38.33 2.11-14.16 3.17-45.5 3.17-94v-31.73c0-55-3.34-97.48-10.02-127.44-6.67-29.94-18.62-44.92-35.88-44.92-.98 0-2.3.17-3.92.48-1.62.33-3.17.81-4.64 1.47s-3.09 1.22-4.88 1.7c-1.8.5-3.5.91-5.12 1.22-1.62.33-3.09.58-4.39.73-1.31.17-2.28-.06-2.94-.72S0 76.99 0 75.67c0-5.86 6.09-14.81 18.31-26.86 12.2-12.03 27.02-23.19 44.42-33.44S95.07 0 107.44 0c10.09 0 19.12 3.59 27.09 10.75s14 15.88 18.06 26.12 7.16 19.53 9.28 27.83c2.11 8.3 3.17 14.89 3.17 19.77 22.47-21.47 41.02-36.94 55.67-46.39C259.79 12.7 302.75 0 349.63 0c33.19 0 61.83 9.94 85.92 29.78 24.09 19.86 38.42 44.77 42.98 74.7.97 6.19 1.62 17.34 1.95 33.45l.48 46.39-.25 60.8-.23 55.17c0 15.95 1.22 28.64 3.66 38.08s5.05 15.06 7.81 16.84c2.77 1.8 5.38 3.09 7.81 3.91s3.67 1.72 3.67 2.69c0 8.8-11.56 23.53-34.67 44.2-23.12 20.67-40.05 31-50.78 31-14.33 0-23.94-11.22-28.81-33.69-4.89-22.47-7.33-55.19-7.33-98.16l.73-59.08.73-62.5c0-31.56-11.64-58.17-34.92-79.83s-50.86-32.48-82.75-32.48c-8.14 0-15.88.66-23.2 1.95-7.33 1.31-13.67 2.86-19.05 4.64-5.38 1.8-10.58 4.33-15.62 7.58s-9.11 6.11-12.2 8.55-6.34 5.7-9.77 9.77-5.78 7.08-7.08 9.03l-5.61 8.55-4.16 6.58c.97 14.33 1.7 52.66 2.2 115 .48 62.34 2.36 103.59 5.61 123.78.97 5.22 1.47 8.3 1.47 9.27h.02z"></path></svg>
+    <nav style="display: flex; gap: 0.5rem;">
+        <span style="color: var(--text-secondary);">[</span>
         <a href="/writing">writing</a>
         <a href="/about">about</a>
         <a href="/links">links</a>
         <a href="/friends">friends</a>
         <a href="https://github.com/nicosalm/" target="_blank">code</a>
-        <span class="nav-bracket">]</span>
+        <span style="color: var(--text-secondary);">]</span>
     </nav>
-    <span class="nav-separator"></span>
-    <span class="header-right-text">nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | reach out!</span>
+    <span class="nav-separator" style="flex: 1; min-width: 20px; height: 1px; background-color: var(--border-color); align-self: center;"></span>
+    <span style="color: var(--text-secondary);">nico@<span style="display:none">I hope this works :)</span>salm.<span style="display:none">A second one for good measure</span>dev | reach out!</span>
 </header>
 
 <p>
@@ -56,15 +68,18 @@
     </li>
 </ul>
 
-<h2 class="buttons-heading">Buttons</h2>
-<div class="buttons-container">
-    <a href="https://salm.dev/"><picture><source type="image/webp" srcset="/img/xqrN8oEBew-88.webp 88w"><img loading="lazy" decoding="async" src="/img/xqrN8oEBew-88.jpeg" alt="Nico's 88x31" width="88" height="31" class="button-88x31"></picture></a>
-    <a href="/rss.xml" target="_blank"><picture><source type="image/webp" srcset="/img/Kol-L171Oe-88.webp 88w"><img loading="lazy" decoding="async" src="/img/Kol-L171Oe-88.jpeg" alt="RSS Feed" width="88" height="31" class="button-88x31"></picture></a>
-    <picture><source type="image/webp" srcset="/img/7qOx7J5yQ2-88.webp 88w"><img loading="lazy" decoding="async" src="/img/7qOx7J5yQ2-88.jpeg" alt="Rainbow" width="88" height="31" class="button-88x31"></picture>
-    <a href="https://www.vim.org/" target="_blank"><picture><source type="image/webp" srcset="/img/qgzyjncF8E-88.webp 88w"><img loading="lazy" decoding="async" src="/img/qgzyjncF8E-88.jpeg" width="88" height="31" alt="Made with Vim" class="button-88x31"></picture></a>
-    <a href="https://www.upl.cs.wisc.edu/" target="_blank"><picture><source type="image/webp" srcset="/img/zuIC2y9C2h-88.webp 88w"><img loading="lazy" decoding="async" src="/img/zuIC2y9C2h-88.jpeg" width="88" height="31" alt="Undergraduate Projects Lab" class="button-88x31"></picture></a>
-    <a href="https://www.firefox.com/en-US/" target="_blank"><picture><source type="image/webp" srcset="/img/4RcxYm0wei-88.webp 88w"><img loading="lazy" decoding="async" src="/img/4RcxYm0wei-88.jpeg" width="88" height="31" alt="Browse with Firefox" class="button-88x31"></picture></a>
-    <a href="https://tilde.town/~nico/" target="_blank"><picture><source type="image/webp" srcset="/img/fi9tHTbJoS-88.webp 88w"><img loading="lazy" decoding="async" src="/img/fi9tHTbJoS-88.jpeg" width="88" height="31" alt="nico's place in ~town" class="button-88x31"></picture></a>
+<h2 style="margin-top: 1rem; margin-bottom: 0.5rem;">Buttons</h2>
+<div style="display: flex; gap: 1rem;">
+    <div class="buttons-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; width: calc(88px * 3 + 0.5rem * 2);">
+        <a href="https://salm.dev/"><picture><source type="image/webp" srcset="/img/xqrN8oEBew-88.webp 88w"><img loading="lazy" decoding="async" src="/img/xqrN8oEBew-88.jpeg" alt="Nico's 88x31" style="width: 88px; height: 31px; margin: 0;" width="88" height="31"></picture></a>
+        <a href="/rss.xml" target="_blank"><picture><source type="image/webp" srcset="/img/Kol-L171Oe-88.webp 88w"><img loading="lazy" decoding="async" src="/img/Kol-L171Oe-88.jpeg" alt="RSS Feed" style="width: 88px; height: 31px; margin: 0;" width="88" height="31"></picture></a>
+        <picture><source type="image/webp" srcset="/img/7qOx7J5yQ2-88.webp 88w"><img loading="lazy" decoding="async" src="/img/7qOx7J5yQ2-88.jpeg" alt="Rainbow" style="width: 88px; height: 31px; margin: 0;" width="88" height="31"></picture>
+        <a href="https://www.vim.org/" target="_blank"><picture><source type="image/webp" srcset="/img/qgzyjncF8E-88.webp 88w"><img loading="lazy" decoding="async" src="/img/qgzyjncF8E-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="Made with Vim" width="88" height="31"></picture></a>
+        <a href="https://www.upl.cs.wisc.edu/" target="_blank"><picture><source type="image/webp" srcset="/img/zuIC2y9C2h-88.webp 88w"><img loading="lazy" decoding="async" src="/img/zuIC2y9C2h-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="Undergraduate Projects Lab" width="88" height="31"></picture></a>
+        <a href="https://www.firefox.com/en-US/" target="_blank"><picture><source type="image/webp" srcset="/img/4RcxYm0wei-88.webp 88w"><img loading="lazy" decoding="async" src="/img/4RcxYm0wei-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="Browse with Firefox" width="88" height="31"></picture></a>
+        <a href="https://tilde.town/~nico/" target="_blank"><picture><source type="image/webp" srcset="/img/fi9tHTbJoS-88.webp 88w"><img loading="lazy" decoding="async" src="/img/fi9tHTbJoS-88.jpeg" style="width: 88px; height: 31px; margin: 0;" alt="nico's place in ~town" width="88" height="31"></picture></a>
+    </div>
+    <div style="flex: 1; border: 1px solid #000; background-color: lightgreen; display: flex; align-items: center; justify-content: center;">box with nothing in it yet</div>
 </div>
 
     <script src="https://rybbit.salm.dev/api/script.js" data-site-id="7669c2a9f361" defer=""></script>

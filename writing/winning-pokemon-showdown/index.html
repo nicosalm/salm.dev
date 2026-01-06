@@ -68,41 +68,42 @@
 <div style="clear: both;"></div>
 <h3>The Math Behind Nash Equilibrium</h3>
 <p>Pokemon battles are zero-sum games (one trainer’s win is the other’s loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. This tractability is special to zero-sum games:</p>
-<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">compute_nash_equilibrium</span><span class="token punctuation">(</span>payoff_matrix<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
+<pre><code class="language-python">def compute_nash_equilibrium(payoff_matrix):
+    &quot;&quot;&quot;
     Compute Nash equilibrium for zero-sum game via linear programming.
     payoff_matrix[i,j] = payoff when P1 plays i, P2 plays j
     Returns: (p1_strategy, p2_strategy, game_value)
-    """</span>
-    num_rows<span class="token punctuation">,</span> num_cols <span class="token operator">=</span> payoff_matrix<span class="token punctuation">.</span>shape
+    &quot;&quot;&quot;
+    num_rows, num_cols = payoff_matrix.shape
 
-    <span class="token comment"># Set up Player 1's LP</span>
-    c <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>num_rows <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    c<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>  <span class="token comment"># maximize game value v</span>
+    # Set up Player 1's LP
+    c = np.zeros(num_rows + 1)
+    c[-1] = -1  # maximize game value v
 
-    <span class="token comment"># Expected payoff >= v against any P2 strategy</span>
-    A_ub <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>num_cols<span class="token punctuation">,</span> num_rows <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_cols<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        A_ub<span class="token punctuation">[</span>j<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span>payoff_matrix<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> j<span class="token punctuation">]</span>
-        A_ub<span class="token punctuation">[</span>j<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
-    b_ub <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>num_cols<span class="token punctuation">)</span>
+    # Expected payoff &gt;= v against any P2 strategy
+    A_ub = np.zeros((num_cols, num_rows + 1))
+    for j in range(num_cols):
+        A_ub[j, :-1] = -payoff_matrix[:, j]
+        A_ub[j, -1] = 1
+    b_ub = np.zeros(num_cols)
 
-    <span class="token comment"># Probabilities sum to 1</span>
-    A_eq <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> num_rows <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    A_eq<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
-    b_eq <span class="token operator">=</span> np<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    # Probabilities sum to 1
+    A_eq = np.zeros((1, num_rows + 1))
+    A_eq[0, :-1] = 1
+    b_eq = np.ones(1)
 
-    bounds <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num_rows<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    bounds = [(0, 1) for _ in range(num_rows)] + [(None, None)]
 
-    <span class="token comment"># Solve</span>
-    res1 <span class="token operator">=</span> linprog<span class="token punctuation">(</span>c<span class="token punctuation">,</span> A_ub<span class="token operator">=</span>A_ub<span class="token punctuation">,</span> b_ub<span class="token operator">=</span>b_ub<span class="token punctuation">,</span> A_eq<span class="token operator">=</span>A_eq<span class="token punctuation">,</span> b_eq<span class="token operator">=</span>b_eq<span class="token punctuation">,</span>
-                   bounds<span class="token operator">=</span>bounds<span class="token punctuation">,</span> method<span class="token operator">=</span><span class="token string">'highs'</span><span class="token punctuation">)</span>
+    # Solve
+    res1 = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq,
+                   bounds=bounds, method='highs')
 
-    p1_strategy <span class="token operator">=</span> res1<span class="token punctuation">.</span>x<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-    v <span class="token operator">=</span> <span class="token operator">-</span>res1<span class="token punctuation">.</span>fun
+    p1_strategy = res1.x[:-1]
+    v = -res1.fun
 
-    <span class="token comment"># Player 2's LP omitted...</span>
-    <span class="token keyword">return</span> p1_strategy<span class="token punctuation">,</span> p2_strategy<span class="token punctuation">,</span> v</code></pre>
+    # Player 2's LP omitted...
+    return p1_strategy, p2_strategy, v
+</code></pre>
 <p>The code above computes the mathematically optimal mixed strategy for each player. In the <em>Rillaboom vs. Urshifu</em> matchup, the math confirmed what top players already knew: Urshifu should mix <em>Sucker Punch</em> and <em>Wicked Blow</em> exactly 50/50 in late turns, while Rillaboom adapts between <em>Swords Dance</em> and <em>Grassy Glide</em> based on the situation.</p>
 <h2>The Choosing Phase (Team Selection Strategies)</h2>
 <p>With optimal move strategies worked out for individual battles, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:</p>
@@ -110,28 +111,29 @@
 <p>Using this matrix, we could then solve for the optimal team selection strategies.</p>
 <h3>Analyzing Team Performance</h3>
 <p>We analyzed all 35 possible team combinations using our 7 selected Pokémon, evaluating a total of 595 unique matchups. Here’s how we calculated the average win rates:</p>
-<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">analyze_matchup</span><span class="token punctuation">(</span>team_a<span class="token punctuation">,</span> team_b<span class="token punctuation">,</span> win_probabilities<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""Calculate team_a's win probability against team_b"""</span>
-    payoff_matrix <span class="token operator">=</span> create_payoff_matrix<span class="token punctuation">(</span>team_a<span class="token punctuation">,</span> team_b<span class="token punctuation">,</span> win_probabilities<span class="token punctuation">)</span>
-    _<span class="token punctuation">,</span> _<span class="token punctuation">,</span> game_value <span class="token operator">=</span> compute_nash_equilibrium<span class="token punctuation">(</span>payoff_matrix<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> game_value
+<pre><code class="language-python">def analyze_matchup(team_a, team_b, win_probabilities):
+    &quot;&quot;&quot;Calculate team_a's win probability against team_b&quot;&quot;&quot;
+    payoff_matrix = create_payoff_matrix(team_a, team_b, win_probabilities)
+    _, _, game_value = compute_nash_equilibrium(payoff_matrix)
+    return game_value
 
-<span class="token comment"># Calculate win rates</span>
-team_results <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token keyword">for</span> team <span class="token keyword">in</span> all_team_combinations<span class="token punctuation">:</span>
-    total_win_rate <span class="token operator">=</span> <span class="token number">0.0</span>
-    total_matchups <span class="token operator">=</span> <span class="token number">0</span>
+# Calculate win rates
+team_results = {}
+for team in all_team_combinations:
+    total_win_rate = 0.0
+    total_matchups = 0
 
-    <span class="token keyword">for</span> opponent_team <span class="token keyword">in</span> all_team_combinations<span class="token punctuation">:</span>
-        <span class="token keyword">if</span> team <span class="token operator">!=</span> opponent_team<span class="token punctuation">:</span>
-            win_rate <span class="token operator">=</span> analyze_matchup<span class="token punctuation">(</span>team<span class="token punctuation">,</span> opponent_team<span class="token punctuation">,</span> win_probabilities<span class="token punctuation">)</span>
-            total_win_rate <span class="token operator">+=</span> win_rate
-            total_matchups <span class="token operator">+=</span> <span class="token number">1</span>
+    for opponent_team in all_team_combinations:
+        if team != opponent_team:
+            win_rate = analyze_matchup(team, opponent_team, win_probabilities)
+            total_win_rate += win_rate
+            total_matchups += 1
 
-    team_results<span class="token punctuation">[</span>team<span class="token punctuation">]</span> <span class="token operator">=</span> total_win_rate <span class="token operator">/</span> total_matchups
+    team_results[team] = total_win_rate / total_matchups
 
-<span class="token comment"># Sort teams by average win rate</span>
-best_teams <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>team_results<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span></code></pre>
+# Sort teams by average win rate
+best_teams = sorted(team_results.items(), key=lambda x: x[1], reverse=True)
+</code></pre>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.webp 2058w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.jpeg" alt="Team performance ranking" style="max-width: 100%;" width="2058" height="1970"></picture>
 <h2>Key Findings</h2>
 <p>The strongest team turned out to be Heatran, Sylveon, and Zapdos with a 62.4% average win rate across all matchups. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.</p>

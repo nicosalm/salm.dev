@@ -60,16 +60,18 @@
 <p>A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>k</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.</p>
 <p>With a plugin, these sessions can even persist across system restarts.</p>
 <p>TMUX is incredibly useful, and if you plan on doing <strong>any</strong> serious work in the terminal, it will save you a huge amount of time. Go ahead and install it.</p>
-<pre class="language-bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> tmux      <span class="token comment"># Arch Linux</span>
-<span class="token function">apt</span> <span class="token function">install</span> tmux    <span class="token comment"># Debian or Ubuntu</span>
-brew <span class="token function">install</span> tmux   <span class="token comment"># macOS (using Homebrew)</span></code></pre>
+<pre><code class="language-bash">pacman -S tmux      # Arch Linux
+apt install tmux    # Debian or Ubuntu
+brew install tmux   # macOS (using Homebrew)
+</code></pre>
 <p>You can create a new session with <code>tmux new -s session_name</code>, detach with <code>CTRL-B D</code>, and reattach with <code>tmux attach -t session_name</code>.</p>
 <p>Some other useful commands include:</p>
-<pre class="language-bash"><code class="language-bash">tmux <span class="token function">ls</span>                             <span class="token comment"># list sessions</span>
-tmux kill-session <span class="token parameter variable">-t</span> session_name   <span class="token comment"># kill a session</span>
-tmux kill-server                    <span class="token comment"># kill the server</span>
-tmux a <span class="token parameter variable">-t</span> session_name              <span class="token comment"># attach to a session</span>
-tmux a                              <span class="token comment"># attach to the last session</span></code></pre>
+<pre><code class="language-bash">tmux ls                             # list sessions
+tmux kill-session -t session_name   # kill a session
+tmux kill-server                    # kill the server
+tmux a -t session_name              # attach to a session
+tmux a                              # attach to the last session
+</code></pre>
 <h3>Customization</h3>
 <p>When you start TMUX, the program looks for a .dotfile<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> Many programs store their configuration files in plain text files. These
 are usually (but not always) in your <code>~</code> or <code>~/.config/~</code> directories. Dotfiles
@@ -168,7 +170,7 @@ Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at
 <h2>Wrapping up</h2>
 <p>In exploring the minimalist, keyboard-centric workflow of command line tools and editors like Vim and Neovim, we uncover a significant truth about productivity in software development: simplicity and customization can profoundly enhance efficiency. By adopting tools such as Tmux and Vim, developers are equipped to create a highly personalized development environment. This environment not only streamlines tasks but also keeps the focus on coding, reducing distractions inherent in more complex IDEs. Embracing these tools may involve a learning curve, but the long-term gains in speed, understanding, and adaptability make this investment worthwhile.</p>
 <p>For those willing to explore these command line utilities and text editors, the payoff is a more intuitive and efficient coding experience that aligns perfectly with the unique needs of each developer.</p>
-<p>And as always, remember: <em><strong>Life is like Vim: There are a lot of shortcuts and you should take them.</strong></em></p>
+<p>And as always, remember: <em>Life is like Vim: There are a lot of shortcuts and you should take them.</em></p>
 
 
 
