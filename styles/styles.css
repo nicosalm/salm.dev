@@ -675,7 +675,7 @@ hr {
 }
 
 .authors-note-content {
-    margin: var(--spacing-small) 0 0 1em;
+    margin: var(--spacing-small) 1em var(--spacing-small) 1em;
     font-size: var(--font-size-small);
     line-height: 1.5;
     color: var(--text-secondary);
