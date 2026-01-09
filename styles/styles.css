@@ -330,7 +330,6 @@ blockquote {
     }
 }
 
-
 img {
     max-width: 100%;
     height: auto;
@@ -378,8 +377,6 @@ footer {
     color: var(--text-secondary);
     border-top: var(--border-standard);
 }
-
-
 
 .description {
     text-align: left;
@@ -554,7 +551,6 @@ article {
     }
 }
 
-
 .desktop-only {
     display: block;
 }
@@ -573,54 +569,6 @@ article {
     font-size: var(--font-size-small);
     color: var(--text-secondary);
     font-variant-numeric: tabular-nums;
-}
-
-
-@media (max-width: 1199px) {
-    .footnote,
-    sup.fnref {
-        display: none;
-    }
-}
-
-@media (max-width: 768px) {
-    .desktop-only {
-        display: none !important;
-    }
-
-    .mobile-only {
-        display: block !important;
-        margin-top: var(--spacing-xl) !important;
-        margin-bottom: var(--spacing-medium) !important;
-        margin-left: 0 !important;
-        position: static !important;
-        text-align: left !important;
-    }
-
-    .writing-layout {
-        display: block;
-    }
-
-    .tags-section {
-        position: static;
-        width: 100%;
-        margin-top: var(--spacing-small);
-        margin-bottom: var(--spacing-xl);
-        text-align: left;
-
-        a {
-            margin: 0 0.5rem 0.5rem 0;
-        }
-    }
-
-    .recent-posts-list .post-item {
-        padding-left: var(--spacing-small);
-    }
-
-    .toc-wrapper,
-    .authors-note-wrapper {
-        display: none;
-    }
 }
 
 .similar-writing {
@@ -726,20 +674,6 @@ hr {
     }
 }
 
-
-@media screen and (min-width: 1200px) {
-    .toc-wrapper,
-    .authors-note-wrapper {
-        position: absolute;
-        left: -270px;
-        width: 240px;
-    }
-
-    .toc-wrapper {
-        top: 0;
-    }
-}
-
 .authors-note-content {
     margin: var(--spacing-small) 0 0 1em;
     font-size: var(--font-size-small);
@@ -753,5 +687,65 @@ hr {
         &:last-child {
             margin-bottom: 0;
         }
+    }
+}
+
+@media (min-width: 1200px) {
+    .toc-wrapper,
+    .authors-note-wrapper {
+        position: absolute;
+        left: -270px;
+        width: 240px;
+    }
+
+    .toc-wrapper {
+        top: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .footnote,
+    sup.fnref {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
+        margin-top: var(--spacing-xl) !important;
+        margin-bottom: var(--spacing-medium) !important;
+        margin-left: 0 !important;
+        position: static !important;
+        text-align: left !important;
+    }
+
+    .writing-layout {
+        display: block;
+    }
+
+    .tags-section {
+        position: static;
+        width: 100%;
+        margin-top: var(--spacing-small);
+        margin-bottom: var(--spacing-xl);
+        text-align: left;
+
+        a {
+            margin: 0 0.5rem 0.5rem 0;
+        }
+    }
+
+    .recent-posts-list .post-item {
+        padding-left: var(--spacing-small);
+    }
+
+    .toc-wrapper,
+    .authors-note-wrapper {
+        display: none;
     }
 }
