@@ -5,6 +5,7 @@ date: 2025-06-27
 category: philosophy
 tags:
   - life
+  - reflection
 featured: false
 layout: layouts/post.njk
 ---
