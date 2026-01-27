@@ -113,5 +113,11 @@
 
     <script src="https://rybbit.salm.dev/api/script.js" data-site-id="7669c2a9f361" defer=""></script>
     <script src="//instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
+    <script>
+    document.querySelectorAll('[data-email]').forEach(function(el) {
+        var e = el.dataset.email.split('').reverse().join('');
+        el.href = 'mailto:' + e;
+    });
+    </script>
 </body>
 </html>
