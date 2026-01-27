@@ -151,6 +151,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/styles");
   eleventyConfig.addPassthroughCopy("src/writing/**/images");
   eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
 
   eleventyConfig.addWatchTarget("src/styles/");
 };
