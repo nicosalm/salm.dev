@@ -41,7 +41,6 @@
         article.appendChild(tocWrapper);
     }
 
-    // put author's note below TOC on large screens
     function positionAuthorsNote() {
         const note = document.querySelector('.authors-note-wrapper');
         if (!note) return;
