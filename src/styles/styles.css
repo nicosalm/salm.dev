@@ -764,7 +764,8 @@ hr {
     margin: 0;
 }
 
-.button-more {
+.button-more,
+.button-more:visited {
     display: flex;
     align-items: center;
     justify-content: center;
