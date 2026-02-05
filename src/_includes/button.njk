@@ -1,0 +1,5 @@
+{%- if btn.href -%}
+<a href="{{ btn.href }}"{% if btn.external %} target="_blank"{% endif %}{% if btn.email %} data-email="{{ btn.email }}"{% endif %}><img src="{{ btn.src }}" alt="{{ btn.alt }}" class="button-88x31"></a>
+{%- else -%}
+<img src="{{ btn.src }}" alt="{{ btn.alt }}" class="button-88x31">
+{%- endif -%}
