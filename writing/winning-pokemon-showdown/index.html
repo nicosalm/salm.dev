@@ -28,7 +28,7 @@
     <article>
         <h1><span>Winning Pokemon Showdown</span></h1>
         <div class="post-meta">
-            <span class="post-date">2025-05-11</span>, 7 min read
+            <span class="post-date">2025-05-11</span>, 6 min read
         </div>
         <div class="post-tags">
             <a href="/writing/?category=computing" class="post-category">computing</a><a href="/writing/tag/games/">#games</a> <a href="/writing/tag/game theory/">#game theory</a> <a href="/writing/tag/math/">#math</a>
@@ -38,7 +38,7 @@
         
         
         <h2>Premise</h2>
-<p>In <a href="https://pokemonshowdown.com/">Pokémon Showdown</a>, you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it’s pure strategic decision-making. A game has two phases: choosing your Pokémon (left) and battling (right):</p>
+<p>In <a href="https://pokemonshowdown.com/">Pokémon Showdown</a>, you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it’s pure strategy. A game has two phases: choosing your Pokémon (left) and battling (right):</p>
 <div style="display: flex; justify-content: center; gap: 0.5rem;">
   <img src="./images/choosing-phase.jpeg" alt="choosing phase" style="max-width: 49%;">
   <img src="./images/battle-phase.jpeg" alt="battling phase" style="max-width: 49%;">
@@ -46,14 +46,14 @@
 <p>When a player’s Pokemon’s <abbr title="Hitpoints">HP</abbr> reaches 0, the other player wins:</p>
 <img src="./images/outcome.gif" alt="Battle outcome GIF" style="display: block; max-width: 100%;">
 <h2>The Seven Pokemon We Analyzed</h2>
-<p>For our project, my friends and I focused on seven of the most commonly used Pokémon in the January 2021 Pokémon Showdown 1v1 leaderboard:</p>
+<p>My friends and I focused on the seven most popular Pokémon from the January 2021 Showdown 1v1 leaderboard:</p>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.webp 1928w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.jpeg" alt="All seven Pokémon analyzed" style="display: block; margin: 0 auto var(--spacing-medium); max-width: 100%;" width="1928" height="1442"></picture>
-<p>Each Pokémon has its own unique typing, movesets, and stats that create diverse strategic matchups. For consistency, we used the most popular standard moveset for each Pokémon according to <a href="https://www.smogon.com/dex/ss/pokemon/">Smogon’s Strategy Dex</a>.</p>
+<p>Each Pokémon’s unique typing, movesets, and stats create diverse matchups. For consistency, we used each Pokémon’s most popular moveset from <a href="https://www.smogon.com/dex/ss/pokemon/">Smogon’s Strategy Dex</a>.</p>
 <h2>Our Approach</h2>
-<p>Pokémon battles are <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum games</a>: one player’s win is the other’s loss. Both players select moves simultaneously each turn, creating the exact type of strategic interaction game theory was built to solve. Crucially, zero-sum games are one of the few cases where we can efficiently compute Nash equilibria, unlike the general games that resist computation.</p>
+<p>Pokémon battles are <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum games</a>: one player’s win is the other’s loss. Both players select moves simultaneously each turn — exactly the kind of interaction game theory was built to solve. Crucially, zero-sum games are among the few where we can efficiently compute Nash equilibria, unlike general games.</p>
 <p>We modeled these battles in two key stages:</p>
 <h2>The Battling Phase (Finding Optimal Move Strategies)</h2>
-<p>First, we needed to understand how each Pokémon matchup plays out when both players use optimal strategies. We built turn-based payoff matrices for each possible matchup, calculating expected damage and effects for every move combination using Showdown’s <a href="https://calc.pokemonshowdown.com/">Pokémon Damage Calculator</a>.</p>
+<p>First, we analyzed how each matchup plays out when both players play optimally. We built turn-based payoff matrices for each matchup, calculating expected damage for every move combination with Showdown’s <a href="https://calc.pokemonshowdown.com/">Damage Calculator</a>.</p>
 <figure style="margin: var(--spacing-medium) auto; text-align: center;">
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.webp 1972w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.jpeg" alt="Pokémon Move Damage Matrix" style="max-width: 500px; margin: 0 auto;" width="1972" height="326"></picture>
 <figcaption>Damage ranges between Garchomp and Sylveon's moves</figcaption>
@@ -64,110 +64,85 @@
 <figcaption>Battle decision tree showing Hyper Beam outcomes between Primarina and Sylveon</figcaption>
 </figure>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/NkzhdDduoA-474.webp 474w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/NkzhdDduoA-474.jpeg" class="float-right" alt="Sucker punch move" style="max-width: 275px;" width="474" height="248"></picture>
-<p>Some moves like <em>Sucker Punch</em> (which only works if the opponent uses an attacking move) create rock-paper-scissors style mind games that require <a href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy">mixed strategy Nash equilibria</a>. When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we’d never spot by hand.</p>
+<p>Some moves like <em>Sucker Punch</em> (which only works if the opponent uses an attacking move) create rock-paper-scissors mind games requiring <a href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy">mixed strategy Nash equilibria</a>. When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we’d never spot by hand.</p>
 <div style="clear: both;"></div>
 <h3>The Math Behind Nash Equilibrium</h3>
-<p>Pokemon battles are zero-sum games (one trainer’s win is the other’s loss), which means we can actually compute exact Nash equilibria efficiently using linear programming. This tractability is special to zero-sum games:</p>
+<p>Because Pokémon battles are zero-sum, we can compute exact Nash equilibria efficiently with linear programming. The idea: maximize Player 1’s guaranteed game value <em>v</em> subject to constraints on each player’s move probabilities.</p>
 <pre><code class="language-python">def compute_nash_equilibrium(payoff_matrix):
     &quot;&quot;&quot;
-    Compute Nash equilibrium for zero-sum game via linear programming.
     payoff_matrix[i,j] = payoff when P1 plays i, P2 plays j
     Returns: (p1_strategy, p2_strategy, game_value)
     &quot;&quot;&quot;
     num_rows, num_cols = payoff_matrix.shape
 
-    # Set up Player 1's LP
-    c = np.zeros(num_rows + 1)
-    c[-1] = -1  # maximize game value v
+    # Maximize game value v, subject to:
+    #   Expected payoff &gt;= v against any P2 strategy
+    #   Probabilities sum to 1, each in [0, 1]
+    # ... LP constraint setup omitted for brevity ...
 
-    # Expected payoff &gt;= v against any P2 strategy
-    A_ub = np.zeros((num_cols, num_rows + 1))
-    for j in range(num_cols):
-        A_ub[j, :-1] = -payoff_matrix[:, j]
-        A_ub[j, -1] = 1
-    b_ub = np.zeros(num_cols)
+    res = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq,
+                  bounds=bounds, method='highs')
 
-    # Probabilities sum to 1
-    A_eq = np.zeros((1, num_rows + 1))
-    A_eq[0, :-1] = 1
-    b_eq = np.ones(1)
-
-    bounds = [(0, 1) for _ in range(num_rows)] + [(None, None)]
-
-    # Solve
-    res1 = linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq,
-                   bounds=bounds, method='highs')
-
-    p1_strategy = res1.x[:-1]
-    v = -res1.fun
-
-    # Player 2's LP omitted...
-    return p1_strategy, p2_strategy, v
+    p1_strategy = res.x[:-1]
+    game_value = -res.fun
+    return p1_strategy, p2_strategy, game_value
 </code></pre>
-<p>The code above computes the mathematically optimal mixed strategy for each player. In the <em>Rillaboom vs. Urshifu</em> matchup, the math confirmed what top players already knew: Urshifu should mix <em>Sucker Punch</em> and <em>Wicked Blow</em> exactly 50/50 in late turns, while Rillaboom adapts between <em>Swords Dance</em> and <em>Grassy Glide</em> based on the situation.</p>
+<p>This gives us the optimal mixed strategy for each player. In the <em>Rillaboom vs. Urshifu</em> matchup, the math confirmed what top players already knew: Urshifu should mix <em>Sucker Punch</em> and <em>Wicked Blow</em> exactly 50/50 in late turns, while Rillaboom adapts between <em>Swords Dance</em> and <em>Grassy Glide</em> each turn.</p>
 <h2>The Choosing Phase (Team Selection Strategies)</h2>
-<p>With optimal move strategies worked out for individual battles, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:</p>
+<p>After solving each battle’s optimal strategy, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:</p>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.webp 1553w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.jpeg" alt="Win Probabilities Matrix" style="max-width: 100%;" width="1553" height="1317"></picture>
-<p>Using this matrix, we could then solve for the optimal team selection strategies.</p>
+<p>From this matrix, we solved for the optimal team selection strategies.</p>
 <h3>Analyzing Team Performance</h3>
-<p>We analyzed all 35 possible team combinations using our 7 selected Pokémon, evaluating a total of 595 unique matchups. Here’s how we calculated the average win rates:</p>
+<p>We analyzed all 35 possible team combinations from our 7 Pokémon — 595 unique matchups total. Each matchup reuses the Nash solver from before:</p>
 <pre><code class="language-python">def analyze_matchup(team_a, team_b, win_probabilities):
     &quot;&quot;&quot;Calculate team_a's win probability against team_b&quot;&quot;&quot;
     payoff_matrix = create_payoff_matrix(team_a, team_b, win_probabilities)
     _, _, game_value = compute_nash_equilibrium(payoff_matrix)
     return game_value
-
-# Calculate win rates
-team_results = {}
+</code></pre>
+<p>Then we pit every team against every other team and rank by average win rate:</p>
+<pre><code class="language-python">team_results = {}
 for team in all_team_combinations:
-    total_win_rate = 0.0
-    total_matchups = 0
+    wins = [analyze_matchup(team, opp, win_probabilities)
+            for opp in all_team_combinations if opp != team]
+    team_results[team] = sum(wins) / len(wins)
 
-    for opponent_team in all_team_combinations:
-        if team != opponent_team:
-            win_rate = analyze_matchup(team, opponent_team, win_probabilities)
-            total_win_rate += win_rate
-            total_matchups += 1
-
-    team_results[team] = total_win_rate / total_matchups
-
-# Sort teams by average win rate
 best_teams = sorted(team_results.items(), key=lambda x: x[1], reverse=True)
 </code></pre>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.webp 2058w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.jpeg" alt="Team performance ranking" style="max-width: 100%;" width="2058" height="1970"></picture>
 <h2>Key Findings</h2>
-<p>The strongest team turned out to be Heatran, Sylveon, and Zapdos with a 62.4% average win rate across all matchups. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.</p>
+<p>The strongest team was Heatran, Sylveon, and Zapdos, winning 62.4% of matchups on average. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.</p>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.webp 1614w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.jpeg" alt="Average win rates" style="margin: 1rem auto; max-width: 80%;" width="1614" height="1292"></picture>
-<p>Teams with Sylveon and Zapdos consistently won in our simulations. Pairing Heatran with Urshifu was a recipe for disaster.</p>
+<p>Teams with Sylveon and Zapdos consistently won. Pairing Heatran with Urshifu was a recipe for disaster.</p>
 <h2>Cool Matchup Examples</h2>
 <h3>Heatran vs. Garchomp</h3>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.webp 1812w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.jpeg" class="float-right" alt="Heatran vs Garchomp" style="max-width: 100%;" width="1812" height="560"></picture>
 <p><em>Heatran vs. Garchomp</em> was one of the simpler matchups. Despite Garchomp’s fearsome reputation, Heatran wins 81.7% of the time when both players play optimally. Heatran should open with <em>Will-O-Wisp</em> to burn and halve Garchomp’s attack, then spam <em>Dragon Pulse</em>. Garchomp’s best bet is <em>Stone Edge</em> despite its 80% accuracy.</p>
 <div style="clear: both;"></div>
 <h3>Rillaboom vs. Urshifu</h3>
-<p><em>Rillaboom vs. Urshifu</em> is where the mind games get real. <em>Sucker Punch</em> only works against attacking moves, so neither Pokémon has a dominant strategy. The math says Urshifu should mix Sucker Punch and Wicked Blow 50/50 after turn 2, while Rillaboom adapts to the situation. Even with perfect play from both sides, Rillaboom wins 69.5% of the time.</p>
+<p><em>Rillaboom vs. Urshifu</em> is where the mind games get real. <em>Sucker Punch</em> only works against attacking moves, so neither Pokémon has a dominant strategy. The math says Urshifu should mix Sucker Punch and Wicked Blow 50/50 after turn 2, while Rillaboom adapts each turn. Even with perfect play from both sides, Rillaboom wins 69.5% of the time.</p>
 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: var(--spacing-medium) 0;">
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.webp 1568w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.jpeg" alt="Rillaboom vs Urshifu payoff matrix" style="margin: 0 auto; max-width: 70%;" width="1568" height="1438"></picture>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/48NET0Lc42-968.webp 968w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/48NET0Lc42-968.jpeg" alt="Rillaboom vs Urshifu matchup" style="margin: 0 auto; max-width: 80%;" width="968" height="668"></picture>
 </div>
 <h2>An Interesting Convergence</h2>
-<p>Jake, our Pokémon expert (with over 5000 hours?!), predicted almost identical strategies to our mathematical model.</p>
+<p>Jake, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.</p>
 <h2>Nash Equilibria in Team Selection</h2>
-<p>Some team matchups resulted in pure Nash equilibria with dominant strategies, while others required mixed strategies, creating a Rock-Paper-Scissors dynamic:</p>
+<p>Some team matchups had pure Nash equilibria with dominant strategies, while others required mixed strategies, creating a Rock-Paper-Scissors dynamic:</p>
 <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; margin: var(--spacing-medium) 0;">
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/cQqg783SGU-1332.webp 1332w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/cQqg783SGU-1332.jpeg" alt="Pure Nash Equilibrium" style="margin: 0 auto; max-width: 70%;" width="1332" height="1062"></picture>
 <picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.webp 2272w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.jpeg" alt="Mixed Nash Equilibrium" style="max-width: 100%;" width="2272" height="730"></picture>
 </div>
-<p>When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> This is rock-paper-scissors at the team level. Just because Team A beats Team B and Team B beats Team C doesn’t necessarily mean Team A beats Team C. This creates a complex competitive landscape where no single team dominates everything.</span></p>
+<p>When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> This is rock-paper-scissors at the team level. Just because Team A beats Team B and Team B beats Team C doesn’t necessarily mean Team A beats Team C. So no single team dominates.</span></p>
 <h2>Challenges &amp; Limitations</h2>
-<p>Our biggest challenge was Pokémon’s randomness. With 16 possible damage rolls per move and multi-turn battles, we needed tons of simulations rather than pure expectimax trees to get reliable win rates.<sup class="fnref" data-sidenote="sn2"><a href="#sn2" id="snref2" title="Sidenote 2">2</a></sup><span class="footnote" id="sn2" data-sidenote="sn2"><a class="fnref" href="#snref2" title="Sidenote 2 Reference">2</a> Our final solution involved running over 1 million simulations for each matchup to accurately account for all possible random outcomes. This was computationally intensive but necessary to get statistically significant results.</span></p>
+<p>Our biggest challenge was Pokémon’s randomness. With 16 possible damage rolls per move and multi-turn battles, we needed tons of simulations rather than pure expectimax trees for reliable win rates.<sup class="fnref" data-sidenote="sn2"><a href="#sn2" id="snref2" title="Sidenote 2">2</a></sup><span class="footnote" id="sn2" data-sidenote="sn2"><a class="fnref" href="#snref2" title="Sidenote 2 Reference">2</a> We ultimately ran over 1 million simulations per matchup to account for all random outcomes — computationally intensive, but necessary for statistical significance.</span></p>
 <p>At first, Rillaboom was broken. It had no bad matchups (worst case: 50% win rate against itself). We added Zapdos and Garchomp to create actual counterplay.</p>
-<p>One limitation was our decision to use fixed movesets. In competitive play, moveset variation is crucial for creating unpredictability and gaining an edge.<sup class="fnref" data-sidenote="sn3"><a href="#sn3" id="snref3" title="Sidenote 3">3</a></sup><span class="footnote" id="sn3" data-sidenote="sn3"><a class="fnref" href="#snref3" title="Sidenote 3 Reference">3</a> While we used the standard Smogon Strategy Dex movesets for consistency, competitive players often use surprise movesets to gain an edge.</span></p>
+<p>We also limited ourselves to fixed movesets. In competitive play, players vary movesets to stay unpredictable.<sup class="fnref" data-sidenote="sn3"><a href="#sn3" id="snref3" title="Sidenote 3">3</a></sup><span class="footnote" id="sn3" data-sidenote="sn3"><a class="fnref" href="#snref3" title="Sidenote 3 Reference">3</a> While we used the standard Smogon Strategy Dex movesets for consistency, competitive players often run surprise movesets to stay unpredictable.</span></p>
 <h2>Conclusion &amp; Future Work</h2>
-<p>We successfully found optimal Pokémon strategies using game theory.</p>
+<p>We found optimal Pokémon strategies through game theory.</p>
 <p>The computational complexity explodes as we add Pokémon. With just 7 Pokémon, we evaluated 595 unique matchups. With 50 Pokémon, we’d need to analyze over 230,000 team combinations and millions of matchups. For n Pokémon, we’d need approximately O(n² + (n choose 3)²) matchups. Pokémon battles hit a sweet spot where optimal strategies exist but are hard to find due to the massive state space. That said, it’s possible! (We might just have to rewrite our Python in Rust…)</p>
-<p>Looking ahead, we’d like to expand to the top 50 Pokémon in the current meta. We’d need to account for unknown movesets and better handle the randomness. Eventually we want to tackle 6v6 with switching. That’s 9 choices per turn instead of 4.</p>
-<p>Our <a href="https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf">paper</a> and <a href="https://github.com/nicosalm/pokemon-expectimax/tree/main">code</a> are available on GitHub if you’d like to explore our methods or build upon our work. Special thanks to Professor Manolis Vlatakis for being an encouraging mentor through this process! This project spawned out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).</p>
+<p>Next, we’d like to expand to the top 50 Pokémon in the current meta, handling unknown movesets and randomness better. Eventually we want to tackle 6v6 with switching. That’s 9 choices per turn instead of 4.</p>
+<p>Our <a href="https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf">writeup</a> and <a href="https://github.com/nicosalm/pokemon-expectimax/tree/main">code</a> are available on GitHub if you’d like to explore or build on our work. Special thanks to Professor Manolis Vlatakis for mentoring us through this project! This project grew out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).</p>
 
 
 
