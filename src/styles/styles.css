@@ -250,11 +250,8 @@ h4.year-heading+ul {
 
 code {
     font-family: var(--font-family-code);
-    background-color: var(--code-bg);
     color: var(--text-color);
-    padding: 0.1rem 0.3rem;
-    border: 1px solid var(--border-color);
-    font-size: 0.875em;
+    font-size: 0.84em;
     white-space: pre-wrap;
     word-wrap: break-word;
 
@@ -265,16 +262,13 @@ code {
 
 pre {
     background-color: var(--code-bg);
-    padding: var(--spacing-medium);
-    border: 1px solid var(--border-color);
+    padding: var(--spacing-small) var(--spacing-medium);
+    border-left: 2px solid var(--text-color);
     overflow-x: auto;
     margin: var(--spacing-medium) 0;
     white-space: pre;
 
     code {
-        padding: 0;
-        background-color: transparent;
-        border: none;
         white-space: pre;
         overflow-x: visible;
     }
