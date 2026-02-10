@@ -28,7 +28,7 @@
     <article>
         <h1><span>Command Line Productivity</span></h1>
         <div class="post-meta">
-            <span class="post-date">2024-10-10</span>, 8 min read
+            <span class="post-date">2024-10-10</span>, 7 min read
         </div>
         <div class="post-tags">
             <a href="/writing/?category=computing" class="post-category">computing</a><a href="/writing/tag/tooling/">#tooling</a> <a href="/writing/tag/workflow/">#workflow</a>
@@ -44,18 +44,18 @@
             </div>
         </details>
         
-        <p>The purpose of this article isn’t to persuade you to radically overhaul your development workflow overnight, nor is it a critique of “mainstream” editors and IDEs. My aim is to share my perspective and introduce you to an alternative (and in my opinion, more performant) set tools that have worked well for me.</p>
+        <p>I’m not here to convince you to radically overhaul your workflow overnight, or to knock “mainstream” editors and IDEs. I just want to share an alternative (and in my opinion, more performant) set of tools that have worked well for me.</p>
 <p>In my view, there are two distinct areas of technical productivity:</p>
 <ol>
 <li>
-<p>On one side, you have tools for version control (Git) and repository hosting (GitHub, GitLab) – these vital systems fundamentally improve how you manage projects. They’re your safety net and scaffolding for when things go wrong and should be part of every developer’s workflow. These tools form a backbone for collaboration, creating a shared context that allows teams of any size to coordinate their efforts effectively. However, they aren’t our focus.</p>
+<p>On one side, you have tools for version control (Git) and repository hosting (GitHub, GitLab) – your safety net and scaffolding when things go wrong. Every developer should use them. They let teams of any size coordinate effectively. But they aren’t our focus.</p>
 </li>
 <li>
-<p>On the other side, there are tools designed to genuinely accelerate your coding process and task completion. These tools are what I will be highlighting today.</p>
+<p>On the other side, you have tools that genuinely speed up how you write and ship code. These are what I’ll highlight today.</p>
 </li>
 </ol>
 <h2>Multiplexing</h2>
-<p>When you dedicate a lot of time in your terminal, it quickly becomes apparent how cumbersome it can get. In a web browser, you can create new tabs and swiftly <code>ALT-TAB</code> between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.</p>
+<p>When you spend a lot of time in your terminal, it gets cumbersome fast. In a web browser, you can create new tabs and swiftly <code>ALT-TAB</code> between them. You can bookmark and return to your workspace at will. There’s a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.</p>
 <p>I found something much better. It does exactly what I want. It’s called TMUX.</p>
 <p>A terminal multiplexer is a program that transparently “sits between” your active terminal connection and <i>k</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.</p>
 <p>With a plugin, these sessions can even persist across system restarts.</p>
@@ -83,7 +83,7 @@ Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at
 <p>Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They’re available on all text editors and IDEs.</p>
 <p>Vim, by contrast, is a highly configurable, extensible text editor built to make creating and changing any kind of text very efficient.</p>
 <h3>Vim Motions</h3>
-<p>There is only one type of grammar in Vim: the grammar of Vim Motions. It’s a language that allows you to move around the text.</p>
+<p>Vim has one grammar: motions. They let you move around and manipulate text.</p>
 <p>Here’s a quick reference of some common Vim Motions:</p>
 <table>
 <thead>
@@ -149,27 +149,25 @@ Note: On Unix based systems, dotfiles are hidden by the OS by default.</span> at
 <p>More generally, the syntax looks like: <code>[count] + operator + motion</code>. For example, <code>3dw</code> would delete three words. <code>2yy</code> would yank two lines. <code>c$</code> would delete to the end of the line and start insert mode. <code>dap</code> would delete a paragraph.</p>
 <p>Notice how, for some, the phonetic sound of the command matches the action. <code>d</code> for delete, <code>y</code> for yank, <code>c</code> for change. This is a mnemonic device to help you remember the commands. Delete a paragraph? <code>dap</code>. Change a word? <code>caw</code>.</p>
 <h3>Vim (The Program)</h3>
-<p>Vim, by contrast, is a highly configurable, extensible text editor in your terminal built to make creating and changing any kind of text very efficient.</p>
 <p>My friend <a href="https://scharenbroch.dev/">Lucas</a> rather aptly put:</p>
 <blockquote>
 <p>Vim is the bliss of Ctrl C/V but applied to every facet of the editor.</p>
 </blockquote>
-<p>I think that’s a really good way to describe it. Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.</p>
+<p>Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.</p>
 <p>A contention I often receive is, “well, how do I debug in Vim?” You don’t. You have separate programs<sup class="fnref" data-sidenote="sn4"><a href="#sn4" id="snref4" title="Sidenote 4">4</a></sup><span class="footnote" id="sn4" data-sidenote="sn4"><a class="fnref" href="#snref4" title="Sidenote 4 Reference">4</a> In the case of debugging, one might opt for <code>gdb</code>, the browser, or the python debugger, etc.</span>. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that’s precisely what I’m trying to escape.</p>
-<p>I will concede, however, that Vim is not beginner friendly. There’s a learning curve. However, Vim is exceptionally user friendly<sup class="fnref" data-sidenote="sn5"><a href="#sn5" id="snref5" title="Sidenote 5">5</a></sup><span class="footnote" id="sn5" data-sidenote="sn5"><a class="fnref" href="#snref5" title="Sidenote 5 Reference">5</a> I’m paraphrasing <a href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a Neovim enjoyer and popular streamer.</span>. Once you get the hang of things, and it clicks, it’s really, really fun to use.</p>
+<p>I will concede that Vim is not beginner friendly. There’s a learning curve. But Vim is exceptionally user friendly<sup class="fnref" data-sidenote="sn5"><a href="#sn5" id="snref5" title="Sidenote 5">5</a></sup><span class="footnote" id="sn5" data-sidenote="sn5"><a class="fnref" href="#snref5" title="Sidenote 5 Reference">5</a> I’m paraphrasing <a href="https://github.com/ThePrimeagen">ThePrimeagen</a>, a Neovim enjoyer and popular streamer.</span>. Once you get the hang of things, and it clicks, it’s really, really fun to use.</p>
 <p>A lot of people recommend learning Vim Motions on your current editor first before switching to Vim full time. I didn’t do this, but it’s the path most people take. I’m a bit weird. I like to cold turkey and learn things from the ground up right away. But that’s a digression.</p>
 <h3>Neovim</h3>
-<p>Vim’s extensibility takes it to the next level. Enter: Neovim. Taken from the Neovim Charter:</p>
+<p>Vim’s extensibility opens the door to something better. Enter: Neovim. Taken from the Neovim Charter:</p>
 <blockquote>
 <p>Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.</p>
 </blockquote>
 <p>Neovim’s component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an <a href="https://github.com/neovim/nvim-lspconfig">LSP</a>, <a href="https://github.com/hrsh7th/nvim-cmp">completions</a>, <a href="https://github.com/L3MON4D3/LuaSnip">snippets</a>, <a href="https://github.com/tpope/vim-fugitive">git</a>, and <a href="https://github.com/nvim-neotest/neotest">testing</a> infrastructure. You can get new things too: <a href="https://github.com/nvim-treesitter">Treesitter</a>, <a href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a> FZF (fuzzy finding), Scoped grep string searches, and <a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon</a> anchor points to jump around.</p>
-<p>What’s more, since YOU configure Neovim, you’ll come away with a complete understanding of how each tool works, and how they interact with one another to create a complete ecosystem. By contrast, other editors and IDEs abstract this away.</p>
+<p>What’s more, since YOU configure Neovim, you understand exactly how each tool works and how they fit together. Other editors and IDEs abstract this away.</p>
 <p>I know I just said a lot of words. The takeaway is this: With Neovim, you know exactly why everything works the way it does, and you can make it work exactly the way you want it to. The possibilities are, in fact, endless.</p>
 <p>Want functionality but there’s no plugin for it? Your config is in Lua and everything in Lua is easy. Make it, maintain it, push it to the Neovim community! The Neovim community is vibrant and full of passionate creators and maintainers who work hard to support the editor they love.</p>
 <h2>Wrapping up</h2>
-<p>In exploring the minimalist, keyboard-centric workflow of command line tools and editors like Vim and Neovim, we uncover a significant truth about productivity in software development: simplicity and customization can profoundly enhance efficiency. By adopting tools such as Tmux and Vim, developers are equipped to create a highly personalized development environment. This environment not only streamlines tasks but also keeps the focus on coding, reducing distractions inherent in more complex IDEs. Embracing these tools may involve a learning curve, but the long-term gains in speed, understanding, and adaptability make this investment worthwhile.</p>
-<p>For those willing to explore these command line utilities and text editors, the payoff is a more intuitive and efficient coding experience that aligns perfectly with the unique needs of each developer.</p>
+<p>A minimal, keyboard-centric workflow strips away distractions and lets you focus on the code. Tmux keeps your sessions organized. Vim gives you a language for editing text. Neovim lets you build exactly the editor you need. Yes, there’s a learning curve — but once these tools click, you’ll write code faster, understand your environment deeply, and actually enjoy the process.</p>
 <p>And as always, remember: <em>Life is like Vim: There are a lot of shortcuts and you should take them.</em></p>
 
 
