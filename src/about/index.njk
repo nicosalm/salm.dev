@@ -39,8 +39,6 @@ title: about
     The site is intentionally minimal, built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a> and plain HTML/CSS. JavaScript is sparse; I only include what's needed for MathJax on posts with equations, a table of contents, margin notes, and category filtering. Images get optimized automatically during the build.
 </p>
 <p>You can find the source code <a href="https://github.com/nicosalm/salm.dev/" target="_blank">here</a>.</p>
-<p>If you'd like to link back to my site, feel free to use my <code>88x31</code> button—a nod to the early web:</p>
-<pre><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://salm.dev"</span> <span class="na">target</span><span class="o">=</span><span class="s">"_blank"</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://salm.dev/88x31.gif"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"salm.dev"</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre>
 
 <h2>More</h2>
 Pages that didn't quite earn a spot on the main page:
@@ -53,5 +51,7 @@ Pages that didn't quite earn a spot on the main page:
     {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
     {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
 </div>
+
+<p>(If you'd like to link back to my site, feel free to use my <code>88x31</code> <a href="https://salm.dev/88x31.gif">button</a>!)</p>
 
 {% include "footer.njk" %}

@@ -7,12 +7,12 @@
     <link rel="preconnect" href="https://rybbit.salm.dev">
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
-    <title>{% if title %}{{ title }} | {% endif %}salm.dev</title>
+    <title>{% if title %}{{ title }} | salm.dev{% else %}Nico Salm{% endif %}</title>
     {% if description %}
     <meta name="description" content="{{ description }}">
     {% endif %}
 
-    <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}salm.dev">
+    <meta property="og:title" content="{% if title %}{{ title }} | salm.dev{% else %}Nico Salm{% endif %}">
     <meta property="og:description" content="{{ description | default('Hot takes and cool things from Nico Salm.') }}">
     <meta property="og:image" content="https://salm.dev/assets/logo.png">
     <meta property="og:url" content="https://salm.dev{{ page.url }}">
