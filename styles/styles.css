@@ -45,16 +45,16 @@ html {
     --font-family-body: "minion", serif;
     --font-family-code: "firacode", monospace;
     --font-size-base: 1.0625rem;
-    --font-size-small: 1.0rem;
+    --font-size-small: 1rem;
     --line-height: 1.6;
     --line-height-heading: 1.2;
 
     --spacing-tiny: 0.25rem;
     --spacing-small: 0.5rem;
-    --spacing-medium: 1rem;
-    --spacing-large: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-huge: 3rem;
+    --spacing-medium: 0.875rem;
+    --spacing-large: 1.125rem;
+    --spacing-xl: 1.5rem;
+    --spacing-huge: 2rem;
 
     --transition: 0.3s ease;
     --border-standard: 1px solid var(--border-color);
@@ -105,7 +105,7 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 28px 20px;
     transition: background-color var(--transition), color var(--transition);
 }
 
@@ -117,12 +117,10 @@ h5,
 h6 {
     margin: var(--heading-margin);
     line-height: var(--line-height-heading);
-    color: var(--text-color);
 }
 
 h1 {
-    font-size: 2.375rem;
-    text-align: left;
+    font-size: 2rem;
     margin-top: var(--spacing-small);
     font-variant: small-caps;
     display: flex;
@@ -138,17 +136,17 @@ h1 {
 }
 
 h2 {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
     margin-top: var(--spacing-xl);
 }
 
 h3 {
-    font-size: 1.625rem;
+    font-size: 1.25rem;
     font-style: italic;
 }
 
 h4 {
-    font-size: 1.375rem;
+    font-size: 1.125rem;
 }
 
 .year-heading {
@@ -278,7 +276,6 @@ table {
     width: auto;
     border-collapse: collapse;
     margin: var(--spacing-medium) 0;
-    font-size: var(--font-size-base);
 }
 
 th,
@@ -299,7 +296,6 @@ blockquote {
     margin: var(--spacing-medium) 0;
     padding: var(--spacing-small) var(--spacing-medium);
     background-color: var(--code-bg);
-    color: var(--text-color);
     font-style: normal;
     border-left: 2px solid var(--text-color);
 
@@ -457,7 +453,7 @@ footer {
     top: 0;
     margin-top: var(--spacing-small);
     line-height: var(--line-height-heading);
-    font-size: 1.375rem;
+    font-size: 1.125rem;
     text-align: right;
 }
 
@@ -536,22 +532,6 @@ article {
     font-variant-numeric: tabular-nums;
 }
 
-.similar-writing {
-    margin-top: var(--spacing-large);
-    padding: 0;
-    background-color: transparent;
-    border: none;
-
-    h3 {
-        font-size: var(--font-size-small);
-        margin-top: 0;
-        margin-bottom: var(--spacing-small);
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-color);
-    }
-}
 
 hr {
     border: none;
@@ -580,6 +560,7 @@ hr {
     display: flex;
     justify-content: space-between;
     gap: var(--spacing-medium);
+    margin-top: var(--spacing-large);
     margin-bottom: var(--spacing-small);
     flex-wrap: wrap;
     font-size: var(--font-size-base);
@@ -718,15 +699,15 @@ hr {
 .friends-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--spacing-large);
     margin: var(--spacing-xl) 0;
 }
 
 .friend-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 10px 0;
+    gap: var(--spacing-medium);
+    padding: var(--spacing-small) 0;
 }
 
 .friend-avatar {
