@@ -26,17 +26,15 @@ layout: layouts/base.njk
         {% endif %}
         {{ content | safe }}
         <div class="the-end">❦</div>
-        <div class="similar-writing">
-            <div class="post-navigation">
-                {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
-                {%- set nextPost = collections.posts | getPreviousCollectionItem(page) %}
-                {% if previousPost %}
-                <div class="nav-prev">← Prev: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
-                {% endif %}
-                {% if nextPost %}
-                <div class="nav-next">Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a> →</div>
-                {% endif %}
-            </div>
+        <div class="post-navigation">
+            {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
+            {%- set nextPost = collections.posts | getPreviousCollectionItem(page) %}
+            {% if previousPost %}
+            <div class="nav-prev">← Prev: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
+            {% endif %}
+            {% if nextPost %}
+            <div class="nav-next">Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a> →</div>
+            {% endif %}
         </div>
     </article>
 </div>
