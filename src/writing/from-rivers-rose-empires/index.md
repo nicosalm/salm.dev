@@ -3,9 +3,6 @@ title: "From Rivers Rose Empires"
 description: "No really, where would we be without them?"
 date: 2026-01-04
 category: history
-tags:
-  - geography
-  - strategy
 featured: false
 authorNote: This is the first piece of history writing I've done purely for myself. I think I first learned more about rivers than the average person when I was practicing some hobby cartography. I learned that, no, rivers do not cut inland from the coasts; rather, they flow down from mountains (which makes perfect sense in hindsight)! From there, I’ve picked up things here and there from video games, YouTube channels like <a href="https://www.youtube.com/@HistoryMarche" target=_blank>HistoryMarche</a> (highly recommend), and a few historical texts I've read over the years. I hope you enjoy! ^_^
 layout: layouts/post.njk

@@ -42,10 +42,10 @@
     }
 
     function positionAuthorsNote() {
-        const note = document.querySelector('.authors-note-wrapper');
+        const note = document.querySelector('.authors-note');
         if (!note) return;
 
-        if (window.innerWidth >= 1200) {
+        if (window.innerWidth >= 1100) {
             const tocHeight = tocWrapper.offsetHeight;
             note.style.top = (tocHeight + 16) + 'px';
         } else {

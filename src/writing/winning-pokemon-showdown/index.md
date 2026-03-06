@@ -3,10 +3,6 @@ title: Winning Pokemon Showdown
 description: We used game theory to find the mathematically optimal strategies in Pokémon Showdown battles.
 date: 2025-05-11
 category: computing
-tags:
-  - games
-  - game theory
-  - math
 featured: true
 layout: layouts/post.njk
 ---

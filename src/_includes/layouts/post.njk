@@ -1,43 +1,37 @@
 ---
 layout: layouts/base.njk
 ---
-<div>
-    <header>
-        <a href="/">home</a> / <a href="/writing/">writing</a>
-    </header>
-    <article>
-        <h1><span>{{ title }}</span></h1>
-        <div class="post-meta">
-            <span class="post-date">{{ date | dateFormat }}</span>, {{ content | readingTime }}
+<article>
+    <h1>{{ title }}</h1>
+    <div class="post-meta">
+        <time class="post-date" datetime="{{ date | dateFormat }}">{{ date | monthYear }}</time>
+        &middot; {{ content | readingTime }}
+        {% if category %}&middot; <a href="/writing/?category={{ category }}">{{ category }}</a>{% endif %}
+    </div>
+    {% if description %}
+    <p class="post-description">{{ description }}</p>
+    {% endif %}
+    {% if authorNote %}
+    <details class="authors-note" open>
+        <summary>Author's Note</summary>
+        <div class="authors-note-content">
+            {{ authorNote | safe }}
         </div>
-        <div class="post-tags">
-            {% if category %}<a href="/writing/?category={{ category }}" class="post-category">{{ category }}</a>{% endif %}{% if tags %}{%- for tag in tags %}{% if tag != "post" %}<a href="/writing/tag/{{ tag }}/">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endif %}{%- endfor %}{% endif %}
-        </div>
-        {% if description %}
-        <p class="post-description">{{ description }}</p>
+    </details>
+    {% endif %}
+    {{ content | safe }}
+    <div class="the-end">❦</div>
+    <div class="post-navigation">
+        {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
+        {%- set nextPost = collections.posts | getPreviousCollectionItem(page) %}
+        {% if previousPost %}
+        <div class="nav-prev">&larr; <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
         {% endif %}
-        {% if authorNote %}
-        <details class="authors-note-wrapper">
-            <summary>Author's Note</summary>
-            <div class="authors-note-content">
-                {{ authorNote | safe }}
-            </div>
-        </details>
+        {% if nextPost %}
+        <div class="nav-next"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a> &rarr;</div>
         {% endif %}
-        {{ content | safe }}
-        <div class="the-end">❦</div>
-        <div class="post-navigation">
-            {%- set previousPost = collections.posts | getNextCollectionItem(page) %}
-            {%- set nextPost = collections.posts | getPreviousCollectionItem(page) %}
-            {% if previousPost %}
-            <div class="nav-prev">← Prev: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></div>
-            {% endif %}
-            {% if nextPost %}
-            <div class="nav-next">Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a> →</div>
-            {% endif %}
-        </div>
-    </article>
-</div>
+    </div>
+</article>
 {% include "footer.njk" %}
 <script src="/assets/js/toc.js"></script>
 <script src="/assets/js/sidenotes.js"></script>

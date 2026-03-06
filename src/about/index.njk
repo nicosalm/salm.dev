@@ -2,30 +2,32 @@
 layout: layouts/base.njk
 title: about
 ---
-<header><a href="/">home</a> / about</header>
-<h1><span>Hi, I'm Nico!</span></h1>
-<p>
-    Welcome to my website. I write about computing, history, and philosophy. My technical interests span machine learning, multi-agent systems, and performance-oriented backends. I work with <span style="color: #3776ab">Python</span>, <span style="color: #00add8">Go</span>, <span style="color: #ce422b">Rust</span>, <span style="color: #5967d8">C</span>, and <span style="color: #3178c6">TypeScript</span>. I enjoy building things that need to be fast and scale well.
-</p>
+<h1>About</h1>
+<div class="about-intro">
+    <p>
+        Welcome to my website. I write about computing, history, and philosophy. My technical interests span machine learning, multi-agent systems, and performance-oriented backends. I work with <strong>Python</strong>, <strong>Rust</strong>, <strong>C++</strong>, and <strong>TypeScript</strong>. I enjoy building things that need to be fast and scale well.
+    </p>
+    <img src="/assets/me.jpeg" alt="Nico Salm">
+</div>
 
 <h2>Writing</h2>
 <p>
     I avoid being prescriptive and instead prefer to frame my experiences and how I've learned or grown from them. I <a href="/writing">write about</a> programming, statistics, psychology, philosophy, and history.
 </p>
 <p>
-    Writing helps me think. I welcome critiques, fact checking, and fresh angles I didn't consider. Reach me at {% include "email.njk" %}!
+    Writing helps me think. I welcome critiques, fact checking, and fresh angles I didn't consider. Reach me at {% include "email.njk" %}.
 </p>
 
 <h2>Studies</h2>
 <p>
     I am a student at the University of Wisconsin-Madison, majoring in Computer Sciences. I spend most of my time hanging out in the
-    <a href="https://upl.cs.wisc.edu/" target="blank">UPL</a> on campus with my friends.
+    <a href="https://upl.cs.wisc.edu/" target="_blank">UPL</a> on campus with my friends.
 </p>
 <p>Some of my favorite classes:</p>
 <ul>
     <li>Theory of Multi-agent Machine Learning (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
     <li>Game Theory, Learning and Optimization (<a href="http://pages.cs.wisc.edu/~vlatakis" target="_blank">Manolis Vlatakis</a>)</li>
-    <li>Parallel and High Throughput Computing (<a href="https://pages.cs.wisc.edu/~sifakis/" target="_blank">Efty Sifakis</a>)</li>
+    <li>Parallel and High Throughput Computing (<a href="https://pages.cs.wisc.edu/~sifakis/" target="_blank">Eftychios Sifakis</a>)</li>
     <li>Operating Systems (<a href="https://pages.cs.wisc.edu/~swift" target="_blank">Michael Swift</a>)</li>
     <li>Distributed Systems (<a href="https://tyler.caraza-harter.com/" target="_blank">Tyler Caraza-Harter</a>)</li>
 </ul>
@@ -33,23 +35,20 @@ title: about
 
 <h2>Colophon</h2>
 <p>
-    A colophon is a brief statement that appears at the end of a book, providing information about its production. I got the idea from <a href="https://www.amoses.dev/" target="_blank">Andrew</a>:
-</p>
-<p>
     The site is intentionally minimal, built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a> and plain HTML/CSS. JavaScript is sparse; I only include what's needed for MathJax on posts with equations, a table of contents, margin notes, and category filtering. Images get optimized automatically during the build.
 </p>
 <p>You can find the source code <a href="https://github.com/nicosalm/salm.dev/" target="_blank">here</a>.</p>
 
-<p>(If you'd like to link back to my site, use my <code>88x31</code> <a href="https://salm.dev/88x31.gif">button</a>!)</p>
-
-<h2>More</h2>
-Pages that didn't quite earn a spot on the main page:
+<h2>Pages</h2>
+<p>Pages not quite worth putting in the header.</p>
 <ul>
-    <li><a href="/lists">lists</a>
+    <li><a href="/bookshelf">Bookshelf</a></li>
+    <li><a href="/web-pages">Web Pages</a></li>
 </ul>
 
 <h2 id="buttons">Buttons</h2>
-<div class="buttons-container" style="width: 100%;">
+<p>If you'd like to link back to my site, use my <code>88x31</code> <a href="https://salm.dev/88x31.gif">button</a>.</p>
+<div class="buttons-container">
     {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
     {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
 </div>

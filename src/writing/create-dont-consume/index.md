@@ -3,9 +3,6 @@ title: "Create, Don't Consume"
 description: "We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist."
 date: 2025-06-27
 category: philosophy
-tags:
-  - life
-  - reflection
 featured: false
 layout: layouts/post.njk
 ---

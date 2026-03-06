@@ -3,9 +3,6 @@ title: Command Line Productivity
 description: "I describe my minimal, focused, keyboard-centric workflow where I do my best work. In other words: I shill Vim."
 date: 2024-10-10
 category: computing
-tags:
-  - tooling
-  - workflow
 featured: false
 authorNote: "This article was originally a talk I gave for the <a href='https://www.youtube.com/watch?v=33fdznhms3c'>UPL</a>. My setup has evolved since then, so check my <a href='https://github.com/nicosalm/dotfiles'>dotfiles</a> for the latest configuration."
 layout: layouts/post.njk

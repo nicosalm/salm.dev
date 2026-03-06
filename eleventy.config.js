@@ -1,4 +1,5 @@
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItAttrs from "markdown-it-attrs";
@@ -14,6 +15,8 @@ export default function(eleventyConfig) {
   md.use(markdownItFootnote);
   md.use(markdownItAttrs);
   eleventyConfig.setLibrary("md", md);
+
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
@@ -47,6 +50,11 @@ export default function(eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  const MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
   eleventyConfig.addFilter("dateFormat", (date) => {
     const d = new Date(date);
     const year = d.getUTCFullYear();
@@ -55,11 +63,14 @@ export default function(eleventyConfig) {
     return `${year}-${month}-${day}`;
   });
 
-  eleventyConfig.addFilter("dateFormatShort", (date) => {
+  eleventyConfig.addFilter("monthYear", (date) => {
     const d = new Date(date);
-    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(d.getUTCDate()).padStart(2, '0');
-    return `${month}-${day}`;
+    return `${MONTHS[d.getUTCMonth()]}, ${d.getUTCFullYear()}`;
+  });
+
+  eleventyConfig.addFilter("monthName", (date) => {
+    const d = new Date(date);
+    return MONTHS[d.getUTCMonth()];
   });
 
   eleventyConfig.addFilter("head", (array, n) => {
@@ -89,27 +100,6 @@ export default function(eleventyConfig) {
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
-  });
-
-  eleventyConfig.addFilter("collectTags", (posts) => {
-    const tagCounts = {};
-    posts.forEach(post => {
-      const tags = post.data.tags || [];
-      tags.forEach(tag => {
-        if (tag !== "post") {
-          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-        }
-      });
-    });
-
-    const maxCount = Math.max(...Object.values(tagCounts), 1);
-    return Object.entries(tagCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 20)
-      .map(([name, count]) => {
-        const size = maxCount === 1 ? 0.875 : 0.875 + 0.625 * Math.log(count) / Math.log(maxCount);
-        return { name, count, size: size.toFixed(3) };
-      });
   });
 
   eleventyConfig.addPassthroughCopy("src/assets");
