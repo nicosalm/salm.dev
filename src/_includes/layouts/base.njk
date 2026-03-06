@@ -17,6 +17,9 @@
     <meta property="og:url" content="https://salm.dev{{ page.url }}">
     <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
 
+    {% if prefetch %}
+    <link rel="preconnect" href="{{ prefetch }}">
+    {% endif %}
     {% if math %}
     <script src="/assets/js/mathjax-config.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -30,7 +33,7 @@
             <a href="/writing">writing</a><span class="sep">|</span><a
             href="/about">about</a><span class="sep">|</span><a
             href="/friends">friends</a><span class="sep">|</span><a
-            href="https://status.salm.dev/">status</a>|<span><a
+            href="/status">status</a><span class="sep">|</span><a
             href="https://github.com/nicosalm/">github</a>
         </nav>
         <span class="spacer"></span>

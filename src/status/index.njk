@@ -1,0 +1,83 @@
+---
+layout: layouts/base.njk
+title: status
+description: Service uptime and coding activity.
+prefetch: https://status.salm.dev
+---
+<h1>Status</h1>
+
+<div id="status-content">
+    <p class="text-muted text-small">Loading...</p>
+</div>
+
+{% include "footer.njk" %}
+
+<script>
+(function() {
+    var API = 'https://status.salm.dev';
+    var container = document.getElementById('status-content');
+
+    fetch(API)
+        .then(function(res) { return res.json(); })
+        .then(render)
+        .catch(function() {
+            container.innerHTML = '<p>Failed to load status data.</p>';
+        });
+
+    function render(data) {
+        var html = '';
+
+        // Services
+        html += '<h2>services</h2>';
+        data.checks.forEach(function(c) {
+            var up = !c.down;
+            var color = up ? '#23C552' : '#F84F31';
+            var label = up ? 'UP' : 'DOWN';
+            var days = c.domain && c.domain.remaining_days != null ? c.domain.remaining_days : '-';
+            html += '<div>';
+            html += '<h4><a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a></h4>';
+            html += '<p><span style="font-weight:bold;color:' + color + '">' + label + '</span>';
+            html += ' :: ' + c.uptime.toFixed(2) + '%';
+            html += ' <span class="text-muted">(' + days + 'd left)</span></p>';
+            html += '<p class="text-muted">last checked: <code>' + esc(c.last_check_at) + '</code></p>';
+            html += '</div>';
+        });
+
+        // Coding stats
+        var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
+        var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
+        var hours = (seconds / 3600).toFixed(2);
+
+        html += '<hr>';
+        html += '<h2>in the last 7 days</h2>';
+        html += '<div class="status-stats">';
+
+        html += '<div><h4>languages</h4>';
+        languages.forEach(function(l) {
+            html += '<p style="color:' + esc(l.color) + '">' + esc(l.name) + ': <code>' + l.decimal + 'h</code></p>';
+        });
+        html += '</div>';
+
+        html += '<div><h4>editors</h4>';
+        data.editors.forEach(function(e) {
+            html += '<p style="color:' + esc(e.color) + '">' + esc(e.name) + ': <code>' + e.percent + '%</code></p>';
+        });
+        html += '</div>';
+
+        html += '<div><h4>coding activity</h4>';
+        html += '<p>Total: <code>' + hours + 'h</code></p>';
+        html += '</div>';
+
+        html += '</div>';
+
+        container.innerHTML = html;
+    }
+
+    function esc(s) {
+        if (!s) return '';
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+})();
+</script>

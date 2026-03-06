@@ -41,6 +41,7 @@ body {
 
 a {
     color: var(--link);
+    transition: color 0.2s ease;
 }
 
 a:visited {
@@ -317,6 +318,15 @@ footer {
         color: var(--text-secondary);
     }
 }
+
+.footer-logo {
+    display: inline-block;
+    width: auto;
+    height: 0.9em;
+    vertical-align: -0.1em;
+    margin: 0 0.4em 0 0;
+}
+
 
 .year-heading {
     margin-top: 0.75rem;
@@ -674,6 +684,13 @@ a.fnref, .fnref a {
     &:focus {
         top: 0;
     }
+}
+
+.status-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
 }
 
 :focus-visible {
