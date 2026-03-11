@@ -52,7 +52,7 @@
 <img src="./images/outcome.gif" alt="Battle outcome GIF" style="display: block; max-width: 100%;">
 <h2>The Seven Pokemon We Analyzed</h2>
 <p>My friends and I focused on the seven most popular Pokémon from the January 2021 Showdown 1v1 leaderboard:</p>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.webp 1928w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.jpeg" alt="All seven Pokémon analyzed" style="display: block; margin: 0 auto var(--spacing-medium); max-width: 100%;" width="1928" height="1442"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.avif 1928w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/X6FEgU-rSS-1928.jpeg" alt="All seven Pokémon analyzed" style="display: block; margin: 0 auto var(--spacing-medium); max-width: 100%;" width="1928" height="1442"></picture>
 <p>Each Pokémon’s unique typing, movesets, and stats create diverse matchups. For consistency, we used each Pokémon’s most popular moveset from <a href="https://www.smogon.com/dex/ss/pokemon/">Smogon’s Strategy Dex</a>.</p>
 <h2>Our Approach</h2>
 <p>Pokémon battles are <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum games</a>: one player’s win is the other’s loss. Both players select moves simultaneously each turn — exactly the kind of interaction game theory was built to solve. Crucially, zero-sum games are among the few where we can efficiently compute Nash equilibria, unlike general games.</p>
@@ -60,15 +60,15 @@
 <h2>The Battling Phase (Finding Optimal Move Strategies)</h2>
 <p>First, we analyzed how each matchup plays out when both players play optimally. We built turn-based payoff matrices for each matchup, calculating expected damage for every move combination with Showdown’s <a href="https://calc.pokemonshowdown.com/">Damage Calculator</a>.</p>
 <figure style="margin: var(--spacing-medium) auto; text-align: center;">
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.webp 1972w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.jpeg" alt="Pokémon Move Damage Matrix" style="max-width: 500px; margin: 0 auto;" width="1972" height="326"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.avif 1972w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/stp-_bXdo1-1972.jpeg" alt="Pokémon Move Damage Matrix" style="max-width: 500px; margin: 0 auto;" width="1972" height="326"></picture>
 <figcaption>Damage ranges between Garchomp and Sylveon's moves</figcaption>
 </figure>
 <p>Pokémon battles have random elements: move accuracy, critical hits, and damage ranges. We handled these with <a href="https://inst.eecs.berkeley.edu/~cs188/textbook/games/expectimax.html">expectimax trees</a> that calculate expected outcomes for each decision.</p>
 <figure style="margin: var(--spacing-medium) auto; text-align: center;">
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.webp 1406w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.jpeg" alt="Battle decision tree" style="max-width: 60%; margin: 0 auto;" width="1406" height="1762"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.avif 1406w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/zVv8heCSPJ-1406.jpeg" alt="Battle decision tree" style="max-width: 60%; margin: 0 auto;" width="1406" height="1762"></picture>
 <figcaption>Battle decision tree showing Hyper Beam outcomes between Primarina and Sylveon</figcaption>
 </figure>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/NkzhdDduoA-474.webp 474w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/NkzhdDduoA-474.jpeg" class="float-right" alt="Sucker punch move" style="max-width: 275px;" width="474" height="248"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/NkzhdDduoA-474.avif 474w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/NkzhdDduoA-474.jpeg" class="float-right" alt="Sucker punch move" style="max-width: 275px;" width="474" height="248"></picture>
 <p>Some moves like <em>Sucker Punch</em> (which only works if the opponent uses an attacking move) create rock-paper-scissors mind games requiring <a href="https://en.wikipedia.org/wiki/Strategy_(game_theory)#Mixed_strategy">mixed strategy Nash equilibria</a>. When the payoff matrices got too complex, we turned to reinforcement learning to find strategies we’d never spot by hand.</p>
 <div style="clear: both;"></div>
 <h3>The Math Behind Nash Equilibrium</h3>
@@ -94,7 +94,7 @@
 <p>This gives us the optimal mixed strategy for each player. In the <em>Rillaboom vs. Urshifu</em> matchup, the math confirmed what top players already knew: Urshifu should mix <em>Sucker Punch</em> and <em>Wicked Blow</em> exactly 50/50 in late turns, while Rillaboom adapts between <em>Swords Dance</em> and <em>Grassy Glide</em> each turn.</p>
 <h2>The Choosing Phase (Team Selection Strategies)</h2>
 <p>After solving each battle’s optimal strategy, we turned to the team selection meta-game. After simulating over 1 million battles for each possible matchup, we built a payoff matrix of win probabilities:</p>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.webp 1553w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.jpeg" alt="Win Probabilities Matrix" style="max-width: 100%;" width="1553" height="1317"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.avif 1553w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/iNnObRo1Xo-1553.jpeg" alt="Win Probabilities Matrix" style="max-width: 100%;" width="1553" height="1317"></picture>
 <p>From this matrix, we solved for the optimal team selection strategies.</p>
 <h3>Analyzing Team Performance</h3>
 <p>We analyzed all 35 possible team combinations from our 7 Pokémon — 595 unique matchups total. Each matchup reuses the Nash solver from before:</p>
@@ -111,29 +111,29 @@
     team_results<span class="token punctuation">[</span>team<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>wins<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>wins<span class="token punctuation">)</span>
 
 best_teams <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>team_results<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span></code></pre>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.webp 2058w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.jpeg" alt="Team performance ranking" style="max-width: 100%;" width="2058" height="1970"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.avif 2058w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/dNf_2KEuen-2058.jpeg" alt="Team performance ranking" style="max-width: 100%;" width="2058" height="1970"></picture>
 <h2>Key Findings</h2>
 <p>The strongest team was Heatran, Sylveon, and Zapdos, winning 62.4% of matchups on average. Garchomp, Heatran, and Urshifu together struggled at just 29.7%. Sylveon was the MVP, maintaining a 55.3% win rate across all team compositions.</p>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.webp 1614w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.jpeg" alt="Average win rates" style="margin: 1rem auto; max-width: 80%;" width="1614" height="1292"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.avif 1614w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/aKLg9J0ttk-1614.jpeg" alt="Average win rates" style="margin: 1rem auto; max-width: 80%;" width="1614" height="1292"></picture>
 <p>Teams with Sylveon and Zapdos consistently won. Pairing Heatran with Urshifu was a recipe for disaster.</p>
 <h2>Cool Matchup Examples</h2>
 <h3>Heatran vs. Garchomp</h3>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.webp 1812w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.jpeg" class="float-right" alt="Heatran vs Garchomp" style="max-width: 100%;" width="1812" height="560"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.avif 1812w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/VXlkLASEBy-1812.jpeg" class="float-right" alt="Heatran vs Garchomp" style="max-width: 100%;" width="1812" height="560"></picture>
 <p><em>Heatran vs. Garchomp</em> was one of the simpler matchups. Despite Garchomp’s fearsome reputation, Heatran wins 81.7% of the time when both players play optimally. Heatran should open with <em>Will-O-Wisp</em> to burn and halve Garchomp’s attack, then spam <em>Dragon Pulse</em>. Garchomp’s best bet is <em>Stone Edge</em> despite its 80% accuracy.</p>
 <div style="clear: both;"></div>
 <h3>Rillaboom vs. Urshifu</h3>
 <p><em>Rillaboom vs. Urshifu</em> is where the mind games get real. <em>Sucker Punch</em> only works against attacking moves, so neither Pokémon has a dominant strategy. The math says Urshifu should mix Sucker Punch and Wicked Blow 50/50 after turn 2, while Rillaboom adapts each turn. Even with perfect play from both sides, Rillaboom wins 69.5% of the time.</p>
 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: var(--spacing-medium) 0;">
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.webp 1568w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.jpeg" alt="Rillaboom vs Urshifu payoff matrix" style="margin: 0 auto; max-width: 70%;" width="1568" height="1438"></picture>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/48NET0Lc42-968.webp 968w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/48NET0Lc42-968.jpeg" alt="Rillaboom vs Urshifu matchup" style="margin: 0 auto; max-width: 80%;" width="968" height="668"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.avif 1568w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/bm2ZLVkfQp-1568.jpeg" alt="Rillaboom vs Urshifu payoff matrix" style="margin: 0 auto; max-width: 70%;" width="1568" height="1438"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/48NET0Lc42-968.avif 968w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/48NET0Lc42-968.jpeg" alt="Rillaboom vs Urshifu matchup" style="margin: 0 auto; max-width: 80%;" width="968" height="668"></picture>
 </div>
 <h2>An Interesting Convergence</h2>
 <p>Jake, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.</p>
 <h2>Nash Equilibria in Team Selection</h2>
 <p>Some team matchups had pure Nash equilibria with dominant strategies, while others required mixed strategies, creating a Rock-Paper-Scissors dynamic:</p>
 <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; margin: var(--spacing-medium) 0;">
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/cQqg783SGU-1332.webp 1332w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/cQqg783SGU-1332.jpeg" alt="Pure Nash Equilibrium" style="margin: 0 auto; max-width: 70%;" width="1332" height="1062"></picture>
-<picture><source type="image/webp" srcset="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.webp 2272w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.jpeg" alt="Mixed Nash Equilibrium" style="max-width: 100%;" width="2272" height="730"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/cQqg783SGU-1332.avif 1332w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/cQqg783SGU-1332.jpeg" alt="Pure Nash Equilibrium" style="margin: 0 auto; max-width: 70%;" width="1332" height="1062"></picture>
+<picture><source type="image/avif" srcset="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.avif 2272w"><img loading="lazy" decoding="async" src="/writing/winning-pokemon-showdown/QH0YCv0CYR-2272.jpeg" alt="Mixed Nash Equilibrium" style="max-width: 100%;" width="2272" height="730"></picture>
 </div>
 <p>When our best team (Heatran, Sylveon, Zapdos) faced our worst team (Garchomp, Heatran, Urshifu), the best team only won 50.5% of the time.<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> This is rock-paper-scissors at the team level. Just because Team A beats Team B and Team B beats Team C doesn’t necessarily mean Team A beats Team C. So no single team dominates.</span></p>
 <h2>Challenges &amp; Limitations</h2>
