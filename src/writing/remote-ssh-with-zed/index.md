@@ -1,6 +1,6 @@
 ---
 title: "Remote SSH with Zed"
-description: "How to get Zed's remote SSH working on university lab machines (with AFS, load balancers, and all)."
+description: "How to get Zed's remote SSH working on UW-Madison’s CS lab machines (with AFS, load balancers, and all)."
 date: 2026-03-11
 category: computing
 featured: false
