@@ -7,6 +7,14 @@
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
+      <title>Remote SSH with Zed</title>
+      <link>https://salm.dev/writing/remote-ssh-with-zed/</link>
+      <description>How to get Zed&#39;s remote SSH working on university lab machines (with AFS, load balancers, and all).</description>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 GMT</pubDate>
+      <dc:creator>Nico Salm</dc:creator>
+      <guid>https://salm.dev/writing/remote-ssh-with-zed/</guid>
+    </item>
+    <item>
       <title>From Rivers Rose Empires</title>
       <link>https://salm.dev/writing/from-rivers-rose-empires/</link>
       <description>No really, where would we be without them?</description>

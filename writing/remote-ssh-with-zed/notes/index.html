@@ -1,0 +1,172 @@
+<h1>Blog Post Notes: Remote SSH to UW-Madison CS Lab with Zed</h1>
+<h2>Context</h2>
+<ul>
+<li>Inspired by Shawn Zhong’s 2019 blog post about doing this with VSCode: <a href="https://shawnzhong.com/2019/10/16/remote-ssh-to-cs-lab-with-vscode/">https://shawnzhong.com/2019/10/16/remote-ssh-to-cs-lab-with-vscode/</a></li>
+<li>Goal: replicate the same workflow using Zed editor instead of VSCode</li>
+</ul>
+<h2>How VSCode Remote SSH Works (for comparison)</h2>
+<ul>
+<li>Uses the “Remote - SSH” extension</li>
+<li>Key settings needed for UW CS lab (from Nico’s VSCode settings.json):
+<ul>
+<li><code>remote.SSH.showLoginTerminal: true</code> — shows password/Duo prompt</li>
+<li><code>remote.SSH.lockfilesInTmp: true</code> — redirects lock files to /tmp (AFS workaround)</li>
+<li><code>remote.SSH.useFlock: false</code> — disables flock (AFS doesn’t support it)</li>
+<li><code>remote.SSH.remotePlatform</code>: configured for <a href="http://wisc.edu">wisc.edu</a> hosts as linux</li>
+</ul>
+</li>
+<li>SSH config uses <code>Host uw</code> → <code>best-linux.cs.wisc.edu</code> with ControlMaster for connection reuse</li>
+<li>Works well once those AFS workarounds are in place</li>
+</ul>
+<h2>How Zed Remote SSH Works (architecture difference)</h2>
+<ul>
+<li>Zed separates UI (local) from backend (remote)</li>
+<li>Downloads/uploads a <code>zed-remote-server</code> binary to <code>~/.zed_server/</code> on the remote</li>
+<li>Creates Unix domain sockets in <code>~/.local/share/zed/server_state/</code> for IPC (stdin.sock, stdout.sock, stderr.sock)</li>
+<li>Establishes one SSH control master per project, multiplexes connections</li>
+<li>Connect via <code>Ctrl+Cmd+Shift+O</code> or <code>zed ssh://user@host/path</code></li>
+<li>Settings go in <code>~/.config/zed/settings.json</code> under <code>ssh_connections</code></li>
+<li>Supports <code>upload_binary_over_ssh: true</code> for restricted-network remotes</li>
+</ul>
+<h2>Problems Encountered and Solutions</h2>
+<h3>Problem 1: Hanging at “Starting proxy…”</h3>
+<ul>
+<li><strong>Root cause</strong>: Powerlevel10k (p10k) instant prompt in <code>~/.zshrc</code> on the remote outputs content during shell startup, corrupting Zed’s SSH protocol</li>
+<li><strong>Fix</strong>: Add <code>[[ -o interactive ]] || return 0</code> as the VERY FIRST LINE of remote <code>~/.zshrc</code></li>
+<li>Note: must be <code>return 0</code>, not just <code>return</code> — bare <code>return</code> propagates exit code 1 from the failed interactive test, which Zed interprets as a failure</li>
+</ul>
+<h3>Problem 2: “Client exited with exit_code 1” (Unix sockets on AFS)</h3>
+<ul>
+<li><strong>Root cause</strong>: AFS (Andrew File System) does NOT support Unix domain sockets</li>
+<li>Zed creates <code>.sock</code> files in <code>~/.local/share/zed/server_state/setup-N/</code> for IPC</li>
+<li>On AFS, these socket files cannot be created, so the server crashes silently</li>
+<li><strong>Fix</strong>: Symlink <code>~/.local/share/zed</code> to a local filesystem:<pre class="language-bash"><code class="language-bash"><span class="token function">mv</span> ~/.local/share/zed ~/.local/share/zed.bak
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /tmp/zed-<span class="token environment constant">$USER</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /tmp/zed-<span class="token environment constant">$USER</span> ~/.local/share/zed
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> ~/.local/share/zed.bak/* /tmp/zed-<span class="token environment constant">$USER</span>/ <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null</code></pre>
+</li>
+<li>Note: <code>/tmp</code> is cleared on reboot, so add <code>mkdir -p /tmp/zed-$USER</code> to your <code>.zshrc</code> (after the interactive guard)</li>
+</ul>
+<h3>Problem 3: “Client exited with exit_code 1” (load balancer)</h3>
+<ul>
+<li><strong>Root cause</strong>: <code>best-linux.cs.wisc.edu</code> is a DNS load balancer that routes to different physical machines</li>
+<li>Zed makes multiple SSH connections during setup (platform discovery, binary upload, server start, protocol connection)</li>
+<li>Each connection can land on a different machine (royal-01, royal-03, etc.)</li>
+<li><code>/tmp</code> is per-machine, so the binary, sockets, and state are scattered across hosts</li>
+<li><strong>Fix</strong>: Connect to a SPECIFIC machine instead of the load balancer<pre><code># ~/.ssh/config
+Host uw-zed
+    HostName vm-instunix-15.cs.wisc.edu  # or royal-01.cs.wisc.edu, etc.
+    User salm
+</code></pre>
+Then use <code>uw-zed</code> as the host in Zed’s ssh_connections config</li>
+<li>This is the same reason VSCode’s Remote SSH config often uses specific hostnames</li>
+</ul>
+<h3>Problem 4: Binary not found / upload issues</h3>
+<ul>
+<li>Zed stores the remote server binary at <code>~/.zed_server/</code> (separate from <code>~/.local/share/zed/</code>)</li>
+<li>With <code>upload_binary_over_ssh: true</code>, Zed downloads the binary locally then SCPs it to the remote</li>
+<li>The binary at <code>~/.zed_server/</code> on AFS is fine — AFS handles regular files, just not sockets/locks</li>
+<li>Binary is ~90MB, named like <code>zed-remote-server-stable-0.221.5+stable.141.03bfbf242c57f7fdb45708d63d74182898edf2c5</code></li>
+<li>Can manually download from: <code>https://github.com/zed-industries/zed/releases/download/v{VERSION}/zed-remote-server-linux-x86_64.gz</code></li>
+</ul>
+<h2>Working SSH Config</h2>
+<pre><code>Host uw
+    HostName best-linux.cs.wisc.edu
+    User salm
+
+Host uw-zed
+    HostName vm-instunix-15.cs.wisc.edu   # specific machine, not load balancer
+    User salm
+
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/%r@%h:%p
+    ControlPersist 300s
+</code></pre>
+<h2>Working Zed Settings</h2>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"ssh_connections"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"host"</span><span class="token operator">:</span> <span class="token string">"vm-instunix-15.cs.wisc.edu"</span><span class="token punctuation">,</span>
+      <span class="token property">"username"</span><span class="token operator">:</span> <span class="token string">"salm"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"projects"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"paths"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"/home/salm"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre>
+<h2>Working Remote ~/.zshrc (first lines)</h2>
+<pre class="language-bash"><code class="language-bash"><span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token parameter variable">-o</span> interactive <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token builtin class-name">return</span> <span class="token number">0</span>
+<span class="token comment"># rest of .zshrc (p10k, etc.)</span>
+
+<span class="token comment"># Ensure Zed temp dirs exist (cleared on reboot)</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /tmp/zed-<span class="token environment constant">$USER</span></code></pre>
+<h2>Verified: Both AFS and Load Balancer Issues Are Real</h2>
+<ul>
+<li>Tested by undoing all /tmp workarounds and connecting to a specific machine (vm-instunix-15)</li>
+<li>Result: hung on “Starting proxy” then “Client exited with exit_code 127”</li>
+<li>Exit code 127 = binary not found (expected since we cleared ~/.zed_server)</li>
+<li>The HANG confirms AFS socket issue is independently real — not just a side effect of load balancing</li>
+<li>Both fixes are required: specific hostname AND /tmp symlink for server_state</li>
+</ul>
+<h2>Key Takeaways for the Blog Post</h2>
+<ol>
+<li>Zed’s remote SSH works differently from VSCode — it uses Unix sockets instead of file locks</li>
+<li>AFS doesn’t support Unix sockets (VSCode’s issues were with file locks — different problem, similar solution of using /tmp)</li>
+<li>University lab load balancers break multi-connection tools — always use a specific hostname</li>
+<li>Shell startup output (p10k, conda init, etc.) can corrupt SSH protocol channels</li>
+<li>The fix requires changes on BOTH the remote (symlinks, zshrc guard) and local (specific hostname) sides</li>
+<li>Once configured, Zed remote SSH works great — tree-sitter highlighting locally, language servers remotely</li>
+<li><code>upload_binary_over_ssh: true</code> is useful when the remote can’t reach GitHub</li>
+</ol>
+<h2>Comparison: VSCode vs Zed for Remote SSH on AFS</h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>VSCode Workaround</th>
+<th>Zed Workaround</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AFS file locking</td>
+<td><code>lockfilesInTmp: true</code>, <code>useFlock: false</code></td>
+<td>Symlink <code>~/.local/share/zed</code> → <code>/tmp</code></td>
+</tr>
+<tr>
+<td>Login prompt</td>
+<td><code>showLoginTerminal: true</code></td>
+<td>Built-in SSH password dialog</td>
+</tr>
+<tr>
+<td>Load balancer</td>
+<td>Use specific hostname</td>
+<td>Use specific hostname</td>
+</tr>
+<tr>
+<td>Shell output</td>
+<td>N/A (more resilient)</td>
+<td>`[[ -o interactive ]]</td>
+</tr>
+<tr>
+<td>Binary delivery</td>
+<td>Auto-downloads vscode-server</td>
+<td>Auto-downloads zed-remote-server (or <code>upload_binary_over_ssh</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2>Additional Details Worth Mentioning</h2>
+<ul>
+<li>The <code>.__afs*</code> files: when browsing <code>~/.zed_server/</code> on AFS, you may see files like <code>.__afs4374</code> — these are AFS lock/temp artifacts, not real files. They can’t be deleted (“Device or resource busy”). Harmless, just ignore them.</li>
+<li>1Password SSH agent: Nico’s setup uses 1Password as the SSH agent (<code>IdentityAgent &quot;~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock&quot;</code>). This works fine with Zed — no special config needed.</li>
+<li>Duo two-factor auth: Zed handles password + keyboard-interactive auth (Duo push) through its built-in SSH dialog. Works out of the box.</li>
+<li>The double-open quirk: sometimes the first “Open Remote” attempt sends you back to the command palette. Just open it again — second attempt connects. Minor Zed bug, not related to AFS.</li>
+<li><code>/tmp</code> persistence: on shared university machines, <code>/tmp</code> survives reboots on some systems but not others. The symlink setup needs <code>mkdir -p /tmp/zed-$USER</code> to be idempotent. Put it in <code>.zshrc</code> AFTER the interactive guard (inside the interactive block, or better, in <code>.zshenv</code> or <code>.zprofile</code>).</li>
+<li>Only <code>server_state</code> needs to be on local fs: we initially symlinked ALL of <code>~/.local/share/zed</code> to <code>/tmp</code>, but only the <code>server_state</code> subdirectory (which contains Unix sockets) strictly needs it. The rest (logs, extensions, languages) works fine on AFS. However, symlinking the whole thing is simpler and avoids future issues if Zed adds more socket/lock usage.</li>
+<li>Zed version must match: the remote server binary version must match your local Zed version exactly. If Zed auto-updates locally, it will re-download the matching remote binary on next connect.</li>
+<li>The debugging journey: error messages from Zed are opaque (“Client exited with exit_code 1”) — the real debugging happens in Zed’s log (<code>Cmd+Shift+P</code> → “zed: open log”) and the remote server log (<code>~/.local/share/zed/logs/server-setup-*.log</code>). Both are essential for troubleshooting.</li>
+</ul>
