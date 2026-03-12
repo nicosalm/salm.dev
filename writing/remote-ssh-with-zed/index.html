@@ -49,11 +49,9 @@
         </div>
     </details>
     
-    <p>I do work on UW-Madison’s CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I’ve been using <a href="https://zed.dev">Zed</a> and wanted the same workflow there.</p>
-<p>It didn’t work out of the box. Three things broke, each for a different reason.</p>
-<h2>Shell Startup Output</h2>
+    <h2>Shell Startup Output</h2>
+<p>I do work on UW-Madison’s CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I’ve been using <a href="https://zed.dev">Zed</a> and wanted the same workflow there. Getting it working required fixing three things, starting with this one.</p>
 <p>Zed’s remote architecture splits the editor into <a href="https://zed.dev/docs/remote-development" target="_blank">a local UI and a remote backend</a>. When you connect, Zed SSHes in and starts a <code>zed-remote-server</code> binary on the remote machine. The two halves communicate over the SSH channel itself.</p>
-<picture><source type="image/avif" srcset="/writing/remote-ssh-with-zed/NTgL11tTB1-262.avif 262w"><img loading="lazy" decoding="async" src="/writing/remote-ssh-with-zed/NTgL11tTB1-262.jpeg" class="float-right" alt="Zed hanging at Starting proxy..." style="max-width: 175px;" width="262" height="136"></picture>
 <p>So anything your shell prints during startup corrupts the protocol. A Powerlevel10k instant prompt, a conda greeting, an <code>echo</code> in your rc file, etc. Zed hangs at “Starting proxy…” and never connects.</p>
 <p>You fix this by adding <code>[[ -o interactive ]] || return 0</code> as the very first line of your remote <code>~/.bashrc</code>. If your remote shell is zsh instead, put it in <code>~/.zshrc</code>.<sup class="fnref" data-sidenote="sn1"><a href="#sn1" id="snref1" title="Sidenote 1">1</a></sup><span class="footnote" id="sn1" data-sidenote="sn1"><a class="fnref" href="#snref1" title="Sidenote 1 Reference">1</a> The CSL machines default to bash. I installed zsh on mine a couple years ago, but most people will be editing <code>.bashrc</code>. Check with <code>echo $SHELL</code> on the remote if you’re not sure.</span> This makes non-interactive shells exit before printing anything.</p>
 <p>Use <code>return 0</code>, not bare <code>return</code>. A bare <code>return</code> propagates exit code 1 from the failed interactive test, and Zed treats that as a startup failure.</p>
@@ -106,12 +104,12 @@ Host *
 <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /tmp/zed-<span class="token environment constant">$USER</span>
 
 <span class="token comment"># ... rest of your config</span></code></pre>
-<p>Connect via the Command pallette (open with <code>Cmd+Shift+P</code>) and click “project: open remote”, or <code>zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user</code>.</p>
+<p>Connect via the Command palette (open with <code>Cmd+Shift+P</code>) and click “project: open remote”, or <code>zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user</code>.</p>
 <p>If the remote machine can’t reach GitHub to download the server binary, add <code>&quot;upload_binary_over_ssh&quot;: true</code> to the connection config. Zed will download the ~90MB binary locally and SCP it over.<sup class="fnref" data-sidenote="sn5"><a href="#sn5" id="snref5" title="Sidenote 5">5</a></sup><span class="footnote" id="sn5" data-sidenote="sn5"><a class="fnref" href="#snref5" title="Sidenote 5 Reference">5</a> The binary lives at <code>~/.zed_server/</code> on the remote, separate from <code>~/.local/share/zed/</code>. AFS handles regular files fine, so this path doesn’t need the <code>/tmp</code> treatment.</span></p>
 <h2>That’s It</h2>
 <picture><source type="image/avif" srcset="/writing/remote-ssh-with-zed/GlFUZYAH3O-1043.avif 1043w"><img loading="lazy" decoding="async" src="/writing/remote-ssh-with-zed/GlFUZYAH3O-1043.jpeg" alt="Successful Zed remote connection" style="display: block; max-width: 100%;" width="1043" height="363"></picture>
-<p>Once configured, it works well. You get Zed’s <a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> highlighting locally and language servers running on the remote, and the whole thing is snappy.</p>
-<p>Fair warning though: Zed’s error messages are terrible. “Client exited with exit_code 1” covers about four different failure modes. If you hit trouble, check Zed’s log locally and <code>~/.local/share/zed/logs/server-setup-*.log</code> on the remote. Between the two you’ll find the real error. I certainly spent more time reading logs than writing config.</p>
+<p>Once configured, it works well! You get Zed’s <a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> highlighting locally and language servers running on the remote, and the whole thing is snappy.</p>
+<p>Fair warning though: Zed’s error messages are not ideal. For example, “Client exited with exit_code 1” covers about four different failure modes. If you run into trouble, check Zed’s log locally and <code>~/.local/share/zed/logs/server-setup-*.log</code> on the remote. Between the two you’ll find the real error. I certainly spent more time reading logs than writing config.</p>
 
 
 
