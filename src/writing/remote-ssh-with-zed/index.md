@@ -51,7 +51,7 @@ You fix this by connecting to a specific machine instead of the load balancer. S
 
 [^vm]: Well, VMs nowadays. The old physical labs (rockhopper, royal, and the rest in the CS building) are empty now. RIP computer labs :(
 
-[^load]: The CSL publishes a list of available machines, but you can also just SSH in a few times and pick one that's consistently up. The specific machine doesn't matter. You just need every connection to hit the same one.
+[^load]: The specific machine doesn't matter. You just need every connection to hit the same one.
 
 ## The Working Configuration
 
@@ -100,7 +100,7 @@ mkdir -p /tmp/zed-$USER
 # ... rest of your config
 ```
 
-Connect via the Command palette (open with `Cmd+Shift+P`) and click "project: open remote", or `zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user`.
+Connect via the Command palette (open with `Cmd+Shift+P`) and click "project: open remote", or `zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user` (if you enabled the Zed CLI).
 
 If the remote machine can't reach GitHub to download the server binary, add `"upload_binary_over_ssh": true` to the connection config. Zed will download the ~90MB binary locally and SCP it over.[^3]
 
