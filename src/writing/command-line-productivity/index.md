@@ -8,6 +8,8 @@ authorNote: "This article was originally a talk I gave for the <a href='https://
 layout: layouts/post.njk
 ---
 
+## Motivation
+
 I'm not here to convince you to radically overhaul your workflow overnight, or to knock "mainstream" editors and IDEs. I just want to share an alternative (and in my opinion, more performant) set of tools that have worked well for me.
 
 In my view, there are two distinct areas of technical productivity:

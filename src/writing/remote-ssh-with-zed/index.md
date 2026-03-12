@@ -4,22 +4,17 @@ description: "How to get Zed's remote SSH working on UW-Madison’s CS lab machi
 date: 2026-03-11
 category: computing
 featured: false
-authorNote: "Inspired by <a href='https://shawnzhong.com/2019/10/16/remote-ssh-to-cs-lab-with-vscode/'>Shawn Zhong's 2019 post</a> about doing this with VSCode. The problems are different, but the spirit is the same."
+authorNote: "Inspired by <a href='https://shawnzhong.com/2019/10/16/remote-ssh-to-cs-lab-with-vscode/'>Shawn Zhong's 2019 post</a> about doing this with VSCode."
 layout: layouts/post.njk
 ---
 
-I do work on UW-Madison's CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I've been using [Zed](https://zed.dev) and wanted the same workflow there.
-
-It didn't work out of the box. Three things broke, each for a different reason.
-
 ## Shell Startup Output
+
+I do work on UW-Madison's CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I've been using [Zed](https://zed.dev) and wanted the same workflow there. Getting it working required fixing three things, starting with this one.
 
 Zed's remote architecture splits the editor into <a href="https://zed.dev/docs/remote-development" target="_blank">a local UI and a remote backend</a>. When you connect, Zed SSHes in and starts a `zed-remote-server` binary on the remote machine. The two halves communicate over the SSH channel itself.
 
-<img src="./images/starting-proxy.png" class="float-right" alt="Zed hanging at Starting proxy..." style="max-width: 175px;">
-
 So anything your shell prints during startup corrupts the protocol. A Powerlevel10k instant prompt, a conda greeting, an `echo` in your rc file, etc. Zed hangs at "Starting proxy..." and never connects.
-
 
 You fix this by adding `[[ -o interactive ]] || return 0` as the very first line of your remote `~/.bashrc`. If your remote shell is zsh instead, put it in `~/.zshrc`.[^1] This makes non-interactive shells exit before printing anything.
 
@@ -105,7 +100,7 @@ mkdir -p /tmp/zed-$USER
 # ... rest of your config
 ```
 
-Connect via the Command pallette (open with `Cmd+Shift+P`) and click "project: open remote", or `zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user`.
+Connect via the Command palette (open with `Cmd+Shift+P`) and click "project: open remote", or `zed ssh://user@vm-instunix-15.cs.wisc.edu/home/user`.
 
 If the remote machine can't reach GitHub to download the server binary, add `"upload_binary_over_ssh": true` to the connection config. Zed will download the ~90MB binary locally and SCP it over.[^3]
 
@@ -115,6 +110,6 @@ If the remote machine can't reach GitHub to download the server binary, add `"up
 
 <img src="./images/conn.png" alt="Successful Zed remote connection" style="display: block; max-width: 100%;">
 
-Once configured, it works well. You get Zed's [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) highlighting locally and language servers running on the remote, and the whole thing is snappy.
+Once configured, it works well! You get Zed's [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) highlighting locally and language servers running on the remote, and the whole thing is snappy.
 
-Fair warning though: Zed's error messages are terrible. "Client exited with exit_code 1" covers about four different failure modes. If you hit trouble, check Zed's log locally and `~/.local/share/zed/logs/server-setup-*.log` on the remote. Between the two you'll find the real error. I certainly spent more time reading logs than writing config.
+Fair warning though: Zed's error messages are not ideal. For example, "Client exited with exit_code 1" covers about four different failure modes. If you run into trouble, check Zed's log locally and `~/.local/share/zed/logs/server-setup-*.log` on the remote. Between the two you'll find the real error. I certainly spent more time reading logs than writing config.
