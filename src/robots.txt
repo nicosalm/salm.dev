@@ -44,3 +44,5 @@ User-agent: *
 Allow: /
 Disallow: /assets/
 Disallow: /styles/
+
+Sitemap: https://salm.dev/sitemap.xml
