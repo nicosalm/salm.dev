@@ -58,7 +58,7 @@ You fix this by connecting to a specific machine instead of the load balancer. S
 All together:
 
 **`~/.ssh/config`**
-```
+```bash
 Host uw
     HostName best-linux.cs.wisc.edu
     User your-cs-login
@@ -74,7 +74,7 @@ Host *
     ControlPersist 300s
 ```
 
-The `ControlMaster` block is optional. Some convenient bonus config. It reuses SSH connections so you don't have to re-authenticate every time.
+The `ControlMaster` block is optional but recommended. It reuses SSH connections so you don't have to re-authenticate every time. As of recently, Zed [actually respects your existing ControlMaster sessions](https://github.com/zed-industries/zed/issues/45271) instead of opening its own --- so this config now saves you from getting prompted for credentials on every Zed connection too.
 
 **`~/.config/zed/settings.json`**
 ```json
