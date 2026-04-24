@@ -14,6 +14,14 @@ export default function(eleventyConfig) {
   });
   md.use(markdownItFootnote);
   md.use(markdownItAttrs);
+
+  md.renderer.rules.footnote_anchor_name = (tokens, idx, _options, env) => {
+    const { label, id } = tokens[idx].meta;
+    if (label) return "-" + label;
+    const prefix = typeof env.docId === "string" ? "-" + env.docId + "-" : "";
+    return prefix + (id + 1);
+  };
+
   eleventyConfig.setLibrary("md", md);
 
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -79,7 +87,7 @@ export default function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("year", (date) => {
-    return new Date(date).getFullYear();
+    return new Date(date).getUTCFullYear();
   });
 
   eleventyConfig.addFilter("currentYear", () => {
@@ -102,10 +110,15 @@ export default function(eleventyConfig) {
       .replace(/"/g, "&quot;");
   });
 
-  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/assets/js");
+  eleventyConfig.addPassthroughCopy("src/assets/fonts");
+  eleventyConfig.addPassthroughCopy("src/assets/88x31");
+  eleventyConfig.addPassthroughCopy("src/assets/friends");
+  eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
+  eleventyConfig.addPassthroughCopy("src/assets/logo.png");
   eleventyConfig.addPassthroughCopy("src/styles");
-  eleventyConfig.addPassthroughCopy("src/writing/**/images");
   eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
+  eleventyConfig.addPassthroughCopy({ "src/rss.xsl": "rss.xsl" });
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
