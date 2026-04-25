@@ -1,10 +1,44 @@
 ---
 layout: layouts/base.njk
 title: null
-description: Website of Nico Salm. I study Computer Science at UW-Madison. My technical interests include machine learning, multi-agent systems, and performance-oriented backend systems.
+description: Website of Nico Salm. My technical interests are in high-performance computing, algorithms, and full-stack development.
 ---
+<div class="index-content">
+<div class="index-sidebar index-sidebar-left"><canvas></canvas></div>
+<div class="index-sidebar index-sidebar-right"><canvas></canvas></div>
+<div class="index-banner" aria-hidden="true"><canvas></canvas></div>
 <p>
-    I'm <strong>Nico Salm</strong>. I study Computer Sciences at <a href="https://www.wisc.edu/" target="_blank">UW-Madison</a>. My interests span machine learning, multi-agent systems, and performance-oriented backends. I also enjoy history and philosophy.
+    I'm <span class="name-card"><strong>Nico Salm</strong><span class="card-popup" aria-hidden="true"><span class="ascii-face">%##*#%%%%%%###%%%#########%%%########%%%%%%%
+%%@%%%%%%#####%%%%%%%%%%##%%%%%%%###%%@%%%%%
+#%%%%%%%%###%%%%%%%%%%%##%%%%%#####*%%%%%%##
+*###**######%%%%%@@%%%%%%#%%%%%###**#*##***+
+*####%##**##%%%%%#*+=======+**###########**+
+%%####**##*##*+=--::::::...:::-+#%%%%%%%%%##
+**++++++*#*==-::::::::::..::::::-=*%%%%%%%%%
+======++++=-:::::::::......::::::::-+####%%%
+=++++=+==-::::::..........:..::::::::-+**###
+****+==--:::::::..................::::=+++#%
+****==-:::-::::......................::++++*
+=+++---::::::.........................:-++=+
+===+-:::::::---:...................:::::--=+
+=+++++=-::======-::.............:.......:-=+
+++++**+-::--::::-==---:.....:::--:.   ..:=*#
++++***+=--=--::::-++=-::::.::-===-......-+##
+######**+=++=====+++===--=====++=-:..:-+****
+%%%%%%###*++++==++++++++=++++++++=---=*#####
+##########++===+*+++++++=+++++++++==+#######
+%#########+====++======+=====++++--+*#######
++**********==-=+==--===+======+++=####***#**
+=+++++++***+=====----====-====++=-+***++****
++++*******##+=++=-----==++======*#%%%%%%##*#
+++********####*++=====++++=====+++=++=+=::::
++++*******####+-==========---====-...    ...
+**********###*:  =+---------==--.
++++*******###-.  :*+=---------:
++++++****++-=:.   =+=----=---.
+++****+=::::::.   :==---==-.
+***+=:...:.....   :=====-.
++++-...........   :--::</span><span class="card-name">Nico Salm</span><span class="card-title">Programmer</span><span class="card-affiliation">UW-Madison CS ’26</span></span></span>. I recently graduated from <a href="/writing/my-wisconsin-experience/">UW-Madison</a>, and now I program professionally. My interests span high-performance computing, algorithms, and full-stack development. I also enjoy history and philosophy. You are welcome to reach out for any reason :)
 </p>
 
 <h2>Recent writing</h2>
@@ -18,5 +52,7 @@ description: Website of Nico Salm. I study Computer Science at UW-Madison. My te
     {%- endfor %}
 </ul>
 <p><a href="/writing">All writing &rarr;</a></p>
+</div>
 
+<script src="/assets/js/cellular-automata.js"></script>
 {% include "footer.njk" %}
