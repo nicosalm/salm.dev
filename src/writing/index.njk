@@ -9,7 +9,7 @@ title: writing
     <button class="category-filter" data-category="computing">computing</button>
     <button class="category-filter" data-category="history">history</button>
     <button class="category-filter" data-category="philosophy">philosophy</button>
-    <span class="filter-legend">* favorite</span>
+    <span class="filter-legend">*selected &nbsp;^project</span>
 </div>
 
 {%- set currentYear = null %}
@@ -30,12 +30,14 @@ title: writing
         {%- set currentYear = postYear %}
     {%- endif %}
     <li class="post-item" data-category="{{ post.data.category }}">
-        <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %}<span class="favorite">*</span>{% endif %}
+        <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %}<span class="favorite">*</span>{% endif %}{% if post.data.project %}<span class="project-marker">^</span>{% endif %}
         <span class="dot-leader"></span>
         <time class="post-date" datetime="{{ post.date | dateFormat }}">{{ post.date | monthName }}</time>
     </li>
 {%- endfor %}
 </ul>
+
+<p class="post-description">Run out of things to read? Check out some <a href="/web-pages">cool web pages</a> or the <a href="https://upl.cs.wisc.edu/blog/">UPL blog</a>.</p>
 
 {% include "footer.njk" %}
 <script src="/assets/js/filter.js" defer></script>
