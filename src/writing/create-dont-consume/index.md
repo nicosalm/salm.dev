@@ -68,5 +68,7 @@ Given how ubiquitous these behaviors are, this seems to be the defining challeng
 
 I plan to revisit this post as I experiment with different approaches and hopefully develop some practical insights. For now, I have clearer language for what I'm fighting against. I'd be curious to hear what consumptive[^5] patterns others recognize in themselves.
 
+---
+
 
 [^5]: These activities aren't inherently good or bad. Really, it depends on how you engage with them. Playing video games with friends can build real relationships; creating content on social media can develop genuine skills. What matters is whether you're passively consuming or actively creating, connecting, and growing.

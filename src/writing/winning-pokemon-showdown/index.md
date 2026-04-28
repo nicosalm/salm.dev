@@ -4,6 +4,7 @@ description: We used game theory to find the mathematically optimal strategies i
 date: 2025-05-11
 category: computing
 featured: true
+project: true
 layout: layouts/post.njk
 ---
 
