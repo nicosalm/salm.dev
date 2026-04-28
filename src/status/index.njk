@@ -28,7 +28,7 @@ prefetch: https://status.salm.dev
         var html = '';
 
         // Services
-        html += '<h2>services</h2>';
+        html += '<h2>Services</h2>';
         data.checks.forEach(function(c) {
             var up = !c.down;
             var color = up ? '#23C552' : '#F84F31';
@@ -49,22 +49,22 @@ prefetch: https://status.salm.dev
         var hours = (seconds / 3600).toFixed(2);
 
         html += '<hr>';
-        html += '<h2>in the last 7 days</h2>';
+        html += '<h2>In the Last 7 Days</h2>';
         html += '<div class="status-stats">';
 
-        html += '<div><h4>languages</h4>';
+        html += '<div><h4>Languages</h4>';
         languages.forEach(function(l) {
             html += '<p style="color:' + esc(l.color) + '">' + esc(l.name) + ': <code>' + l.decimal + 'h</code></p>';
         });
         html += '</div>';
 
-        html += '<div><h4>editors</h4>';
+        html += '<div><h4>Editors</h4>';
         data.editors.forEach(function(e) {
             html += '<p style="color:' + esc(e.color) + '">' + esc(e.name) + ': <code>' + e.percent + '%</code></p>';
         });
         html += '</div>';
 
-        html += '<div><h4>coding activity</h4>';
+        html += '<div><h4>Coding Activity</h4>';
         html += '<p>Total: <code>' + hours + 'h</code></p>';
         html += '</div>';
 
