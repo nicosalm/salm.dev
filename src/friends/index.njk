@@ -6,46 +6,75 @@ title: friends
 <p>Some wonderful people I know:</p>
 <div class="friends-grid">
     <div class="friend-item">
-        <img src="/assets/friends/andrew.jpg" alt="andrewdtr" class="friend-avatar">
+        <img src="/assets/friends/andrew.jpg" alt="andrewdtr" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Andrew</span>
             <a href="https://www.amoses.dev/" target="_blank">amoses.dev</a>
+            <span class="desc">Builds cool projects. Enjoyer of penguins and goats. Has never lost an argument.</span>
         </div>
     </div>
     <div class="friend-item">
-        <img src="/assets/friends/ben.jpg" alt="coolmineman" class="friend-avatar">
+        <img src="/assets/friends/ben.jpg" alt="coolmineman" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Ben</span>
             <a href="https://ben.enterprises/" target="_blank">ben.enterprises</a>
+            <span class="desc">Reader, stats enthusiast, expert Java enjoyer.</span>
         </div>
     </div>
     <div class="friend-item">
-        <img src="/assets/friends/gil.png" alt="friedgil" class="friend-avatar">
+        <img src="/assets/friends/chris.webp" alt="chris" class="friend-avatar" loading="eager" width="40" height="40">
+        <div class="friend-info">
+            <span>Chris</span>
+            <a href="https://www.christophergottwaldt.com/" target="_blank">christophergottwaldt.com</a>
+            <span class="desc">Climbs trees and explores strange places. Kindest person I know.</span>
+        </div>
+    </div>
+    <div class="friend-item">
+        <img src="/assets/friends/gil.webp" alt="friedgil" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Gil</span>
             <a href="https://friedgil.com/" target="_blank">friedgil.com</a>
+            <span class="desc">Plays a lot of chess. Named after Python's Global Interpreter Lock.</span>
         </div>
     </div>
     <div class="friend-item">
-        <img src="/assets/friends/kot.jpg" alt="kotx" class="friend-avatar">
+        <img src="/assets/friends/jake.webp" alt="jake" class="friend-avatar" loading="eager" width="40" height="40">
+        <div class="friend-info">
+            <span>Jake</span>
+            <a href="https://github.com/jasmith55" target="_blank">github.com/jasmith55</a>
+            <span class="desc">Memorized all Pokémon Showdown best responses up to an N=3 tree depth.</span>
+        </div>
+    </div>
+    <div class="friend-item">
+        <img src="/assets/friends/kot.jpg" alt="kotx" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Kot</span>
             <a href="https://kot.pink/" target="_blank">kot.pink</a>
+            <span class="desc">Into Tailscale, Cloudflare, networks, and systems. Works on cool projects. @Kot!</span>
         </div>
     </div>
     <div class="friend-item">
-        <img src="/assets/friends/slip.webp" alt="nithilan" class="friend-avatar">
+        <img src="/assets/friends/slip.webp" alt="nithilan" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Nithilan</span>
             <a href="https://github.com/nithilan4" target="_blank">github.com/nithilan4</a>
+            <span class="desc">Very speedy SWE in the startup mines. Bikes far and fast and likes creatures.</span>
         </div>
     </div>
     <div class="friend-item">
-        <img src="/assets/friends/noah.png" alt="noahlessard" class="friend-avatar">
+        <img src="/assets/friends/noah.png" alt="noahlessard" class="friend-avatar" loading="eager" width="40" height="40">
         <div class="friend-info">
             <span>Noah</span>
             <a href="https://nlessard.online/" target="_blank">nlessard.online</a>
+            <span class="desc">Enigmatic. Knows more about the corners of the internet than I ever will.</span>
         </div>
     </div>
 </div>
+
+<h2 id="buttons">Buttons</h2>
+<div class="buttons-container">
+    {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
+    {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
+</div>
+
 {% include "footer.njk" %}
