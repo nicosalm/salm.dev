@@ -6,7 +6,6 @@ export default {
     { href: "https://www.upl.cs.wisc.edu/", src: "/assets/88x31/upl.gif", alt: "Undergraduate Projects Lab", external: true },
     { href: "https://tilde.town/~nico/", src: "/assets/88x31/tildetown.gif", alt: "nico's place in ~town", external: true },
     { href: "https://www.vim.org/", src: "/assets/88x31/vim_a.gif", alt: "Made with Vim", external: true },
-    { src: "/assets/88x31/made-on-macintosh.gif", alt: "Made on Macintosh" },
     { src: "/assets/88x31/rainbow_bev.gif", alt: "Rainbow" },
   ],
   about: [
@@ -14,7 +13,6 @@ export default {
     { href: "https://www.firefox.com/en-US/", src: "/assets/88x31/firefox.gif", alt: "Browse with Firefox", external: true },
     { href: "https://wikipedia.org/", src: "/assets/88x31/wikipedia.gif", alt: "Wikipedia", external: true },
     { href: "https://archive.org/", src: "/assets/88x31/internet-archive.gif", alt: "Internet Archive", external: true },
-    { src: "/assets/88x31/zelda.gif", alt: "Legend of Zelda" },
-    { src: "/assets/88x31/star-wars.gif", alt: "Star Wars" },
+    { href: "https://www.youtube.com/watch?v=v4ReyoNpyrM", src: "/assets/88x31/zelda.gif", alt: "Legend of Zelda", external: true },
   ]
 };
