@@ -16,9 +16,31 @@
     const tocList = document.createElement('ul');
     tocList.className = 'toc';
 
+    function slugify(text) {
+        return text
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    const usedIds = new Set();
+    article.querySelectorAll('[id]').forEach(function(el) {
+        usedIds.add(el.id);
+    });
+
     headings.forEach(function(heading, index) {
         if (!heading.id) {
-            heading.id = 'heading-' + index;
+            const base = slugify(heading.textContent) || ('heading-' + index);
+            let id = base;
+            let n = 2;
+            while (usedIds.has(id)) {
+                id = base + '-' + n;
+                n++;
+            }
+            heading.id = id;
+            usedIds.add(id);
         }
 
         const li = document.createElement('li');
@@ -45,7 +67,7 @@
         const note = document.querySelector('.authors-note');
         if (!note) return;
 
-        if (window.innerWidth >= 1100) {
+        if (window.innerWidth >= 1200) {
             const tocHeight = tocWrapper.offsetHeight;
             note.style.top = (tocHeight + 16) + 'px';
         } else {
