@@ -1,13 +1,11 @@
 ---
-layout: layouts/base.njk
-title: now
+layout: false
+permalink: /now/index.html
+eleventyExcludeFromCollections: true
 ---
-<h1>Now</h1>
-<p>This is a <a href="https://sive.rs/now2" target="_blank">now page</a>. Here's what I've been up to:</p>
-
-<h2>April 2026</h2>
-<p>
-    <!-- what's going on -->
-</p>
-
-{% include "footer.njk" %}
+{%- set latest = collections.nows | last %}
+<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url={{ latest.url }}">
+<link rel="canonical" href="{{ latest.url }}">
+<title>now</title>

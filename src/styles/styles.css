@@ -476,6 +476,25 @@ figure.float-right {
     }
 }
 
+.figure-row {
+    display: flex;
+    gap: 1rem;
+    margin: 1.8rem auto;
+    align-items: flex-start;
+
+    figure {
+        margin: 0;
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .figure-row {
+        flex-direction: column;
+    }
+}
+
 .site-header {
     display: flex;
     align-items: baseline;

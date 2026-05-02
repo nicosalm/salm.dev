@@ -29,7 +29,9 @@ export default function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
     formats: ["avif", "jpeg"],
-    widths: ["auto"],
+    widths: [600, 1200, 1800],
+    sharpJpegOptions: { quality: 80, mozjpeg: true },
+    sharpAvifOptions: { quality: 55 },
     defaultAttributes: {
       loading: "lazy",
       decoding: "async"
@@ -50,6 +52,11 @@ export default function(eleventyConfig) {
   eleventyConfig.addCollection("posts", (collectionApi) => {
     return collectionApi.getFilteredByGlob("src/writing/*/index.md")
       .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("nows", (collectionApi) => {
+    return collectionApi.getFilteredByGlob("src/now/*/index.md")
+      .sort((a, b) => a.date - b.date);
   });
 
   eleventyConfig.addCollection("featuredPosts", (collectionApi) => {
