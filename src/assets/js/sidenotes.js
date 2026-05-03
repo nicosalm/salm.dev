@@ -14,6 +14,8 @@
         if (note && link) {
             ref.addEventListener('mouseenter', () => note.classList.add('hover'));
             ref.addEventListener('mouseleave', () => note.classList.remove('hover'));
+            link.addEventListener('focus', () => note.classList.add('hover'));
+            link.addEventListener('blur', () => note.classList.remove('hover'));
         }
     });
 
