@@ -916,18 +916,10 @@ hr::after {
 }
 
 .toc-wrapper {
-    background: var(--code-bg);
     border: 1px solid var(--border-light);
-    padding: 0.4rem;
+    padding: 0.4rem 0.6rem;
     margin-bottom: 0.5rem;
     font-size: var(--fs-small);
-
-    summary {
-        cursor: pointer;
-        font-weight: bold;
-        list-style-position: outside;
-        margin-left: 1em;
-    }
 }
 
 .toc {
@@ -960,15 +952,40 @@ hr::after {
     margin-bottom: 0.75rem;
     background: var(--bg);
     border: 1px solid var(--border-light);
-    padding: 0.4rem;
+    padding: 0.4rem 0.6rem;
 
     summary {
-        cursor: pointer;
-        font-weight: bold;
-        list-style-position: outside;
-        margin-left: 1em;
         color: var(--text);
     }
+}
+
+.toc-wrapper > summary,
+.authors-note > summary {
+    cursor: pointer;
+    font-weight: bold;
+    list-style: none;
+    padding-left: 1em;
+    position: relative;
+}
+
+.toc-wrapper > summary::-webkit-details-marker,
+.authors-note > summary::-webkit-details-marker {
+    display: none;
+}
+
+.toc-wrapper > summary::before,
+.authors-note > summary::before {
+    content: '›';
+    position: absolute;
+    left: 0.15em;
+    color: var(--text-secondary);
+    display: inline-block;
+    transition: transform 0.15s ease;
+}
+
+.toc-wrapper[open] > summary::before,
+.authors-note[open] > summary::before {
+    transform: rotate(90deg);
 }
 
 .authors-note-content {
