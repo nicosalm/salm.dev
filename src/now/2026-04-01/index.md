@@ -37,5 +37,5 @@ height is all I have going for me right now. But I had fun!
 </figure>
 
 I feel like my friend group has become more tightly knit over the past few months. We've been
-hanging out more often. The end of my last semester at UW–Madison is fast approaching and I'm cognizant that
+hanging out more often. The end of my last semester at UW-Madison is fast approaching and I'm cognizant that
 soon we'll all go flying in different directions, but I'm pretty confident we'll keep what we have. That's all for now! Time to lock in for final exams. (P.S., thank you to <a href="https://nlessard.online/now/">Noah</a> and <a href="https://www.amoses.dev/now/">Andrew</a> for inspiring me to make a Now page too!)

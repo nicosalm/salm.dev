@@ -108,17 +108,9 @@ export default function(eleventyConfig) {
     return `${minutes} min read`;
   });
 
-  eleventyConfig.addFilter("escape", (str) => {
-    if (!str) return "";
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  });
-
   eleventyConfig.addPassthroughCopy("src/assets/js");
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
+  eleventyConfig.addPassthroughCopy("src/writing/*/images");
   eleventyConfig.addPassthroughCopy("src/assets/88x31");
   eleventyConfig.addPassthroughCopy("src/assets/friends");
   eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");

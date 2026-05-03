@@ -4,13 +4,13 @@ description: "No really, where would we be without them?"
 date: 2026-01-04
 category: history
 featured: false
-authorNote: This is the first piece of history writing I've done purely for myself. I think I first learned more about rivers than the average person when I was practicing some hobby cartography. I learned that, no, rivers do not cut inland from the coasts; rather, they flow down from mountains (which makes perfect sense in hindsight)! From there, I’ve picked up things here and there from video games, YouTube channels like <a href="https://www.youtube.com/@HistoryMarche" target=_blank>HistoryMarche</a> (highly recommend), and a few historical texts I've read over the years. I hope you enjoy! ^_^
+authorNote: This is the first piece of history writing I've done purely for myself. I think I first learned more about rivers than the average person when I was practicing some hobby cartography. I learned that, no, rivers do not cut inland from the coasts; rather, they flow down from mountains (which makes perfect sense in hindsight)! From there, I've picked up things here and there from video games, YouTube channels like <a href="https://www.youtube.com/@HistoryMarche" target=_blank>HistoryMarche</a> (highly recommend), and a few historical texts I've read over the years. I hope you enjoy! ^_^
 layout: layouts/post.njk
 ---
 
 ## 3,000 Years
 
-There’s a reason Ancient Egypt endured for over three thousand years, while other 'cradles of civilization' rose and fell and rose again. Kemet[^kemet], as it was then known, had just the right mix of geography---impassable deserts to the west and east, and the fertile Nile River running through its heart. These features allowed it to prevail for millennia.
+There's a reason Ancient Egypt endured for over three thousand years, while other 'cradles of civilization' rose and fell and rose again. Kemet[^kemet], as it was then known, had just the right mix of geography---impassable deserts to the west and east, and the fertile Nile River running through its heart. These features allowed it to prevail for millennia.
 
 Deserts aren't too interesting. They take up residence, obviously, in places without water. But magnificent seas of nothing make for excellent walls against anyone foolish enough to try and cross them.
 
@@ -78,11 +78,11 @@ The Rhine didn't just carry goods, however; much more importantly, it carried *i
 
 Overland conquest is as much about logistics and control as it is about the battles themselves. An army that cannot eat cannot fight, and one that cannot move cannot win. Rivers solved both problems if a commander had been clever, or created them if he hadn't.
 
-Holding river crossings and chokepoints can block enemies burdened by baggage trains; controlling a river entirely, however, means controlling *supply*. Whoever owns the water owns the war’s logistics. The free movement of arms, food, and manpower up and down rivers (and eventually, railroads) was almost always the deciding factor in prolonged campaigns.
+Holding river crossings and chokepoints can block enemies burdened by baggage trains; controlling a river entirely, however, means controlling *supply*. Whoever owns the water owns the war's logistics. The free movement of arms, food, and manpower up and down rivers (and eventually, railroads) was almost always the deciding factor in prolonged campaigns.
 
 ### The Civil War
 
-During the American Civil War, the Mississippi River was the primary conduit for north--south communication and commerce. Vicksburg sat at a crossroads where the Southern Railroad met the river. If the North could capture it, the Union would control the entire Mississippi and isolate the Confederate states west of the river from those in the east. To Confederate President Jefferson Davis, Vicksburg was "the nailhead that holds the South's two halves together." President Lincoln agreed, calling Vicksburg “the key,” and said “the war can never be brought to a close until that key is in our pocket.”
+During the American Civil War, the Mississippi River was the primary conduit for north--south communication and commerce. Vicksburg sat at a crossroads where the Southern Railroad met the river. If the North could capture it, the Union would control the entire Mississippi and isolate the Confederate states west of the river from those in the east. To Confederate President Jefferson Davis, Vicksburg was "the nailhead that holds the South's two halves together." President Lincoln agreed, calling Vicksburg "the key," and said "the war can never be brought to a close until that key is in our pocket."
 
 And so Grant[^grant] (in true Grant fashion) set out on a <a href="https://www.youtube.com/watch?v=1eSgimZ8GKQ" target="_blank">daring and unorthodox campaign</a> to capture the city, against the advice of his friends and all accepted military theories of war held by his superiors at the time.
 

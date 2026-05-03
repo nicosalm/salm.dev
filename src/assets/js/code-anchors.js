@@ -18,9 +18,9 @@
 
     article.querySelectorAll('h2, h3, h4').forEach((heading, i) => {
         if (!heading.id) {
-            var base = slugify(heading.textContent) || ('h-' + i);
-            var id = base;
-            var n = 2;
+            const base = slugify(heading.textContent) || ('h-' + i);
+            let id = base;
+            let n = 2;
             while (usedIds.has(id)) {
                 id = base + '-' + n;
                 n++;

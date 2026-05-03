@@ -27,7 +27,6 @@ prefetch: https://status.salm.dev
     function render(data) {
         var html = '';
 
-        // Services
         html += '<h2>Services</h2>';
         data.checks.forEach(function(c) {
             var up = !c.down;
@@ -43,7 +42,6 @@ prefetch: https://status.salm.dev
             html += '</div>';
         });
 
-        // Coding stats
         var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
         var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
         var hours = (seconds / 3600).toFixed(2);
