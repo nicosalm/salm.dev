@@ -67,7 +67,7 @@
     }
 
     function init() {
-        const fg = getComputedStyle(document.documentElement).getPropertyValue("--text-secondary");
+        const fg = getComputedStyle(document.documentElement).getPropertyValue("--text-tertiary");
         const rgb = parseHex(fg);
         document.querySelectorAll(".index-sidebar canvas, .index-banner canvas").forEach(function (c) {
             if (c.offsetParent === null) return;
