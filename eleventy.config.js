@@ -1,5 +1,6 @@
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import lightningCSS from "@11tyrocks/eleventy-plugin-lightningcss";
 import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItAttrs from "markdown-it-attrs";
@@ -25,6 +26,8 @@ export default function(eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
 
   eleventyConfig.addPlugin(syntaxHighlight);
+
+  eleventyConfig.addPlugin(lightningCSS);
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
@@ -115,7 +118,6 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/friends");
   eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/assets/logo.png");
-  eleventyConfig.addPassthroughCopy("src/styles");
   eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
   eleventyConfig.addPassthroughCopy({ "src/rss.xsl": "rss.xsl" });
   eleventyConfig.addPassthroughCopy("src/robots.txt");
