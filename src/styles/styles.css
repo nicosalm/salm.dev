@@ -1110,7 +1110,6 @@ a.fnref, .fnref a {
         top: 0;
         bottom: 0;
         width: 80px;
-        border: 1px solid var(--border);
         overflow: hidden;
     }
 
@@ -1143,7 +1142,6 @@ a.fnref, .fnref a {
         display: block;
         height: 56px;
         margin: 0 0 1rem;
-        border: 1px solid var(--border);
         overflow: hidden;
     }
 
