@@ -4,8 +4,8 @@ layout: layouts/base.njk
 <article>
     {% if featured or project %}
     <div class="post-ribbons">
-        {% if featured %}<svg class="post-ribbon ribbon-selected" viewBox="0 0 14 60" aria-label="Selected"><path d="M0 0 L14 0 L14 52 L7 44 L0 52 Z" fill="currentColor"/><text x="7" y="22" transform="rotate(-90 7 22)" text-anchor="middle" class="ribbon-text">SELECTED</text></svg>{% endif %}
-        {% if project %}<svg class="post-ribbon ribbon-project" viewBox="0 0 14 60" aria-label="Project"><path d="M0 0 L14 0 L14 52 L7 44 L0 52 Z" fill="currentColor"/><text x="7" y="22" transform="rotate(-90 7 22)" text-anchor="middle" class="ribbon-text">PROJECT</text></svg>{% endif %}
+        {% if featured %}<svg class="post-ribbon ribbon-selected" viewBox="0 0 14 60" aria-label="Selected"><path d="M0 0 L14 0 L14 52 L7 44 L0 52 Z" fill="currentColor"/><text x="7" y="22" transform="rotate(-90 7 22)" text-anchor="middle" dominant-baseline="central" class="ribbon-text">SELECTED</text></svg>{% endif %}
+        {% if project %}<svg class="post-ribbon ribbon-project" viewBox="0 0 14 60" aria-label="Project"><path d="M0 0 L14 0 L14 52 L7 44 L0 52 Z" fill="currentColor"/><text x="7" y="22" transform="rotate(-90 7 22)" text-anchor="middle" dominant-baseline="central" class="ribbon-text">PROJECT</text></svg>{% endif %}
     </div>
     {% endif %}
     <h1>{{ title }}</h1>
