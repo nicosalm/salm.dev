@@ -11,14 +11,19 @@ eleventyExcludeFromCollections: true
     <atom:link href="{{ site.url }}/rss.xml" rel="self" type="application/rss+xml"/>
     <description>Hot takes and cool things</description>
     <language>en</language>
-    {%- for post in collections.posts %}
+    {%- set feed = [] %}
+    {%- for item in collections.posts %}{% set _ = feed.push(item) %}{%- endfor %}
+    {%- for item in collections.nows %}{% set _ = feed.push(item) %}{%- endfor %}
+    {%- set feed = feed | sort(true, false, "date") %}
+    {%- for item in feed %}
+    {%- set isNow = "/now/" in item.url %}
     <item>
-      <title>{{ post.data.title }}</title>
-      <link>{{ site.url }}{{ post.url }}</link>
-      <description>{{ post.data.description | escape }}</description>
-      <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
+      <title>{% if isNow %}Now: {{ item.date | monthName }} {{ item.date | year }}{% else %}{{ item.data.title }}{% endif %}</title>
+      <link>{{ site.url }}{{ item.url }}</link>
+      <description>{% if isNow %}{{ item.data.description or "What I've been up to in " + (item.date | monthYear) | escape }}{% else %}{{ item.data.description | escape }}{% endif %}</description>
+      <pubDate>{{ item.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ site.author.name }}</dc:creator>
-      <guid>{{ site.url }}{{ post.url }}</guid>
+      <guid{% if isNow %} isPermaLink="false"{% endif %}>{% if isNow %}salm.dev/now/{{ item.date | dateFormat }}{% else %}{{ site.url }}{{ item.url }}{% endif %}</guid>
     </item>
     {%- endfor %}
   </channel>
