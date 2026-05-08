@@ -8,6 +8,14 @@
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
+      <title>Now: April 2026</title>
+      <link>https://salm.dev/now/</link>
+      <description>What I&#39;ve been up to in April, 2026</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+      <dc:creator>Nico Salm</dc:creator>
+      <guid isPermaLink="false">salm.dev/now/2026-04-01</guid>
+    </item>
+    <item>
       <title>Remote SSH with Zed</title>
       <link>https://salm.dev/writing/remote-ssh-with-zed/</link>
       <description>How to get Zed&#39;s remote SSH working on UW-Madison&#39;s CS lab machines (with AFS, load balancers, and all).</description>
