@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
 title: friends
+description: Some wonderful people I know.
 ---
 <h1>Friends</h1>
 <p>Some wonderful people I know:</p>
@@ -69,12 +70,6 @@ title: friends
             <span class="desc">Enigmatic! Knows more about the corners of the internet than I ever will.</span>
         </div>
     </div>
-</div>
-
-<h2 id="buttons">Buttons</h2>
-<div class="buttons-container">
-    {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
-    {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
 </div>
 
 {% include "footer.njk" %}

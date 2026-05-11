@@ -12,6 +12,7 @@ const latest = dirs[dirs.length - 1];
 export default {
   layout: "layouts/now.njk",
   title: "now",
+  description: "What I'm working on, reading, and thinking about right now.",
   eleventyComputed: {
     permalink: (data) => {
       const slug = basename(dirname(data.page.inputPath));

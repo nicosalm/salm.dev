@@ -4,7 +4,7 @@ const [gitHash, gitDate] = execSync('git log -1 --format="%h %cI"').toString().t
 
 export default {
   title: "salm.dev",
-  description: "Website of Nico Salm. My technical interests are in high-performance computing, algorithms, and full-stack development.",
+  description: "The personal website of Nico Salm. I write about computing, history, and philosophy.",
   url: "https://salm.dev",
   author: { name: "Nico Salm", email: "nico@salm.dev" },
   git: {

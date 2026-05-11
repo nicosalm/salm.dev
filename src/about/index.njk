@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+title: about
+description: A bit about me, what I work on, and how this site is built.
+---
+<h1>About</h1>
+<p>
+    Welcome to my website. I'm Nico, a programmer from the Midwest. My interests in tech span high-performance computing, algorithms, and full-stack development. I <a href="/writing">write</a> about computing, history, and philosophy.
+</p>
+
+<h2>Other Pages</h2>
+<ul>
+    <li><a href="/friends">Friends</a></li>
+    <li><a href="/books">Books</a></li>
+    <li><a href="/web-pages">Web Pages</a></li>
+</ul>
+
+<h2>Studies</h2>
+<p>
+    I recently graduated from the <a href="/writing/my-wisconsin-experience/">University of Wisconsin-Madison</a>, where I majored in Computer Sciences and Data Science. I spent most of my time hanging out in the
+    <a href="https://upl.cs.wisc.edu/" target="_blank">UPL</a> on campus with my <a href="/friends">friends</a>.
+</p>
+<p>
+    While there I helped organize <a href="https://www.madhacks.io/" target="_blank">MadHacks</a>, the university's hackathon. I also did some machine learning research on generative materials, and was part of the <a href="https://wqi.wisc.edu/wqcc/" target="_blank">Wisconsin Quantum Computing Club</a>.
+</p>
+{# TODO: a few sentences about what I like to study / work on #}
+
+<h2>Colophon</h2>
+<p>
+    Built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a> and HTML and CSS. No JavaScript by default; posts that need it pull in MathJax, a table of contents, sidenotes, or category filters. Images are converted to AVIF at build time, and links prefetch on hover via <a href="https://instant.page/" target="_blank">instant.page</a>. There's an <a href="/rss.xml">RSS feed</a> and a <a href="/sitemap.xml">sitemap</a>.
+</p>
+<p>Source <a href="https://github.com/nicosalm/salm.dev/" target="_blank">on GitHub</a>.</p>
+
+<h2 id="buttons">Buttons</h2>
+<p>If you'd like to link back to my site, use my <code>88x31</code> <a href="https://salm.dev/88x31.gif">button</a>.</p>
+<div class="buttons-container">
+    {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
+    {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
+</div>
+
+{% include "footer.njk" %}
