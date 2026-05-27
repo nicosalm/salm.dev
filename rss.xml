@@ -8,6 +8,14 @@
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
+      <title>My Wisconsin Experience</title>
+      <link>https://salm.dev/writing/my-wisconsin-experience/</link>
+      <description>I led UW-Madison&#39;s UPL and ran Wisconsin&#39;s largest hackathon, and got four years of audacity, whimsy, and absurdity to remember it by.</description>
+      <pubDate>Wed, 27 May 2026 00:00:00 GMT</pubDate>
+      <dc:creator>Nico Salm</dc:creator>
+      <guid>https://salm.dev/writing/my-wisconsin-experience/</guid>
+    </item>
+    <item>
       <title>Now: April 2026</title>
       <link>https://salm.dev/now/</link>
       <description>What I&#39;m working on, reading, and thinking about right now.</description>

@@ -7,7 +7,7 @@
 
     const tocWrapper = document.createElement('details');
     tocWrapper.className = 'toc-wrapper';
-    tocWrapper.open = true;
+    tocWrapper.open = window.innerWidth >= 1200;
 
     const summary = document.createElement('summary');
     summary.textContent = 'Contents';
@@ -56,9 +56,16 @@
 
     tocWrapper.appendChild(tocList);
 
-    const firstElement = article.firstElementChild;
-    if (firstElement) {
-        article.insertBefore(tocWrapper, firstElement);
+    const introSelector = '.post-ribbons, h1, .post-meta, .post-description, .authors-note';
+    let insertBefore = null;
+    for (const child of article.children) {
+        if (!child.matches(introSelector)) {
+            insertBefore = child;
+            break;
+        }
+    }
+    if (insertBefore) {
+        article.insertBefore(tocWrapper, insertBefore);
     } else {
         article.appendChild(tocWrapper);
     }
