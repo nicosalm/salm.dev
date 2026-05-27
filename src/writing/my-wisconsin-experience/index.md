@@ -50,7 +50,7 @@ The first thing I did when I arrived at Madison was attach myself to a senior na
     <figcaption>Informatics Skunkworks All-Hands 2024</figcaption>
 </figure>
 
-In the spring of my freshman year, I went to my first hackathon and met Sarah, Haruto, and Wen Jie---more on that further down. We stayed together and competed at another hackathon in Iowa, which was fun too.
+In the spring of my freshman year, I went to my first hackathon and met Sarah, Haruto, and Wen Jie---more on that further down. We stayed together and ended up winning at another hackathon in Iowa, which was fun too.
 
 Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a GAN that ran on a photonic quantum computer, using Quandela's Perceval framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
 
@@ -89,9 +89,9 @@ I don't mean to feed into a cliché, but it really is cool to watch people progr
     <figcaption>My team at MadHacks 2023</figcaption>
 </figure>
 
-Watching them makes me think back to my first MadHacks. Sarah, Haruto, Wen Jie, and I had just finished CS 300 with Hobbes, and we decided---with the confidence of people who had only been programming for about half a year---that we'd build <a href="https://devpost.com/software/paper-pm7okl">a program</a> to read handwritten Java code from a photograph and compile it. We didn't really know what OCR was. We weren't sure how to wire everything together. We spent most of the twenty-four hours figuring out how to make Java code compile *other* Java code. We couldn't have done it without patient mentors, a lot of google searching, and rewriting half of it from scratch.
+Watching them makes me think back to my first MadHacks. Sarah, Haruto, Wen Jie, and I had just finished CS 300 with Hobbes, and we decided---with the confidence of people who had only been programming for about half a year---that we'd build <a href="https://devpost.com/software/paper-pm7okl">a program</a> to read handwritten Java code from a photograph and compile it. We didn't really know what OCR was. We weren't sure how to wire everything together. We spent most of the twenty-four hours figuring out how to make Java code compile *other* Java code. We couldn't have done it without patient mentors, a lot of google searching, and rewriting half of our codebase from scratch.
 
-And then, somewhere in the last few hours, it kind of worked. Not well, mind you---the OCR library was pretty bad (it was free), and our team's repo was a jumbled mess of Python, Java, and JS---but if your handwriting was clean enough, sometimes, it spat out something the compiler would actually accept. We were genuinely overjoyed. We learned a ton, and we had no idea what we were doing, and those two things turned out to be the same thing.
+And then, somewhere in the last few hours, it kind of worked. Not well, mind you---the OCR library was pretty bad (it was free), and our team's repo was a jumbled mess of Python, Java, and JS---but if your handwriting was clear enough, sometimes, it spat out something the compiler would actually accept. We were genuinely overjoyed. We learned a ton, and we had no idea what we were doing, and those two things turned out to be the same thing.
 
 <figure>
     <img src="./images/madhacks_mentor.jpg" alt="Me mentoring a team at MadHacks, with the team clustered around a couple computers, and a marked up whiteboard behind them.">
