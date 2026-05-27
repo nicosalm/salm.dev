@@ -216,7 +216,7 @@ Kev, for reasons which are classified. Yes.
 
 Kot, for being fun and quirky, and for the daily @Nico. @Kot!
 
-Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for convincing me to read again.
+Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for getting me to read again.
 
 Noah, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
 
