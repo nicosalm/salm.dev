@@ -1,0 +1,228 @@
+---
+title: "My Wisconsin Experience"
+description: "I led UW-Madison's UPL and ran Wisconsin's largest hackathon, and got four years of audacity, whimsy, and absurdity to remember it by."
+date: 2026-05-27
+category: computing
+featured: true
+authorNote:
+layout: layouts/post.njk
+---
+
+## Freedom!
+
+I have been released into the wild after 17 years of structured education. Hooray! (I think?---I'll keep my panic bottled up inside.)
+
+Over my four years at <a href="https://www.wisc.edu/" target=_blank>UW-Madison</a> (2022-2026), I have had a front-row seat to a lot of crazy adventures, fantastic opportunities, and tragic sendoffs. Here are a few of the things that made it what it was...
+
+<figure>
+    <img src="./images/spot.png" alt="Walking around UW-Madison Campus" style="width: 100%;">
+    <figcaption>Graduation weekend. Finn did an Aussie accent ALL DAY while taking photos, and confused everyone we met!!</figcaption>
+</figure>
+
+## UW-Madison
+<figure class="float-right">
+    <img src="./images/union.jpeg" alt="Finn and I sitting amongst the red, orange, yellow, and green chairs of Memorial Union by Lake Mendota.">
+    <figcaption>Finn and I at Memorial Union in 2024</figcaption>
+</figure>
+
+From SOAR orientation---where I somehow scrounged up like 10 friends through a Discord server[^Discord] to explore Madison with---right up until my final hour as a student, I never found it hard to meet someone I could relate to and enjoy talking to.
+
+The campus is a selling point, to be sure. I spent a lot of time on Lakeshore path as an underclassman, walking beside the sparkling lake. I also love all the cool and unique (and confusing) architecture---from the brutalist buildings built around the Vietnam War, to Science Hall and its map room which looks like it's out of another time, to a literal red castle. All of this in the downtown heart of Madison.
+
+And while the classes I took were never particularly hard, that meant I could spend more time learning outside of class, doing cool things, and getting to know those who'd eventually become my close friends.
+
+<figure>
+<img src="./images/graduation.jpg" alt="UW-Madison graduation at Camp Randall Stadium with thousands of graduates in red regalia arrayed in columns on the field under a blue sky.">
+<figcaption>Spring 2026 Commencement. Kot thinks the blocks of students resemble an army from Total War—I agree.</figcaption>
+</figure>
+
+[^Discord]: Each year, a "Class of 202X" server had been made. It hadn't been made yet for 2026, so I made it myself. The regulars in that server coordinated to take the same SOAR date. We had great turnout! I later deleted the server over a salad because Cole dared me to.
+
+
+## Projects
+
+Outside of class, I did a lot---and almost none of it alone. Most of these projects are really stories about the people I got to work on them with.
+
+The first thing I did when I arrived at Madison was attach myself to a senior named Michael and ask him for advice. He recommended that I join <a href="https://skunkworks.engr.wisc.edu/" target=_blank>Informatics Skunkworks</a> as a good way to build experience. So freshman- and sophomore-year me did ML research alongside Anish and Yohan, advised by Ben Afflerbach and Dane Morgan. We trained[^HTC] generative models to design new crystal structures with target physical properties, which was a strange and humbling thing to work on as an underclassman who barely knew what he was doing.
+
+<figure>
+    <img src="./images/skunkworks.jpg" alt="Informatics Skunkworks research group all hands meeting with members posing in front of a projector screen displaying the group logo and website.">
+    <figcaption>Informatics Skunkworks All-Hands 2024</figcaption>
+</figure>
+
+In the spring of my freshman year, I went to my first hackathon and met Sarah, Haruto, and Wen Jie---more on that further down. We stayed together and competed at another hackathon in Iowa, which was fun too.
+
+Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a GAN that ran on a photonic quantum computer, using Quandela's Perceval framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
+
+<figure>
+    <img src="./images/IQuHACK23.jpeg" alt="Our team at MIT iQuHACK working on laptops at tables, with a whiteboard covered in quantum challenge notes and other hackers in the background.">
+    <figcaption>MIT Quantum Hackathon 2024</figcaption>
+</figure>
+
+Somewhat more recently, I built <a href="https://baileysanalytics.com/" target=_blank>Baileys Analytics</a> (blog post soon-ish) alongside a partner from back home. It's a vacation rental analytics service that pulls all the numbers property managers used to track in a mess of spreadsheets into one place. That was cool because it was complex and had customers. In hindsight, I would have built it very differently---I leaned on AI before I really understood what the project needed, or what best practices looked like, and the codebase got messy quick. I spent a lot of time refactoring. That's a lesson you have to learn by getting it wrong once, so I'm glad Baileys is where I learned it.
+
+<figure>
+<img src="./images/nicoandkev.JPG" alt="Kev and I making a gingerbread house in the UPL.">
+<figcaption>Kev and I making a gingerbread house!!</figcaption>
+</figure>
+
+[^HTC]: We also got to run jobs on CHTC, UW–Madison’s high-throughput computing center built around HTCondor.
+[^Saro]: I swear Saro ingested at least 1,700 mg worth of caffeine from many, many Celceii. I'm glad he survived because he was carrying us on his back.
+
+## MadHacks
+
+<a href="https://www.madhacks.io/" target=_blank>MadHacks</a> was my first-ever hackathon[^hackathon] when I competed in Spring 2023. I enjoyed it so much I went on to help organize the event in Fall 2024, and again in Fall 2025. Each time we made it bigger and better.
+
+In a little more detail, to run a hackathon, you need to secure funding through corporate sponsorships, find a venue, create and maintain a budget, recruit volunteers, mentors, and judges, build a website, publish and process applications, and accept, reject, feed, and generally provide for hundreds of people. Most of this happened beforehand, but the most fun (and most chaotic) part was the twenty-four hours when all the hard work came together and 417 people hunkered down to hack while collectively downing nearly one thousand energy drinks.
+
+At a high level[^potpourri], running an *event* en général is about involving everyone who volunteers effectively and playing to each person's strengths---and MadHacks was no different.
+
+<figure>
+    <img src="./images/MADHACKS_WIDE.jpg" alt="MadHacks judging session with 417 hackers seated in a large lecture hall watching presentation slides about judging on a wide screen." style="width: 100%;">
+    <figcaption>MadHacks 2025 Day 2</figcaption>
+</figure>
+
+I don't mean to feed into a cliché, but it really is cool to watch people program something outside the classroom for the first time. Usually, they care way more, and when they get stuck, it's rewarding to watch them figure it out as a team---or even give them a pointer or two myself.
+
+<figure class="float-right">
+    <img src="./images/madhacks23.JPG" alt="Me in a purple MadHacks 2023 shirt posing with my hackathon team, one teammate holding up our submission paper.">
+    <figcaption>My team at MadHacks 2023</figcaption>
+</figure>
+
+Watching them makes me think back to my first MadHacks. Sarah, Haruto, Wen Jie, and I had just finished CS 300 with Hobbes, and we decided---with the confidence of people who had only been programming for about half a year---that we'd build <a href="https://devpost.com/software/paper-pm7okl">a program</a> to read handwritten Java code from a photograph and compile it. We didn't really know what OCR was. We weren't sure how to wire everything together. We spent most of the twenty-four hours figuring out how to make Java code compile *other* Java code. We couldn't have done it without patient mentors, a lot of google searching, and rewriting half of it from scratch.
+
+And then, somewhere in the last few hours, it kind of worked. Not well, mind you---the OCR library was pretty bad (it was free), and our team's repo was a jumbled mess of Python, Java, and JS---but if your handwriting was clean enough, sometimes, it spat out something the compiler would actually accept. We were genuinely overjoyed. We learned a ton, and we had no idea what we were doing, and those two things turned out to be the same thing.
+
+<figure>
+    <img src="./images/madhacks_mentor.jpg" alt="Me mentoring a team at MadHacks, with the team clustered around a couple computers, and a marked up whiteboard behind them.">
+    <figcaption>MadHacks 2025 Day 1</figcaption>
+</figure>
+
+That particular version of a hackathon is mostly gone now. The hackers I helped mentor in 2025 weren't doing what we were doing in 2023, and honestly, they probably can't anymore---an AI agent could one-shot a better handwritten-Java compiler in a few hours than the four of us cobbled together in a day. I'm not going to pretend I know what hackathons should look like next, or whether what's replacing the old way is better or worse on balance. I just know that the particular thing that happened to me and Sarah and Haruto and Wen Jie in Educational Sciences in 2023 was special, and it doesn't quite happen the same way anymore, so I'm glad I got to catch the tail end of it.
+
+[^hackathon]: A hackathon is a programming competition where you and a team have 24 hours to lock in and build something cool. MadHacks is the largest in-person hackathon in Wisconsin.
+[^potpourri]: If you want the nitty gritty technical bits (which I think are some of the coolest), check out <a href="https://www.amoses.dev/blog/madhacks-potpourri/" target=_blank>Andrew's post</a>.
+
+
+
+
+## The UPL
+At some point during the second semester of my sophomore year, I wandered down from Lakeshore[^lakeshore]
+and encountered the rest of the world.
+
+[^lakeshore]: UW-Madison dorms are divided across two regions: Southeast (city hustle and bustle) and Lakeshore (summer camp vibes). Walking between the two is something of a stark transition. Where I lived, in Phillips, was the farthest possible location from everything else.
+
+<figure>
+<img src="./images/map.jpg" style="border-style: solid; border-width: thin; width: 100%;" alt="Map of the UW-Madison campus, with the Computer Sciences building and Morgridge Hall labeled downtown, a far off label on the water named Nico, and an long, winding arrow pointing down from Nico towards downtown.">
+<figcaption>Map of the UW-Madison campus</figcaption>
+</figure>
+
+I walked into the Computer Sciences & Statistics Building[^cs_building] through the doors beneath The Shelf, went up the ramp, passed the peeling yellow
+walls and flower chairs, turned left, and found myself in a mysterious triangular room called the <a href="https://upl.cs.wisc.edu/" target=_blank>Undergraduate Projects Lab</a> (UPL).
+
+[^cs_building]: My favorite building on campus. It's fragmented, uneven, and fantastic. There are half-floors and hard-to-find stairwells. It's also home to the finest lecture hall on campus, CS 1240. It has those faded 80's vibes!
+
+<div class="figure-row">
+<figure><img src="./images/UPL2.jpg" alt="Modern photo of the UPL, featuring workstations, whiteboards covered in notes, bookshelves, and a clock on the wall."><figcaption>The UPL, Spring 2025</figcaption></figure>
+<figure><img src="./images/UPL_OLD2.jpg" alt="Grainy late-90s webcam shot of the UPL packed with students working at CRT monitors."><figcaption>The UPL, years ago</figcaption></figure>
+</div>
+
+The UPL was established in 1984, and in those days it was stacked to the brim with minicomputers; those days have passed, but UPL has stuck around. It remains a place for intrinsically motivated
+CS types[^cs-types] to work on cool stuff, learn from one another, and hang out. It's ***really cool***.
+
+[^cs-types]: Skrentny, one of my professors, used to call us this---I think it's rather endearing.
+
+<figure class="float-right">
+    <img src="./images/UPL3.jpg" alt="Ben sitting at a desk with two ThinkPads side by side at the table in the UPL, migrating from his old laptop to his newly set-up one.">
+    <figcaption><a href="https://ben.enterprises/" target=_blank>Ben</a> dual-wielding Thinkpads</figcaption>
+</figure>
+
+UPL'ers dropped in, engaged in spontaneous shenanigans, and dropped out (though sometimes they'd stick around until 2AM[^2AM]).
+Every day, the whiteboards were filled with anything from proofs to memes or that month's 'banned words list'[^banned].
+
+I ended up being in the lab *a lot*, and so did a few others who would eventually become my [close friends](/friends). We got up to all sorts of fun and crazy stuff, ran events for the broader CS student community, and had a grand old time.
+
+One thing I'm particularly proud of is bringing back the <a href="https://www.youtube.com/@UndergraduateProjectsLab" target=_blank>Lightning Talks series</a>, where UPL'ers share their favorite topics in tech. Nearly two dozen students took the opportunity to share what they were passionate about with the broader CS community.
+
+I could talk about the UPL for hours, as there is a ton of lore and many stories to tell. I am incredibly grateful that I summoned the courage to go in that day, and to everyone who welcomed me in. From the outside, it seemed exclusive, and I didn't feel smart enough to belong, but it turns out I fit in rather well; I am a different person now because of it.
+
+[^2AM]: Seriously, I'd go in to the CS building before noon, sun shining, and since there are no windows in view of the UPL, there were times I'd depart the UPL and be surprised that it was suddenly pitch black.
+<figure>
+<img src="./images/UPLERS.jpg" alt="Group photo of the 2024 UPL'ers posing together in a backyard with trees and a house in the background." style="width: 100%;">
+<figcaption>2024 UPL'ers</figcaption>
+</figure>
+
+[^banned]: At one point, the banned words list included: trivial, NGMI/WAGMI, indubitably, OpenAI phone interview, anywhom, mickey mouse/"mickey", Alibaba phone interview, and something about riding the O Camel into Jane Street.
+
+
+### UPL Moving Day
+
+In 2025, UW-Madison <a href="https://www.dailycardinal.com/article/2025/09/uw-madison-opens-new-morgridge-hall-for-computer-and-data-sciences" target=_blank>completed Morgridge Hall</a>, site of the new School of Computer, Data, and Information Sciences (CDIS)[^CAI]. The main consequence of the building's completion was that we, the UPL, would have to move buildings for the first time in our 40-year history.
+
+<figure>
+    <img src="./images/mh.jpeg" alt="Interior of Morgridge Hall under construction with multiple open floors, exposed structural beams, perforated metal panels, and workers in safety gear.">
+    <figcaption>Morgridge Hall under construction</figcaption>
+</figure>
+
+
+I was the one who took down every poster and piece of wall decor. I packed boxes with things that had been hanging since before I was born: a letter from a Google employee with a check enclosed, a map of the steam tunnels beneath campus, a printed email exchange between John Carmack and a UPL'er; and newer additions: Nick's keyboard schematic for the nice!nano, a screenshot of Professor Marc Renault explaining how he dominated at dodgeball with a 9:1 K/D, and a picture of Kayley beside the smoky UPL microwave. There was much more, too, from across decades.
+
+<figure class="float-right">
+    <img src="./images/upl_new.jpeg" alt="UPL members in a hard hats and safety vests touring the unfinished new UPL space in Morgridge Hall, walking past its glass wall.">
+    <figcaption>The "New UPL" under construction</figcaption>
+</figure>
+
+In a way, the room felt like a snapshot of what computing used to be: more personal, more chaotic, more creative. I look back on that era with a kind of pervasive nostalgia, and while I was packing everything away, I sometimes felt like I had no right to be the one dismantling it.
+
+### What made it special
+
+The UPL, to me, is the audacity of Lucas's <a href="https://scharenbroch.dev/blog/apl-tutorial/" target=_blank>APL interpreter</a>, which was just so mind-bogglingly different from anything I'd seen before, full of symbols I've only ever seen on a chalkboard or in a Unicode symbol list. The UPL is the whimsy of Andrew's <a href="https://www.amoses.dev/then/2026-05-01/#receipts" target=_blank>receipt printer</a>, which is literally just an endpoint you can hit to print off whatever you want into the physical lab, like fun custom crosswords, or a daily slip to indicate when the doors were open. The UPL is the absurdity of Ben aliasing all the C types and creating an arena allocator before even starting the OS project, and then taking less time on the project than he did on the setup... All odd, fun ideas which capture the unique quirks and passions of individual UPL'ers.
+
+The UPL, to me, is the deep, technical conversations and the 2AM talks that started hours earlier. It's staying up all night to study for an OS exam you're taking tomorrow; it's watching the entire front row of the lecture hall fill up with UPL'ers the next morning.
+
+<figure class="float-right">
+    <img src="./images/DOOR.jpg" alt="">
+    <figcaption>One of the <strong>two</strong> doors leading into the UPL</figcaption>
+</figure>
+
+The UPL, to me, is programming, the incremental process of repeated failure and eventual success through which you temper something beautiful.
+
+And, of course, the UPL is the people who welcomed me in when I wasn't so sure I'd be a good fit; the people who were there every single day, and those who made guest appearances every now and again; it's the people whom I got to welcome in, and watch as they realized they were a good fit too.
+
+<figure>
+<img src="./images/UPL.png" alt="View through the UPL window of Andrew and Ben standing at the whiteboard while Nico talks to Phoenix on the far right, with other members working at laptops around the table.">
+    <figcaption>The UPL after Lightning Talks in February 2025</figcaption>
+</figure>
+
+[^CAI]: Later, the College of Computing and AI.
+
+
+## Thank You
+And that's all for now! Thank you to:
+
+Ali Abedi, AnHai Doan, Ben Afflerbach, Brian McInnes, CJ, Cole Nelson, Dane Morgan, Efty Sifakis, Gigi Mitchell, Hobbes Legault, Manolis Vlatakis, Mark Mansi, Michael Swift, Michael Vanden Heuvel, Remzi Arpaci-Dusseau, Travis Pickering, and Tyler Caraza-Hartner.
+
+Many of these people were professors, mentors, colleagues, or educators who shaped how I think and learn.
+
+I also want to thank my high school teachers Andrew Holdmann and Bryan Dahlie, who ignited my love of learning, and my AP Computer Science A teacher Jan Dickson, without whom I might never have pursued computer science in the first place.
+
+More than anyone, I owe these four years to my friends---most of what's in this piece is really just about being in the same room as you guys.
+
+Nithilan, for taking me on adventures around Madison, for saving my grade in several classes, and for making me bike up that really big hill for a donut.
+
+Gil, for inextricably altering my vocabulary, and for being refreshingly positive. Great work!
+
+Kev, for reasons which are classified. Yes.
+
+Kot, for being fun and quirky, and for the daily @Nico. @Kot!
+
+Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for convincing me to read again.
+
+Noah, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
+
+Andrew, for visiting Subway with me 93 times, for doing everything together, for possibly brainwashing me, and for being the closest friend I've ever had. You're literally my goat.
+
+<figure>
+<img src="./images/andrew.jpg" alt="Andrew and I posing on the lawn in front of the Wisconsin State Capitol, with me wearing UW-Madison graduation regalia.">
+    <figcaption>Andrew and Nico</figcaption>
+</figure>

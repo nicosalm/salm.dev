@@ -453,6 +453,10 @@ figure.float-right figcaption {
     min-width: 0;
 }
 
+figure > .figure-row {
+    margin: 0 auto;
+}
+
 @media (max-width: 600px) {
     .figure-row {
         flex-direction: column;
@@ -997,6 +1001,11 @@ a.fnref, .fnref a {
     border-color: var(--border);
 }
 
+.footnotes-sep,
+.footnotes {
+    display: none;
+}
+
 .friends-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1100,69 +1109,35 @@ a.fnref, .fnref a {
         left: -240px;
         width: 210px;
     }
-
-    .index-content {
-        position: relative;
-    }
-
-    .index-sidebar {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 80px;
-        overflow: hidden;
-    }
-
-    .index-sidebar canvas {
-        display: block;
-        width: 100%;
-        height: 100%;
-        image-rendering: pixelated;
-    }
-
-    .index-sidebar-left {
-        left: -110px;
-    }
-
-    .index-sidebar-right {
-        right: -110px;
-    }
-}
-
-.index-banner {
-    display: none;
 }
 
 @media (max-width: 1200px) {
-    .index-sidebar {
+    .footnote {
         display: none;
     }
 
-    .index-banner {
+    .footnotes-sep {
         display: block;
-        height: 56px;
-        margin: 0 0 1rem;
-        overflow: hidden;
     }
 
-    .index-banner canvas {
+    .footnotes {
         display: block;
-        width: 100%;
-        height: 100%;
-        image-rendering: pixelated;
+        font-size: var(--fs-small);
+        color: var(--text-secondary);
     }
 
-    .footnote {
-        float: none;
-        display: block;
-        width: auto;
-        margin: 0.2rem 0 0.3rem 1.5rem;
-        border-left: 2px solid var(--border-light);
-        border-top: none;
-        border-right: none;
-        border-bottom: none;
-        background: none;
-        padding: 0.1rem 0 0.1rem 0.5rem;
+    .footnotes-list {
+        padding-left: 1.5rem;
+        margin: 0;
+    }
+
+    .footnote-item p {
+        margin: 0.25rem 0;
+    }
+
+    .footnote-backref {
+        text-decoration: none;
+        margin-left: 0.25rem;
     }
 }
 

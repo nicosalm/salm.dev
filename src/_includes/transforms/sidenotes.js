@@ -21,16 +21,10 @@ export function processSidenotes(html) {
 
   const refPattern = /<sup class="footnote-ref"><a href="#(fn[\w-]+)" id="(fnref[\w-]+)"[^>]*>\[?(\d+)\]?<\/a><\/sup>/gi;
 
-  let result = html.replace(refPattern, (original, fnId, fnRefId, fnNum) => {
+  return html.replace(refPattern, (original, fnId, fnRefId, fnNum) => {
     const snId = fnId.replace(/^fn/, 'sn');
-    const snRefId = fnRefId.replace(/^fnref/, 'snref');
     const content = footnotes[snId];
     if (!content) return original;
-    return `<sup class="fnref" data-sidenote="${snId}"><a href="#${snId}" id="${snRefId}" title="Sidenote ${fnNum}">${fnNum}</a></sup><span class="footnote" id="${snId}" data-sidenote="${snId}"><a class="fnref" href="#${snRefId}" title="Sidenote ${fnNum} Reference">${fnNum}</a> ${content}</span>`;
+    return `<sup class="fnref" data-sidenote="${snId}"><a href="#${fnId}" id="${fnRefId}" title="Sidenote ${fnNum}">${fnNum}</a></sup><span class="footnote" id="${snId}" data-sidenote="${snId}"><a class="fnref" href="#${fnRefId}" title="Sidenote ${fnNum} Reference">${fnNum}</a> ${content}</span>`;
   });
-
-  result = result.replace(/<hr class="footnotes-sep"[^>]*>/gi, '');
-  result = result.replace(/<section class="footnotes"[^>]*>[\s\S]*?<\/section>/gi, '');
-
-  return result;
 }
