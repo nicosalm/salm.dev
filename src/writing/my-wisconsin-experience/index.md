@@ -59,13 +59,6 @@ Then, in February of my sophomore year, after helping found the <a href="https:/
     <figcaption>MIT Quantum Hackathon 2024</figcaption>
 </figure>
 
-Somewhat more recently, I built <a href="https://baileysanalytics.com/" target=_blank>Baileys Analytics</a> (blog post soon-ish) alongside a partner from back home. It's a vacation rental analytics service that pulls all the numbers property managers used to track in a mess of spreadsheets into one place. That was cool because it was complex and had customers. In hindsight, I would have built it very differently---I leaned on AI before I really understood what the project needed, or what best practices looked like, and the codebase got messy quick. I spent a lot of time refactoring. That's a lesson you have to learn by getting it wrong once, so I'm glad Baileys is where I learned it.
-
-<figure>
-<img src="./images/nicoandkev.JPG" alt="Kev and I making a gingerbread house in the UPL.">
-<figcaption>Kev and I making a gingerbread house!!</figcaption>
-</figure>
-
 [^HTC]: We also got to run jobs on CHTC, UW–Madison’s high-throughput computing center built around HTCondor.
 [^Saro]: I swear Saro ingested at least 1,700 mg worth of caffeine from many, many Celceii. I'm glad he survived because he was carrying us on his back.
 
@@ -173,6 +166,11 @@ I was the one who took down every poster and piece of wall decor. I packed boxes
 </figure>
 
 In a way, the room felt like a snapshot of what computing used to be: more personal, more chaotic, more creative. I look back on that era with a kind of pervasive nostalgia, and while I was packing everything away, I sometimes felt like I had no right to be the one dismantling it.
+
+<figure>
+<img src="./images/nicoandkev.JPG" alt="Kev and I making a gingerbread house in the UPL.">
+<figcaption>Kev and I making a gingerbread house!!</figcaption>
+</figure>
 
 ### What made it special
 
