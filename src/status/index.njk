@@ -6,69 +6,106 @@ prefetch: https://status.salm.dev
 ---
 <h1>Status</h1>
 
-<div id="status-content">
-    <p class="text-muted text-small">Loading...</p>
+<div class="status-cols">
+    <div id="status-services">
+        <p class="text-muted text-small">Loading...</p>
+    </div>
+    <div>
+        <h2>Domains</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>domain</th>
+                    <th>status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://salm.dev">salm.dev</a></td>
+                    <td><span class="domain-status domain-active">active</span></td>
+                </tr>
+                <tr>
+                    <td>salm.sh</td>
+                    <td><span class="domain-status domain-parked">parked</span></td>
+                </tr>
+                <tr>
+                    <td>nico.blue</td>
+                    <td><span class="domain-status domain-parked">parked</span></td>
+                </tr>
+                <tr>
+                    <td>nicosalm.com</td>
+                    <td><span class="domain-status domain-parked">parked</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<div id="status-coding"></div>
 
 {% include "footer.njk" %}
 
 <script>
 (function() {
     var API = 'https://status.salm.dev';
-    var container = document.getElementById('status-content');
+    var services = document.getElementById('status-services');
+    var coding = document.getElementById('status-coding');
 
     fetch(API)
         .then(function(res) { return res.json(); })
         .then(render)
         .catch(function() {
-            container.innerHTML = '<p>Failed to load status data.</p>';
+            services.innerHTML = '<p>Failed to load status data.</p>';
         });
 
     function render(data) {
-        var html = '';
+        var shtml = '';
 
-        html += '<h2>Services</h2>';
+        shtml += '<h2>Services</h2>';
         data.checks.forEach(function(c) {
             var up = !c.down;
             var color = up ? '#23C552' : '#F84F31';
             var label = up ? 'UP' : 'DOWN';
             var days = c.domain && c.domain.remaining_days != null ? c.domain.remaining_days : '-';
-            html += '<div>';
-            html += '<h4><a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a></h4>';
-            html += '<p><span style="font-weight:bold;color:' + color + '">' + label + '</span>';
-            html += ' :: ' + c.uptime.toFixed(2) + '%';
-            html += ' <span class="text-muted">(' + days + 'd left)</span></p>';
-            html += '<p class="text-muted">last checked: <code>' + esc(c.last_check_at) + '</code></p>';
-            html += '</div>';
+            shtml += '<div>';
+            shtml += '<h4><a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a></h4>';
+            shtml += '<p><span style="font-weight:bold;color:' + color + '">' + label + '</span>';
+            shtml += ' :: ' + c.uptime.toFixed(2) + '%';
+            shtml += ' <span class="text-muted">(' + days + 'd left)</span></p>';
+            shtml += '<p class="text-muted">last checked: <code>' + esc(c.last_check_at) + '</code></p>';
+            shtml += '</div>';
         });
+
+        services.innerHTML = shtml;
 
         var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
         var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
         var hours = (seconds / 3600).toFixed(2);
 
-        html += '<hr>';
-        html += '<h2>In the Last 7 Days</h2>';
-        html += '<div class="status-stats">';
+        var chtml = '';
+        chtml += '<hr>';
+        chtml += '<h2>In the Last 7 Days</h2>';
+        chtml += '<div class="status-stats">';
 
-        html += '<div><h4>Languages</h4>';
+        chtml += '<div><h4>Languages</h4>';
         languages.forEach(function(l) {
-            html += '<p style="color:' + esc(l.color) + '">' + esc(l.name) + ': <code>' + l.decimal + 'h</code></p>';
+            chtml += '<p style="color:' + esc(l.color) + '">' + esc(l.name) + ': <code>' + l.decimal + 'h</code></p>';
         });
-        html += '</div>';
+        chtml += '</div>';
 
-        html += '<div><h4>Editors</h4>';
+        chtml += '<div><h4>Editors</h4>';
         data.editors.forEach(function(e) {
-            html += '<p style="color:' + esc(e.color) + '">' + esc(e.name) + ': <code>' + e.percent + '%</code></p>';
+            chtml += '<p style="color:' + esc(e.color) + '">' + esc(e.name) + ': <code>' + e.percent + '%</code></p>';
         });
-        html += '</div>';
+        chtml += '</div>';
 
-        html += '<div><h4>Coding Activity</h4>';
-        html += '<p>Total: <code>' + hours + 'h</code></p>';
-        html += '</div>';
+        chtml += '<div><h4>Coding Activity</h4>';
+        chtml += '<p>Total: <code>' + hours + 'h</code></p>';
+        chtml += '</div>';
 
-        html += '</div>';
+        chtml += '</div>';
 
-        container.innerHTML = html;
+        coding.innerHTML = chtml;
     }
 
     function esc(s) {

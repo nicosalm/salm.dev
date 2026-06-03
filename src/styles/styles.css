@@ -1084,6 +1084,32 @@ a.fnref, .fnref a {
     top: 0;
 }
 
+.domain-status {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xsmall);
+}
+
+.domain-active {
+    color: #23C552;
+}
+
+.domain-parked {
+    color: var(--text-tertiary);
+}
+
+.status-cols {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+
+@media (max-width: 480px) {
+    .status-cols {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
 .status-stats {
     display: flex;
     flex-wrap: wrap;
