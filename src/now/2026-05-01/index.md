@@ -4,12 +4,13 @@ date: 2026-05-31
 
 <figure class="float-right">
     <img src="./images/ticket.jpeg" alt="A ticket to the CS graduation ceremony in Memorial Union on Thursday, May 7, 2026.">
+    <figcaption>They made CS graduation fancy this year!</figcaption>
 </figure>
 
 
 Um, I'm officially a college graduate… SO! We're going to pretend everything is fine and that I'm perfectly ready to get my life underway.
 
-My piece of paper is in the mail, certifying that against all odds I actually did receive an education in computer science. I have a SWE job which I know will be fun, I'm picking up an incredibly blue Honda Civic this week (I didn't need one in Madison), and I have a place to live. So, things are going pretty well. I'm obviously incredibly fortunate to be where I am.
+My piece of paper is in the mail, certifying that against all odds I actually did receive an education in computer science. I have a SWE job which I know will be fun, I'm picking up an incredibly blue Honda Civic this week (I didn't need a car in Madison), and I have a place to live. So, things are going pretty well. I'm obviously incredibly fortunate to be where I am.
 
 
 <figure>
@@ -21,7 +22,7 @@ I will say, however, that I was ready to leave <a href="https://www.wisc.edu/" t
 
 I miss [my friends](/friends) a lot, though, even though it's only been a few weeks. It feels like only yesterday that we met, and now we've been scattered all over the United States. That part is bittersweet.
 
-Luckily, everyone has a high-quality opportunity to chase after, so nobody is being left behind. I plan to visit Madison often in the coming year to stay close to Andrew and Ben who each have one year left.
+Luckily, everyone has a high-quality opportunity to chase after. I plan to visit Madison often in the coming year to stay close to Andrew and Ben who each have one year left.
 
 Until we meet again!... <small>in Discord... later today.</small>
 <figure>
