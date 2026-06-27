@@ -8,8 +8,16 @@
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
-      <title>Now: May 2026</title>
+      <title>Now: June 2026</title>
       <link>https://salm.dev/now/</link>
+      <description>What I&#39;m working on, reading, and thinking about right now.</description>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 GMT</pubDate>
+      <dc:creator>Nico Salm</dc:creator>
+      <guid isPermaLink="false">salm.dev/now/2026-06-26</guid>
+    </item>
+    <item>
+      <title>Now: May 2026</title>
+      <link>https://salm.dev/now/2026-may/</link>
       <description>What I&#39;m working on, reading, and thinking about right now.</description>
       <pubDate>Sun, 31 May 2026 00:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
@@ -25,7 +33,7 @@
     </item>
     <item>
       <title>Now: April 2026</title>
-      <link>https://salm.dev/now/2026-04-01/</link>
+      <link>https://salm.dev/now/2026-apr/</link>
       <description>What I&#39;m working on, reading, and thinking about right now.</description>
       <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
