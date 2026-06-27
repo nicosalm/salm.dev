@@ -50,7 +50,7 @@ export default {
 				},
 			});
 
-			request.method === 'GET' && cache.put(cacheKey, response.clone());
+			cache.put(cacheKey, response.clone());
 			return response;
 		} catch {
 			return new Response(JSON.stringify({ error: 'Failed to fetch status data' }), {
