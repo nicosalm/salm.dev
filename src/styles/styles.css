@@ -764,11 +764,20 @@ h4.year-heading + ul {
     max-width: 60ch;
 }
 
+.post-header {
+    margin-bottom: 2rem;
+}
+
+.post-header h1 {
+    margin-top: 0;
+    margin-bottom: 0.45rem;
+}
+
 .post-meta {
     font-family: var(--font-sans);
     font-size: var(--fs-small);
     color: var(--text-secondary);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0;
     letter-spacing: 0.005em;
 }
 
@@ -779,49 +788,14 @@ h4.year-heading + ul {
 .post-description {
     font-style: italic;
     color: var(--text-secondary);
-    margin-top: 0.1rem;
-    margin-bottom: 0.75rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0;
 }
+
+
 
 article {
     position: relative;
-}
-
-.post-ribbons {
-    position: absolute;
-    top: -0.6rem;
-    right: 0;
-    display: flex;
-    gap: 0.35rem;
-    z-index: 2;
-}
-
-.post-ribbon {
-    width: 14px;
-    height: 60px;
-    display: block;
-}
-
-.ribbon-text {
-    fill: var(--bg);
-    font-family: var(--font-sans);
-    font-size: 6px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-}
-
-.ribbon-selected {
-    color: #9c7d1d;
-}
-
-.ribbon-project {
-    color: var(--link);
-}
-
-@media (prefers-color-scheme: dark) {
-    .ribbon-selected {
-        color: #d4ae2a;
-    }
 }
 
 :is(article, main) > :first-child {
@@ -1168,10 +1142,6 @@ a.fnref, .fnref a {
 }
 
 @media (max-width: 640px) {
-    .post-ribbons {
-        display: none;
-    }
-
     .site-header {
         flex-direction: column;
         gap: 0.25rem;

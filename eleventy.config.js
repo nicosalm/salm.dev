@@ -62,12 +62,6 @@ export default function(eleventyConfig) {
       .sort((a, b) => a.date - b.date);
   });
 
-  eleventyConfig.addCollection("featuredPosts", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/writing/*/index.md")
-      .filter(post => post.data.featured)
-      .sort((a, b) => b.date - a.date);
-  });
-
   const MONTHS = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"

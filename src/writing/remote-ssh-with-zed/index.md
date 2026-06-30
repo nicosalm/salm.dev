@@ -3,7 +3,6 @@ title: "Remote SSH with Zed"
 description: "How to get Zed's remote SSH working on UW-Madison's CS lab machines (with AFS, load balancers, and all)."
 date: 2026-03-11
 category: computing
-featured: false
 authorNote: "Inspired by <a href='https://shawnzhong.com/2019/10/16/remote-ssh-to-cs-lab-with-vscode/'>Shawn Zhong's 2019 post</a> about doing this with VSCode."
 layout: layouts/post.njk
 ---

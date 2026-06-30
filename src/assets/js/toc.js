@@ -56,7 +56,7 @@
 
     tocWrapper.appendChild(tocList);
 
-    const introSelector = '.post-ribbons, h1, .post-meta, .post-description, .authors-note';
+    const introSelector = '.post-header, .authors-note';
     let insertBefore = null;
     for (const child of article.children) {
         if (!child.matches(introSelector)) {
