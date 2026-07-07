@@ -125,9 +125,9 @@ prefetch: https://status.salm.dev
         function val(v) {
             return '<code>' + v + '</code>';
         }
-        function withMax(v, max) {
-            var cell = '<code>' + formatNumber(v) + '</code>';
-            if (max) cell += ' <small class="text-muted">(max ' + formatNumber(max) + ')</small>';
+        function withAllTime(v, all) {
+            var cell = val(formatNumber(v));
+            if (all) cell += ' <small class="text-muted">(all-time ' + formatNumber(all) + ')</small>';
             return cell;
         }
 
@@ -137,8 +137,8 @@ prefetch: https://status.salm.dev
         html += '<table>';
         html += '<thead><tr><th>metric</th><th>value</th></tr></thead>';
         html += '<tbody>';
-        html += row('users', withMax(rb.users, rb.maxUsers));
-        html += row('pageviews', withMax(rb.pageviews, rb.maxPageviews));
+        html += row('users', withAllTime(rb.users, rb.allUsers));
+        html += row('pageviews', withAllTime(rb.pageviews, rb.allPageviews));
         html += row('served', val(formatBytes(bytes)));
         html += row('cached', val(formatBytes(cachedBytes)));
         html += row('cached%', val(pctCached.toFixed(1) + '%'));
@@ -155,7 +155,10 @@ prefetch: https://status.salm.dev
 
     function formatNumber(n) {
         if (n == null) return '-';
-        return Number(n).toLocaleString('en-US');
+        n = Number(n);
+        if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+        if (n >= 1e3) return (n / 1e3).toFixed(2) + 'k';
+        return String(n);
     }
 
     function formatBytes(n) {

@@ -16,56 +16,51 @@ const URLS = {
 };
 
 const TIME_ZONE = 'America/Chicago';
+const ALL_TIME_START = '2024-01-01';
 
 function ymd(d: Date): string {
 	return d.toISOString().slice(0, 10);
 }
 
+async function getJson(url: string, init?: RequestInit): Promise<any> {
+	try {
+		const r = await fetch(url, init);
+		return r.ok ? await r.json() : null;
+	} catch {
+		return null;
+	}
+}
+
 async function getStats(env: Env) {
 	const end = new Date();
-	const start = new Date(end.getTime() - 6 * 86400000); // 7 calendar days inclusive
+	const start = new Date(end.getTime() - 6 * 86400000);
 	const startStr = ymd(start);
 	const endStr = ymd(end);
-
-	const rybbit = fetch(
-		`${URLS.rybbit}/api/sites/${env.RYBBIT_SITE_ID}/overview` +
-			`?start_date=${startStr}&end_date=${endStr}&time_zone=${encodeURIComponent(TIME_ZONE)}`,
-		{ headers: { Authorization: `Bearer ${env.RYBBIT_API_KEY}` } },
-	)
-		.then((r) => (r.ok ? (r.json() as Promise<any>) : null))
-		.catch(() => null);
-
-	// All-time weekly buckets, for the best-week (max) figures. Rybbit dedupes
-	// uniques within each bucket, so max weekly `users` is an accurate peak.
-	const rybbitPeak = fetch(
-		`${URLS.rybbit}/api/sites/${env.RYBBIT_SITE_ID}/overview/time-series` +
-			`?start_date=2024-01-01&end_date=${endStr}&time_zone=${encodeURIComponent(TIME_ZONE)}&bucket=week`,
-		{ headers: { Authorization: `Bearer ${env.RYBBIT_API_KEY}` } },
-	)
-		.then((r) => (r.ok ? (r.json() as Promise<any>) : null))
-		.catch(() => null);
+	const tz = encodeURIComponent(TIME_ZONE);
+	const auth = { headers: { Authorization: `Bearer ${env.RYBBIT_API_KEY}` } };
+	const overviewUrl = (s: string) =>
+		`${URLS.rybbit}/api/sites/${env.RYBBIT_SITE_ID}/overview?start_date=${s}&end_date=${endStr}&time_zone=${tz}`;
 
 	const cfQuery = `query($zone:String!,$start:String!,$end:String!){
 		viewer { zones(filter:{zoneTag:$zone}) {
-			httpRequests1dGroups(limit:7, orderBy:[date_ASC], filter:{date_geq:$start, date_leq:$end}) {
+			httpRequests1dGroups(limit:7, filter:{date_geq:$start, date_leq:$end}) {
 				sum { bytes cachedBytes }
 			}
 		} }
 	}`;
-	const cloudflare = fetch(URLS.cloudflare, {
-		method: 'POST',
-		headers: { Authorization: `Bearer ${env.CF_API_TOKEN}`, 'Content-Type': 'application/json' },
-		body: JSON.stringify({ query: cfQuery, variables: { zone: env.CF_ZONE_ID, start: startStr, end: endStr } }),
-	})
-		.then((r) => (r.ok ? (r.json() as Promise<any>) : null))
-		.catch(() => null);
 
-	const [rb, peak, cf] = await Promise.all([rybbit, rybbitPeak, cloudflare]);
+	const [rb, all, cf] = await Promise.all([
+		getJson(overviewUrl(startStr), auth),
+		getJson(overviewUrl(ALL_TIME_START), auth),
+		getJson(URLS.cloudflare, {
+			method: 'POST',
+			headers: { Authorization: `Bearer ${env.CF_API_TOKEN}`, 'Content-Type': 'application/json' },
+			body: JSON.stringify({ query: cfQuery, variables: { zone: env.CF_ZONE_ID, start: startStr, end: endStr } }),
+		}),
+	]);
 
 	const rbData = rb?.data ?? {};
-	const weeks: any[] = peak?.data ?? [];
-	const maxUsers = weeks.reduce((m, b) => Math.max(m, b.users || 0), 0);
-	const maxPageviews = weeks.reduce((m, b) => Math.max(m, b.pageviews || 0), 0);
+	const allData = all?.data ?? {};
 
 	const groups = cf?.data?.viewer?.zones?.[0]?.httpRequests1dGroups ?? [];
 	const cfSum = groups.reduce(
@@ -77,12 +72,12 @@ async function getStats(env: Env) {
 	);
 
 	return {
-		window: { start: startStr, end: endStr, days: 7 },
+		window: { start: startStr, end: endStr },
 		analytics: {
 			users: rbData.users ?? 0,
 			pageviews: rbData.pageviews ?? 0,
-			maxUsers,
-			maxPageviews,
+			allUsers: allData.users ?? 0,
+			allPageviews: allData.pageviews ?? 0,
 		},
 		cloudflare: cfSum,
 	};
