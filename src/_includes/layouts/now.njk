@@ -6,6 +6,8 @@ layout: layouts/base.njk
     <p>This is a <a href="https://sive.rs/now2" target="_blank">now page</a>. Here's what I've been up to</p>
     <h2>...in {{ date | monthYear }}</h2>
     {{ content | safe }}
+    <div class="the-end">❦</div>
+    <div class="post-reply">Have a thought or a correction? <a href="#" data-email="ved.mlas@ocin" data-subject="Re: Now, {{ date | monthYear }}">Reply via email</a>.</div>
     <div class="post-navigation">
         {%- set previousNow = collections.nows | getPreviousCollectionItem(page) %}
         {%- set nextNow = collections.nows | getNextCollectionItem(page) %}

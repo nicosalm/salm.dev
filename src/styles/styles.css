@@ -829,6 +829,13 @@ hr::after {
     clear: both;
 }
 
+.post-reply {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--fs-small);
+    margin-bottom: 1rem;
+}
+
 .post-navigation {
     display: flex;
     justify-content: space-between;
