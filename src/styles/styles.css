@@ -1096,8 +1096,18 @@ a.fnref, .fnref a {
 .status-stats {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: flex-start;
+    gap: 2.5rem;
+}
+
+.status-note {
+    display: block;
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+}
+
+#status-analytics td {
+    white-space: nowrap;
 }
 
 :focus-visible {

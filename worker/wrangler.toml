@@ -1,3 +1,7 @@
 name = "status-salm-dev"
 main = "index.ts"
 compatibility_date = "2024-01-01"
+
+[vars]
+RYBBIT_SITE_ID = "81989c7adfe0"
+CF_ZONE_ID = "74ae06087517fb9934a705dba43b06be"

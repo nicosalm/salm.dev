@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: status
-description: Service uptime and coding activity.
+description: Uptime, traffic, bandwidth, and coding activity.
 prefetch: https://status.salm.dev
 ---
 <h1>Status</h1>
@@ -11,6 +11,7 @@ prefetch: https://status.salm.dev
         <p class="text-muted text-small">Loading...</p>
     </div>
     <div>
+        <div id="status-analytics"></div>
         <h2>Domains</h2>
         <table>
             <thead>
@@ -50,6 +51,7 @@ prefetch: https://status.salm.dev
     var API = 'https://status.salm.dev';
     var services = document.getElementById('status-services');
     var coding = document.getElementById('status-coding');
+    var analytics = document.getElementById('status-analytics');
 
     fetch(API)
         .then(function(res) { return res.json(); })
@@ -71,8 +73,8 @@ prefetch: https://status.salm.dev
             shtml += '<h4><a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a></h4>';
             shtml += '<p><span style="font-weight:bold;color:' + color + '">' + label + '</span>';
             shtml += ' :: ' + c.uptime.toFixed(2) + '%';
-            shtml += ' <span class="text-muted">(' + days + 'd left)</span></p>';
-            shtml += '<p class="text-muted">last checked: <code>' + esc(c.last_check_at) + '</code></p>';
+            shtml += ' <small class="text-muted">(' + days + 'd left)</small></p>';
+            shtml += '<small class="status-note">last checked: <code>' + esc(c.last_check_at) + '</code></small>';
             shtml += '</div>';
         });
 
@@ -106,6 +108,63 @@ prefetch: https://status.salm.dev
         chtml += '</div>';
 
         coding.innerHTML = chtml;
+
+        if (data.stats) renderStats(data.stats);
+    }
+
+    function renderStats(s) {
+        var rb = s.analytics || {};
+        var cf = s.cloudflare || {};
+        var bytes = cf.bytes || 0;
+        var cachedBytes = cf.cachedBytes || 0;
+        var pctCached = bytes > 0 ? (cachedBytes / bytes * 100) : 0;
+
+        function row(label, value) {
+            return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
+        }
+        function val(v) {
+            return '<code>' + v + '</code>';
+        }
+        function withMax(v, max) {
+            var cell = '<code>' + formatNumber(v) + '</code>';
+            if (max) cell += ' <small class="text-muted">(max ' + formatNumber(max) + ')</small>';
+            return cell;
+        }
+
+        var html = '';
+        html += '<h2>Site</h2>';
+        html += '<small class="status-note">' + esc(formatWindow(s.window)) + '</small>';
+        html += '<table>';
+        html += '<thead><tr><th>metric</th><th>value</th></tr></thead>';
+        html += '<tbody>';
+        html += row('users', withMax(rb.users, rb.maxUsers));
+        html += row('pageviews', withMax(rb.pageviews, rb.maxPageviews));
+        html += row('served', val(formatBytes(bytes)));
+        html += row('cached', val(formatBytes(cachedBytes)));
+        html += row('cached%', val(pctCached.toFixed(1) + '%'));
+        html += '</tbody></table>';
+
+        analytics.innerHTML = html;
+    }
+
+    function formatWindow(w) {
+        if (!w || !w.start || !w.end) return 'window: last 7 days';
+        var end = w.start.slice(0, 4) === w.end.slice(0, 4) ? w.end.slice(5) : w.end;
+        return 'window: ' + w.start + '/' + end;
+    }
+
+    function formatNumber(n) {
+        if (n == null) return '-';
+        return Number(n).toLocaleString('en-US');
+    }
+
+    function formatBytes(n) {
+        if (!n) return '0 B';
+        var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        var i = Math.floor(Math.log(n) / Math.log(1024));
+        i = Math.min(i, units.length - 1);
+        var val = n / Math.pow(1024, i);
+        return (i === 0 ? val : val.toFixed(2)) + ' ' + units[i];
     }
 
     function esc(s) {
