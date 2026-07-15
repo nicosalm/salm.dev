@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="preload" href="/assets/fonts/source-serif-4-roman.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/styles/styles.css">
@@ -19,6 +21,9 @@
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
     <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
 
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@salmdotdev">
+
     {% if prefetch %}
     <link rel="preconnect" href="{{ prefetch }}">
     {% endif %}
@@ -32,8 +37,8 @@
     <header class="site-header">
         <a href="/" class="site-title">salm.dev</a>
         <nav>
-            <a href="/now">now</a><span class="sep">|</span><a
-            href="/writing">writing</a><span class="sep">|</span><a
+            <a href="/writing">writing</a><span class="sep">|</span><a
+            href="/now">now</a><span class="sep">|</span><a
             href="/about">about</a><span class="sep">|</span><a
             href="https://github.com/nicosalm/">code</a>
         </nav>
@@ -51,9 +56,21 @@
     <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
     <script>
     document.querySelectorAll('[data-email]').forEach(function(el) {
-        var e = el.dataset.email.split('').reverse().join('');
-        var s = el.dataset.subject ? '?subject=' + encodeURIComponent(el.dataset.subject) : '';
-        el.href = 'mailto:' + e + s;
+        el.setAttribute('role', 'button');
+        el.style.cursor = 'pointer';
+        var label = el.querySelector('.copy-label');
+        if (!label) el.title = 'copy email';
+        var timer;
+        el.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            var e = el.dataset.email.split('').reverse().join('');
+            navigator.clipboard.writeText(e);
+            if (label) label.textContent = 'copied'; else el.title = 'copied';
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                if (label) label.textContent = 'copy'; else el.title = 'copy email';
+            }, 2000);
+        });
     });
     </script>
 </body>

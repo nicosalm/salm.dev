@@ -1051,6 +1051,11 @@ a.fnref, .fnref a {
     opacity: 1;
 }
 
+.copy-label {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+}
+
 .skip-link {
     position: absolute;
     top: -100%;
