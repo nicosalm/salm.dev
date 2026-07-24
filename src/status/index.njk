@@ -6,175 +6,38 @@ prefetch: https://status.salm.dev
 ---
 <h1>Status</h1>
 
-<div class="status-cols">
-    <div id="status-services">
-        <p class="text-muted text-small">Loading...</p>
+<div id="status-services">
+    <p class="text-muted text-small">Loading...</p>
+</div>
+
+<h2>Domains</h2>
+<div class="status-section">
+    <div class="stat-row">
+        <span class="stat-label"><a href="https://salm.dev">salm.dev</a></span>
+        <span class="dot-leader"></span>
+        <span class="stat-value"><span class="domain-status domain-active">active</span></span>
     </div>
-    <div>
-        <div id="status-analytics"></div>
-        <h2>Domains</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>domain</th>
-                    <th>status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="https://salm.dev">salm.dev</a></td>
-                    <td><span class="domain-status domain-active">active</span></td>
-                </tr>
-                <tr>
-                    <td>nico.blue</td>
-                    <td><span class="domain-status domain-parked">parked</span></td>
-                </tr>
-                <tr>
-                    <td>nicosalm.com</td>
-                    <td><span class="domain-status domain-parked">parked</span></td>
-                </tr>
-                <tr>
-                    <td>salm.sh</td>
-                    <td><span class="domain-status domain-parked">parked</span></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="stat-row">
+        <span class="stat-label">nico.blue</span>
+        <span class="dot-leader"></span>
+        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
+    </div>
+    <div class="stat-row">
+        <span class="stat-label">nicosalm.com</span>
+        <span class="dot-leader"></span>
+        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
+    </div>
+    <div class="stat-row">
+        <span class="stat-label">salm.sh</span>
+        <span class="dot-leader"></span>
+        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
     </div>
 </div>
+
+<div id="status-analytics"></div>
 
 <div id="status-coding"></div>
 
 {% include "footer.njk" %}
 
-<script>
-(function() {
-    var API = 'https://status.salm.dev';
-    var services = document.getElementById('status-services');
-    var coding = document.getElementById('status-coding');
-    var analytics = document.getElementById('status-analytics');
-
-    fetch(API)
-        .then(function(res) { return res.json(); })
-        .then(render)
-        .catch(function() {
-            services.innerHTML = '<p>Failed to load status data.</p>';
-        });
-
-    function render(data) {
-        var shtml = '';
-
-        shtml += '<h2>Services</h2>';
-        data.checks.forEach(function(c) {
-            var up = !c.down;
-            var color = up ? '#23C552' : '#F84F31';
-            var label = up ? 'UP' : 'DOWN';
-            var days = c.domain && c.domain.remaining_days != null ? c.domain.remaining_days : '-';
-            shtml += '<div>';
-            shtml += '<h4><a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a></h4>';
-            shtml += '<p><span style="font-weight:bold;color:' + color + '">' + label + '</span>';
-            shtml += ' :: ' + c.uptime.toFixed(2) + '%';
-            shtml += ' <small class="text-muted">(' + days + 'd left)</small></p>';
-            shtml += '<small class="status-note">last checked: <code>' + esc(c.last_check_at) + '</code></small>';
-            shtml += '</div>';
-        });
-
-        services.innerHTML = shtml;
-
-        var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
-        var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
-        var hours = (seconds / 3600).toFixed(2);
-
-        var chtml = '';
-        chtml += '<hr>';
-        chtml += '<h2>In the Last 7 Days</h2>';
-        chtml += '<div class="status-stats">';
-
-        chtml += '<div><h4>Languages</h4>';
-        languages.forEach(function(l) {
-            chtml += '<p style="color:' + esc(l.color) + '">' + esc(l.name) + ': <code>' + l.decimal + 'h</code></p>';
-        });
-        chtml += '</div>';
-
-        chtml += '<div><h4>Editors</h4>';
-        data.editors.forEach(function(e) {
-            chtml += '<p style="color:' + esc(e.color) + '">' + esc(e.name) + ': <code>' + e.percent + '%</code></p>';
-        });
-        chtml += '</div>';
-
-        chtml += '<div><h4>Coding Activity</h4>';
-        chtml += '<p>Total: <code>' + hours + 'h</code></p>';
-        chtml += '</div>';
-
-        chtml += '</div>';
-
-        coding.innerHTML = chtml;
-
-        if (data.stats) renderStats(data.stats);
-    }
-
-    function renderStats(s) {
-        var rb = s.analytics || {};
-        var cf = s.cloudflare || {};
-        var bytes = cf.bytes || 0;
-        var cachedBytes = cf.cachedBytes || 0;
-        var pctCached = bytes > 0 ? (cachedBytes / bytes * 100) : 0;
-
-        function row(label, value) {
-            return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
-        }
-        function val(v) {
-            return '<code>' + v + '</code>';
-        }
-        function withAllTime(v, all) {
-            var cell = val(formatNumber(v));
-            if (all) cell += ' <small class="text-muted">(all-time ' + formatNumber(all) + ')</small>';
-            return cell;
-        }
-
-        var html = '';
-        html += '<h2>Site</h2>';
-        html += '<small class="status-note">' + esc(formatWindow(s.window)) + '</small>';
-        html += '<table>';
-        html += '<thead><tr><th>metric</th><th>value</th></tr></thead>';
-        html += '<tbody>';
-        html += row('users', withAllTime(rb.users, rb.allUsers));
-        html += row('pageviews', withAllTime(rb.pageviews, rb.allPageviews));
-        html += row('served', val(formatBytes(bytes)));
-        html += row('cached', val(formatBytes(cachedBytes)));
-        html += row('cached%', val(pctCached.toFixed(1) + '%'));
-        html += '</tbody></table>';
-
-        analytics.innerHTML = html;
-    }
-
-    function formatWindow(w) {
-        if (!w || !w.start || !w.end) return 'window: last 7 days';
-        var end = w.start.slice(0, 4) === w.end.slice(0, 4) ? w.end.slice(5) : w.end;
-        return 'window: ' + w.start + '/' + end;
-    }
-
-    function formatNumber(n) {
-        if (n == null) return '-';
-        n = Number(n);
-        if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
-        if (n >= 1e3) return (n / 1e3).toFixed(2) + 'k';
-        return String(n);
-    }
-
-    function formatBytes(n) {
-        if (!n) return '0 B';
-        var units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        var i = Math.floor(Math.log(n) / Math.log(1024));
-        i = Math.min(i, units.length - 1);
-        var val = n / Math.pow(1024, i);
-        return (i === 0 ? val : val.toFixed(2)) + ' ' + units[i];
-    }
-
-    function esc(s) {
-        if (!s) return '';
-        var d = document.createElement('div');
-        d.textContent = s;
-        return d.innerHTML;
-    }
-})();
-</script>
+<script src="/assets/js/status.js" defer></script>
