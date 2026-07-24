@@ -6,111 +6,28 @@ description: Books I've read, am reading, and want to read.
 <h1>Books</h1>
 <p>A list of what I'm reading, what I've read, and what I want to read:</p>
 
-<h2>Reading</h2>
+{% macro bookList(items) %}
 <ul class="post-list">
+    {% for book in items %}
     <li class="book-item">
         <div class="book-line">
-            <span><em>Permutation City</em></span>
+            <span><em>{{ book.title }}</em></span>
             <span class="dot-leader"></span>
-            <span class="book-author">Greg Egan</span>
+            <span class="book-author">{{ book.author }}</span>
         </div>
     </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>How to Prove It: A Structured Approach</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Daniel Velleman</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Introduction to Algorithms</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Cormen et al.</span>
-        </div>
-    </li>
-
+    {% endfor %}
 </ul>
+{% endmacro %}
+
+<h2>Reading</h2>
+{{ bookList(books.reading) }}
 
 <h2>Read</h2>
-<ul class="post-list">
-
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Computer Systems: A Programmer's Perspective</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Randal Bryant</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Designing Data-Intensive Applications</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Martin Kleppmann</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Operating Systems: Three Easy Pieces</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Remzi & Andrea Arpaci-Dusseau</span>
-        </div>
-        <!-- <div class="book-note">My professor wrote the book!</div> -->
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Computer Networks: A Systems Approach</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Peterson &amp; Davie</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>The Soul of a New Machine</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Tracy Kidder</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Weaving the Web</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Tim Berners-Lee</span>
-        </div>
-    </li>
-</ul>
+{{ bookList(books.read) }}
 
 <h2>To Read</h2>
-<ul class="post-list">
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Concrete Mathematics</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Graham, Knuth &amp; Patashnik</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>The Art of Computer Programming, Vol. 1</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Don Knuth</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Database Internals</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Alex Petrov</span>
-        </div>
-    </li>
-    <li class="book-item">
-        <div class="book-line">
-            <span><em>Systems Performance</em></span>
-            <span class="dot-leader"></span>
-            <span class="book-author">Brendan Gregg</span>
-        </div>
-    </li>
-</ul>
+{{ bookList(books.toRead) }}
 
 <p class="post-reply">I keep a fuller log on <a href="https://www.goodreads.com/user/show/155270767-nico">Goodreads</a>.</p>
 
@@ -131,7 +48,7 @@ description: Books I've read, am reading, and want to read.
 </p>
 
 <p>
-    If you’ve read any of these, absolutely <a href="#" data-email="ved.mlas@ocin">email [<span class="copy-label">copy</span>]</a> me to talk about them, or about any books you’re reading that you feel are cool and worthwhile.
+    If you’ve read any of these, absolutely <a href="#" data-email="{{ site.author.emailReversed }}">email [<span class="copy-label">copy</span>]</a> me to talk about them, or about any books you’re reading that you feel are cool and worthwhile.
 </p>
 
 {% include "footer.njk" %}
