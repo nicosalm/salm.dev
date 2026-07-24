@@ -6,7 +6,7 @@ export default {
   title: "salm.dev",
   description: "The personal website of Nico Salm. I write about computing, history, and philosophy.",
   url: "https://salm.dev",
-  author: { name: "Nico Salm", email: "nico@salm.dev" },
+  author: { name: "Nico Salm", email: "nico@salm.dev", emailReversed: "ved.mlas@ocin" },
   git: {
     hash: gitHash,
     date: gitDate,

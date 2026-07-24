@@ -1,10 +1,12 @@
+import site from "./site.js";
+
 export default {
   common: [
     { href: "/", src: "/assets/88x31/88x31.gif", alt: "Nico's 88x31" },
     { href: "https://twitter.com/salmdotdev", src: "/assets/88x31/twitter.gif", alt: "X (f.k.a. Twitter)", external: true },
     { href: "https://bsky.app/profile/salm.dev", src: "/assets/88x31/bluesky.gif", alt: "Bluesky", external: true },
     { href: "https://www.goodreads.com/user/show/155270767-nico", src: "/assets/88x31/goodreads.gif", alt: "Goodreads", external: true },
-    { href: "#", src: "/assets/88x31/reply-via-email.gif", alt: "Reply via Email", email: "ved.mlas@ocin" },
+    { href: "#", src: "/assets/88x31/reply-via-email.gif", alt: "Reply via Email", email: site.author.emailReversed },
     { href: "/rss.xml", src: "/assets/88x31/rss.gif", alt: "RSS Feed", external: true },
     { href: "https://www.upl.cs.wisc.edu/", src: "/assets/88x31/upl.gif", alt: "Undergraduate Projects Lab", external: true },
     { href: "https://tilde.town/~nico/", src: "/assets/88x31/tildetown.gif", alt: "nico's place in ~town", external: true },

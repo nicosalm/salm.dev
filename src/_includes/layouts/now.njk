@@ -7,7 +7,7 @@ layout: layouts/base.njk
     <h2>...in {{ date | monthYear }}</h2>
     {{ content | safe }}
     <div class="the-end">❦</div>
-    <div class="post-reply">Have a thought or a correction? Reply via <a href="#" data-email="ved.mlas@ocin">email [<span class="copy-label">copy</span>]</a>.</div>
+    {% include "post-reply.njk" %}
     <div class="post-navigation">
         {%- set previousNow = collections.nows | getPreviousCollectionItem(page) %}
         {%- set nextNow = collections.nows | getNextCollectionItem(page) %}
