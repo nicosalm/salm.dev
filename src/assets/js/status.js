@@ -4,12 +4,32 @@
     var coding = document.getElementById('status-coding');
     var analytics = document.getElementById('status-analytics');
 
+    var SPINNER_FRAMES = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
+    var spinTimer = null;
+
+    startSpinner();
     fetch(API)
         .then(function(res) { return res.json(); })
-        .then(render)
+        .then(function(data) { stopSpinner(); render(data); })
         .catch(function() {
+            stopSpinner();
             services.innerHTML = '<p>Failed to load status data.</p>';
         });
+
+    function startSpinner() {
+        services.innerHTML = '<p class="status-loading text-muted text-small"><span class="spinner" aria-hidden="true">' + SPINNER_FRAMES[0] + '</span> loading</p>';
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var el = services.querySelector('.spinner');
+        var i = 0;
+        spinTimer = setInterval(function() {
+            i = (i + 1) % SPINNER_FRAMES.length;
+            el.textContent = SPINNER_FRAMES[i];
+        }, 80);
+    }
+
+    function stopSpinner() {
+        if (spinTimer) { clearInterval(spinTimer); spinTimer = null; }
+    }
 
     function render(data) {
         renderServices(data.checks || []);
@@ -33,19 +53,17 @@
     }
 
     function renderServices(checks) {
-        var html = '<h2>Services</h2><div class="status-section">';
+        var checked = checks.length ? '<small class="section-note">last checked <code>' + esc(checks[0].last_check_at) + '</code></small>' : '';
+        var html = '<h2>Services</h2>' + checked + '<div class="status-section">';
         checks.forEach(function(c) {
             var up = !c.down;
-            var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
+            var mark = '<span class="status-mark ' + (up ? 'up' : 'down') + '">' + (up ? 'up' : 'down') + '</span>';
             var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a>';
             var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
             var value = (up ? '' : '<span class="dim">down · </span>') + c.uptime.toFixed(2) + '%' + days;
-            html += statRow(dot + name, meter(c.uptime), value);
+            html += statRow(mark + name, meter(c.uptime), value);
         });
         html += '</div>';
-        if (checks.length) {
-            html += '<small class="status-note">last checked <code>' + esc(checks[0].last_check_at) + '</code></small>';
-        }
         services.innerHTML = html;
     }
 
@@ -58,16 +76,15 @@
 
         function withAllTime(v, all) {
             var out = formatNumber(v);
-            if (all) out += ' <span class="dim">(all-time ' + formatNumber(all) + ')</span>';
+            if (all) out += ' <span class="dim">(' + formatNumber(all) + ')</span>';
             return out;
         }
 
-        var html = '<div class="section-head"><h2>Site</h2><span class="section-note">' + esc(formatWindow(s.window)) + '</span></div>';
+        var html = '<h2>Site</h2><small class="section-note">in the last 7 days</small>';
         html += '<div class="status-section">';
-        html += statRow('users', '', withAllTime(rb.users, rb.allUsers));
-        html += statRow('pageviews', '', withAllTime(rb.pageviews, rb.allPageviews));
-        html += statRow('served', '', formatBytes(bytes));
-        html += statRow('cached', bytes > 0 ? meter(pctCached) : '', formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>');
+        html += statRow('Users', '', withAllTime(rb.users, rb.allUsers));
+        html += statRow('Pageviews', '', withAllTime(rb.pageviews, rb.allPageviews));
+        html += statRow('Served/Cached', bytes > 0 ? meter(pctCached) : '', formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>');
         html += '</div>';
         analytics.innerHTML = html;
     }
@@ -78,7 +95,7 @@
         var hours = (seconds / 3600).toFixed(2);
         var maxDecimal = languages.reduce(function(m, l) { return Math.max(m, l.decimal); }, 0) || 1;
 
-        var html = '<div class="section-head"><h2>Coding</h2><span class="section-note">last 7 days · ' + hours + 'h</span></div>';
+        var html = '<h2>Coding</h2><small class="section-note"><code>' + hours + 'h</code> in the last 7 days</small>';
 
         html += '<h3>Languages</h3><div class="status-section">';
         languages.forEach(function(l) {
@@ -93,12 +110,6 @@
         html += '</div>';
 
         coding.innerHTML = html;
-    }
-
-    function formatWindow(w) {
-        if (!w || !w.start || !w.end) return 'last 7 days';
-        var end = w.start.slice(0, 4) === w.end.slice(0, 4) ? w.end.slice(5) : w.end;
-        return w.start + '/' + end;
     }
 
     function formatNumber(n) {
