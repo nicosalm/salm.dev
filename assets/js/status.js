@@ -58,7 +58,8 @@
         checks.forEach(function(c) {
             var up = !c.down;
             var mark = '<span class="status-mark ' + (up ? 'up' : 'down') + '">' + (up ? 'up' : 'down') + '</span>';
-            var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || c.url) + '</a>';
+            var label = c.alias || c.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+            var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(label) + '</a>';
             var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
             var value = (up ? '' : '<span class="dim">down · </span>') + c.uptime.toFixed(2) + '%' + days;
             html += statRow(mark + name, meter(c.uptime), value);
