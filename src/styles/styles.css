@@ -1132,30 +1132,16 @@ a.fnref, .fnref a {
     color: var(--text-tertiary);
 }
 
-.meter {
-    height: 6px;
-    background: var(--border-light);
-    overflow: hidden;
-    align-self: center;
-}
-
-.meter-fill {
-    display: block;
-    height: 100%;
-    background: var(--text);
-}
-
-.status-mark {
+.status-dot {
     flex: none;
-    display: inline-block;
-    min-width: 4ch;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xsmall);
-    color: var(--text-tertiary);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--text-tertiary);
 }
 
-.status-mark.up { color: #23C552; }
-.status-mark.down { color: #F84F31; }
+.status-dot.up { background: #23C552; }
+.status-dot.down { background: #F84F31; }
 
 .spinner {
     font-family: var(--font-mono);
