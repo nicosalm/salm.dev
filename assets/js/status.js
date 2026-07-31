@@ -37,19 +37,13 @@
         renderCoding(data);
     }
 
-    // A uniform row: label · meter (or a dotted leader) · value. The middle
-    // column is always present so every row's label and value align on the grid.
-    function statRow(labelHtml, meterHtml, valueHtml) {
+    // A uniform row: label · dotted leader · value, matching the Domains list.
+    function statRow(labelHtml, valueHtml) {
         return '<div class="stat-row">' +
             '<span class="stat-label">' + labelHtml + '</span>' +
-            (meterHtml || '<span class="dot-leader"></span>') +
+            '<span class="dot-leader"></span>' +
             '<span class="stat-value">' + valueHtml + '</span>' +
             '</div>';
-    }
-
-    function meter(pct) {
-        var w = Math.max(0, Math.min(100, pct));
-        return '<span class="meter"><span class="meter-fill" style="width:' + w.toFixed(1) + '%"></span></span>';
     }
 
     function renderServices(checks) {
@@ -57,12 +51,12 @@
         var html = '<h2>Services</h2>' + checked + '<div class="status-section">';
         checks.forEach(function(c) {
             var up = !c.down;
-            var mark = '<span class="status-mark ' + (up ? 'up' : 'down') + '">' + (up ? 'up' : 'down') + '</span>';
+            var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
             var label = c.alias || c.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
             var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(label) + '</a>';
             var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
             var value = (up ? '' : '<span class="dim">down · </span>') + c.uptime.toFixed(2) + '%' + days;
-            html += statRow(mark + name, meter(c.uptime), value);
+            html += statRow(dot + name, value);
         });
         html += '</div>';
         services.innerHTML = html;
@@ -83,9 +77,9 @@
 
         var html = '<h2>Site</h2><small class="section-note">in the last 7 days</small>';
         html += '<div class="status-section">';
-        html += statRow('Users', '', withAllTime(rb.users, rb.allUsers));
-        html += statRow('Pageviews', '', withAllTime(rb.pageviews, rb.allPageviews));
-        html += statRow('Served/Cached', bytes > 0 ? meter(pctCached) : '', formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>');
+        html += statRow('Users', withAllTime(rb.users, rb.allUsers));
+        html += statRow('Pageviews', withAllTime(rb.pageviews, rb.allPageviews));
+        html += statRow('Served/Cached', formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>');
         html += '</div>';
         analytics.innerHTML = html;
     }
@@ -94,19 +88,18 @@
         var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
         var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
         var hours = (seconds / 3600).toFixed(2);
-        var maxDecimal = languages.reduce(function(m, l) { return Math.max(m, l.decimal); }, 0) || 1;
 
         var html = '<h2>Coding</h2><small class="section-note"><code>' + hours + 'h</code> in the last 7 days</small>';
 
         html += '<h3>Languages</h3><div class="status-section">';
         languages.forEach(function(l) {
-            html += statRow(esc(l.name), meter(l.decimal / maxDecimal * 100), l.decimal + 'h');
+            html += statRow(esc(l.name), l.decimal + 'h');
         });
         html += '</div>';
 
         html += '<h3>Editors</h3><div class="status-section">';
         data.editors.forEach(function(e) {
-            html += statRow(esc(e.name), meter(e.percent), e.percent + '%');
+            html += statRow(esc(e.name), e.percent + '%');
         });
         html += '</div>';
 
