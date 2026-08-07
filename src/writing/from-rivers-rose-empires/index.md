@@ -9,7 +9,7 @@ layout: layouts/post.njk
 
 ## 3,000 Years
 
-There's a reason Ancient Egypt endured for over three thousand years, while other 'cradles of civilization' rose and fell and rose again. Kemet[^kemet], as it was then known, had just the right mix of geography---impassable deserts to the west and east, and the fertile Nile River running through its heart. These features allowed it to prevail for millennia.
+There's a reason Ancient Egypt endured for over three thousand years, while other 'cradles of civilization' did not. Egypt[^kemet] had just the right mix of geography---impassable deserts to the west and east, and the fertile Nile River running through its heart.
 
 Deserts aren't too interesting. They take up residence, obviously, in places without water. But magnificent seas of nothing make for excellent walls against anyone foolish enough to try and cross them.
 
@@ -17,7 +17,7 @@ Rivers, by contrast, are whimsical creatures. They begin in mountains and highla
 
 It was along these waterways that the first civilizations took root. Rivers grew food in plenty to stimulate population growth; they also bore goods, peoples, and ideas across regions and between nations, while in wartime, they became vital for the movement of armies.
 
-[^kemet]: Kemet means 'Black Land,' referring to the fertile soil of the Nile Valley. The surrounding deserts were called Deshret, the 'Red Land.'
+[^kemet]: Or, as it was also known, Kemet. Kemet means 'Black Land,' referring to the fertile soil of the Nile Valley. The surrounding deserts were called Deshret, or the 'Red Land.'
 
 ## Prosperity
 
