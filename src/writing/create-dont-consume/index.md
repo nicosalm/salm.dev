@@ -17,15 +17,13 @@ Nothing technical today in the traditional sense; rather, I've come to share a b
 - scrolling
 - YouTube videos and short-form content
 - Discord conversations
-- using AI (*when passive)
+- using AI excessively
 
-Looking at this list, there's a pattern I've been thinking about a lot recently: these are all low-effort activities that deliver quick dopamine hits. They feel rewarding in the moment, yet leave me empty afterward.
+Looking at this list, a phrase bubbles to the surface which I've been thinking about a lot recently: instant gratification. These are all low-effort activities that deliver quick dopamine hits. They feel rewarding in the moment, yet leave me empty afterward.
 
-It's rather obvious that if something wastes your time, it is preventing you from doing other things. And though they may present reward in the moment, later, all you feel is regret. I'm training my brain to want instant gratification over doing hard things. Each time I pick the easy dopamine hit, finding motivation for real work becomes that much harder.
+What's more, these activities take up time which I could have otherwise used for something else, and while I feel reward, it's a weaker form of reward than the one I would have experienced had I done something with *actual* value. It vanishes much faster, and I kind of know that it's fake.
 
 And while I've identified this grouping of problems, I'm still far away from being able to conquer them myself.
-
-[^1]: "Dooming", by my count, refers to obsessively dwelling on negative thoughts about future outcomes or personal failures, often worsened by social media comparisons and societal expectations about where you "should be" in life.
 
 ## Vocabulary
 
@@ -47,7 +45,7 @@ Daniel Lieberman calls this an "[evolutionary mismatch](https://www.cell.com/cur
 
 The struggle comes from processes running at different priority levels[^3]: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.
 
-These consumptive behaviors often function as sophisticated counterfeits of the real thing. I recently stumbled across comedian Jimmy Carr in [an interview](https://www.youtube.com/watch?v=v8mlrSIMhD8&list=WL&index=2) (don't bristle at the title! it's a good video) and was genuinely surprised with what he had to say. He captured this perfectly: video games serve as "a proxy for career" while online porn acts as "a proxy for sex." These activities provide the neurochemical rewards of real accomplishment and connection without any of the actual benefits. In his words, "George Orwell wasn't right—our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine."
+These consumptive behaviors often function as sophisticated counterfeits of the real thing, providing the neurochemical rewards of real thing without any of the actual benefits. George Orwell got it wrong: our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine."
 
 All of these consumptive behaviors (the scrolling, the videos, etc.) are forms of mental escape from the present moment. They pull us away from engaging with what's actually in front of us.
 
