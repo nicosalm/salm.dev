@@ -20,7 +20,7 @@ My piece of paper is in the mail, certifying that against all odds I actually di
 
 I will say, however, that I was ready to leave <a href="https://www.wisc.edu/" target="_blank">UW-Madison</a> (at least for the time being). It's not that I didn't enjoy my time there---to the contrary, I couldn't have picked a better school (see <a href="/writing/my-wisconsin-experience/">My Wisconsin Experience</a>)---but four years is four years. Time to try something new.
 
-I miss [my friends](/friends) a lot, though, even though it's only been a few weeks. It feels like only yesterday that we met, and now we've been scattered all over the United States. That part is bittersweet.
+I miss [my friends](/misc#friends) a lot, though, even though it's only been a few weeks. It feels like only yesterday that we met, and now we've been scattered all over the United States. That part is bittersweet.
 
 Luckily, everyone has a high-quality opportunity to chase after. I plan to visit Madison often in the coming year to stay close to Andrew and Ben who each have one year left.
 
@@ -30,7 +30,7 @@ Until we meet again!... <small>in Discord... later today.</small>
     <figcaption>Game night with Andrew, Ben, Kot, & Noah... Chess, Jackbox, and lots of snacks :)</figcaption>
 </figure>
 
-In other news, as I look forward, I hope to develop new habits and hobbies. I think I'm going to take up climbing, double down on how many <a href="/books" target="_blank">books</a> I'm reading, and begin to draw. For me, drawing has almost always been cartographic (like the map I've been working on below), but I'd like to expand my skillset.
+In other news, as I look forward, I hope to develop new habits and hobbies. I think I'm going to take up climbing, double down on how many <a href="/misc#books" target="_blank">books</a> I'm reading, and begin to draw. For me, drawing has almost always been cartographic (like the map I've been working on below), but I'd like to expand my skillset.
 
 <figure>
     <img src="./images/map_inprogress.jpg" alt="Hand-drawn map of fantasy continent.">

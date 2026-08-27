@@ -4,6 +4,7 @@ description: "I describe my minimal, focused, keyboard-centric workflow where I 
 date: 2024-10-10
 category: computing
 authorNote: "This article was originally a talk I gave for the <a href='https://www.youtube.com/watch?v=33fdznhms3c'>UPL</a>. My setup has evolved since then, so check my <a href='https://github.com/nicosalm/dotfiles'>dotfiles</a> for the latest configuration."
+unlisted: false
 layout: layouts/post.njk
 ---
 
@@ -85,11 +86,11 @@ Notice how, for some, the phonetic sound of the command matches the action. `d` 
 
 ### Vim (The Program)
 
-My friend [Lucas](https://scharenbroch.dev/) rather aptly put:
+Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
 
 > Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
-
-Vim recognizes and eliminates the vast majority of typing inefficiencies. The result is blazingly fast precision, and a workflow that feels like a dance.
+>
+> <span class="quote-attribution">— my friend [Lucas](https://scharenbroch.dev/), rather aptly</span>
 
 A contention I often receive is, "well, how do I debug in Vim?" You don't. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that's precisely what I'm trying to escape.
 
@@ -99,9 +100,11 @@ A lot of people recommend learning Vim Motions on your current editor first befo
 
 ### Neovim
 
-Vim's extensibility opens the door to something better. Enter: Neovim. Taken from the Neovim Charter:
+Vim's extensibility opens the door to something better. Enter: Neovim.
 
 > Neovim is a refactor, and sometimes redactor, in the tradition of Vim. It is not a rewrite but a continuation and extension of Vim. Many clones and derivatives exist, some very clever—but none are Vim. Neovim is built for users who want the good parts of Vim, and more.
+>
+> <span class="quote-attribution">— the [Neovim Charter](https://neovim.io/charter/)</span>
 
 Neovim's component-like plugin structure allows you to drop in and take out functionality easily. You can bring in an [LSP](https://github.com/neovim/nvim-lspconfig), [completions](https://github.com/hrsh7th/nvim-cmp), [snippets](https://github.com/L3MON4D3/LuaSnip), [git](https://github.com/tpope/vim-fugitive), and [testing](https://github.com/nvim-neotest/neotest) infrastructure. You can get new things too: [Treesitter](https://github.com/nvim-treesitter), [Telescope](https://github.com/nvim-telescope/telescope.nvim) FZF (fuzzy finding), Scoped grep string searches, and [Harpoon](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) anchor points to jump around.
 

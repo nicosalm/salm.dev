@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+title: misc
+description: Friends, web pages, and books.
+---
+<h1>Miscellany</h1>
+
+<h2 id="friends">Friends</h2>
+<div class="friend-strip">
+    {%- for f in friends %}
+    <a href="{{ f.url }}" target="_blank" data-description="{{ f.name }}: {{ f.desc | escape }}">
+        <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" width="48" height="48">
+    </a>
+    {%- endfor %}
+</div>
+
+<h2 id="books">Books</h2>
+<p>I want to read as much of the “CS canon” as possible, and to explore a broad range of both contemporary and classic philosophical and historical texts. I'd rather form my own opinions by reading the source material than absorb them secondhand.</p>
+
+<p>Some books that've stuck out ({{ books | length }}): {% for book in books | sort(false, false, 'title') %}<em>{{ book.title }}</em>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+
+<p>I keep a fuller log on <a href="https://www.goodreads.com/user/show/155270767-nico">Goodreads</a>. If you've read any of these, you're more than welcome to <a href="#" data-email="{{ site.author.emailReversed }}">email [<span class="copy-label">copy</span>]</a> me and we can chat about them (or others!!)</p>
+
+<h2 id="web-pages">Web Pages/Talks</h2>
+<ul class="post-list link-list">
+    {%- for item in links | sort(false, false, 'title') %}
+    <li>
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {%- if item.desc %} <span class="desc">{{ item.desc | safe }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+</ul>
+
+<h2>Quote of the Month*</h2>
+<blockquote>
+    <p>{{ quote.text | safe }}</p>
+    <span class="quote-attribution">— {{ quote.attribution | safe }}</span>
+</blockquote>
+<p class="quote-note">*or whenever I actually remember to update it</p>
+
+{% include "footer.njk" %}

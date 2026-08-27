@@ -54,6 +54,7 @@ export default function(eleventyConfig) {
 
   eleventyConfig.addCollection("posts", (collectionApi) => {
     return collectionApi.getFilteredByGlob("src/writing/*/index.md")
+      .filter((post) => !post.data.unlisted)
       .sort((a, b) => b.date - a.date);
   });
 

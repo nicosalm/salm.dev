@@ -8,7 +8,7 @@ eleventyExcludeFromCollections: true
     <loc>{{ site.url }}/</loc>
   </url>
   {%- for page in collections.all %}
-  {%- if page.url and page.url != "/" and page.url != "/404.html" and not page.data.eleventyExcludeFromCollections %}
+  {%- if page.url and page.url != "/" and page.url != "/404.html" and not page.data.eleventyExcludeFromCollections and not page.data.unlisted %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
     {%- if page.date %}

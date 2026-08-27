@@ -3,6 +3,7 @@ title: "Create, Don't Consume"
 description: "We're trading long-term fulfillment for short-term dopamine hits, and each trade makes the next one harder to resist."
 date: 2025-06-27
 category: philosophy
+unlisted: false
 layout: layouts/post.njk
 ---
 
@@ -45,7 +46,7 @@ Daniel Lieberman calls this an "[evolutionary mismatch](https://www.cell.com/cur
 
 The struggle comes from processes running at different priority levels[^3]: your evolutionary brain operates with high priority, optimizing for immediate survival, while your conscious mind runs in the background trying to optimize for long-term meaning and growth.
 
-These consumptive behaviors often function as sophisticated counterfeits of the real thing, providing the neurochemical rewards of real thing without any of the actual benefits. George Orwell got it wrong: our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine."
+These consumptive behaviors often function as sophisticated counterfeits of the real thing, providing the neurochemical rewards of real thing without any of the actual benefits. George Orwell got it wrong: our power won't be taken away from us by some authoritarian master, we're going to give it away for cheap dopamine.
 
 All of these consumptive behaviors (the scrolling, the videos, etc.) are forms of mental escape from the present moment. They pull us away from engaging with what's actually in front of us.
 

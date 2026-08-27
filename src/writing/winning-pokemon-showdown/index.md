@@ -5,6 +5,7 @@ date: 2025-05-11
 category: computing
 featured: true
 project: true
+unlisted: false
 layout: layouts/post.njk
 ---
 
