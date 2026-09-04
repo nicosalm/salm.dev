@@ -6,6 +6,7 @@ description: Friends, web pages, and books.
 <h1>Miscellany</h1>
 
 <h2 id="friends">Friends</h2>
+These wonderful people have websites and works of their own:
 <div class="friend-strip">
     {%- for f in friends %}
     <a href="{{ f.url }}" target="_blank" data-description="{{ f.name }}: {{ f.desc | escape }}">
@@ -30,12 +31,5 @@ description: Friends, web pages, and books.
     </li>
     {%- endfor %}
 </ul>
-
-<h2>Quote of the Month*</h2>
-<blockquote>
-    <p>{{ quote.text | safe }}</p>
-    <span class="quote-attribution">— {{ quote.attribution | safe }}</span>
-</blockquote>
-<p class="quote-note">*or whenever I actually remember to update it</p>
 
 {% include "footer.njk" %}
