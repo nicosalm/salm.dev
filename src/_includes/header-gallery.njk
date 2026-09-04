@@ -1,0 +1,15 @@
+<header class="site-header">
+    <h1 class="site-title">nico's gallery</h1>
+    <nav>
+        <a href="/">return to salm.dev</a>
+    </nav>
+    {%- set categoryList = photos | categories %}
+    {%- if categoryList | length %}
+    <div class="category-filters gallery-filters">
+        <button type="button" class="category-filter active" data-category="all">all</button>
+        {%- for category in categoryList %}
+        <button type="button" class="category-filter" data-category="{{ category }}">{{ category }}</button>
+        {%- endfor %}
+    </div>
+    {%- endif %}
+</header>

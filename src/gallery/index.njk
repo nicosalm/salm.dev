@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+title: gallery
+description: Photographs. Click one to read about it.
+gallery: true
+---
+<div class="gallery">
+    {%- for photo in photos %}
+    <button type="button" class="gallery-card" data-category="{{ photo.category }}">
+        <span class="gallery-inner">
+            <span class="gallery-front">
+                <img src="./images/{{ photo.img }}" alt="{{ photo.alt }}">
+            </span>
+            <span class="gallery-back">{{ photo.desc | safe }}</span>
+        </span>
+    </button>
+    {%- endfor %}
+</div>
+
+{% include "footer.njk" %}
+<script src="/assets/js/gallery.js" defer></script>
