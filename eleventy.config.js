@@ -82,6 +82,15 @@ export default function(eleventyConfig) {
     return MONTHS[d.getUTCMonth()];
   });
 
+  eleventyConfig.addFilter("obfuscateEmail", (email) => {
+    return String(email).replace(/[@.]/g, (char) => `${char}<span style="display:none">nospam</span>`);
+  });
+
+  eleventyConfig.addFilter("categories", (items) => {
+    if (!Array.isArray(items)) return [];
+    return [...new Set(items.map((i) => i.category ?? i.data?.category).filter(Boolean))].sort();
+  });
+
   eleventyConfig.addFilter("head", (array, n) => {
     if (!Array.isArray(array)) return [];
     return array.slice(0, n);

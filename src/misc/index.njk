@@ -20,7 +20,7 @@ These wonderful people have websites and works of their own:
 
 <p>Some books that've stuck out ({{ books | length }}): {% for book in books | sort(false, false, 'title') %}<em>{{ book.title }}</em>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
 
-<p>I keep a fuller log on <a href="https://www.goodreads.com/user/show/155270767-nico">Goodreads</a>. If you've read any of these, you're more than welcome to <a href="#" data-email="{{ site.author.emailReversed }}">email [<span class="copy-label">copy</span>]</a> me and we can chat about them (or others!!)</p>
+<p>I keep a fuller log on <a href="https://www.goodreads.com/user/show/155270767-nico">Goodreads</a>. If you've read any of these, you're more than welcome to {% include "email-link.njk" %} me and we can chat about them (or others!!)</p>
 
 <h2 id="web-pages">Web Pages/Talks</h2>
 <ul class="post-list link-list">
