@@ -1156,6 +1156,11 @@ a.fnref, .fnref a {
         grid-template-columns: minmax(4.5rem, 8rem) 1fr auto;
         gap: 0.5rem;
     }
+
+    .nav-prev, .nav-next {
+        min-width: 0;
+        overflow-wrap: break-word;
+    }
 }
 
 :focus-visible {
