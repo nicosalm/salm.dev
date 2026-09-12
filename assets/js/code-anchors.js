@@ -55,19 +55,28 @@
             return '<span id="' + id + '"><a href="#' + id + '" aria-hidden="true" tabindex="-1"></a>' + line + '</span>';
         }).join('');
 
+        const wrap = document.createElement('div');
+        wrap.className = 'code-wrap';
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+
         const btn = document.createElement('button');
         btn.className = 'copy-button';
         btn.textContent = 'copy';
         btn.setAttribute('aria-label', 'Copy code to clipboard');
         btn.addEventListener('click', () => {
-            navigator.clipboard.writeText(rawText).then(() => {
-                btn.textContent = 'copied';
-                setTimeout(() => { btn.textContent = 'copy'; }, 2000);
-            }).catch(() => {
-                btn.textContent = 'error';
-                setTimeout(() => { btn.textContent = 'copy'; }, 2000);
-            });
+            const confirm = label => {
+                btn.textContent = label;
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            };
+            navigator.clipboard.writeText(rawText)
+                .then(() => confirm('copied'))
+                .catch(() => confirm('error'));
         });
-        pre.appendChild(btn);
+        wrap.appendChild(btn);
     });
 })();
