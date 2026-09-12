@@ -29,11 +29,11 @@ My friends and I focused on the seven most popular Pokémon from the January 202
 Each Pokémon's unique typing, movesets, and stats create diverse matchups. For consistency, we used each Pokémon's most popular moveset from [Smogon's Strategy Dex](https://www.smogon.com/dex/ss/pokemon/).
 
 ## Our Approach
-Pokémon battles are [zero-sum games](https://en.wikipedia.org/wiki/Zero-sum_game): one player's win is the other's loss. Both players select moves simultaneously each turn — exactly the kind of interaction game theory was built to solve. Crucially, zero-sum games are among the few where we can efficiently compute Nash equilibria, unlike general games.
+Pokémon battles are [zero-sum games](https://en.wikipedia.org/wiki/Zero-sum_game), where one player's win is the other player's loss. Both players select moves simultaneously each turn. Crucially, zero-sum games are among the few where we can efficiently compute Nash equilibria, unlike general games.
 
 We modeled these battles in two key stages:
 
-## The Battling Phase (Finding Optimal Move Strategies)
+## Battling Phase (Finding Optimal Move Strategies)
 
 First, we analyzed how each matchup plays out when both players play optimally. We built turn-based payoff matrices for each matchup, calculating expected damage for every move combination with Showdown's [Damage Calculator](https://calc.pokemonshowdown.com/).
 
@@ -145,7 +145,7 @@ Teams with Sylveon and Zapdos consistently won. Pairing Heatran with Urshifu was
 
 ## An Interesting Convergence
 
-Jake, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.
+<a href="https://github.com/jasmith55" target="_blank">Jake</a>, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.
 
 ## Nash Equilibria in Team Selection
 
@@ -168,7 +168,7 @@ At first, Rillaboom was broken. It had no bad matchups (worst case: 50% win rate
 
 We also limited ourselves to fixed movesets. In competitive play, players vary movesets to stay unpredictable.[^2]
 
-[^1]: We ultimately ran over 1 million simulations per matchup to account for all random outcomes — computationally intensive, but necessary for statistical significance.
+[^1]: We ultimately ran over 1 million simulations per matchup to account for all random outcomes. This is computationally intensive, but necessary for statistical significance.
 
 [^2]: While we used the standard Smogon Strategy Dex movesets for consistency, competitive players often run surprise movesets to stay unpredictable.
 
@@ -180,4 +180,4 @@ The computational complexity explodes as we add Pokémon. With just 7 Pokémon, 
 
 Next, we'd like to expand to the top 50 Pokémon in the current meta, handling unknown movesets and randomness better. Eventually we want to tackle 6v6 with switching. That's 9 choices per turn instead of 4.
 
-Our [writeup](https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf) and [code](https://github.com/nicosalm/pokemon-expectimax/tree/main) are available on GitHub if you'd like to explore or build on our work. Special thanks to Professor Manolis Vlatakis for mentoring us through this project! This project grew out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).
+Our [writeup](https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf) and [code](https://github.com/nicosalm/pokemon-expectimax/tree/main) are available on GitHub if you'd like to explore or build on our work. Special thanks to Professor <a href="https://pages.cs.wisc.edu/~vlatakis/" target="_blank">Manolis Vlatakis</a> for mentoring us through this project! This project grew out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).

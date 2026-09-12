@@ -5,6 +5,8 @@ import markdownIt from "markdown-it";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItAttrs from "markdown-it-attrs";
 import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
+import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
+import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
 
 export default function(eleventyConfig) {
   const md = markdownIt({
@@ -48,6 +50,20 @@ export default function(eleventyConfig) {
   eleventyConfig.addTransform("sidenotes", (content, outputPath) => {
     if (outputPath?.endsWith(".html")) {
       return processSidenotes(content);
+    }
+    return content;
+  });
+
+  eleventyConfig.addTransform("linkHosts", (content, outputPath) => {
+    if (outputPath?.endsWith(".html")) {
+      return processLinkHosts(content);
+    }
+    return content;
+  });
+
+  eleventyConfig.addTransform("tableScroll", (content, outputPath) => {
+    if (outputPath?.endsWith(".html")) {
+      return processTableScroll(content);
     }
     return content;
   });
@@ -105,10 +121,10 @@ export default function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("readingTime", (content) => {
-    if (!content) return "1 min read";
+    if (!content) return "1 minute read";
     const words = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
     const minutes = Math.max(1, Math.ceil(words / 200));
-    return `${minutes} min read`;
+    return `${minutes} minute read`;
   });
 
   eleventyConfig.addPassthroughCopy("src/assets/js");

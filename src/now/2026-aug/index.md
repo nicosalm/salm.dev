@@ -33,4 +33,4 @@ I enjoyed being back in Madison, though I admit it feels rather weird being ther
     <figcaption>Andrew Shopping Trip</figcaption>
 </figure>
 
-That's all for now. In September, I hope to finish up a couple books and my [map from May](http://localhost:8080/now/2026-may/), as well as decide on and start a proper project, for real this time. I'll have more to share soon! Toodles.
+That's all for now. In September, I hope to finish up a couple books and my [map from May](/now/2026-may/), as well as decide on and start a proper project, for real this time. I'll have more to share soon! Toodles.

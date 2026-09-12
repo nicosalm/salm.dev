@@ -9,8 +9,9 @@ description: Friends, web pages, and books.
 These wonderful people have websites and works of their own:
 <div class="friend-strip">
     {%- for f in friends %}
-    <a href="{{ f.url }}" target="_blank" data-description="{{ f.name }}: {{ f.desc | escape }}">
+    <a href="{{ f.url }}" target="_blank" aria-label="{{ f.name }}: {{ f.desc | escape }}">
         <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" width="48" height="48">
+        <span class="friend-card"><b>{{ f.name }}</b><span class="desc">{{ f.desc }}</span></span>
     </a>
     {%- endfor %}
 </div>
@@ -22,12 +23,12 @@ These wonderful people have websites and works of their own:
 
 <p>I keep a fuller log on <a href="https://www.goodreads.com/user/show/155270767-nico">Goodreads</a>. If you've read any of these, you're more than welcome to {% include "email-link.njk" %} me and we can chat about them (or others!!)</p>
 
-<h2 id="web-pages">Web Pages/Talks</h2>
+<h2 id="pages-talks">Pages &amp; Talks</h2>
 <ul class="post-list link-list">
     {%- for item in links | sort(false, false, 'title') %}
     <li>
         <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
-        {%- if item.desc %} <span class="desc">{{ item.desc | safe }}</span>{% endif %}
+        {% if item.desc %}<span class="desc">{{ item.desc | safe }}</span>{% endif %}
     </li>
     {%- endfor %}
 </ul>

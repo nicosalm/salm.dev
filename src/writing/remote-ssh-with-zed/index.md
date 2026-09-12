@@ -20,7 +20,7 @@ You fix this by adding `[[ -o interactive ]] || return 0` as the very first line
 
 Use `return 0`, not bare `return`. A bare `return` propagates exit code 1 from the failed interactive test, and Zed treats that as a startup failure.
 
-[^1]: The CSL machines default to bash. I installed zsh on mine a couple years ago, but most people will be editing `.bashrc`. Check with `echo $SHELL` on the remote if you're not sure.
+[^1]: The <abbr title="Computer Systems Lab, which ran UW–Madison's CS instructional machines" data-url="https://csl.cs.wisc.edu/">CSL</abbr> machines default to bash. I installed zsh on mine a couple years ago, but most people will be editing `.bashrc`. Check with `echo $SHELL` on the remote if you're not sure.
 
 ## Unix Sockets on AFS
 

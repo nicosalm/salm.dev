@@ -26,9 +26,9 @@ Over my four years at <a href="https://www.wisc.edu/" target=_blank>UW-Madison</
     <figcaption>Finn and I at Memorial Union in 2024</figcaption>
 </figure>
 
-From SOAR orientation---where I somehow scrounged up like 10 friends through a Discord server[^Discord] to explore Madison with---right up until my final hour as a student, I never found it hard to meet someone I could relate to and enjoy talking to.
+From <abbr title="Student Orientation, Advising, and Registration">SOAR</abbr> orientation---where I somehow scrounged up like 10 friends through a Discord server[^Discord] to explore Madison with---right up until my final hour as a student, I never found it hard to meet someone I could relate to and enjoy talking to.
 
-The campus is a selling point, to be sure. I spent a lot of time on Lakeshore path as an underclassman, walking beside the sparkling lake. I also love all the cool and unique (and confusing) architecture---from the brutalist buildings built around the Vietnam War, to Science Hall and its map room which looks like it's out of another time, to a literal red castle. All of this in the downtown heart of Madison.
+The campus is a selling point, to be sure. I spent a lot of time on Lakeshore path as an underclassman, walking beside the sparkling lake. I love all the unique (and confusing) architecture---from the brutalist buildings built around the Vietnam War, to Science Hall and its map room which looks like it's out of another time, to a literal red castle. All of this in the downtown heart of Madison!
 
 And while the classes I took were never particularly hard, that meant I could spend more time learning outside of class, doing cool things, and getting to know those who'd eventually become my close friends.
 
@@ -53,14 +53,14 @@ The first thing I did when I arrived at Madison was attach myself to a senior na
 
 In the spring of my freshman year, I went to my first hackathon and met Sarah, Haruto, and Wen Jie---more on that further down. We stayed together and ended up winning at another hackathon in Iowa, which was fun too.
 
-Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a GAN that ran on a photonic quantum computer, using Quandela's Perceval framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
+Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a <abbr title="Generative adversarial network">GAN</abbr> that ran on a photonic quantum computer, using Quandela's Perceval framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
 
 <figure>
     <img src="./images/IQuHACK23.jpeg" alt="Our team at MIT iQuHACK working on laptops at tables, with a whiteboard covered in quantum challenge notes and other hackers in the background.">
     <figcaption>MIT Quantum Hackathon 2024</figcaption>
 </figure>
 
-[^HTC]: We also got to run jobs on CHTC, UW–Madison’s high-throughput computing center built around HTCondor.
+[^HTC]: We also got to run jobs on CHTC, UW–Madison’s high-throughput computing center built around <abbr title="The open-source job scheduler CHTC runs on, made at UW–Madison" data-url="https://htcondor.org/">HTCondor</abbr>.
 [^Saro]: I swear Saro ingested at least 1,700 mg worth of caffeine from many, many Celceii. I'm glad he survived because he was carrying us on his back.
 
 ## MadHacks
@@ -83,7 +83,7 @@ I don't mean to feed into a cliché, but it really is cool to watch people progr
     <figcaption>My team at MadHacks 2023</figcaption>
 </figure>
 
-Watching them makes me think back to my first MadHacks. Sarah, Haruto, Wen Jie, and I had just finished CS 300 with Hobbes, and we decided---with the confidence of people who had only been programming for about half a year---that we'd build <a href="https://devpost.com/software/paper-pm7okl">a program</a> to read handwritten Java code from a photograph and compile it. We didn't really know what OCR was. We weren't sure how to wire everything together. We spent most of the twenty-four hours figuring out how to make Java code compile *other* Java code. We couldn't have done it without patient mentors, a lot of google searching, and rewriting half of our codebase from scratch.
+Watching them makes me think back to my first MadHacks. Sarah, Haruto, Wen Jie, and I had just finished CS 300 with Hobbes, and we decided---with the confidence of people who had only been programming for about half a year---that we'd build <a href="https://devpost.com/software/paper-pm7okl">a program</a> to read handwritten Java code from a photograph and compile it. We didn't really know what <abbr title="Optical character recognition, or reading text out of an image">OCR</abbr> was. We weren't sure how to wire everything together. We spent most of the twenty-four hours figuring out how to make Java code compile *other* Java code. We couldn't have done it without patient mentors, a lot of google searching, and rewriting half of our codebase from scratch.
 
 And then, somewhere in the last few hours, it kind of worked. Not well, mind you---the OCR library was pretty bad (it was free), and our team's repo was a jumbled mess of Python, Java, and JS---but if your handwriting was clear enough, sometimes, it spat out something the compiler would actually accept. We were genuinely overjoyed. We learned a ton, and we had no idea what we were doing, and those two things turned out to be the same thing.
 
@@ -136,7 +136,7 @@ Every day, the whiteboards were filled with anything from proofs to memes or tha
 
 I ended up being in the lab *a lot*, and so did a few others who would eventually become my [close friends](/misc#friends). We got up to all sorts of fun and crazy stuff, ran events for the broader CS student community, and had a grand old time.
 
-One thing I'm particularly proud of is bringing back the <a href="https://www.youtube.com/@UndergraduateProjectsLab" target=_blank>Lightning Talks series</a>, where UPL'ers share their favorite topics in tech. Nearly two dozen students took the opportunity to share what they were passionate about with the broader CS community.
+One thing I'm proud of is bringing back the <a href="https://www.youtube.com/@UndergraduateProjectsLab" target=_blank>Lightning Talks series</a>, where UPL'ers would come and share their favorite topics in tech. Nearly two dozen students took the opportunity to stand up before an audience and teach their peers about the niche, cool things they were passionate about.
 
 I could talk about the UPL for hours, as there is a ton of lore and many stories to tell. I am incredibly grateful that I summoned the courage to go in that day, and to everyone who welcomed me in. From the outside, it seemed exclusive, and I didn't feel smart enough to belong, but it turns out I fit in rather well; I am a different person now because of it.
 
@@ -159,7 +159,7 @@ In 2025, UW-Madison <a href="https://www.dailycardinal.com/article/2025/09/uw-ma
 </figure>
 
 
-I was the one who took down every poster and piece of wall decor. I packed boxes with things that had been hanging since before I was born: a letter from a Google employee with a check enclosed, a map of the steam tunnels beneath campus, a printed email exchange between John Carmack and a UPL'er; and newer additions: Nick's keyboard schematic for the nice!nano, a screenshot of Professor Marc Renault explaining how he dominated at dodgeball with a 9:1 K/D, and a picture of Kayley beside the smoky UPL microwave. There was much more, too, from across decades.
+I was the one who took down every poster and piece of wall decor. I packed boxes with things that had been hanging since before I was born: a letter from a Google employee with a check enclosed, a map of the steam tunnels beneath campus, a printed email exchange between John Carmack and a UPL'er; and newer additions: Nick's keyboard schematic for the nice!nano, a screenshot of Professor Marc Renault explaining how he dominated at dodgeball with a 9:1 <abbr title="Kill-to-death ratio">K/D</abbr>, and a picture of Kayley beside the smoky UPL microwave. There was much more, too, from across decades.
 
 <figure class="float-right">
     <img src="./images/upl_new.jpeg" alt="UPL members in a hard hats and safety vests touring the unfinished new UPL space in Morgridge Hall, walking past its glass wall.">
@@ -199,27 +199,27 @@ And, of course, the UPL is the people who welcomed me in when I wasn't so sure I
 ## Thank You
 And that's all for now! Thank you to:
 
-Ali Abedi, AnHai Doan, Ben Afflerbach, Brian McInnes, CJ, Cole Nelson, Dane Morgan, Efty Sifakis, Gigi Mitchell, Hobbes Legault, Manolis Vlatakis, Mark Mansi, Michael Swift, Michael Vanden Heuvel, Remzi Arpaci-Dusseau, Travis Pickering, and Tyler Caraza-Hartner.
+- Ali Abedi, AnHai Doan, Ben Afflerbach, Brian McInnes, CJ, Cole Nelson, Dane Morgan, Efty Sifakis, Gigi Mitchell, Hobbes Legault, Manolis Vlatakis, Mark Mansi, Michael Swift, Michael Vanden Heuvel, Remzi Arpaci-Dusseau, Travis Pickering, and Tyler Caraza-Hartner.
 
-Many of these people were professors, mentors, colleagues, or educators who shaped how I think and learn.
+(Many of these people were professors, mentors, colleagues, or educators who shaped how I think and learn.)
 
-I also want to thank my high school teachers Andrew Holdmann and Bryan Dahlie, who ignited my love of learning, and my AP Computer Science A teacher Jan Dickson, without whom I might never have pursued computer science in the first place.
+- I also want to thank my high school teachers Andrew Holdmann and Bryan Dahlie, who ignited my love of learning, and my AP Computer Science A teacher Jan Dickson, without whom I might never have pursued computer science in the first place.
 
-More than anyone, I owe these four years to my friends---most of what's in this piece is really just about being in the same room as you guys.
+- More than anyone, I owe these four years to my friends---most of what's in this piece is really just about being in the same room as you guys.
 
-Nithilan, for taking me on adventures around Madison, for saving my grade in several classes, and for making me bike up that really big hill for a donut.
+- Nithilan, for taking me on adventures around Madison, for saving my grade in several classes, and for making me bike up that really big hill for a donut.
 
-Gil, for inextricably altering my vocabulary, and for being refreshingly positive. Great work!
+- Gil, for inextricably altering my vocabulary, and for being refreshingly positive. Great work!
 
-Kev, for reasons which are classified. Yes.
+- Kev, for reasons which are classified. Yes.
 
-Kot, for being fun and quirky, and for the daily @Nico. @Kot!
+- Kot, for being fun and quirky, and for the daily @Nico. @Kot!
 
-Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for getting me to read again.
+- Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for getting me to read again.
 
-Noah, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
+- Noah, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
 
-Andrew, for visiting Subway with me 93 times, for doing everything together, for possibly brainwashing me, and for being the closest friend I've ever had. You're literally my goat.
+- Andrew, for visiting Subway with me 93 times, for doing everything together, for possibly brainwashing me, and for being the closest friend I've ever had. You're literally my goat.
 
 <figure>
 <img src="./images/andrew.jpg" alt="Andrew and I posing on the lawn in front of the Wisconsin State Capitol, with me wearing UW-Madison graduation regalia.">
