@@ -7,6 +7,15 @@ import markdownItAttrs from "markdown-it-attrs";
 import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
 import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
+import { buildOgImages } from "./tools/og-image.js";
+import { join } from "node:path";
+
+const ogSlug = (url) => {
+  const parts = String(url).split("/").filter(Boolean);
+  const isPost = parts[0] === "writing" && parts.length > 1;
+  const isNow = parts[0] === "now";
+  return isPost || isNow ? parts.join("-") : "default";
+};
 
 export default function(eleventyConfig) {
   const md = markdownIt({
@@ -68,15 +77,21 @@ export default function(eleventyConfig) {
     return content;
   });
 
+  const ogSources = { posts: [], nows: [] };
+
   eleventyConfig.addCollection("posts", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/writing/*/index.md")
+    const posts = collectionApi.getFilteredByGlob("src/writing/*/index.md")
       .filter((post) => !post.data.unlisted)
       .sort((a, b) => b.date - a.date);
+    ogSources.posts = posts;
+    return posts;
   });
 
   eleventyConfig.addCollection("nows", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/now/*/index.md")
+    const nows = collectionApi.getFilteredByGlob("src/now/*/index.md")
       .sort((a, b) => a.date - b.date);
+    ogSources.nows = nows;
+    return nows;
   });
 
   const MONTHS = [
@@ -140,6 +155,33 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
   eleventyConfig.addWatchTarget("src/styles/");
+
+  eleventyConfig.addFilter("ogImage", (url) => `/assets/og/${ogSlug(url)}.png`);
+
+  eleventyConfig.on("eleventy.after", async ({ dir }) => {
+    const cards = [{ slug: "default" }];
+
+    for (const item of ogSources.posts) {
+      cards.push({
+        slug: ogSlug(item.url),
+        kind: "post",
+        title: item.data.title,
+        description: item.data.description,
+      });
+    }
+
+    for (const item of ogSources.nows) {
+      const d = new Date(item.date);
+      cards.push({
+        slug: ogSlug(item.url),
+        kind: "now",
+        title: `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
+        description: item.data.description,
+      });
+    }
+
+    await buildOgImages(cards, join(dir.output, "assets/og"));
+  });
 };
 
 export const config = {

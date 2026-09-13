@@ -20,7 +20,7 @@ eleventyExcludeFromCollections: true
     <item>
       <title>{% if isNow %}Now: {{ item.date | monthName }} {{ item.date | year }}{% else %}{{ item.data.title }}{% endif %}</title>
       <link>{{ site.url }}{{ item.url }}</link>
-      <description>{% if isNow %}{{ item.data.description or "What I've been up to in " + (item.date | monthYear) | escape }}{% else %}{{ item.data.description | escape }}{% endif %}</description>
+      <description>{{ item.data.description | escape }}</description>
       <pubDate>{{ item.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ site.author.name }}</dc:creator>
       <guid{% if isNow %} isPermaLink="false"{% endif %}>{% if isNow %}salm.dev/now/{{ item.date | dateFormat }}{% else %}{{ site.url }}{{ item.url }}{% endif %}</guid>

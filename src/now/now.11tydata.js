@@ -18,15 +18,24 @@ const dirs = readdirSync("src/now", { withFileTypes: true })
   });
 const latest = dirs[dirs.length - 1];
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
 export default {
   layout: "layouts/now.njk",
   title: "now",
-  description: "What I'm working on, reading, and thinking about right now.",
   eleventyComputed: {
     permalink: (data) => {
       const slug = basename(dirname(data.page.inputPath));
       if (!DATE_DIR.test(slug)) return data.permalink;
       return slug === latest ? "/now/index.html" : `/now/${slug}/index.html`;
+    },
+    description: (data) => {
+      if (data.description) return data.description;
+      const d = new Date(data.date);
+      return `What I was working on, reading, and thinking about in ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}.`;
     },
   },
 };
