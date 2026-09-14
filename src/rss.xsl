@@ -10,15 +10,17 @@
       <link rel="stylesheet" href="/styles/styles.css"/>
     </head>
     <body>
-      <header class="site-header">
+      <header class="site-header" id="top">
         <a href="/" class="site-title">salm.dev</a>
         <nav>
           <a href="/writing">writing</a><span class="sep">|</span><a
+          href="/now">now</a><span class="sep">|</span><a
           href="/about">about</a><span class="sep">|</span><a
           href="/misc">misc</a><span class="sep">|</span><a
-          href="/status">status</a><span class="sep">|</span><a
-          href="https://github.com/nicosalm/">github</a>
+          href="https://github.com/nicosalm/" data-host="github.com">code</a>
         </nav>
+        <span class="spacer"></span>
+        <span class="header-right">nico@<span style="display:none">nospam</span>salm.<span style="display:none">nospam</span>dev</span>
       </header>
       <main>
         <h1>RSS Feed</h1>
