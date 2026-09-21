@@ -8,10 +8,7 @@ import { decompress } from "wawoff2";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const fontDir = path.join(root, "src/assets/fonts");
 
-const BLUE = "#0645ad";
-const INK = "#f8f9fa";
-const MUTED = "#b9cbec";
-const RULE = "#3f6cc0";
+const P = { bg: "#16202e", ink: "#dde5ef", muted: "#8fa3bd", rule: "#2d3d54" };
 
 const W = 1200;
 const H = 630;
@@ -87,9 +84,9 @@ const nmark = (x, y, h, fill) =>
   `<g transform="translate(${x} ${y}) scale(${(h / NMARK_H).toFixed(6)})" fill="${fill}"><path d="${NMARK}"/></g>`;
 
 function signature(y) {
-  return `<rect x="${PAD}" y="${y}" width="${COL}" height="1" fill="${RULE}"/>
-${nmark(PAD, y + 36, 42, INK)}
-<text x="${PAD + 60}" y="${y + 70}" font-family="Rumiko Clear" font-size="34" fill="${INK}">salm.dev</text>`;
+  return `<rect x="${PAD}" y="${y}" width="${COL}" height="1" fill="${P.rule}"/>
+${nmark(PAD, y + 36, 42, P.ink)}
+<text x="${PAD + 60}" y="${y + 70}" font-family="Rumiko Clear" font-size="34" fill="${P.ink}">salm.dev</text>`;
 }
 
 function defaultCard() {
@@ -99,9 +96,9 @@ function defaultCard() {
   const nameX = PAD + markH * 1.42 + 34;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<rect width="${W}" height="${H}" fill="${BLUE}"/>
-${nmark(PAD, baseline - markH * 0.885, markH, INK)}
-<text x="${nameX}" y="${baseline}" font-family="Rumiko Clear" font-size="${size}" fill="${INK}">salm.dev</text>
+<rect width="${W}" height="${H}" fill="${P.bg}"/>
+${nmark(PAD, baseline - markH * 0.885, markH, P.ink)}
+<text x="${nameX}" y="${baseline}" font-family="Rumiko Clear" font-size="${size}" fill="${P.ink}">salm.dev</text>
 </svg>`;
 }
 
@@ -109,9 +106,9 @@ function nowCard(fonts, { title, description }) {
   const serif = fonts.serif;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<rect width="${W}" height="${H}" fill="${BLUE}"/>
-<text x="${PAD}" y="300" font-family="Rumiko Clear" font-size="104" fill="${INK}">${esc(title)}</text>
-${description ? `<text x="${PAD}" y="368" font-family="Rumiko Clear" font-size="32" fill="${MUTED}">${esc(truncate(serif, description, 32, COL))}</text>` : ""}
+<rect width="${W}" height="${H}" fill="${P.bg}"/>
+<text x="${PAD}" y="300" font-family="Rumiko Clear" font-size="104" fill="${P.ink}">${esc(title)}</text>
+${description ? `<text x="${PAD}" y="368" font-family="Rumiko Clear" font-size="32" fill="${P.muted}">${esc(truncate(serif, description, 32, COL))}</text>` : ""}
 ${signature(504)}
 </svg>`;
 }
@@ -139,18 +136,18 @@ function postCard(fonts, { title, description }) {
   const titleBlock = lines
     .map(
       (line, i) =>
-        `<text x="${PAD}" y="${blockTop + i * lh}" font-family="Rumiko Clear" font-size="${size}" fill="${INK}">${esc(line)}</text>`
+        `<text x="${PAD}" y="${blockTop + i * lh}" font-family="Rumiko Clear" font-size="${size}" fill="${P.ink}">${esc(line)}</text>`
     )
     .join("\n");
 
   const descY = blockTop + (lines.length - 1) * lh + 66;
   const descBlock =
     description && descY < 470
-      ? `<text x="${PAD}" y="${descY}" font-family="Rumiko Clear" font-size="32" fill="${MUTED}">${esc(truncate(serif, description, 32, COL))}</text>`
+      ? `<text x="${PAD}" y="${descY}" font-family="Rumiko Clear" font-size="32" fill="${P.muted}">${esc(truncate(serif, description, 32, COL))}</text>`
       : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<rect width="${W}" height="${H}" fill="${BLUE}"/>
+<rect width="${W}" height="${H}" fill="${P.bg}"/>
 ${titleBlock}
 ${descBlock}
 ${signature(504)}
