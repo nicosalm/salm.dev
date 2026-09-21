@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preload" href="/assets/fonts/rumiko-clear-regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="canonical" href="https://salm.dev/writing/opinions-on-web-design/">
+    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
+    <title>Opinions on Web Design | salm.dev</title>
+    
+    <meta name="description" content="A few handy tips and tricks for elevating one&#39;s UI design and breaking away from the crude, homogenized AI aesthetic.">
+    
+
+    <meta property="og:title" content="Opinions on Web Design | salm.dev">
+    <meta property="og:description" content="A few handy tips and tricks for elevating one&#39;s UI design and breaking away from the crude, homogenized AI aesthetic.">
+    <meta property="og:image" content="https://salm.dev/assets/og/writing-opinions-on-web-design.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://salm.dev/writing/opinions-on-web-design/">
+    <meta property="og:type" content="article">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://salm.dev/assets/og/writing-opinions-on-web-design.png">
+    <meta name="twitter:creator" content="@salmdotdev">
+
+    
+    
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="site-header" id="top">
+        <a href="/" class="site-title">salm.dev</a>
+        <nav>
+            <a href="/writing">writing</a><span class="sep">|</span><a href="/now">now</a><span class="sep">|</span><a href="/about">about</a><span class="sep">|</span><a href="/misc">misc</a><span class="sep">|</span><a href="https://github.com/nicosalm/" data-host="github.com">code</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="header-right">nico@<span style="display:none">nospam</span>salm.<span style="display:none">nospam</span>dev</span>
+    </header>
+    <main id="main">
+    <article>
+    <div class="post-header">
+        <h1>Opinions on Web Design</h1>
+        <div class="post-meta">
+            <time class="post-date" datetime="2026-09-20">September, 2026</time>
+            <span class="meta-sep" aria-hidden="true"></span>
+            5 minute read
+            <span class="post-meta-bar"></span>
+            <a href="/writing/?category=computing">computing</a>
+        </div>
+        
+        <p class="post-description">A few handy tips and tricks for elevating one&#39;s UI design and breaking away from the crude, homogenized AI aesthetic.</p>
+        
+    </div>
+    
+    <h2>Dreams</h2>
+<p>Earlier this summer, infamous VR game designer <a href="https://nlessard.online/" target="_blank" data-host="nlessard.online">Noah</a> sent me a message:</p>
+<blockquote>
+<p>“i had a dream you made a blog post about website design and it was on the front page of hacker news” … <strong>“am i prophetic, yes or no?</strong>”</p>
+</blockquote>
+<p>Well, yes—and as it happens, I do have a <em><small>small</small></em> amount of bottled-up rage that gets stirred up and pushed back down whenever I come across a carelessly assembled frontend. Not because every website needs to be perfect, or because there is some singular correct way to build one<sup class="fnref" data-sidenote="sn-variety"><a href="#fn-variety" id="fnref-variety" title="Sidenote 1">1</a></sup><span class="footnote" id="sn-variety" data-sidenote="sn-variety"><a class="fnref" href="#fnref-variety" title="Sidenote 1 Reference">1</a> I think one of the most refreshing things about the Internet are the tens-of-thousands of personal sites that are all weird, quirky, asymmetric and unabashedly personal. One of the worst things about the 2020s has been how much further we’ve drifted toward a homogenized Internet with a consistent aesthetic. (Thanks, AI!)</span>, but because a little thoughtfulness can go a surprisingly long way.</p>
+<h2>Balance</h2>
+<p>Most of what I have bouncing around in my head when I design a page comes down to one word: “balance.” When an element adds a lot of visual weight on the left, I balance it out with something on the right. Heavy on the top? I balance it out by putting something complementary at the bottom.</p>
+<p>Take a look at this page! The header is balanced by the footer, the title by the content below and including the aldus leaf (❦), the ToC and author’s note by the sidenotes, and the date and read time by the article category.</p>
+<p>I visualize this aesthetic as being almost like a tower of balanced stones, similar to the kinds you see built on beaches or near rivers from time to time. At any given point, the tower doesn’t need to be perfectly centered, but the small imbalances accumulate in a way that keeps the whole thing stable.</p>
+<p>I do the same for my typography, when it makes sense. On this site, the <span style="font-family: var(--font-ui);">sans serif</span> used for an article’s metadata near the top is echoed in the article’s footer, creating an ever-so-slight visual correspondence between the beginning and end of the page. Likewise, the bold header type hits at regular intervals and grows smaller like a funnel, drawing the eye downward.</p>
+<p>Negative space is important, too. Having the right amount of it allows a page to breathe<sup class="fnref" data-sidenote="sn-rule-of-thirds"><a href="#fn-rule-of-thirds" id="fnref-rule-of-thirds" title="Sidenote 2">2</a></sup><span class="footnote" id="sn-rule-of-thirds" data-sidenote="sn-rule-of-thirds"><a class="fnref" href="#fnref-rule-of-thirds" title="Sidenote 2 Reference">2</a> One useful way to think about composition is the <a href="https://en.wikipedia.org/wiki/Rule_of_thirds" target="_blank" data-host="en.wikipedia.org">Rule of Thirds</a>. It involves dividing the viewport into a 3x3 grid, and then taking note of what falls—or could fall—neatly along the columns, rows, and intersections. These divisions can then be used as a loose guide for positioning elements.</span>. If a page is jam-packed every which way, it’ll feel claustrophobic and difficult to digest. By contrast, if it’s too sparse, everything will feel floaty and unanchored, or just plain unfinished.</p>
+<h2>Alignment</h2>
+<p>Another thing that I think about when designing a page is visual hierarchy. And what I really mean is: I’m looking to minimize the number of horizontal and vertical lines one can draw between different components. I believe there’s a strong sense of continuity when the alignment of margins and edges stays consistent—for example, when a margin descends in a straight line without jutting in or out. Every time the eye has to jump in or out because that alignment changes, it’s my opinion that it introduces a small break in continuity and makes the page feel less cohesive.</p>
+<p>Here, for example, the header, footer, article, subheadings, and body text are all vertically aligned. Suppose, by contrast, that I indented everything under the header a little, indented the body after each subheading, and so on—I think I’d rather stick with a clean column.</p>
+<h2>Consistency</h2>
+<p>Finally, I try to be mindful of visual consistency. I want the spacing between elements to be the same, corners to be rounded, or not rounded, and things to have shadows, or not have shadows. I want to avoid a mixed bag of decisions that changes from page to page or component to component. With respect to color, I think it’s a good idea to stick to a simple but interesting palette, unless the motif of your site is, itself, chaos, in which case go wild! Some combination of using <code>var</code> in my stylesheet<sup class="fnref" data-sidenote="sn-hex-codes"><a href="#fn-hex-codes" id="fnref-hex-codes" title="Sidenote 3">3</a></sup><span class="footnote" id="sn-hex-codes" data-sidenote="sn-hex-codes"><a class="fnref" href="#fnref-hex-codes" title="Sidenote 3 Reference">3</a> AI loves to inline hex codes literally everywhere which makes it incredibly annoying to refactor later on, or add a dark mode down the line.</span> and triple-checking everything I put together usually takes care of this stuff without too much trouble.</p>
+<h2>Thoughts</h2>
+<p>As you might expect, there’s a broader laundry list of best practices that one ought to follow when putting together a frontend—accessibility, aria-labels, colorblind-friendly palettes, keyboard navigation, alt-text, you name it—but balance, alignment, and consistency are the three I’m the most passionate about. They also happen to be the three most common pain points I see in websites which have been one-shot by artificial intelligence. AI is a fantastic accelerant, especially at work, but I’ve yet to subscribe to the ideology that you just don’t need to care about anything anymore. I think it’s still worth making something worth being proud of.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-variety" class="footnote-item"><p>I think one of the most refreshing things about the Internet are the tens-of-thousands of personal sites that are all weird, quirky, asymmetric and unabashedly personal. One of the worst things about the 2020s has been how much further we’ve drifted toward a homogenized Internet with a consistent aesthetic. (Thanks, AI!) <a href="#fnref-variety" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn-rule-of-thirds" class="footnote-item"><p>One useful way to think about composition is the <a href="https://en.wikipedia.org/wiki/Rule_of_thirds" target="_blank" data-host="en.wikipedia.org">Rule of Thirds</a>. It involves dividing the viewport into a 3x3 grid, and then taking note of what falls—or could fall—neatly along the columns, rows, and intersections. These divisions can then be used as a loose guide for positioning elements. <a href="#fnref-rule-of-thirds" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn-hex-codes" class="footnote-item"><p>AI loves to inline hex codes literally everywhere which makes it incredibly annoying to refactor later on, or add a dark mode down the line. <a href="#fnref-hex-codes" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    <div class="the-end">❦</div>
+    <div class="post-reply">Have a thought or a correction? Reply via <a href="#" data-email="ved.mlas@ocin">email [<span class="copy-label">copy</span>]</a>. <a href="#top" class="to-top">top</a></div>
+
+    <div class="post-navigation">
+        
+        <div class="nav-prev">&lt;- <a href="/writing/my-wisconsin-experience/">My Wisconsin Experience</a></div>
+        
+        
+    </div>
+</article>
+<footer>
+    <p><a href="/" class="footer-logo-link" aria-label="Home"><svg class="footer-logo" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 503.43 447.75"><path d="M178.24 375.97c0 10.75-24.09 25.41-72.27 43.95-48.19 18.55-77.8 27.83-88.86 27.83-4.89 0-7.33-1.47-7.33-4.39s2.84-6.66 8.55-11.22c5.69-4.56 12.03-9.03 19.03-13.44 7-4.39 11.14-7.23 12.45-8.55 11.06-11.39 17.66-24.17 19.78-38.33 2.11-14.16 3.17-45.5 3.17-94v-31.73c0-55-3.34-97.48-10.02-127.44-6.67-29.94-18.62-44.92-35.88-44.92-.98 0-2.3.17-3.92.48-1.62.33-3.17.81-4.64 1.47s-3.09 1.22-4.88 1.7c-1.8.5-3.5.91-5.12 1.22-1.62.33-3.09.58-4.39.73-1.31.17-2.28-.06-2.94-.72S0 76.99 0 75.67c0-5.86 6.09-14.81 18.31-26.86 12.2-12.03 27.02-23.19 44.42-33.44S95.07 0 107.44 0c10.09 0 19.12 3.59 27.09 10.75s14 15.88 18.06 26.12 7.16 19.53 9.28 27.83c2.11 8.3 3.17 14.89 3.17 19.77 22.47-21.47 41.02-36.94 55.67-46.39C259.79 12.7 302.75 0 349.63 0c33.19 0 61.83 9.94 85.92 29.78 24.09 19.86 38.42 44.77 42.98 74.7.97 6.19 1.62 17.34 1.95 33.45l.48 46.39-.25 60.8-.23 55.17c0 15.95 1.22 28.64 3.66 38.08s5.05 15.06 7.81 16.84c2.77 1.8 5.38 3.09 7.81 3.91s3.67 1.72 3.67 2.69c0 8.8-11.56 23.53-34.67 44.2-23.12 20.67-40.05 31-50.78 31-14.33 0-23.94-11.22-28.81-33.69-4.89-22.47-7.33-55.19-7.33-98.16l.73-59.08.73-62.5c0-31.56-11.64-58.17-34.92-79.83s-50.86-32.48-82.75-32.48c-8.14 0-15.88.66-23.2 1.95-7.33 1.31-13.67 2.86-19.05 4.64-5.38 1.8-10.58 4.33-15.62 7.58s-9.11 6.11-12.2 8.55-6.34 5.7-9.77 9.77-5.78 7.08-7.08 9.03l-5.61 8.55-4.16 6.58c.97 14.33 1.7 52.66 2.2 115 .48 62.34 2.36 103.59 5.61 123.78.97 5.22 1.47 8.3 1.47 9.27h.02z" fill="currentColor"></path></svg></a> &copy; 2026 salm.dev <span class="meta-sep" aria-hidden="true"></span> nico@<span style="display:none">nospam</span>salm.<span style="display:none">nospam</span>dev <span class="meta-sep" aria-hidden="true"></span> <a href="/rss.xml">rss</a></p>
+    <p class="footer-meta">last updated <time datetime="2026-09-20T23:58:59-05:00">2026-09-20T23:58:59-05:00</time> <span class="meta-sep" aria-hidden="true"></span> <a href="https://github.com/nicosalm/salm.dev/commit/6f69290" data-host="github.com">6f69290</a> <span class="meta-sep" aria-hidden="true"></span> <a href="/status">status</a></p>
+</footer>
+
+<script src="/assets/js/toc.js" defer=""></script>
+<script src="/assets/js/sidenotes.js" defer=""></script>
+<script src="/assets/js/code-anchors.js" defer=""></script>
+
+    </main>
+    <script src="https://rybbit.salm.dev/api/script.js" data-site-id="81989c7adfe0" defer=""></script>
+    <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
+    <script src="/assets/js/email.js" defer=""></script>
+    <script src="/assets/js/tooltips.js" defer=""></script>
+</body>
+</html>
