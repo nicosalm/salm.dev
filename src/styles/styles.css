@@ -92,7 +92,6 @@ html {
     --radius-pill: 1.3rem;
 
     --ease: 0.2s ease;
-    --ease-reveal: 0.07s ease-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -129,7 +128,6 @@ html {
 @media (prefers-reduced-motion: reduce) {
     :root {
         --ease: 0s;
-        --ease-reveal: 0s;
     }
 
     html {
@@ -885,7 +883,6 @@ h4.year-heading + ul {
     line-height: 1.4;
     pointer-events: none;
     opacity: 0;
-    transition: opacity var(--ease-reveal);
 }
 
 .cursor-tip .tip-tab {
