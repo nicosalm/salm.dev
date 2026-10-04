@@ -5,4 +5,5 @@ export default [
   { title: "Operating Systems: Three Easy Pieces", author: "Remzi & Andrea Arpaci-Dusseau" },
   { title: "The Soul of a New Machine", author: "Tracy Kidder" },
   { title: "Weaving the Web", author: "Tim Berners-Lee" },
+  { title: "Chip War", author: "Chris Miller" },
 ];

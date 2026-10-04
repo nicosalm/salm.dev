@@ -6,7 +6,7 @@ This morning at 6 a.m., I was on the road, driving from Madison to Chicago. It w
 
 <figure class="float-right">
     <img src="./images/ravenor.jpeg" alt="Ravenor 40k Omnibus with an inquisitorial rosette layered over a red background.">
-    <figcaption>Ravenor, by Dan Abnett</figcaption>
+    <figcaption>Ravenor, by Dan Abnett (2009)</figcaption>
 </figure>
 
 Life seems good. I've been reading through the Ravenor Omnibus, a gritty 850-page Warhammer 40K monolith. I finished its prequel, Eisenhorn, earlier this summer. My quest to read more is making progress, but my quest to code outside of work could use more focus. <a href="https://nlessard.online/">Noah</a> very kindly brought me in on his <a href="https://github.com/noahlessard/memeticTree" target="_blank">Memetic Tree of Life</a> project---I've made a few commits there, and it's really come together.
