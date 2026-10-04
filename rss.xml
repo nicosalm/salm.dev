@@ -8,6 +8,14 @@
     <description>Hot takes and cool things</description>
     <language>en</language>
     <item>
+      <title>Now: September 2026</title>
+      <link>https://salm.dev/now/</link>
+      <description>What I was working on, reading, and thinking about in September 2026.</description>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <dc:creator>Nico Salm</dc:creator>
+      <guid isPermaLink="false">salm.dev/now/2026-09-30</guid>
+    </item>
+    <item>
       <title>Opinions on Web Design</title>
       <link>https://salm.dev/writing/opinions-on-web-design/</link>
       <description>A few handy tips and tricks for elevating one&#39;s UI design and breaking away from the crude, homogenized AI aesthetic.</description>
@@ -17,7 +25,7 @@
     </item>
     <item>
       <title>Now: August 2026</title>
-      <link>https://salm.dev/now/</link>
+      <link>https://salm.dev/now/2026-aug/</link>
       <description>What I was working on, reading, and thinking about in August 2026.</description>
       <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
       <dc:creator>Nico Salm</dc:creator>
