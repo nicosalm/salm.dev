@@ -12,14 +12,18 @@ layout: layouts/post.njk
 ## Premise
 In [Pokémon Showdown](https://pokemonshowdown.com/), you build a team of Pokémon and battle. In the 1v1 format, you bring three Pokémon and choose one for each battle. No switching allowed, so it's pure strategy. A game has two phases: choosing your Pokémon (left) and battling (right):
 
-<div style="display: flex; justify-content: center; gap: 0.5rem;">
-  <img src="./images/choosing-phase.jpeg" alt="choosing phase" width="1683" height="1196" style="max-width: 49%;" eleventy:ignore>
-  <img src="./images/battle-phase.jpeg" alt="battling phase" width="1678" height="1223" style="max-width: 49%;" eleventy:ignore>
+<div class="figure-row">
+    <figure>
+        <img src="./images/choosing-phase.jpeg" alt="choosing phase">
+    </figure>
+    <figure>
+        <img src="./images/battle-phase.jpeg" alt="battling phase">
+    </figure>
 </div>
 
 When a player's Pokemon's <abbr title="Hitpoints">HP</abbr> reaches 0, the other player wins:
 
-<img src="./images/outcome.gif" alt="Battle outcome GIF" width="800" height="450" style="display: block; max-width: 100%;" eleventy:ignore>
+<img src="./images/outcome.gif" alt="Battle outcome GIF" width="800" height="450" loading="lazy" style="display: block; max-width: 100%;" eleventy:ignore>
 
 ## The Seven Pokemon We Analyzed
 My friends and I focused on the seven most popular Pokémon from the January 2021 Showdown 1v1 leaderboard:
