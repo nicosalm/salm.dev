@@ -5,7 +5,7 @@ date: 2026-08-31
 This morning at 6 a.m., I was on the road, driving from Madison to Chicago. It was a purple-pink sunrise, the ground dusted with morning dew, with a thin veneer of white fog sitting over the grassy fields lining the road. There were few cars, except for a steady stream of truckers---and me, in my bright blue Civic. I was driving, so I couldn’t grab a photo. You’ll just have to trust me---it was beautiful. It made me wish I was into photography.
 
 <figure class="float-right">
-    <img src="./images/ravenor.jpeg" alt="Ravenor 40k Omnibus with an inquisitorial rosette layered over a red background.">
+    <img src="./images/ravenor.jpeg" loading="eager" sizes="(max-width: 38rem) 45vw, 17rem" alt="Ravenor 40k Omnibus with an inquisitorial rosette layered over a red background.">
     <figcaption>Ravenor, by Dan Abnett (2009)</figcaption>
 </figure>
 
