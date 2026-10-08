@@ -15,11 +15,11 @@ A few weeks ago, I went to the Field Museum with Jake and a few friends. It was 
 
 <div class="figure-row">
     <figure>
-        <img src="./images/fm1.jpeg" alt="">
+        <img src="./images/fm1.jpeg" alt="Field Museum facade hung with Pokémon banners.">
         <figcaption>Field Museum in Chicago</figcaption>
     </figure>
     <figure>
-        <img src="./images/fm2.jpeg" alt="">
+        <img src="./images/fm2.jpeg" alt="Fossil Pokémon models in a dimly lit exhibit.">
         <figcaption>Pokemon exhibit</figcaption>
     </figure>
 </div>
@@ -29,7 +29,7 @@ I spent a weekend helping <a href="https://www.amoses.dev/" target="_blank">Andr
 I enjoyed being back in Madison, though I admit it feels rather weird being there as Not A Student. I have to remind myself that my job is, in fact, *not* an internship. But all of this is okay.
 
 <figure>
-    <img src="./images/shopping.jpeg" alt="">
+    <img src="./images/shopping.jpeg" alt="Two friends sitting in an SUV trunk full of groceries.">
     <figcaption>Andrew Shopping Trip</figcaption>
 </figure>
 

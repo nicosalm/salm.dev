@@ -9,11 +9,11 @@ opportunity to catch up.
 
 <div class="figure-row">
     <figure>
-        <img src="./images/1.jpg" alt="">
+        <img src="./images/1.jpg" alt="Surfer silhouetted on a beach at sunset.">
         <figcaption>Here (San Diego, CA)</figcaption>
     </figure>
     <figure>
-        <img src="./images/2.jpg" alt="">
+        <img src="./images/2.jpg" alt="Cross-country skier on a snowy city street.">
         <figcaption>There (Madison, WI)</figcaption>
     </figure>
 </div>
@@ -23,7 +23,7 @@ resembling most of my friends (and Hugh Morris) to the island. Andrew also airdr
 Mii — he lives on a secluded island and wears a safety helmet.
 
 <figure>
-    <img src="./images/3.jpg" alt="">
+    <img src="./images/3.jpg" alt="Two Mii characters on a TV in Tomodachi Life.">
     <figcaption>Ben and me in Tomodachi Life</figcaption>
 </figure>
 
@@ -32,7 +32,7 @@ works soon, we'll see). We went climbing with Chris, and it was there that I rea
 height is all I have going for me right now. But I had fun!
 
 <figure>
-    <img src="./images/4.jpg" alt="">
+    <img src="./images/4.jpg" alt="Indoor bouldering gym with climbing walls.">
     <figcaption>A climbing gym outside of Madison</figcaption>
 </figure>
 
