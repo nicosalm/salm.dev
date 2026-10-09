@@ -5,7 +5,7 @@ date: 2026-09-30
 I have a hybrid work schedule, which means I can spend most of my week away from home. This has been really, really nice---I don't know how most people do five days 9-5. (Well I do, but I've been spoiled.) I've spent a lot of this flexibility visiting my friends in Madison, which has the added benefit of separating me from my PC and all the distractions within.
 
 <figure>
-<img src="./images/nicopoint.jpg" alt="Nico in Madison" style="max-width: 75%">
+<img src="./images/nicopoint.jpg" loading="eager" sizes="(max-width: 38rem) 75vw, 27rem" alt="Nico in Madison" style="max-width: 75%">
 <figcaption>Nico in Madison</figcaption>
 </figure>
 
