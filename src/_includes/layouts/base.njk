@@ -11,9 +11,7 @@
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    {% if description %}
-    <meta name="description" content="{{ description }}">
-    {% endif %}
+    <meta name="description" content="{{ description | default(site.description) }}">
 
     <meta property="og:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
     <meta property="og:description" content="{{ description | default(site.description) }}">

@@ -180,7 +180,7 @@ The UPL, to me, is the audacity of Lucas's <a href="https://scharenbroch.dev/blo
 The UPL, to me, is the deep, technical conversations and the 2AM talks that started hours earlier. It's staying up all night to study for an OS exam you're taking tomorrow; it's watching the entire front row of the lecture hall fill up with UPL'ers the next morning.
 
 <figure class="float-right">
-    <img src="./images/DOOR.jpg" alt="">
+    <img src="./images/DOOR.jpg" alt="Wooden door with an Atari sticker and a note to keep it closed.">
     <figcaption>One of the <strong>two</strong> doors leading into the UPL</figcaption>
 </figure>
 

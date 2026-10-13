@@ -6,11 +6,11 @@ I took the train down to Chicago last weekend with some friends. We hit a climbi
 
 <div class="figure-row">
     <figure>
-        <img src="./images/food.jpg" alt="">
+        <img src="./images/food.jpg" alt="Friends at an outdoor bakery table.">
         <figcaption>Bakery with friends</figcaption>
     </figure>
     <figure>
-        <img src="./images/art.jpg" alt="">
+        <img src="./images/art.jpg" alt="Plumed suits of armor in a museum.">
         <figcaption>Armor!!!</figcaption>
     </figure>
 </div>

@@ -5,7 +5,7 @@ date: 2026-09-30
 I have a hybrid work schedule, which means I can spend most of my week away from home. This has been really, really nice---I don't know how most people do five days 9-5. (Well I do, but I've been spoiled.) I've spent a lot of this flexibility visiting my friends in Madison, which has the added benefit of separating me from my PC and all the distractions within.
 
 <figure>
-<img src="./images/nicopoint.jpg" alt="Nico in Madison" style="max-width: 75%">
+<img src="./images/nicopoint.jpg" loading="eager" sizes="(max-width: 38rem) 75vw, 27rem" alt="Nico in Madison" style="max-width: 75%">
 <figcaption>Nico in Madison</figcaption>
 </figure>
 
@@ -26,7 +26,7 @@ It's been neat working in a role that includes many things that, only a few year
 My latest map is coming along swimmingly, with most of the environment complete---I still have ~10,000 trees to pen in for the southernmost forest. I also need to label things, and my handwriting isn't that good, so that part is scary. Finally, I need to make the big decision of whether to watercolor the entire thing. I am leaning 'no' right now, only because of the potential for mishaps, but it would look pretty... We'll see.
 
 <figure>
-    <img src="./images/map_withmoreprogress.jpeg" alt="A snow leopard falling backwards." style="max-width: 75%">
+    <img src="./images/map_withmoreprogress.jpeg" alt="Pen-and-ink fantasy map clipped to a drawing board." style="max-width: 75%">
     <figcaption>Hand-drawn Fantasy Map (2026–)</figcaption>
 </figure>
 
