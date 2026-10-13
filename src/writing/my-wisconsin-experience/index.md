@@ -134,7 +134,7 @@ CS types[^cs-types] to work on cool stuff, learn from one another, and hang out.
 UPL'ers dropped in, engaged in spontaneous shenanigans, and dropped out (though sometimes they'd stick around until 2AM[^2AM]).
 Every day, the whiteboards were filled with anything from proofs to memes or that month's 'banned words list'[^banned].
 
-I ended up being in the lab *a lot*, and so did a few others who would eventually become my [close friends](/misc#friends). We got up to all sorts of fun and crazy stuff, ran events for the broader CS student community, and had a grand old time.
+I ended up being in the lab *a lot*, and so did a few others who would eventually become my [close friends](/more#friends). We got up to all sorts of fun and crazy stuff, ran events for the broader CS student community, and had a grand old time.
 
 One thing I'm proud of is bringing back the <a href="https://www.youtube.com/@UndergraduateProjectsLab" target=_blank>Lightning Talks series</a>, where UPL'ers would come and share their favorite topics in tech. Nearly two dozen students took the opportunity to stand up before an audience and teach their peers about the niche, cool things they were passionate about.
 
