@@ -3,6 +3,7 @@ export default [
   { title: "Against Software Alchemy", url: "https://www.youtube.com/watch?v=HuUZ3_ARiVg" },
   { title: "Beej's Guide to Network Programming", url: "https://beej.us/guide/bgnet/html//index.html" },
   { title: "Best Practices for a New Go Developer", url: "https://www.cloudbees.com/blog/best-practices-for-a-new-go-developer", desc: "Read if you plan to code in Go" },
+  { title: "Data Compression Explained", url: "https://mattmahoney.net/dc/dce.html" },
   { title: "Every Vim Binding Lucas Knows", url: "https://scharenbroch.dev/blog/vim-bindings/" },
   { title: "Godbolt Compiler Explorer", url: "https://godbolt.org/" },
   { title: "Just Fucking Code", url: "https://www.justfuckingcode.com/", desc: '(True) satire: "The bar for programming is in the dirt..."' },
