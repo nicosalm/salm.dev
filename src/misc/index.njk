@@ -28,7 +28,7 @@ These wonderful people have websites and works of their own:
 </ul>
 
 <h2 id="books">Books</h2>
-<p>I want to read as much of the “CS canon” as possible, and to explore a broad range of both contemporary and classic philosophical and historical texts. I'd rather form my own opinions by reading the source material than absorb them secondhand.</p>
+<p>My goal is to read as much of the “CS canon” as possible. I also want to explore a broad range of both contemporary and classic philosophical and historical texts. I'd rather form my own opinions by reading the source material than absorb them secondhand.</p>
 
 <p>Some books that've stuck out ({{ books | length }}): {% for book in books | sort(false, false, 'title') %}<em>{{ book.title }}</em>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
 
