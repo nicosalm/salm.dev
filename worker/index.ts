@@ -62,25 +62,52 @@ async function getStats(env: Env) {
 	const rbData = rb?.data ?? {};
 	const allData = all?.data ?? {};
 
-	const groups = cf?.data?.viewer?.zones?.[0]?.httpRequests1dGroups ?? [];
-	const cfSum = groups.reduce(
-		(a: { bytes: number; cachedBytes: number }, g: any) => ({
-			bytes: a.bytes + (g.sum.bytes || 0),
-			cachedBytes: a.cachedBytes + (g.sum.cachedBytes || 0),
-		}),
-		{ bytes: 0, cachedBytes: 0 },
-	);
+	const groups = cf?.data?.viewer?.zones?.[0]?.httpRequests1dGroups;
+	const cfSum = groups
+		? groups.reduce(
+			(a: { bytes: number; cachedBytes: number }, g: any) => ({
+				bytes: a.bytes + (g.sum?.bytes || 0),
+				cachedBytes: a.cachedBytes + (g.sum?.cachedBytes || 0),
+			}),
+			{ bytes: 0, cachedBytes: 0 },
+		)
+		: null;
 
 	return {
 		window: { start: startStr, end: endStr },
 		analytics: {
-			users: rbData.users ?? 0,
-			pageviews: rbData.pageviews ?? 0,
-			allUsers: allData.users ?? 0,
-			allPageviews: allData.pageviews ?? 0,
+			users: rbData.users ?? null,
+			pageviews: rbData.pageviews ?? null,
+			allUsers: allData.users ?? null,
+			allPageviews: allData.pageviews ?? null,
 		},
 		cloudflare: cfSum,
+		partial: !rb || !all || !cfSum,
 	};
+}
+
+async function getIncidents(checks: any[], env: Env) {
+	const lists = await Promise.all(
+		checks.map((c) => getJson(`${URLS.checks}/${c.token}/downtimes`, { headers: updownHeaders(env) })),
+	);
+	if (lists.some((l) => !Array.isArray(l))) return null;
+
+	return checks
+		.flatMap((c, i) =>
+			lists[i].map((d: any) => ({
+				check: c.alias || c.url,
+				error: d.error ?? null,
+				started_at: d.started_at,
+				ended_at: d.ended_at ?? null,
+				duration: d.duration ?? null,
+			})),
+		)
+		.sort((a, b) => String(b.started_at).localeCompare(String(a.started_at)))
+		.slice(0, INCIDENT_LIMIT);
+}
+
+function updownHeaders(env: Env) {
+	return { 'X-API-KEY': env.UPDOWNIO_KEY, 'Accept-Encoding': 'gzip' };
 }
 
 const CORS_HEADERS = {
@@ -89,9 +116,11 @@ const CORS_HEADERS = {
 };
 
 const CACHE_TTL = 60;
+const PARTIAL_CACHE_TTL = 15;
+const INCIDENT_LIMIT = 3;
 
 export default {
-	async fetch(request: Request, env: Env): Promise<Response> {
+	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		if (request.method === 'OPTIONS') {
 			return new Response(null, { headers: CORS_HEADERS });
 		}
@@ -102,30 +131,34 @@ export default {
 		if (cached) return cached;
 
 		try {
-			const [checksRes, languagesRes, editorsRes, activityRes, stats] = await Promise.all([
-				fetch(URLS.checks, {
-					headers: { 'X-API-KEY': env.UPDOWNIO_KEY, 'Accept-Encoding': 'gzip' },
+			const [[checksData, incidents], languagesData, editorsData, activityData, stats] = await Promise.all([
+				getJson(URLS.checks, { headers: updownHeaders(env) }).then(async (d) => {
+					const checks = Array.isArray(d) ? d : null;
+					return [checks, checks ? await getIncidents(checks, env) : null] as const;
 				}),
-				fetch(URLS.languages),
-				fetch(URLS.editors),
-				fetch(URLS.activity),
+				getJson(URLS.languages),
+				getJson(URLS.editors),
+				getJson(URLS.activity),
 				getStats(env).catch(() => null),
 			]);
 
-			const checks = checksRes.ok ? await checksRes.json() : [];
-			const languages = languagesRes.ok ? (await languagesRes.json() as any).data : [];
-			const editors = editorsRes.ok ? (await editorsRes.json() as any).data : [];
-			const activity = activityRes.ok ? (await activityRes.json() as any).data : [];
+			const checks = checksData ?? [];
+			const languages = languagesData?.data ?? null;
+			const editors = editorsData?.data ?? null;
+			const activity = activityData?.data ?? null;
 
-			const response = new Response(JSON.stringify({ checks, languages, editors, activity, stats }), {
+			const complete = Boolean(checksData && incidents && languages && editors && activity && stats && !stats.partial);
+			const ttl = complete ? CACHE_TTL : PARTIAL_CACHE_TTL;
+
+			const response = new Response(JSON.stringify({ checks, incidents, languages, editors, activity, stats }), {
 				headers: {
 					'Content-Type': 'application/json',
-					'Cache-Control': `public, max-age=${CACHE_TTL}`,
+					'Cache-Control': `public, max-age=${ttl}`,
 					...CORS_HEADERS,
 				},
 			});
 
-			cache.put(cacheKey, response.clone());
+			ctx.waitUntil(cache.put(cacheKey, response.clone()));
 			return response;
 		} catch {
 			return new Response(JSON.stringify({ error: 'Failed to fetch status data' }), {

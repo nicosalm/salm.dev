@@ -9,7 +9,10 @@
 
     startSpinner();
     fetch(API)
-        .then(function(res) { return res.json(); })
+        .then(function(res) {
+            if (!res.ok) throw new Error(res.status);
+            return res.json();
+        })
         .then(function(data) { stopSpinner(); render(data); })
         .catch(function() {
             stopSpinner();
@@ -32,8 +35,8 @@
     }
 
     function render(data) {
-        renderServices(data.checks || []);
-        if (data.stats) renderStats(data.stats);
+        renderServices(data.checks || [], data.incidents);
+        renderStats(data.stats || {});
         renderCoding(data);
     }
 
@@ -46,28 +49,59 @@
             '</div>';
     }
 
-    function renderServices(checks) {
+    function section(rows) {
+        if (!rows) return note('unavailable');
+        if (!rows.length) return note('none');
+        return '<div class="status-section">' + rows.join('') + '</div>';
+    }
+
+    function note(text) {
+        return '<p class="text-muted text-small">' + text + '</p>';
+    }
+
+    function hostLabel(url) {
+        return String(url).replace(/^https?:\/\//, '').replace(/\/$/, '');
+    }
+
+    function renderServices(checks, incidents) {
         var checked = checks.length ? '<small class="section-note">last checked <code>' + esc(checks[0].last_check_at) + '</code></small>' : '';
-        var html = '<h2>Services</h2>' + checked + '<div class="status-section">';
-        checks.forEach(function(c) {
-            var up = !c.down;
-            var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
-            var label = c.alias || c.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
-            var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(label) + '</a>';
-            var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
-            var value = (up ? '' : '<span class="dim">down · </span>') + c.uptime.toFixed(2) + '%' + days;
-            html += statRow(dot + name, value);
-        });
-        html += '</div>';
-        services.innerHTML = html;
+        var rows = checks.length ? checks.map(serviceRow) : null;
+        var incidentRows = incidents ? incidents.map(incidentRow) : null;
+        services.innerHTML = '<h2>Services</h2>' + checked + section(rows) +
+            '<h3>Recent incidents</h3>' + section(incidentRows);
+    }
+
+    function serviceRow(c) {
+        var up = !c.down;
+        var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
+        var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || hostLabel(c.url)) + '</a>';
+        var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
+        var uptime = c.uptime != null ? c.uptime.toFixed(2) + '%' : '-';
+        var down = '';
+        if (!up) {
+            var since = c.down_since ? ' ' + formatDuration((Date.now() - Date.parse(c.down_since)) / 1000) : '';
+            var error = c.error ? ' · ' + esc(c.error) : '';
+            down = '<span class="dim">down' + since + error + ' · </span>';
+        }
+        return statRow(dot + name, down + uptime + days);
+    }
+
+    function incidentRow(d) {
+        var length = d.ended_at ? formatDuration(d.duration) : 'ongoing';
+        var error = d.error ? ' <span class="dim">· ' + esc(d.error) + '</span>' : '';
+        return statRow('<code>' + esc(String(d.started_at).slice(0, 10)) + '</code> ' + esc(hostLabel(d.check)), length + error);
     }
 
     function renderStats(s) {
         var rb = s.analytics || {};
-        var cf = s.cloudflare || {};
-        var bytes = cf.bytes || 0;
-        var cachedBytes = cf.cachedBytes || 0;
-        var pctCached = bytes > 0 ? (cachedBytes / bytes * 100) : 0;
+        var cf = s.cloudflare;
+        var served = '-';
+        if (cf) {
+            var bytes = cf.bytes || 0;
+            var cachedBytes = cf.cachedBytes || 0;
+            var pctCached = bytes > 0 ? (cachedBytes / bytes * 100) : 0;
+            served = formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>';
+        }
 
         function withAllTime(v, all) {
             var out = formatNumber(v);
@@ -79,29 +113,25 @@
         html += '<div class="status-section">';
         html += statRow('Users', withAllTime(rb.users, rb.allUsers));
         html += statRow('Pageviews', withAllTime(rb.pageviews, rb.allPageviews));
-        html += statRow('Served/Cached', formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>');
+        html += statRow('Served/Cached', served);
         html += '</div>';
         analytics.innerHTML = html;
     }
 
     function renderCoding(data) {
-        var languages = data.languages.filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; });
-        var seconds = data.activity.reduce(function(acc, cur) { return acc + cur.grand_total.total_seconds; }, 0);
-        var hours = (seconds / 3600).toFixed(2);
+        var languages = data.languages && data.languages
+            .filter(function(l) { return l.name !== 'Other' && l.decimal >= 0.5; })
+            .map(function(l) { return statRow(esc(l.name), l.decimal + 'h'); });
+        var editors = data.editors && data.editors
+            .map(function(e) { return statRow(esc(e.name), e.percent + '%'); });
 
-        var html = '<h2>Coding</h2><small class="section-note"><code>' + hours + 'h</code> in the last 7 days</small>';
-
-        html += '<h3>Languages</h3><div class="status-section">';
-        languages.forEach(function(l) {
-            html += statRow(esc(l.name), l.decimal + 'h');
-        });
-        html += '</div>';
-
-        html += '<h3>Editors</h3><div class="status-section">';
-        data.editors.forEach(function(e) {
-            html += statRow(esc(e.name), e.percent + '%');
-        });
-        html += '</div>';
+        var html = '<h2>Coding</h2>';
+        if (data.activity) {
+            var seconds = data.activity.reduce(function(acc, cur) { return acc + (cur.grand_total ? cur.grand_total.total_seconds : 0); }, 0);
+            html += '<small class="section-note"><code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days</small>';
+        }
+        html += '<h3>Languages</h3>' + section(languages);
+        html += '<h3>Editors</h3>' + section(editors);
 
         coding.innerHTML = html;
     }
@@ -112,6 +142,15 @@
         if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
         if (n >= 1e3) return (n / 1e3).toFixed(2) + 'k';
         return String(n);
+    }
+
+    function formatDuration(seconds) {
+        if (seconds == null || isNaN(seconds)) return '-';
+        seconds = Math.max(0, seconds);
+        if (seconds < 60) return Math.round(seconds) + 's';
+        if (seconds < 3600) return Math.round(seconds / 60) + 'm';
+        if (seconds < 86400) return Math.round(seconds / 3600) + 'h';
+        return Math.round(seconds / 86400) + 'd';
     }
 
     function formatBytes(n) {
