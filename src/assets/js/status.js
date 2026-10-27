@@ -1,10 +1,11 @@
 (function() {
     var API = 'https://status.salm.dev';
     var services = document.getElementById('status-services');
-    var incidentsBox = document.getElementById('status-incidents');
+    var incidentsPanel = document.getElementById('status-incidents');
     var coding = document.getElementById('status-coding');
     var analytics = document.getElementById('status-analytics');
 
+    var SEP = ' <span class="meta-sep" aria-hidden="true"></span> ';
     var SPINNER_FRAMES = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
     var spinTimer = null;
 
@@ -54,11 +55,11 @@
     function section(rows) {
         if (!rows) return note('unavailable');
         if (!rows.length) return note('none');
-        return '<div class="status-section">' + rows.join('') + '</div>';
+        return '<div class="panel-rows">' + rows.join('') + '</div>';
     }
 
-    function boxHead(title, noteHtml) {
-        return '<div class="status-box-head"><h2>' + title + '</h2>' +
+    function panelHead(title, noteHtml) {
+        return '<div class="panel-head"><h2>' + title + '</h2>' +
             (noteHtml ? '<small class="section-note">' + noteHtml + '</small>' : '') + '</div>';
     }
 
@@ -77,31 +78,31 @@
             checked = '(last checked <code>' + (isNaN(at) ? esc(checks[0].last_check_at) : formatDuration((Date.now() - at) / 1000) + ' ago') + '</code>)';
         }
         var rows = checks.length ? checks.map(serviceRow) : null;
-        services.innerHTML = boxHead('Services', checked) + section(rows);
+        services.innerHTML = panelHead('Services', checked) + section(rows);
     }
 
     function renderIncidents(incidents) {
-        incidentsBox.innerHTML = boxHead('Recent incidents') + section(incidents ? incidents.map(incidentRow) : null);
+        incidentsPanel.innerHTML = panelHead('Recent incidents') + section(incidents ? incidents.map(incidentRow) : null);
     }
 
     function serviceRow(c) {
         var up = !c.down;
         var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
         var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || hostLabel(c.url)) + '</a>';
-        var days = c.domain && c.domain.remaining_days != null ? ' <span class="dim">· ' + c.domain.remaining_days + 'd</span>' : '';
+        var days = c.domain && c.domain.remaining_days != null ? SEP + '<span class="dim">' + c.domain.remaining_days + 'd</span>' : '';
         var uptime = c.uptime != null ? c.uptime.toFixed(2) + '%' : '-';
-        var down = '';
+        var html = statRow(dot + name, uptime + days);
         if (!up) {
             var since = c.down_since ? ' ' + formatDuration((Date.now() - Date.parse(c.down_since)) / 1000) : '';
-            var error = c.error ? ' · ' + esc(c.error) : '';
-            down = '<span class="dim">down' + since + error + ' · </span>';
+            var error = c.error ? SEP + esc(c.error) : '';
+            html += '<div class="stat-row-note">down' + since + error + '</div>';
         }
-        return statRow(dot + name, down + uptime + days);
+        return html;
     }
 
     function incidentRow(d) {
         var length = d.ended_at ? formatDuration(d.duration) : 'ongoing';
-        var error = d.error ? ' <span class="dim">· ' + esc(d.error) + '</span>' : '';
+        var error = d.error ? SEP + '<span class="dim">' + esc(d.error) + '</span>' : '';
         return statRow('<code>' + esc(String(d.started_at).slice(0, 10)) + '</code> ' + esc(hostLabel(d.check)), length + error, 'stat-row-wrap');
     }
 
@@ -121,7 +122,7 @@
             return n ? formatNumber(n) + ' all time' : '';
         }
 
-        analytics.innerHTML = boxHead('Site', '(in the last 7 days)') +
+        analytics.innerHTML = panelHead('Site', '(in the last 7 days)') +
             '<div class="stat-tiles">' +
             statTile('Users', formatNumber(rb.users), allTime(rb.allUsers)) +
             statTile('Pageviews', formatNumber(rb.pageviews), allTime(rb.allPageviews)) +
@@ -150,8 +151,8 @@
             hours = '(<code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days)';
         }
 
-        coding.innerHTML = boxHead('Coding', hours) +
-            '<div class="status-columns">' +
+        coding.innerHTML = panelHead('Coding', hours) +
+            '<div class="panel-columns">' +
             '<div><h3>Languages</h3>' + section(languages) + '</div>' +
             '<div><h3>Editors</h3>' + section(editors) + '</div>' +
             '</div>';

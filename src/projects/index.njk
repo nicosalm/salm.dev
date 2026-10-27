@@ -1,0 +1,65 @@
+---
+layout: layouts/base.njk
+title: projects
+description: Things I've built, and contributions to open source.
+---
+<div class="post-header">
+    <h1>Projects</h1>
+    <p>{{ description }}</p>
+</div>
+
+<h2 id="projects" class="visually-hidden">Projects</h2>
+<div class="panel-grid panel-grid-even" data-paginate="5" data-paginate-label="project pages">
+    {%- for repo in github.projects %}
+    <section class="panel">
+        <div class="panel-head">
+            <h3><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></h3>
+            <small class="section-note">{% if repo.archived %}archived {% endif %}{% if repo.language %}({{ repo.language }}){% endif %}</small>
+        </div>
+        {%- if repo.description %}
+        <p class="panel-desc">{{ repo.description }}</p>
+        {%- endif %}
+    </section>
+    {%- endfor %}
+    <section class="panel" data-paginate-fixed>
+        <div class="panel-head">
+            <h3><a href="https://github.com/{{ github.user }}" target="_blank">… more on GitHub</a></h3>
+            {%- if github.repoCount %}
+            <small class="section-note">({{ github.repoCount }} repos)</small>
+            {%- endif %}
+        </div>
+    </section>
+</div>
+
+<h2 id="open-source">Open Source</h2>
+{%- if github.contributions.length %}
+<div class="panel-grid" data-paginate="4" data-paginate-label="open source pages">
+    {%- for repo in github.contributions %}
+    <section class="panel panel-wide">
+        <div class="panel-head">
+            <h3><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></h3>
+            {%- if repo.language %}
+            <small class="section-note">({{ repo.language }})</small>
+            {%- endif %}
+        </div>
+        {%- for pr in repo.pulls %}
+        <div class="panel-item">
+            <p class="panel-item-title"><a href="{{ pr.url }}" target="_blank">{{ pr.title }}</a></p>
+            <p class="panel-meta"><time datetime="{{ pr.merged | dateFormat }}">{{ pr.merged | monthYear }}</time>{% if pr.additions != null %} (+{{ pr.additions }} −{{ pr.deletions }}){% endif %}{% if pr.fixes %} <span class="meta-sep" aria-hidden="true"></span> fixes <a href="{{ pr.fixes.url }}" target="_blank">#{{ pr.fixes.number }}</a>{% endif %}</p>
+            {%- if pr.summary %}
+            <p class="panel-desc">{{ pr.summary | safe }}</p>
+            {%- endif %}
+        </div>
+        {%- endfor %}
+        {%- if repo.pullCount > repo.pulls.length %}
+        <p class="panel-meta panel-more">(… <a href="{{ repo.pullsUrl }}" target="_blank">and {{ repo.pullCount - repo.pulls.length }} more</a>)</p>
+        {%- endif %}
+    </section>
+    {%- endfor %}
+</div>
+{%- else %}
+<p class="text-muted text-small">none yet</p>
+{%- endif %}
+
+{% include "footer.njk" %}
+<script src="{{ '/assets/js/paginate.js' | versioned }}" defer></script>

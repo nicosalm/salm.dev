@@ -36,6 +36,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: build
         run: pnpm build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: check links
         run: pnpm check:links
       - name: check worker bundle

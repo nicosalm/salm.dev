@@ -9,15 +9,15 @@ prefetch: https://status.salm.dev
     <p>{{ description }}</p>
 </div>
 
-<div class="status-grid">
-    <section class="status-box" id="status-services">
+<div class="panel-grid">
+    <section class="panel" id="status-services">
         <p class="status-loading text-muted text-small">loading</p>
         <noscript><style>.status-loading { display: none; }</style><p class="text-muted text-small">live status needs JavaScript</p></noscript>
     </section>
 
-    <section class="status-box">
-        <div class="status-box-head"><h2>Domains</h2></div>
-        <div class="status-section">
+    <section class="panel">
+        <div class="panel-head"><h2>Domains</h2></div>
+        <div class="panel-rows">
             <div class="stat-row">
                 <span class="stat-label"><a href="https://salm.dev">salm.dev</a></span>
                 <span class="dot-leader"></span>
@@ -41,11 +41,11 @@ prefetch: https://status.salm.dev
         </div>
     </section>
 
-    <section class="status-box status-box-wide" id="status-incidents"></section>
+    <section class="panel panel-wide" id="status-incidents"></section>
 
-    <section class="status-box status-box-wide" id="status-analytics"></section>
+    <section class="panel panel-wide" id="status-analytics"></section>
 
-    <section class="status-box status-box-wide" id="status-coding"></section>
+    <section class="panel panel-wide" id="status-coding"></section>
 </div>
 
 {% include "footer.njk" %}

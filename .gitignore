@@ -12,3 +12,4 @@ node_modules/
 /target
 /src/writing/ideas.txt
 /src/writing/todo
+.cache/
