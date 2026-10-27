@@ -123,7 +123,7 @@ async function contributions() {
     })
   );
 
-  const kept = repos.filter((r) => r.stars >= MIN_STARS).sort((a, b) => b.stars - a.stars);
+  const kept = repos.filter((r) => r.stars >= MIN_STARS);
   await Promise.all(
     kept.map(async (repo) => {
       const newest = repo.pulls.sort((a, b) => b.merged.localeCompare(a.merged));
@@ -134,7 +134,7 @@ async function contributions() {
       );
     })
   );
-  return kept;
+  return kept.sort((a, b) => b.pulls[0].merged.localeCompare(a.pulls[0].merged));
 }
 
 export default async function () {
