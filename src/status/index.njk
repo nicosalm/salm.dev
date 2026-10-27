@@ -9,38 +9,44 @@ prefetch: https://status.salm.dev
     <p>{{ description }}</p>
 </div>
 
-<div id="status-services">
-    <p class="status-loading text-muted text-small">loading</p>
-    <noscript><style>.status-loading { display: none; }</style><p class="text-muted text-small">live status needs JavaScript</p></noscript>
+<div class="status-grid">
+    <section class="status-box" id="status-services">
+        <p class="status-loading text-muted text-small">loading</p>
+        <noscript><style>.status-loading { display: none; }</style><p class="text-muted text-small">live status needs JavaScript</p></noscript>
+    </section>
+
+    <section class="status-box">
+        <div class="status-box-head"><h2>Domains</h2></div>
+        <div class="status-section">
+            <div class="stat-row">
+                <span class="stat-label"><a href="https://salm.dev">salm.dev</a></span>
+                <span class="dot-leader"></span>
+                <span class="stat-value"><span class="domain-status domain-active">active</span></span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><a href="https://nico.blue" target="_blank">nico.blue</a></span>
+                <span class="dot-leader"></span>
+                <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><a href="https://nicosalm.com" target="_blank">nicosalm.com</a></span>
+                <span class="dot-leader"></span>
+                <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label"><a href="https://salm.sh" target="_blank">salm.sh</a></span>
+                <span class="dot-leader"></span>
+                <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="status-box status-box-wide" id="status-incidents"></section>
+
+    <section class="status-box status-box-wide" id="status-analytics"></section>
+
+    <section class="status-box status-box-wide" id="status-coding"></section>
 </div>
-
-<h2>Domains</h2>
-<div class="status-section">
-    <div class="stat-row">
-        <span class="stat-label"><a href="https://salm.dev">salm.dev</a></span>
-        <span class="dot-leader"></span>
-        <span class="stat-value"><span class="domain-status domain-active">active</span></span>
-    </div>
-    <div class="stat-row">
-        <span class="stat-label"><a href="https://nico.blue" target="_blank">nico.blue</a></span>
-        <span class="dot-leader"></span>
-        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
-    </div>
-    <div class="stat-row">
-        <span class="stat-label"><a href="https://nicosalm.com" target="_blank">nicosalm.com</a></span>
-        <span class="dot-leader"></span>
-        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
-    </div>
-    <div class="stat-row">
-        <span class="stat-label"><a href="https://salm.sh" target="_blank">salm.sh</a></span>
-        <span class="dot-leader"></span>
-        <span class="stat-value"><span class="domain-status domain-parked">parked</span></span>
-    </div>
-</div>
-
-<div id="status-analytics"></div>
-
-<div id="status-coding"></div>
 
 {% include "footer.njk" %}
 

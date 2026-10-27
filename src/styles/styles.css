@@ -1450,6 +1450,145 @@ a.fnref, .fnref a {
     padding: 2rem 0;
 }
 
+.status-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.status-box {
+    min-width: 0;
+    padding: 0.7rem 0.85rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.status-box:empty {
+    display: none;
+}
+
+.status-box-wide {
+    grid-column: 1 / -1;
+}
+
+.status-box-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.status-box h2 {
+    font-size: var(--fs);
+    margin: 0;
+}
+
+.status-box h3 {
+    font-size: var(--fs-xsmall);
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin: 0 0 0.1rem;
+}
+
+.status-box-head .section-note {
+    margin: 0;
+    text-align: right;
+}
+
+.status-box .stat-row {
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    gap: 0.5rem;
+}
+
+.status-box .dot-leader {
+    margin: 0;
+    min-width: 0.5rem;
+}
+
+.status-box .status-loading {
+    padding: 1rem 0;
+}
+
+.status-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1.5rem;
+}
+
+.stat-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stat-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+    padding: 0.15rem 0.85rem;
+}
+
+.stat-tile:first-child {
+    padding-left: 0;
+}
+
+.stat-tile + .stat-tile {
+    border-left: 1px solid var(--border-light);
+}
+
+.stat-tile-label {
+    font-size: var(--fs-xsmall);
+    color: var(--text-tertiary);
+}
+
+.stat-tile .stat-value {
+    font-size: var(--fs);
+    color: var(--text);
+    text-align: left;
+}
+
+.stat-tile-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xsmall);
+    color: var(--text-tertiary);
+}
+
+@media (max-width: 600px) {
+    .status-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .status-columns {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stat-tile {
+        padding: 0.15rem 0.6rem;
+    }
+
+    .stat-tile .stat-value {
+        font-size: var(--fs-small);
+    }
+
+    .status-box .stat-row-wrap {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .stat-row-wrap .dot-leader {
+        display: none;
+    }
+
+    .stat-row-wrap .stat-value {
+        text-align: left;
+        white-space: normal;
+    }
+}
+
 @media (max-width: 480px) {
     .stat-row {
         grid-template-columns: minmax(4.5rem, 8rem) 1fr auto;

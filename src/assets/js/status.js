@@ -1,6 +1,7 @@
 (function() {
     var API = 'https://status.salm.dev';
     var services = document.getElementById('status-services');
+    var incidentsBox = document.getElementById('status-incidents');
     var coding = document.getElementById('status-coding');
     var analytics = document.getElementById('status-analytics');
 
@@ -35,14 +36,15 @@
     }
 
     function render(data) {
-        renderServices(data.checks || [], data.incidents);
+        renderServices(data.checks || []);
+        renderIncidents(data.incidents);
         renderStats(data.stats || {});
         renderCoding(data);
     }
 
     // A uniform row: label · dotted leader · value, matching the Domains list.
-    function statRow(labelHtml, valueHtml) {
-        return '<div class="stat-row">' +
+    function statRow(labelHtml, valueHtml, className) {
+        return '<div class="stat-row' + (className ? ' ' + className : '') + '">' +
             '<span class="stat-label">' + labelHtml + '</span>' +
             '<span class="dot-leader"></span>' +
             '<span class="stat-value">' + valueHtml + '</span>' +
@@ -55,6 +57,11 @@
         return '<div class="status-section">' + rows.join('') + '</div>';
     }
 
+    function boxHead(title, noteHtml) {
+        return '<div class="status-box-head"><h2>' + title + '</h2>' +
+            (noteHtml ? '<small class="section-note">' + noteHtml + '</small>' : '') + '</div>';
+    }
+
     function note(text) {
         return '<p class="text-muted text-small">' + text + '</p>';
     }
@@ -63,12 +70,18 @@
         return String(url).replace(/^https?:\/\//, '').replace(/\/$/, '');
     }
 
-    function renderServices(checks, incidents) {
-        var checked = checks.length ? '<small class="section-note">last checked <code>' + esc(checks[0].last_check_at) + '</code></small>' : '';
+    function renderServices(checks) {
+        var checked = '';
+        if (checks.length) {
+            var at = Date.parse(checks[0].last_check_at);
+            checked = 'last checked <code>' + (isNaN(at) ? esc(checks[0].last_check_at) : formatDuration((Date.now() - at) / 1000) + ' ago') + '</code>';
+        }
         var rows = checks.length ? checks.map(serviceRow) : null;
-        var incidentRows = incidents ? incidents.map(incidentRow) : null;
-        services.innerHTML = '<h2>Services</h2>' + checked + section(rows) +
-            '<h3>Recent incidents</h3>' + section(incidentRows);
+        services.innerHTML = boxHead('Services', checked) + section(rows);
+    }
+
+    function renderIncidents(incidents) {
+        incidentsBox.innerHTML = boxHead('Recent incidents') + section(incidents ? incidents.map(incidentRow) : null);
     }
 
     function serviceRow(c) {
@@ -89,33 +102,39 @@
     function incidentRow(d) {
         var length = d.ended_at ? formatDuration(d.duration) : 'ongoing';
         var error = d.error ? ' <span class="dim">· ' + esc(d.error) + '</span>' : '';
-        return statRow('<code>' + esc(String(d.started_at).slice(0, 10)) + '</code> ' + esc(hostLabel(d.check)), length + error);
+        return statRow('<code>' + esc(String(d.started_at).slice(0, 10)) + '</code> ' + esc(hostLabel(d.check)), length + error, 'stat-row-wrap');
     }
 
     function renderStats(s) {
         var rb = s.analytics || {};
         var cf = s.cloudflare;
         var served = '-';
+        var cached = '';
         if (cf) {
             var bytes = cf.bytes || 0;
-            var cachedBytes = cf.cachedBytes || 0;
-            var pctCached = bytes > 0 ? (cachedBytes / bytes * 100) : 0;
-            served = formatBytes(bytes) + ' / ' + formatBytes(cachedBytes) + ' <span class="dim">· ' + pctCached.toFixed(0) + '%</span>';
+            var pctCached = bytes > 0 ? ((cf.cachedBytes || 0) / bytes * 100) : 0;
+            served = formatBytes(bytes);
+            cached = pctCached.toFixed(0) + '% cached';
         }
 
-        function withAllTime(v, all) {
-            var out = formatNumber(v);
-            if (all) out += ' <span class="dim">(' + formatNumber(all) + ')</span>';
-            return out;
+        function allTime(n) {
+            return n ? formatNumber(n) + ' all time' : '';
         }
 
-        var html = '<h2>Site</h2><small class="section-note">in the last 7 days</small>';
-        html += '<div class="status-section">';
-        html += statRow('Users', withAllTime(rb.users, rb.allUsers));
-        html += statRow('Pageviews', withAllTime(rb.pageviews, rb.allPageviews));
-        html += statRow('Served/Cached', served);
-        html += '</div>';
-        analytics.innerHTML = html;
+        analytics.innerHTML = boxHead('Site', 'in the last 7 days') +
+            '<div class="stat-tiles">' +
+            statTile('Users', formatNumber(rb.users), allTime(rb.allUsers)) +
+            statTile('Pageviews', formatNumber(rb.pageviews), allTime(rb.allPageviews)) +
+            statTile('Served', served, cached) +
+            '</div>';
+    }
+
+    function statTile(label, value, sub) {
+        return '<div class="stat-tile">' +
+            '<span class="stat-tile-label">' + label + '</span>' +
+            '<span class="stat-value">' + value + '</span>' +
+            (sub ? '<span class="stat-tile-sub">' + sub + '</span>' : '') +
+            '</div>';
     }
 
     function renderCoding(data) {
@@ -125,15 +144,17 @@
         var editors = data.editors && data.editors
             .map(function(e) { return statRow(esc(e.name), e.percent + '%'); });
 
-        var html = '<h2>Coding</h2>';
+        var hours = '';
         if (data.activity) {
             var seconds = data.activity.reduce(function(acc, cur) { return acc + (cur.grand_total ? cur.grand_total.total_seconds : 0); }, 0);
-            html += '<small class="section-note"><code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days</small>';
+            hours = '<code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days';
         }
-        html += '<h3>Languages</h3>' + section(languages);
-        html += '<h3>Editors</h3>' + section(editors);
 
-        coding.innerHTML = html;
+        coding.innerHTML = boxHead('Coding', hours) +
+            '<div class="status-columns">' +
+            '<div><h3>Languages</h3>' + section(languages) + '</div>' +
+            '<div><h3>Editors</h3>' + section(editors) + '</div>' +
+            '</div>';
     }
 
     function formatNumber(n) {
