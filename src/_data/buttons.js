@@ -4,7 +4,6 @@ export default {
   common: [
     { href: "/", src: "/assets/88x31/88x31.gif", alt: "Nico's 88x31" },
     { href: "https://twitter.com/salmdotdev", src: "/assets/88x31/twitter.gif", alt: "X (f.k.a. Twitter)", external: true },
-    { href: "https://www.goodreads.com/user/show/155270767-nico", src: "/assets/88x31/goodreads.gif", alt: "Goodreads", external: true },
     { href: "https://www.vim.org/", src: "/assets/88x31/vim_a.gif", alt: "Made with Vim", external: true },
     { href: "https://steamcommunity.com/profiles/76561198163567555/", src: "/assets/88x31/steam.gif", alt: "Steam", external: true },
     { href: "#", src: "/assets/88x31/reply-via-email.gif", alt: "Reply via Email", email: site.author.emailReversed },
