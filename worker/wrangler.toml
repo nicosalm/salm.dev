@@ -1,4 +1,4 @@
-name = "status-salm-dev"
+name = "salm-dev"
 main = "index.ts"
 compatibility_date = "2024-01-01"
 

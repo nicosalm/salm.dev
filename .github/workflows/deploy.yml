@@ -2,10 +2,11 @@ name: build & deploy site
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -18,9 +19,60 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       - name: install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: build
         run: pnpm build
+      - name: check links
+        run: pnpm check:links
+      - name: upload site
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          include-hidden-files: true
+
+  preview:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: https://salm-dev-preview.nicosalm.workers.dev
+    concurrency:
+      group: preview
+      cancel-in-progress: true
+    steps:
+      - name: download site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+      - name: keep preview out of search
+        run: |
+          printf '/*\n  X-Robots-Tag: noindex\n' > dist/_headers
+      - name: deploy preview
+        run: npx --yes wrangler@4.154.0 deploy --name salm-dev-preview --assets dist --compatibility-date 2026-10-01
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  production:
+    needs: preview
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://salm.dev
+    concurrency:
+      group: production
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: download site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
