@@ -106,14 +106,39 @@ async function getIncidents(checks: any[], env: Env) {
 		.slice(0, INCIDENT_LIMIT);
 }
 
+function publicCheck(c: any) {
+	return {
+		url: c.url,
+		alias: c.alias ?? null,
+		down: Boolean(c.down),
+		down_since: c.down_since ?? null,
+		error: c.error ?? null,
+		uptime: c.uptime ?? null,
+		last_check_at: c.last_check_at ?? null,
+		domain: c.domain ? { remaining_days: c.domain.remaining_days ?? null } : null,
+	};
+}
+
 function updownHeaders(env: Env) {
 	return { 'X-API-KEY': env.UPDOWNIO_KEY, 'Accept-Encoding': 'gzip' };
 }
 
-const CORS_HEADERS = {
-	'Access-Control-Allow-Origin': 'https://salm.dev',
-	'Access-Control-Allow-Methods': 'GET',
-};
+const ALLOWED_ORIGINS = ['https://salm.dev', 'https://salm-dev-preview.nicosalm.workers.dev', 'http://localhost:8080'];
+
+function corsHeaders(request: Request): Record<string, string> {
+	const origin = request.headers.get('Origin');
+	return {
+		'Access-Control-Allow-Origin': origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+		'Access-Control-Allow-Methods': 'GET',
+		Vary: 'Origin',
+	};
+}
+
+function withCors(response: Response, request: Request): Response {
+	const r = new Response(response.body, response);
+	for (const [k, v] of Object.entries(corsHeaders(request))) r.headers.set(k, v);
+	return r;
+}
 
 const CACHE_TTL = 60;
 const PARTIAL_CACHE_TTL = 15;
@@ -122,13 +147,13 @@ const INCIDENT_LIMIT = 3;
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		if (request.method === 'OPTIONS') {
-			return new Response(null, { headers: CORS_HEADERS });
+			return new Response(null, { headers: corsHeaders(request) });
 		}
 
 		const cache = caches.default;
 		const cacheKey = new Request(request.url, { method: 'GET' });
 		const cached = await cache.match(cacheKey);
-		if (cached) return cached;
+		if (cached) return withCors(cached, request);
 
 		try {
 			const [[checksData, incidents], languagesData, editorsData, activityData, stats] = await Promise.all([
@@ -142,7 +167,7 @@ export default {
 				getStats(env).catch(() => null),
 			]);
 
-			const checks = checksData ?? [];
+			const checks = (checksData ?? []).map(publicCheck);
 			const languages = languagesData?.data ?? null;
 			const editors = editorsData?.data ?? null;
 			const activity = activityData?.data ?? null;
@@ -154,16 +179,15 @@ export default {
 				headers: {
 					'Content-Type': 'application/json',
 					'Cache-Control': `public, max-age=${ttl}`,
-					...CORS_HEADERS,
 				},
 			});
 
 			ctx.waitUntil(cache.put(cacheKey, response.clone()));
-			return response;
+			return withCors(response, request);
 		} catch {
 			return new Response(JSON.stringify({ error: 'Failed to fetch status data' }), {
 				status: 502,
-				headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+				headers: { 'Content-Type': 'application/json', ...corsHeaders(request) },
 			});
 		}
 	},

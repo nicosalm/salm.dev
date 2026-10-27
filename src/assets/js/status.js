@@ -74,7 +74,7 @@
         var checked = '';
         if (checks.length) {
             var at = Date.parse(checks[0].last_check_at);
-            checked = 'last checked <code>' + (isNaN(at) ? esc(checks[0].last_check_at) : formatDuration((Date.now() - at) / 1000) + ' ago') + '</code>';
+            checked = '(last checked <code>' + (isNaN(at) ? esc(checks[0].last_check_at) : formatDuration((Date.now() - at) / 1000) + ' ago') + '</code>)';
         }
         var rows = checks.length ? checks.map(serviceRow) : null;
         services.innerHTML = boxHead('Services', checked) + section(rows);
@@ -121,7 +121,7 @@
             return n ? formatNumber(n) + ' all time' : '';
         }
 
-        analytics.innerHTML = boxHead('Site', 'in the last 7 days') +
+        analytics.innerHTML = boxHead('Site', '(in the last 7 days)') +
             '<div class="stat-tiles">' +
             statTile('Users', formatNumber(rb.users), allTime(rb.allUsers)) +
             statTile('Pageviews', formatNumber(rb.pageviews), allTime(rb.allPageviews)) +
@@ -147,7 +147,7 @@
         var hours = '';
         if (data.activity) {
             var seconds = data.activity.reduce(function(acc, cur) { return acc + (cur.grand_total ? cur.grand_total.total_seconds : 0); }, 0);
-            hours = '<code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days';
+            hours = '(<code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days)';
         }
 
         coding.innerHTML = boxHead('Coding', hours) +
