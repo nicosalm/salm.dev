@@ -14,7 +14,7 @@ description: Things I've built, and contributions to open source.
     {%- for repo in github.projects %}
     <section class="panel">
         <div class="panel-head">
-            <h3><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></h3>
+            <h3><a href="{{ repo.url }}"{% if repo.external %} target="_blank"{% endif %}>{{ repo.name }}</a></h3>
             <small class="section-note">{% if repo.archived %}archived {% endif %}{% if repo.language %}({{ repo.language }}){% endif %}</small>
         </div>
         {%- if repo.description %}
@@ -32,7 +32,7 @@ description: Things I've built, and contributions to open source.
     {%- for repo in github.contributions %}
     <section class="panel panel-wide">
         <div class="panel-head">
-            <h3><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></h3>
+            <h3><a href="{{ repo.url }}"{% if repo.external %} target="_blank"{% endif %}>{{ repo.name }}</a></h3>
             {%- if repo.language %}
             <small class="section-note">({{ repo.language }})</small>
             {%- endif %}

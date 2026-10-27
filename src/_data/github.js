@@ -8,6 +8,7 @@ const PULLS_SHOWN = 3;
 const SUMMARY_LENGTH = 300;
 
 const API = "https://api.github.com";
+const SITE_HOSTS = ["salm.dev", "www.salm.dev"];
 const ISSUE_REF = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)/i;
 const ISSUE_REFS = new RegExp(ISSUE_REF.source, "gi");
 
@@ -15,10 +16,16 @@ function link(repo) {
   const homepage = (repo.homepage || "").trim();
   if (!homepage) return repo.html_url;
   try {
-    return new URL(/^https?:\/\//i.test(homepage) ? homepage : `https://${homepage}`).href;
+    const url = new URL(/^https?:\/\//i.test(homepage) ? homepage : `https://${homepage}`);
+    return SITE_HOSTS.includes(url.hostname) ? url.pathname + url.search + url.hash : url.href;
   } catch {
     return repo.html_url;
   }
+}
+
+function linked(repo) {
+  const url = link(repo);
+  return { url, external: !url.startsWith("/") };
 }
 
 function escapeHtml(s) {
@@ -68,7 +75,7 @@ function projects(repos) {
     .filter((r) => !r.fork && (r.topics || []).includes(PROJECT_TOPIC))
     .map((r) => ({
       name: r.name,
-      url: link(r),
+      ...linked(r),
       description: r.description || "",
       language: r.language,
       archived: r.archived,
@@ -108,7 +115,7 @@ async function contributions() {
       const repo = await get(`/repos/${name}`);
       return {
         name,
-        url: link(repo),
+        ...linked(repo),
         language: repo.language,
         stars: repo.stargazers_count,
         pulls: byRepo.get(name),
