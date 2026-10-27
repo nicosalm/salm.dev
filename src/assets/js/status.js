@@ -124,7 +124,7 @@
 
         analytics.innerHTML = panelHead('Site', '(in the last 7 days)') +
             '<div class="stat-tiles">' +
-            statTile('Users', formatNumber(rb.users), allTime(rb.allUsers)) +
+            statTile('Visitors', formatNumber(rb.users), allTime(rb.allUsers)) +
             statTile('Pageviews', formatNumber(rb.pageviews), allTime(rb.allPageviews)) +
             statTile('Served', served, cached) +
             '</div>';

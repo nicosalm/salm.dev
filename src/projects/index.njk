@@ -9,7 +9,8 @@ description: Things I've built, and contributions to open source.
 </div>
 
 <h2 id="projects" class="visually-hidden">Projects</h2>
-<div class="panel-grid panel-grid-even" data-paginate="5" data-paginate-label="project pages">
+{%- if github.projects.length %}
+<div class="panel-grid panel-grid-even" data-paginate="6" data-paginate-label="project pages">
     {%- for repo in github.projects %}
     <section class="panel">
         <div class="panel-head">
@@ -21,15 +22,9 @@ description: Things I've built, and contributions to open source.
         {%- endif %}
     </section>
     {%- endfor %}
-    <section class="panel" data-paginate-fixed>
-        <div class="panel-head">
-            <h3><a href="https://github.com/{{ github.user }}" target="_blank">… more on GitHub</a></h3>
-            {%- if github.repoCount %}
-            <small class="section-note">({{ github.repoCount }} repos)</small>
-            {%- endif %}
-        </div>
-    </section>
 </div>
+{%- endif %}
+<p class="post-description text-small">Looking for more? Check out the rest of my repos on <a href="https://github.com/{{ github.user }}" target="_blank">GitHub</a>.</p>
 
 <h2 id="open-source">Open Source</h2>
 {%- if github.contributions.length %}

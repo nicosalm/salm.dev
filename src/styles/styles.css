@@ -808,7 +808,9 @@ footer p:last-child {
     margin: 0.75rem 0 2rem;
 }
 
-.panel-grid:has(+ .pager) {
+.panel-grid:has(+ .pager),
+.panel-grid:has(+ .post-description),
+.pager:has(+ .post-description) {
     margin-bottom: 0;
 }
 

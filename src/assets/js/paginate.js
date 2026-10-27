@@ -1,7 +1,7 @@
 (function() {
     document.querySelectorAll('[data-paginate]').forEach((list) => {
         const size = Number(list.dataset.paginate);
-        const items = [...list.children].filter((el) => !el.hasAttribute('data-paginate-fixed'));
+        const items = [...list.children];
         const pages = Math.ceil(items.length / size);
         if (!size || pages < 2) return;
 

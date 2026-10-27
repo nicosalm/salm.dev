@@ -132,11 +132,10 @@ async function contributions() {
 
 export default async function () {
   try {
-    const owned = await repos();
-    return { user: USER, repoCount: owned.length, projects: projects(owned), contributions: await contributions() };
+    return { user: USER, projects: projects(await repos()), contributions: await contributions() };
   } catch (err) {
     if (process.env.CI) throw err;
     console.warn(`[github] ${err.message}; rendering without GitHub data`);
-    return { user: USER, repoCount: 0, projects: [], contributions: [] };
+    return { user: USER, projects: [], contributions: [] };
   }
 }
