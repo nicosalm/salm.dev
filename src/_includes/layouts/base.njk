@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="preload" href="/assets/fonts/rumiko-clear-regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="{{ '/styles/styles.css' | versioned }}">
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
@@ -29,7 +29,7 @@
     <link rel="preconnect" href="{{ prefetch }}">
     {% endif %}
     {% if math %}
-    <script src="/assets/js/mathjax-config.js"></script>
+    <script src="{{ '/assets/js/mathjax-config.js' | versioned }}"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     {% endif %}
 </head>
@@ -56,7 +56,7 @@
         defer
     ></script>
     <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
-    <script src="/assets/js/email.js" defer></script>
-    <script src="/assets/js/tooltips.js" defer></script>
+    <script src="{{ '/assets/js/email.js' | versioned }}" defer></script>
+    <script src="{{ '/assets/js/tooltips.js' | versioned }}" defer></script>
 </body>
 </html>

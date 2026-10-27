@@ -9,6 +9,8 @@ import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
 import { buildOgImages } from "./tools/og-image.js";
 import { join } from "node:path";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const ogSlug = (url) => {
   const parts = String(url).split("/").filter(Boolean);
@@ -129,6 +131,11 @@ export default function(eleventyConfig) {
 
   eleventyConfig.addFilter("year", (date) => {
     return new Date(date).getUTCFullYear();
+  });
+
+  eleventyConfig.addFilter("versioned", (url) => {
+    const hash = createHash("sha256").update(readFileSync(join("src", url))).digest("hex").slice(0, 10);
+    return `${url}?v=${hash}`;
   });
 
   eleventyConfig.addFilter("currentYear", () => {
