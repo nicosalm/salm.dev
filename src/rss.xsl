@@ -16,7 +16,7 @@
           <a href="/writing">writing</a><span class="sep">|</span><a
           href="/now">now</a><span class="sep">|</span><a
           href="/about">about</a><span class="sep">|</span><a
-          href="https://github.com/nicosalm/" data-host="github.com">projects</a><span class="sep">|</span><a
+          href="/projects">projects</a><span class="sep">|</span><a
           href="/misc">misc</a>
         </nav>
         <span class="spacer"></span>
