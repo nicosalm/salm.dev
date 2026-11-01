@@ -1,10 +1,23 @@
+:root {
+    --up: #23C552;
+    --down: #F84F31;
+}
+
+body[data-status="up"] {
+    --accent: var(--up);
+}
+
+body[data-status="down"] {
+    --accent: var(--down);
+}
+
 .domain-status {
     font-family: var(--font-mono);
     font-size: var(--fs-xsmall);
 }
 
 .domain-active {
-    color: #23C552;
+    color: var(--up);
 }
 
 .domain-parked {
@@ -58,11 +71,11 @@
 }
 
 .status-dot.up {
-    background: #23C552;
+    background: var(--up);
 }
 
 .status-dot.down {
-    background: #F84F31;
+    background: var(--down);
 }
 
 .spinner {

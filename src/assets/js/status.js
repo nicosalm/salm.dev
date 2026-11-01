@@ -37,13 +37,14 @@
     }
 
     function render(data) {
-        renderServices(data.checks || []);
+        var checks = data.checks || [];
+        renderServices(checks);
         renderIncidents(data.incidents);
         renderStats(data.stats || {});
         renderCoding(data);
+        if (checks.length) document.body.dataset.status = checks.some(function(c) { return c.down; }) ? 'down' : 'up';
     }
 
-    // A uniform row: label · dotted leader · value, matching the Domains list.
     function statRow(labelHtml, valueHtml, className) {
         return '<div class="stat-row' + (className ? ' ' + className : '') + '">' +
             '<span class="stat-label">' + labelHtml + '</span>' +

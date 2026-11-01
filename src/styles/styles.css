@@ -141,6 +141,12 @@ body::before {
     background: var(--accent);
 }
 
+body.post::before {
+    position: fixed;
+    z-index: 10;
+    background: linear-gradient(var(--accent), var(--accent)) 0 0 / calc(var(--progress, 1) * 100%) 100% no-repeat var(--border-light);
+}
+
 body {
     font-family: var(--font-body);
     font-size: var(--fs);
