@@ -8,18 +8,26 @@
     var SEP = ' <span class="meta-sep" aria-hidden="true"></span> ';
     var SPINNER_FRAMES = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
     var spinTimer = null;
+    var lastCheckAt = null;
 
     startSpinner();
-    fetch(API)
-        .then(function(res) {
-            if (!res.ok) throw new Error(res.status);
-            return res.json();
-        })
-        .then(function(data) { stopSpinner(); render(data); })
-        .catch(function() {
-            stopSpinner();
-            services.innerHTML = '<p>Failed to load status data.</p>';
-        });
+    load(true);
+    setInterval(function() { if (!document.hidden) load(false); }, 60000);
+    setInterval(tickChecked, 1000);
+
+    function load(first) {
+        fetch(API)
+            .then(function(res) {
+                if (!res.ok) throw new Error(res.status);
+                return res.json();
+            })
+            .then(function(data) { stopSpinner(); render(data); })
+            .catch(function() {
+                if (!first) return;
+                stopSpinner();
+                services.innerHTML = '<p>Failed to load status data.</p>';
+            });
+    }
 
     function startSpinner() {
         services.innerHTML = '<p class="status-loading text-muted text-small"><span class="spinner" aria-hidden="true">' + SPINNER_FRAMES[0] + '</span> loading</p>';
@@ -74,12 +82,27 @@
 
     function renderServices(checks) {
         var checked = '';
+        lastCheckAt = null;
         if (checks.length) {
             var at = Date.parse(checks[0].last_check_at);
-            checked = '(last checked <code>' + (isNaN(at) ? esc(checks[0].last_check_at) : formatDuration((Date.now() - at) / 1000) + ' ago') + '</code>)';
+            if (isNaN(at)) {
+                checked = '(last checked <code>' + esc(checks[0].last_check_at) + '</code>)';
+            } else {
+                lastCheckAt = at;
+                checked = '(last checked <code class="checked-ago">' + ago(at) + '</code>)';
+            }
         }
         var rows = checks.length ? checks.map(serviceRow) : null;
         services.innerHTML = panelHead('Services', checked) + section(rows);
+    }
+
+    function ago(at) {
+        return formatDuration((Date.now() - at) / 1000) + ' ago';
+    }
+
+    function tickChecked() {
+        var el = lastCheckAt && services.querySelector('.checked-ago');
+        if (el) el.textContent = ago(lastCheckAt);
     }
 
     function renderIncidents(incidents) {

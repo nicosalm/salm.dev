@@ -3,6 +3,10 @@
     --down: #F84F31;
 }
 
+body:not([data-status]) {
+    --accent: var(--border);
+}
+
 body[data-status="up"] {
     --accent: var(--up);
 }

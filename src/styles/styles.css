@@ -807,6 +807,14 @@ footer p:last-child {
     bottom: 0.2em;
 }
 
+.post-item:has(.post-link:hover, .post-link:focus-visible) .post-date {
+    color: var(--text);
+}
+
+.post-item:has(.post-link:hover, .post-link:focus-visible) .dot-leader {
+    border-bottom-color: var(--text-tertiary);
+}
+
 .cursor-tip {
     position: fixed;
     top: 0;
@@ -1040,12 +1048,16 @@ hr::after {
     margin-bottom: 1.2rem;
 }
 
-.to-top,
-.to-top:visited {
-    display: inline-block;
-    margin-left: 0.3rem;
+.to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 10;
     padding-right: 0.5rem;
     padding-left: 0.45rem;
+    background: var(--bg);
+    font-family: var(--font-ui);
+    font-size: var(--fs-small);
     white-space: nowrap;
 }
 
@@ -1357,6 +1369,10 @@ a.fnref,
 
     .toc-wrapper {
         margin-bottom: 0.75rem;
+    }
+
+    .to-top {
+        display: none;
     }
 
     .post-meta-bar {

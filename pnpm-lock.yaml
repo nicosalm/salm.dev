@@ -188,6 +188,9 @@ importers:
       '@11tyrocks/eleventy-plugin-lightningcss':
         specifier: ^1.6.0
         version: 1.6.0
+      '@cloudflare/workers-types':
+        specifier: ^5.20261031.1
+        version: 5.20261031.1
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -249,6 +252,9 @@ packages:
 
   '@11tyrocks/eleventy-plugin-lightningcss@1.6.0':
     resolution: {integrity: sha512-YjtHEB4UaxUTWzEw5mevmwvltEbLlnmry/vLR2B0vkBtO/qVWd66fd+7bnw9ccERicY/oqID2FkR1/+9MgZBzQ==}
+
+  '@cloudflare/workers-types@5.20261031.1':
+    resolution: {integrity: sha512-2BR1pUhsivjMcqncHjbK1+v/HtOyiUAzMcf3jHt1ZOIiDOktnoeEoBuiEgyJOJ6iFgVLt4Zj7HzPrBjq5zLqQQ==}
 
   '@emnapi/runtime@1.7.1':
     resolution: {integrity: sha512-PVtJr5CmLwYAU9PZDMITZoR5iAOShYREoR45EyyLrbntV50mdePTgUn4AmOw90Ifcj+x2kRjdzr1HP3RrNiHGA==}
@@ -1283,6 +1289,8 @@ snapshots:
     dependencies:
       browserslist: 4.28.2
       lightningcss: 1.32.0
+
+  '@cloudflare/workers-types@5.20261031.1': {}
 
   '@emnapi/runtime@1.7.1':
     dependencies:

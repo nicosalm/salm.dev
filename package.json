@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@11tyrocks/eleventy-plugin-lightningcss": "^1.6.0",
+    "@cloudflare/workers-types": "^5.20261031.1",
     "@resvg/resvg-js": "^2.6.2",
     "fontkit": "^2.0.4",
     "wawoff2": "^2.0.1"
