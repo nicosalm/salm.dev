@@ -1095,15 +1095,16 @@ hr::after {
 .now-archive {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-large);
-    padding: 0.4rem 0.6rem;
+    padding: 0.35rem 0.6rem;
     margin-bottom: 0.5rem;
     font-size: var(--fs-small);
+    line-height: 1.35;
 }
 
 .toc {
     list-style: none;
     padding-left: 0;
-    margin: 0.3rem 0 0 1em;
+    margin: 0.3rem 0 0;
 }
 
 .toc li.toc-h2 {
@@ -1123,15 +1124,19 @@ hr::after {
     color: var(--text-secondary);
 }
 
+.toc li:last-child {
+    margin-bottom: 0;
+}
+
 .authors-note {
     font-size: var(--fs-small);
     color: var(--text-secondary);
-    line-height: 1.45;
+    line-height: 1.35;
     margin-bottom: 0.75rem;
     background: var(--bg);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-large);
-    padding: 0.4rem 0.6rem;
+    padding: 0.35rem 0.6rem;
 }
 
 .authors-note summary {
@@ -1144,7 +1149,7 @@ hr::after {
     cursor: pointer;
     font-weight: bold;
     list-style: none;
-    padding-left: 1em;
+    padding-right: 1em;
     position: relative;
 }
 
@@ -1159,7 +1164,7 @@ hr::after {
 .now-archive>summary::before {
     content: '›';
     position: absolute;
-    left: 0.15em;
+    right: 0;
     color: var(--text-secondary);
     display: inline-block;
 }
@@ -1171,7 +1176,7 @@ hr::after {
 }
 
 .authors-note-content {
-    margin: 0.3rem 0 0 1em;
+    margin: 0.3rem 0 0;
 }
 
 .authors-note-content p {
@@ -1190,7 +1195,7 @@ hr::after {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin: 0.4rem 0 0 1em;
+    margin: 0.3rem 0 0;
 }
 
 .archive-year {
@@ -1220,7 +1225,6 @@ hr::after {
     border-radius: var(--radius);
     font-family: var(--font-ui);
     font-size: var(--fs-xsmall);
-    text-decoration: none;
 }
 
 .archive-months>span {
@@ -1242,9 +1246,7 @@ hr::after {
 }
 
 .archive-coverage {
-    display: flex;
-    align-items: baseline;
-    margin: 0.5rem 0 0.1rem 1em;
+    margin: 0.5rem 0 0;
     font-size: var(--fs-xsmall);
 }
 
@@ -1274,7 +1276,7 @@ a.fnref,
     color: var(--text-secondary);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-large);
-    padding: 0.4rem 0.5rem;
+    padding: 0.35rem 0.6rem;
     background: var(--bg);
 }
 
@@ -1370,6 +1372,7 @@ a.fnref,
 }
 
 @media (max-width: 480px) {
+
     .nav-prev,
     .nav-next {
         min-width: 0;
@@ -1387,6 +1390,7 @@ a.fnref,
 }
 
 @media (min-width: 1200px) {
+
     .toc-wrapper,
     .now-archive {
         position: absolute;

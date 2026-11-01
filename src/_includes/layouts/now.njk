@@ -38,8 +38,7 @@ layout: layouts/base.njk
         {%- set firstNow = collections.nows | first %}
         {%- if cov %}
         <div class="archive-coverage">
-            <span class="archive-year-label">coverage</span>
-            <span class="dot-leader"></span>
+            <span class="archive-year-label">coverage:</span>
             <abbr title="{{ cov.count }} of {{ cov.total }} months since {{ firstNow.date | monthName }} {{ firstNow.date | year }}">{{ cov.percent }}%</abbr>
         </div>
         {%- endif %}
