@@ -18,9 +18,11 @@ layout: layouts/base.njk
         <div class="nav-next"><a href="{{ nextNow.url }}">{{ nextNow.data.date | monthYear }}</a> -&gt;</div>
         {% endif %}
     </div>
-    <details class="now-archive" open>
-        <summary>Archive</summary>
-        <nav class="archive-years" aria-label="Now pages">
+    <nav class="now-archive" aria-label="Now pages">
+        {%- set cov = collections.nows | coverage %}
+        {%- set firstNow = collections.nows | first %}
+        <p class="archive-title">Archive{% if cov %} (<abbr title="{{ cov.count }} of {{ cov.total }} months since {{ firstNow.date | monthName }} {{ firstNow.date | year }}">{{ cov.percent }}%</abbr>){% endif %}</p>
+        <div class="archive-years">
             {%- for row in collections.nows | monthGrid %}
             <div class="archive-year">
                 <span class="archive-year-label">{{ row.year }}</span>
@@ -28,20 +30,12 @@ layout: layouts/base.njk
                     {%- for m in row.months %}
                     {%- set abbr = m.name.slice(0, 3) | lower %}
                     {%- if m.item %}<a href="{{ m.item.url }}" aria-label="{{ m.name }} {{ row.year }}"{% if m.item.url == page.url %} aria-current="page"{% endif %}>{{ abbr }}</a>
-                    {%- else %}<span aria-hidden="true">{{ abbr }}</span>{% endif %}
+                    {%- else %}<span{% if m.outside %} class="outside"{% endif %} aria-hidden="true">{{ abbr }}</span>{% endif %}
                     {%- endfor %}
                 </div>
             </div>
             {%- endfor %}
-        </nav>
-        {%- set cov = collections.nows | coverage %}
-        {%- set firstNow = collections.nows | first %}
-        {%- if cov %}
-        <div class="archive-coverage">
-            <span class="archive-year-label">coverage:</span>
-            <abbr title="{{ cov.count }} of {{ cov.total }} months since {{ firstNow.date | monthName }} {{ firstNow.date | year }}">{{ cov.percent }}%</abbr>
         </div>
-        {%- endif %}
-    </details>
+    </nav>
 </article>
 {% include "footer.njk" %}

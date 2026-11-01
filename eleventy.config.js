@@ -108,7 +108,18 @@ export default function(eleventyConfig) {
 
   eleventyConfig.addFilter("monthName", monthName);
 
+  const nowWindow = (items) => {
+    const months = new Set(items.map((item) => {
+      const d = new Date(item.date);
+      return d.getUTCFullYear() * 12 + d.getUTCMonth();
+    }));
+    const now = new Date();
+    const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
+    return { months, start: Math.min(...months), end: Math.max(...months, lastEnded) };
+  };
+
   eleventyConfig.addFilter("monthGrid", (items) => {
+    const { start, end } = nowWindow(items);
     const years = new Map();
     for (const item of items) {
       const d = new Date(item.date);
@@ -120,19 +131,17 @@ export default function(eleventyConfig) {
       .sort(([a], [b]) => b - a)
       .map(([year, byMonth]) => ({
         year,
-        months: MONTHS.map((name, i) => ({ name, item: byMonth[i] })),
+        months: MONTHS.map((name, i) => {
+          const index = year * 12 + i;
+          return { name, item: byMonth[i], outside: index < start || index > end };
+        }),
       }));
   });
 
   eleventyConfig.addFilter("coverage", (items) => {
-    const months = new Set(items.map((item) => {
-      const d = new Date(item.date);
-      return d.getUTCFullYear() * 12 + d.getUTCMonth();
-    }));
-    if (!months.size) return null;
-    const now = new Date();
-    const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
-    const total = Math.max(...months, lastEnded) - Math.min(...months) + 1;
+    if (!items.length) return null;
+    const { months, start, end } = nowWindow(items);
+    const total = end - start + 1;
     return { count: months.size, total, percent: Math.round((months.size / total) * 100) };
   });
 

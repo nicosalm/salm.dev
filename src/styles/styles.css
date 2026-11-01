@@ -1138,8 +1138,7 @@ hr::after {
 }
 
 .toc-wrapper>summary,
-.authors-note>summary,
-.now-archive>summary {
+.authors-note>summary {
     cursor: pointer;
     font-weight: bold;
     list-style: none;
@@ -1148,14 +1147,12 @@ hr::after {
 }
 
 .toc-wrapper>summary::-webkit-details-marker,
-.authors-note>summary::-webkit-details-marker,
-.now-archive>summary::-webkit-details-marker {
+.authors-note>summary::-webkit-details-marker {
     display: none;
 }
 
 .toc-wrapper>summary::before,
-.authors-note>summary::before,
-.now-archive>summary::before {
+.authors-note>summary::before {
     content: '›';
     position: absolute;
     right: 0;
@@ -1164,8 +1161,7 @@ hr::after {
 }
 
 .toc-wrapper[open]>summary::before,
-.authors-note[open]>summary::before,
-.now-archive[open]>summary::before {
+.authors-note[open]>summary::before {
     transform: rotate(90deg);
 }
 
@@ -1182,27 +1178,34 @@ hr::after {
 }
 
 .now-archive {
-    margin: 1rem 0 0;
+    margin: 1.15rem 0 0;
+    padding-bottom: 0.6rem;
+}
+
+.archive-title {
+    margin: 0;
+    font-weight: bold;
 }
 
 .archive-years {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
     margin: 0.3rem 0 0;
 }
 
 .archive-year {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    column-gap: 0.5rem;
 }
 
 .archive-year-label {
     color: var(--text-tertiary);
     font-size: var(--fs-xsmall);
     font-variant-numeric: tabular-nums;
-    line-height: 1.2;
+    line-height: 2rem;
 }
 
 .archive-months {
@@ -1225,6 +1228,10 @@ hr::after {
     color: var(--border);
 }
 
+.archive-months>.outside {
+    border-color: transparent;
+}
+
 .archive-months>a {
     border-color: var(--border);
 }
@@ -1237,11 +1244,6 @@ hr::after {
     border-color: var(--text);
     color: var(--text);
     background: var(--code-bg);
-}
-
-.archive-coverage {
-    margin: 0.5rem 0 0;
-    font-size: var(--fs-xsmall);
 }
 
 sup.fnref {
@@ -1373,6 +1375,10 @@ a.fnref,
         overflow-wrap: break-word;
     }
 
+    .archive-years {
+        gap: 0.5rem;
+    }
+
     .archive-months {
         grid-template-columns: repeat(6, 1fr);
     }
@@ -1385,20 +1391,11 @@ a.fnref,
 
 @media (min-width: 1200px) {
 
-    .toc-wrapper,
-    .now-archive {
+    .toc-wrapper {
         position: absolute;
         left: -240px;
         width: 210px;
         top: 0;
-    }
-
-    .now-archive {
-        margin: 0;
-    }
-
-    .archive-months {
-        grid-template-columns: repeat(4, 1fr);
     }
 
     .authors-note {
