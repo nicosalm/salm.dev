@@ -79,37 +79,30 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
   production:
-    needs: preview
+    needs: [ build, preview ]
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: production
       url: https://salm.dev
     concurrency:
       group: production
     permissions:
+      contents: read
       pages: write
       id-token: write
     steps:
       - name: deploy
         uses: actions/deploy-pages@v5
-
-  worker:
-    needs: [ build, production ]
-    if: needs.build.outputs.worker == 'true'
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://status.salm.dev
-    concurrency:
-      group: worker
-    steps:
       - name: checkout
+        if: needs.build.outputs.worker == 'true'
         uses: actions/checkout@v7
       - name: setup node
+        if: needs.build.outputs.worker == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: '24'
       - name: deploy worker
+        if: needs.build.outputs.worker == 'true'
         working-directory: worker
         run: npx --yes wrangler@4.154.0 deploy
         env:
