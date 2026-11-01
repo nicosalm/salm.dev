@@ -36,7 +36,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     {% endif %}
 </head>
-<body{% if layout == 'layouts/post.njk' %} class="post"{% endif %}>
+<body{% if layout == 'layouts/post.njk' or layout == 'layouts/now.njk' %} class="post"{% endif %}>
     <a href="#main" class="skip-link">Skip to content</a>
     <header class="site-header" id="top">
         <a href="/" class="site-title">salm.dev</a>

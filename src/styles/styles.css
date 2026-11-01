@@ -1091,7 +1091,8 @@ hr::after {
     text-align: right;
 }
 
-.toc-wrapper {
+.toc-wrapper,
+.now-archive {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-large);
     padding: 0.4rem 0.6rem;
@@ -1138,7 +1139,8 @@ hr::after {
 }
 
 .toc-wrapper>summary,
-.authors-note>summary {
+.authors-note>summary,
+.now-archive>summary {
     cursor: pointer;
     font-weight: bold;
     list-style: none;
@@ -1147,12 +1149,14 @@ hr::after {
 }
 
 .toc-wrapper>summary::-webkit-details-marker,
-.authors-note>summary::-webkit-details-marker {
+.authors-note>summary::-webkit-details-marker,
+.now-archive>summary::-webkit-details-marker {
     display: none;
 }
 
 .toc-wrapper>summary::before,
-.authors-note>summary::before {
+.authors-note>summary::before,
+.now-archive>summary::before {
     content: '›';
     position: absolute;
     left: 0.15em;
@@ -1161,7 +1165,8 @@ hr::after {
 }
 
 .toc-wrapper[open]>summary::before,
-.authors-note[open]>summary::before {
+.authors-note[open]>summary::before,
+.now-archive[open]>summary::before {
     transform: rotate(90deg);
 }
 
@@ -1175,6 +1180,72 @@ hr::after {
 
 .authors-note-content p:last-child {
     margin-bottom: 0;
+}
+
+.now-archive {
+    margin: 1rem 0 0;
+}
+
+.archive-years {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.4rem 0 0 1em;
+}
+
+.archive-year {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.archive-year-label {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xsmall);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.archive-months {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0.25rem;
+}
+
+.archive-months>* {
+    display: grid;
+    place-items: center;
+    height: 2rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    font-family: var(--font-ui);
+    font-size: var(--fs-xsmall);
+    text-decoration: none;
+}
+
+.archive-months>span {
+    color: var(--border);
+}
+
+.archive-months>a {
+    border-color: var(--border);
+}
+
+.archive-months>a:hover {
+    background: var(--code-bg);
+}
+
+.archive-months>a[aria-current="page"] {
+    border-color: var(--text);
+    color: var(--text);
+    background: var(--code-bg);
+}
+
+.archive-coverage {
+    display: flex;
+    align-items: baseline;
+    margin: 0.5rem 0 0.1rem 1em;
+    font-size: var(--fs-xsmall);
 }
 
 sup.fnref {
@@ -1304,6 +1375,10 @@ a.fnref,
         min-width: 0;
         overflow-wrap: break-word;
     }
+
+    .archive-months {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }
 
 :focus-visible {
@@ -1312,11 +1387,20 @@ a.fnref,
 }
 
 @media (min-width: 1200px) {
-    .toc-wrapper {
+    .toc-wrapper,
+    .now-archive {
         position: absolute;
         left: -240px;
         width: 210px;
         top: 0;
+    }
+
+    .now-archive {
+        margin: 0;
+    }
+
+    .archive-months {
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .authors-note {

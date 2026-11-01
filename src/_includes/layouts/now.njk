@@ -18,6 +18,32 @@ layout: layouts/base.njk
         <div class="nav-next"><a href="{{ nextNow.url }}">{{ nextNow.data.date | monthYear }}</a> -&gt;</div>
         {% endif %}
     </div>
+    <details class="now-archive" open>
+        <summary>Archive</summary>
+        <nav class="archive-years" aria-label="Now pages">
+            {%- for row in collections.nows | monthGrid %}
+            <div class="archive-year">
+                <span class="archive-year-label">{{ row.year }}</span>
+                <div class="archive-months">
+                    {%- for m in row.months %}
+                    {%- set abbr = m.name.slice(0, 3) | lower %}
+                    {%- if m.item %}<a href="{{ m.item.url }}" aria-label="{{ m.name }} {{ row.year }}"{% if m.item.url == page.url %} aria-current="page"{% endif %}>{{ abbr }}</a>
+                    {%- else %}<span aria-hidden="true">{{ abbr }}</span>{% endif %}
+                    {%- endfor %}
+                </div>
+            </div>
+            {%- endfor %}
+        </nav>
+        {%- set cov = collections.nows | coverage %}
+        {%- set firstNow = collections.nows | first %}
+        {%- if cov %}
+        <div class="archive-coverage">
+            <span class="archive-year-label">coverage</span>
+            <span class="dot-leader"></span>
+            <abbr title="{{ cov.count }} of {{ cov.total }} months since {{ firstNow.date | monthName }} {{ firstNow.date | year }}">{{ cov.percent }}%</abbr>
+        </div>
+        {%- endif %}
+    </details>
 </article>
 {% include "footer.njk" %}
 <script src="{{ '/assets/js/scroll.js' | versioned }}" defer></script>

@@ -7,7 +7,7 @@ import markdownItAttrs from "markdown-it-attrs";
 import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
 import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
-import { monthName } from "./src/_includes/months.js";
+import { MONTHS, monthName } from "./src/_includes/months.js";
 import { buildOgImages } from "./tools/og-image.js";
 import friends from "./src/_data/friends.js";
 import { join } from "node:path";
@@ -107,6 +107,34 @@ export default function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("monthName", monthName);
+
+  eleventyConfig.addFilter("monthGrid", (items) => {
+    const years = new Map();
+    for (const item of items) {
+      const d = new Date(item.date);
+      const year = d.getUTCFullYear();
+      if (!years.has(year)) years.set(year, []);
+      years.get(year)[d.getUTCMonth()] = item;
+    }
+    return [...years]
+      .sort(([a], [b]) => b - a)
+      .map(([year, byMonth]) => ({
+        year,
+        months: MONTHS.map((name, i) => ({ name, item: byMonth[i] })),
+      }));
+  });
+
+  eleventyConfig.addFilter("coverage", (items) => {
+    const months = new Set(items.map((item) => {
+      const d = new Date(item.date);
+      return d.getUTCFullYear() * 12 + d.getUTCMonth();
+    }));
+    if (!months.size) return null;
+    const now = new Date();
+    const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
+    const total = Math.max(...months, lastEnded) - Math.min(...months) + 1;
+    return { count: months.size, total, percent: Math.round((months.size / total) * 100) };
+  });
 
   eleventyConfig.addFilter("obfuscateEmail", (email) => {
     return String(email).replace(/[@.]/g, (char) => `${char}<span style="display:none">nospam</span>`);
