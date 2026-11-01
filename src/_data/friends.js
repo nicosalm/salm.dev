@@ -5,4 +5,7 @@ export default [
   { name: "Kot", img: "kot.jpg", url: "https://kot.pink/", desc: "@Kot!" },
   { name: "Nithilan", img: "slip.webp", url: "https://github.com/nithilan4", desc: "Slipithan bikes far and fast and likes all kinds of creatures." },
   { name: "Gil", img: "gil.webp", url: "https://friedgil.com/", desc: "Plays a lot of chess. Possibly named after Python's Global Interpreter Lock." },
+  { name: "Kev", url: "https://blackdiamand.github.io/" },
+  { name: "Jake", url: "https://github.com/jasmith55" },
+  { name: "Lucas", url: "https://scharenbroch.dev/" },
 ];

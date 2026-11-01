@@ -53,7 +53,7 @@ The first thing I did when I arrived at Madison was attach myself to a senior na
 
 In the spring of my freshman year, I went to my first hackathon and met Sarah, Haruto, and Wen Jie---more on that further down. We stayed together and ended up winning at another hackathon in Iowa, which was fun too.
 
-Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a <abbr title="Generative adversarial network">GAN</abbr> that ran on a photonic quantum computer, using Quandela's Perceval framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
+Then, in February of my sophomore year, after helping found the <a href="https://wqi.wisc.edu/wqcc/" target=_blank>Wisconsin Quantum Computing Club</a> alongside Ari, Dhanvi, and Patrick, I traveled to MIT for <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target=_blank>IQuHACK 2024</a> with Saro[^Saro], Kshitij, and Dhanvi. We built a <abbr title="Generative adversarial network">GAN</abbr> that ran on a photonic quantum computer, using Quandela's <abbr title="Open-source toolkit for programming photonic quantum computers" data-url="https://perceval.quandela.net/">Perceval</abbr> framework to train it to mimic a target quantum state. I assembled the actual circuit and learned a lot from both my team and Sam from Quandela. And after twenty-four hours, one of our plots indicated we had zero loss... which wasn't *quite* right. But everything else went great!
 
 <figure>
     <img src="./images/IQuHACK23.jpeg" alt="Our team at MIT iQuHACK working on laptops at tables, with a whiteboard covered in quantum challenge notes and other hackers in the background.">
@@ -124,11 +124,11 @@ walls and flower chairs, turned left, and found myself in a mysterious triangula
 The UPL was established in 1984, and in those days it was stacked to the brim with minicomputers; those days have passed, but UPL has stuck around. It remains a place for intrinsically motivated
 CS types[^cs-types] to work on cool stuff, learn from one another, and hang out. It's ***really cool***.
 
-[^cs-types]: Skrentny, one of my professors, used to call us this---I think it's rather endearing.
+[^cs-types]: <a href="https://pages.cs.wisc.edu/~skrentny/" target=_blank>Skrentny</a>, one of my professors, used to call us this---I think it's rather endearing.
 
 <figure class="float-right">
     <img src="./images/UPL3.jpg" alt="Ben sitting at a desk with two ThinkPads side by side at the table in the UPL, migrating from his old laptop to his newly set-up one.">
-    <figcaption><a href="https://ben.enterprises/" target=_blank>Ben</a> dual-wielding Thinkpads</figcaption>
+    <figcaption>{% friend "Ben" %} dual-wielding Thinkpads</figcaption>
 </figure>
 
 UPL'ers dropped in, engaged in spontaneous shenanigans, and dropped out (though sometimes they'd stick around until 2AM[^2AM]).
@@ -159,7 +159,7 @@ In 2025, UW-Madison <a href="https://www.dailycardinal.com/article/2025/09/uw-ma
 </figure>
 
 
-I was the one who took down every poster and piece of wall decor. I packed boxes with things that had been hanging since before I was born: a letter from a Google employee with a check enclosed, a map of the steam tunnels beneath campus, a printed email exchange between John Carmack and a UPL'er; and newer additions: Nick's keyboard schematic for the nice!nano, a screenshot of Professor Marc Renault explaining how he dominated at dodgeball with a 9:1 <abbr title="Kill-to-death ratio">K/D</abbr>, and a picture of Kayley beside the smoky UPL microwave. There was much more, too, from across decades.
+I was the one who took down every poster and piece of wall decor. I packed boxes with things that had been hanging since before I was born: a letter from a Google employee with a check enclosed, a map of the steam tunnels beneath campus, a printed email exchange between John Carmack and a UPL'er; and newer additions: Nick's keyboard schematic for the <abbr title="A wireless microcontroller board used in custom keyboards" data-url="https://nicekeyboards.com/nice-nano/">nice!nano</abbr>, a screenshot of Professor <a href="https://pages.cs.wisc.edu/~mrenault/" target=_blank>Marc Renault</a> explaining how he dominated at dodgeball with a 9:1 <abbr title="Kill-to-death ratio">K/D</abbr>, and a picture of Kayley beside the smoky UPL microwave. There was much more, too, from across decades.
 
 <figure class="float-right">
     <img src="./images/upl_new.jpeg" alt="UPL members in a hard hats and safety vests touring the unfinished new UPL space in Morgridge Hall, walking past its glass wall.">
@@ -199,7 +199,7 @@ And, of course, the UPL is the people who welcomed me in when I wasn't so sure I
 ## Thank You
 And that's all for now! Thank you to:
 
-- Ali Abedi, AnHai Doan, Ben Afflerbach, Brian McInnes, CJ, Cole Nelson, Dane Morgan, Efty Sifakis, Gigi Mitchell, Hobbes Legault, Manolis Vlatakis, Mark Mansi, Michael Swift, Michael Vanden Heuvel, Remzi Arpaci-Dusseau, Travis Pickering, and Tyler Caraza-Hartner.
+- <a href="https://pages.cs.wisc.edu/~abedi/" target=_blank>Ali Abedi</a>, <a href="https://pages.cs.wisc.edu/~anhai/" target=_blank>AnHai Doan</a>, Ben Afflerbach, Brian McInnes, CJ, Cole Nelson, <a href="https://engineering.wisc.edu/directory/profile/dane-morgan" target=_blank>Dane Morgan</a>, <a href="https://pages.cs.wisc.edu/~sifakis/" target=_blank>Efty Sifakis</a>, Gigi Mitchell, <a href="https://pages.cs.wisc.edu/~legault/" target=_blank>Hobbes Legault</a>, <a href="https://pages.cs.wisc.edu/~vlatakis/" target=_blank>Manolis Vlatakis</a>, <a href="https://pages.cs.wisc.edu/~markm/" target=_blank>Mark Mansi</a>, <a href="https://pages.cs.wisc.edu/~swift/" target=_blank>Michael Swift</a>, Michael Vanden Heuvel, <a href="https://pages.cs.wisc.edu/~remzi/" target=_blank>Remzi Arpaci-Dusseau</a>, Travis Pickering, and <a href="https://tyler.caraza-harter.com/" target=_blank>Tyler Caraza-Harter</a>.
 
 (Many of these people were professors, mentors, colleagues, or educators who shaped how I think and learn.)
 
@@ -207,19 +207,19 @@ And that's all for now! Thank you to:
 
 - More than anyone, I owe these four years to my friends---most of what's in this piece is really just about being in the same room as you guys.
 
-- Nithilan, for taking me on adventures around Madison, for saving my grade in several classes, and for making me bike up that really big hill for a donut.
+- {% friend "Nithilan" %}, for taking me on adventures around Madison, for saving my grade in several classes, and for making me bike up that really big hill for a donut.
 
-- Gil, for inextricably altering my vocabulary, and for being refreshingly positive. Great work!
+- {% friend "Gil" %}, for inextricably altering my vocabulary, and for being refreshingly positive. Great work!
 
-- Kev, for reasons which are classified. Yes.
+- {% friend "Kev" %}, for reasons which are classified. Yes.
 
-- Kot, for being fun and quirky, and for the daily @Nico. @Kot!
+- {% friend "Kot" %}, for being fun and quirky, and for the daily @Nico. @Kot!
 
-- Ben, for convincing me to skip most of my classes, for always being down to do something fun, and for getting me to read again.
+- {% friend "Ben" %}, for convincing me to skip most of my classes, for always being down to do something fun, and for getting me to read again.
 
-- Noah, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
+- {% friend "Noah" %}, for inspiring me to make cool things, for brightening every occasion, and for convincing me that living under a rock was okay.
 
-- Andrew, for visiting Subway with me 93 times, for doing everything together, for possibly brainwashing me, and for being the closest friend I've ever had. You're literally my goat.
+- {% friend "Andrew" %}, for visiting Subway with me 93 times, for doing everything together, for possibly brainwashing me, and for being the closest friend I've ever had. You're literally my goat.
 
 <figure>
 <img src="./images/andrew.jpg" alt="Andrew and I posing on the lawn in front of the Wisconsin State Capitol, with me wearing UW-Madison graduation regalia.">

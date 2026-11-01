@@ -10,7 +10,7 @@ layout: layouts/post.njk
 
 ## Shell Startup Output
 
-I do work on UW-Madison's CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I've been using [Zed](https://zed.dev) and wanted the same workflow there. Getting it working required fixing three things, starting with this one.
+I do work on [UW-Madison](/writing/my-wisconsin-experience/)'s CS lab machines over SSH. VSCode handles this fine with its Remote SSH extension, but I've been using [Zed](https://zed.dev) and wanted the same workflow there. Getting it working required fixing three things, starting with this one.
 
 Zed's remote architecture splits the editor into <a href="https://zed.dev/docs/remote-development" target="_blank">a local UI and a remote backend</a>. When you connect, Zed SSHes in and starts a `zed-remote-server` binary on the remote machine. The two halves communicate over the SSH channel itself.
 

@@ -8,7 +8,7 @@ description: Friends, web pages, and books.
 <h2 id="friends"><a href="#friends" class="heading-link">Friends</a></h2>
 <p>Wonderful people who have websites and works of their own:</p>
 <div class="friend-strip">
-    {%- for f in friends %}
+    {%- for f in friends | selectattr("img") %}
     <a href="{{ f.url }}" target="_blank" aria-label="{{ f.name }}: {{ f.desc | escape }}">
         <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" width="48" height="48">
 <span class="friend-card"><b>{{ f.name }}</b><span class="desc">{{ f.desc }}</span></span>

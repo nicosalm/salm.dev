@@ -149,7 +149,7 @@ Teams with Sylveon and Zapdos consistently won. Pairing Heatran with Urshifu was
 
 ## An Interesting Convergence
 
-<a href="https://github.com/jasmith55" target="_blank">Jake</a>, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.
+{% friend "Jake" %}, our Pokémon expert (with over 5000 hours?!), independently predicted nearly the same strategies as our model.
 
 ## Nash Equilibria in Team Selection
 
@@ -184,4 +184,4 @@ The computational complexity explodes as we add Pokémon. With just 7 Pokémon, 
 
 Next, we'd like to expand to the top 50 Pokémon in the current meta, handling unknown movesets and randomness better. Eventually we want to tackle 6v6 with switching. That's 9 choices per turn instead of 4.
 
-Our [writeup](https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf) and [code](https://github.com/nicosalm/pokemon-expectimax/tree/main) are available on GitHub if you'd like to explore or build on our work. Special thanks to Professor <a href="https://pages.cs.wisc.edu/~vlatakis/" target="_blank">Manolis Vlatakis</a> for mentoring us through this project! This project grew out of his graduate class at UW-Madison: Game Theory, Optimization, and Learning (in Spring '25).
+Our [writeup](https://github.com/nicosalm/pokemon-expectimax/blob/main/report/CS839_FinalReport_PokemonBattles.pdf) and [code](https://github.com/nicosalm/pokemon-expectimax/tree/main) are available on GitHub if you'd like to explore or build on our work. Special thanks to Professor <a href="https://pages.cs.wisc.edu/~vlatakis/" target="_blank">Manolis Vlatakis</a> for mentoring us through this project! This project grew out of his graduate class at [UW-Madison](/writing/my-wisconsin-experience/): Game Theory, Optimization, and Learning (in Spring '25).

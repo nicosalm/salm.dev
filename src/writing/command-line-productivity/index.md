@@ -22,7 +22,7 @@ In my view, there are two distinct areas of technical productivity:
 
 When you spend a lot of time in your terminal, it gets cumbersome fast. In a web browser, you can create new tabs and swiftly `ALT-TAB` between them. You can bookmark and return to your workspace at will. There's a parallel here—you can open multiple terminal windows, and that works… sort of. But you still have to reopen everything with each new terminal instance.
 
-I found something much better. It does exactly what I want. It's called TMUX.
+I found something much better. It does exactly what I want. It's called [TMUX](https://github.com/tmux/tmux).
 
 A terminal multiplexer is a program that transparently "sits between" your active terminal connection and <i>k</i> spawned terminal sessions. With TMUX, you can start a session, open new windows, and hotkey between them. You can detach and reattach to sessions at will. In other words, you can set a session aside and return to it later, and everything will be exactly how you left it.
 
@@ -53,7 +53,7 @@ When you start TMUX, the program looks for a .dotfile[^1] at `~/.tmux.conf`. Thi
 
 ## Vim As Your Editor
 
-I've been using Vim for about two years. When we mention Vim, it's usually in one of two contexts: `vim` (the program), or Vim Motions.
+I've been using [Vim](https://www.vim.org/) for about two years. When we mention Vim, it's usually in one of two contexts: `vim` (the program), or Vim Motions.
 
 Vim Motions are the keybindings that allow you to move around the text. They are the most important part of Vim. Everyone should use Vim Motions. They are extremely efficient. They're available on all text editors and IDEs.
 
@@ -80,7 +80,7 @@ Here's a quick reference of some common Vim Motions:
 |          | c       | Delete text, save to register, and start insert mode |
 
 
-More generally, the syntax looks like: `[count] + operator + motion`. For example, `3dw` would delete three words. `2yy` would yank two lines. `c$` would delete to the end of the line and start insert mode. `dap` would delete a paragraph.
+More generally, the syntax looks like: `[count] + operator + motion`. For example, `3dw` would delete three words. `2yy` would yank two lines. `c$` would delete to the end of the line and start insert mode. `dap` would delete a paragraph. For many more, see [Every Vim Binding Lucas Knows](https://scharenbroch.dev/blog/vim-bindings/).
 
 Notice how, for some, the phonetic sound of the command matches the action. `d` for delete, `y` for yank, `c` for change. This is a mnemonic device to help you remember the commands. Delete a paragraph? `dap`. Change a word? `caw`.
 
@@ -90,7 +90,7 @@ Vim recognizes and eliminates the vast majority of typing inefficiencies. The re
 
 > Vim is the bliss of Ctrl C/V but applied to every facet of the editor.
 >
-> <span class="quote-attribution">— my friend [Lucas](https://scharenbroch.dev/), rather aptly</span>
+> <span class="quote-attribution">— my friend {% friend "Lucas" %}, rather aptly</span>
 
 A contention I often receive is, "well, how do I debug in Vim?" You don't. You have separate programs[^4]. Each program is good at what it does. If you build a hodgepodge of functionality you end up with an IDE and that's precisely what I'm trying to escape.
 

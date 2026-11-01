@@ -9,6 +9,7 @@ import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
 import { monthName } from "./src/_includes/months.js";
 import { buildOgImages } from "./tools/og-image.js";
+import friends from "./src/_data/friends.js";
 import { join } from "node:path";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -155,6 +156,12 @@ export default function(eleventyConfig) {
   eleventyConfig.addWatchTarget("src/styles/");
 
   eleventyConfig.addFilter("ogImage", (url) => `/assets/og/${ogSlug(url)}.png`);
+
+  eleventyConfig.addShortcode("friend", (name, text = name) => {
+    const friend = friends.find((f) => f.name === name);
+    if (!friend) throw new Error(`unknown friend: ${name}`);
+    return `<a href="${friend.url}" target="_blank">${text}</a>`;
+  });
 
   eleventyConfig.on("eleventy.after", async ({ dir }) => {
     const cards = [{ slug: "default" }];

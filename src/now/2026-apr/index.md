@@ -18,16 +18,16 @@ opportunity to catch up.
     </figure>
 </div>
 
-Andrew introduced me to <em>Tomodachi Life</em>. As of writing this, I'm level 30 and have introduced Miis
+{% friend "Andrew" %} introduced me to <em>Tomodachi Life</em>. As of writing this, I'm level 30 and have introduced Miis
 resembling most of my friends (and Hugh Morris) to the island. Andrew also airdropped in his Polish friend Slipper's
 Mii — he lives on a secluded island and wears a safety helmet.
 
 <figure>
     <img src="./images/3.jpg" alt="Two Mii characters on a TV in Tomodachi Life.">
-    <figcaption>Ben and me in Tomodachi Life</figcaption>
+    <figcaption>{% friend "Ben" %} and me in Tomodachi Life</figcaption>
 </figure>
 
-I also finally got a chance to catch up with Jake! He works in North Chicago (and I might work where he
+I also finally got a chance to catch up with {% friend "Jake" %}! He works in North Chicago (and I might work where he
 works soon, we'll see). We went climbing with Chris, and it was there that I realized I am woefully out of shape...
 height is all I have going for me right now. But I had fun!
 

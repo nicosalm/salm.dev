@@ -31,10 +31,10 @@ More recently, I finished *The Thinking Machine*. It's a story about Jensen Huan
 
 <figure style="max-width: 60%">
 <img src="./images/thethinkingmachine.jpeg" alt="The Thinking Machine, a green book (the same color as the NVIDIA logo) with Jensen Huang's face on it.">
-<figcaption>The Thinking Machine, by Steven Witt (2025)</figcaption>
+<figcaption>The Thinking Machine, by Stephen Witt (2025)</figcaption>
 </figure>
 
-<a href="https://www.amoses.dev/" target=_blank>Andrew</a> introduced me to Chunithm (or Chuni). It's a neat rhythm game developed by Sega. He managed to find a rig in a nearby mall arcade, and we've visited it a few times. The mascot is a cute penguin!
+{% friend "Andrew" %} introduced me to <a href="https://chunithm.sega.com/" target="_blank">Chunithm</a> (or Chuni). It's a neat rhythm game developed by Sega. He managed to find a rig in a nearby mall arcade, and we've visited it a few times. The mascot is a cute penguin!
 
 <figure style="max-width: 75%">
 <img src="./images/nico_chuni.jpeg" alt="Nico playing the Chuni arcade game">

@@ -15,7 +15,7 @@ I took the train down to Chicago last weekend with some friends. We hit a climbi
     </figure>
 </div>
 
-The museum is a special place for me... I went there for a high school art field trip with my mom, so whenever I'm in the city I like to visit, along with the Field museum (that one's just as awesome).
+The museum is a special place for me... I went there for a high school art field trip with my mom, so whenever I'm in the city I like to visit, along with the <a href="https://www.fieldmuseum.org/" target="_blank">Field Museum</a> (that one's just as awesome).
 
 ---
 
