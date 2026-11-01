@@ -74,7 +74,6 @@ async function getStats(env: Env) {
 		: null;
 
 	return {
-		window: { start: startStr, end: endStr },
 		analytics: {
 			users: rbData.users ?? null,
 			pageviews: rbData.pageviews ?? null,

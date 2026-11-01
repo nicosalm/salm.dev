@@ -1,0 +1,232 @@
+.domain-status {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xsmall);
+}
+
+.domain-active {
+    color: #23C552;
+}
+
+.domain-parked {
+    color: var(--text-tertiary);
+}
+
+.section-note {
+    display: block;
+    font-size: var(--fs-xsmall);
+    color: var(--text-tertiary);
+    margin: -0.3rem 0 0.55rem;
+}
+
+.stat-row {
+    display: grid;
+    grid-template-columns: minmax(0, auto) 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
+    font-size: var(--fs-small);
+}
+
+.stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stat-value {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.stat-value .dim {
+    color: var(--text-tertiary);
+}
+
+.status-dot {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+}
+
+.status-dot.up {
+    background: #23C552;
+}
+
+.status-dot.down {
+    background: #F84F31;
+}
+
+.spinner {
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+}
+
+.status-loading {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.panel-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.panel {
+    min-width: 0;
+    padding: 0.7rem 0.85rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.panel:empty {
+    display: none;
+}
+
+.panel-wide {
+    grid-column: 1 / -1;
+}
+
+.panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.panel h2 {
+    font-size: var(--fs);
+    margin: 0;
+}
+
+.panel h3 {
+    font-size: var(--fs-xsmall);
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin: 0 0 0.1rem;
+}
+
+.panel-head .section-note {
+    margin: 0;
+    text-align: right;
+}
+
+.stat-row-wrap .stat-label {
+    white-space: normal;
+    overflow: visible;
+}
+
+.stat-row-note {
+    margin: -0.15rem 0 0.2rem 0.95rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xsmall);
+    color: var(--text-secondary);
+}
+
+.section-note code {
+    padding: 0;
+    background: none;
+}
+
+.panel .dot-leader {
+    margin: 0;
+    min-width: 0.5rem;
+}
+
+.panel-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1.5rem;
+}
+
+.stat-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stat-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+    padding: 0.15rem 0.85rem;
+}
+
+.stat-tile:first-child {
+    padding-left: 0;
+}
+
+.stat-tile+.stat-tile {
+    border-left: 1px solid var(--border-light);
+}
+
+.stat-tile-label {
+    font-size: var(--fs-xsmall);
+    color: var(--text-tertiary);
+}
+
+.stat-tile .stat-value {
+    font-size: var(--fs);
+    color: var(--text);
+    text-align: left;
+}
+
+.stat-tile-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xsmall);
+    color: var(--text-tertiary);
+}
+
+@media (max-width: 600px) {
+    .panel-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .panel-columns {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .panel-head {
+        flex-wrap: wrap;
+        gap: 0 0.75rem;
+    }
+
+    .panel-head .section-note {
+        text-align: left;
+    }
+
+    .stat-tile {
+        padding: 0.15rem 0.6rem;
+    }
+
+    .stat-tile .stat-value {
+        font-size: var(--fs-small);
+    }
+
+    .panel .stat-row-wrap {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .stat-row-wrap .dot-leader {
+        display: none;
+    }
+
+    .stat-row-wrap .stat-value {
+        text-align: left;
+        white-space: normal;
+    }
+}

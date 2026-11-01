@@ -7,6 +7,7 @@ import markdownItAttrs from "markdown-it-attrs";
 import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
 import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
+import { monthName } from "./src/_includes/months.js";
 import { buildOgImages } from "./tools/og-image.js";
 import { join } from "node:path";
 import { readFileSync } from "node:fs";
@@ -45,9 +46,9 @@ export default function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
     formats: ["avif", "jpeg"],
-    widths: [600, 1200, 1800],
+    widths: [600, 1200],
     sharpJpegOptions: { quality: 80, mozjpeg: true },
-    sharpAvifOptions: { quality: 55 },
+    sharpAvifOptions: { quality: 55, effort: 3 },
     defaultAttributes: {
       loading: "lazy",
       decoding: "async"
@@ -96,24 +97,15 @@ export default function(eleventyConfig) {
     return nows;
   });
 
-  const MONTHS = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
   eleventyConfig.addFilter("dateFormat", (date) => {
     return new Date(date).toISOString().slice(0, 10);
   });
 
   eleventyConfig.addFilter("monthYear", (date) => {
-    const d = new Date(date);
-    return `${MONTHS[d.getUTCMonth()]}, ${d.getUTCFullYear()}`;
+    return `${monthName(date)}, ${new Date(date).getUTCFullYear()}`;
   });
 
-  eleventyConfig.addFilter("monthName", (date) => {
-    const d = new Date(date);
-    return MONTHS[d.getUTCMonth()];
-  });
+  eleventyConfig.addFilter("monthName", monthName);
 
   eleventyConfig.addFilter("obfuscateEmail", (email) => {
     return String(email).replace(/[@.]/g, (char) => `${char}<span style="display:none">nospam</span>`);
@@ -121,7 +113,7 @@ export default function(eleventyConfig) {
 
   eleventyConfig.addFilter("categories", (items) => {
     if (!Array.isArray(items)) return [];
-    return [...new Set(items.map((i) => i.category ?? i.data?.category).filter(Boolean))].sort();
+    return [...new Set(items.map((i) => i.data.category).filter(Boolean))].sort();
   });
 
   eleventyConfig.addFilter("head", (array, n) => {
@@ -157,7 +149,6 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/assets/logo.png");
   eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
-  eleventyConfig.addPassthroughCopy({ "src/rss.xsl": "rss.xsl" });
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
@@ -182,7 +173,7 @@ export default function(eleventyConfig) {
       cards.push({
         slug: ogSlug(item.url),
         kind: "now",
-        title: `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
+        title: `${monthName(d)} ${d.getUTCFullYear()}`,
         description: item.data.description,
       });
     }

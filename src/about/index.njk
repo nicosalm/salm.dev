@@ -8,39 +8,27 @@ description: A bit about me, what I work on, and how this site is built.
     <img src="/assets/me.jpeg" alt="Me at Memorial Terrace in graduation regalia.">
 </figure>
 <p>
-    I'm Nico, a software engineer from Wisconsin! My interests in tech span full-stack development, performance engineering, and parallelism—and, especially, how we can apply traditional performance principles to AI systems, particularly LLM inference.
-    In my free time, I <a href="/writing">write</a> about {{ site.topics }}.
-    I also like to draw, <a href="https://app.thestorygraph.com/profile/nicosalm" target="_blank">read (paper) books</a>, and recently started to get into climbing.
-
-<p>
-You can find me on <a href="https://github.com/nicosalm" target="_blank">GitHub</a>, <a href="https://x.com/salmdotdev" target="_blank">Twitter</a>, or say hi via {% include "email-link.njk" %}!
+    I'm Nico, a software engineer from Wisconsin! My interests in tech span full-stack development, systems performance, and AI.
+    At <a href="https://abbvie.com/" target="_blank">AbbVie</a>, I lead the technical development of applications in clinical R&D, working across application architecture, integrations, and AI orchestration.
+    In my free time, I like to draw, <a href="https://app.thestorygraph.com/profile/nicosalm" target="_blank">read (paper) books</a>, and recently started to get into climbing.
+    You can find me on <a href="https://github.com/nicosalm" target="_blank">GitHub</a>, <a href="https://x.com/salmdotdev" target="_blank">Twitter</a>, or say hi via {% include "email-link.njk" %}!
+    I post monthly updates to my <a href="/now">now page</a>.
 </p>
 
-</p>
-
-<h2>Work</h2>
-<p>
-    Right now, I build all sorts of AI and ML tools for the clinical teams I support in my role as a software engineer in "big pharma"—I'm also learning more about performance and LLM serving on the side, with a pinch or two of theory.
-</p>
-<p>
-I post monthly updates to my <a href="/now">now page</a>.
-</p>
-<h2>Studies</h2>
+<h2 id="studies"><a href="#studies" class="heading-link">Studies</a></h2>
 <p>
     In 2026, I graduated from the <a href="/writing/my-wisconsin-experience/">University of Wisconsin-Madison</a> with a B.S. in Computer Sciences and Data Science. I spent most of my time hanging out in the
     <a href="https://www.upl.cs.wisc.edu/" target="_blank">UPL</a> on campus with my <a href="/misc#friends">friends</a>.
 </p>
 <p>
-    For two years, I was a member of the <a href="https://skunkworks.engr.wisc.edu/" target="_blank">Informatics Skunkworks</a> research group, led by Dr. Dane Morgan, where I trained generative models to design new crystal structures with target physical properties. I helped found the <a href="https://wqi.wisc.edu/wqcc/" target="_blank">Wisconsin Quantum Computing Club</a> as one of its first four officers, and later competed with the group at <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target="_blank">MIT's IQuHACK</a>. At the UPL, I served as a lab coordinator, introduced its <a href="https://www.youtube.com/@undergraduateprojectslab" target="_blank">Lightning Talks</a>, and helped organize <a href="https://www.madhacks.io/" target="_blank">MadHacks</a>, growing it to a record 417 participants.
+    For two years, I was a member of the <a href="https://skunkworks.engr.wisc.edu/" target="_blank">Informatics Skunkworks</a> research group, led by Dr. Dane Morgan, where I trained generative models to design new crystal structures with target physical properties. I helped found the <a href="https://wqi.wisc.edu/wqcc/" target="_blank">Wisconsin Quantum Computing Club</a>, and later competed with the group at <a href="https://www.iquise.mit.edu/iQuHACK/2024-02-02" target="_blank">MIT's IQuHACK</a>. At the UPL, I served as a lab coordinator, introduced its <a href="https://www.youtube.com/@undergraduateprojectslab" target="_blank">Lightning Talks</a>, and helped organize <a href="https://www.madhacks.io/" target="_blank">MadHacks</a>, growing it to a record 417 participants.
 </p>
 
-<h2>Colophon</h2>
-<p>
-    This site is built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a>, HTML, and CSS. Not too much JavaScript; a few lines unscramble my email on every page, and pages that need more pull in MathJax, a table of contents, sidenotes, or category filters. Images are converted to AVIF at build, and links prefetch on hover via <a href="https://instant.page/" target="_blank">instant.page</a>. There's an <a href="/rss.xml">RSS feed</a>, a <a href="/sitemap.xml">sitemap</a>, and a <a href="/status">status page</a>.
-</p>
+<h2 id="colophon"><a href="#colophon" class="heading-link">Colophon</a></h2>
+<p>This site is built with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a>, HTML, and CSS. I try to keep the JavaScript light, but it leaks into blog posts to render the table of contents, sidenotes, and category filters, as well as MathJax for pages that need it. Images are converted to AVIF at build, and links prefetch on hover via <a href="https://instant.page/" target="_blank">instant.page</a>. There's an <a href="/rss.xml">RSS feed</a>, a <a href="/sitemap.xml">sitemap</a>, and a <a href="/status">status page</a>.</p>
 <p>Source <a href="https://github.com/nicosalm/salm.dev/" target="_blank">on GitHub</a>.</p>
 
-<h2 id="buttons">Buttons</h2>
+<h2 id="buttons"><a href="#buttons" class="heading-link">Buttons</a></h2>
 <p>If you'd like to link back to my site, use my <a href="https://salm.dev/88x31.gif">88x31 button</a>.</p>
 <div class="buttons-container">
     {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}

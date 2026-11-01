@@ -171,7 +171,6 @@ export async function buildOgImages(cards, outDir) {
   const fonts = await loadFonts();
   fs.mkdirSync(outDir, { recursive: true });
 
-  const written = [];
   for (const card of cards) {
     const svg =
       card.slug === "default"
@@ -179,9 +178,6 @@ export async function buildOgImages(cards, outDir) {
         : card.kind === "now"
           ? nowCard(fonts, card)
           : postCard(fonts, card);
-    const file = path.join(outDir, `${card.slug}.png`);
-    fs.writeFileSync(file, rasterize(svg, fonts));
-    written.push(file);
+    fs.writeFileSync(path.join(outDir, `${card.slug}.png`), rasterize(svg, fonts));
   }
-  return written;
 }

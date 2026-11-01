@@ -1,5 +1,6 @@
 import { readdirSync } from "node:fs";
 import { basename, dirname } from "node:path";
+import { monthName } from "../_includes/months.js";
 
 const DATE_DIR = /^\d{4}-[a-z]{3}$/;
 
@@ -18,11 +19,6 @@ const dirs = readdirSync("src/now", { withFileTypes: true })
   });
 const latest = dirs[dirs.length - 1];
 
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
 export default {
   layout: "layouts/now.njk",
   title: "now",
@@ -35,7 +31,7 @@ export default {
     description: (data) => {
       if (data.description) return data.description;
       const d = new Date(data.date);
-      return `What I was working on, reading, and thinking about in ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}.`;
+      return `What I was working on, reading, and thinking about in ${monthName(d)} ${d.getUTCFullYear()}.`;
     },
   },
 };

@@ -1,5 +1,5 @@
 (function() {
-    const SEL = 'a[data-host], abbr[data-tip]';
+    const SEL = 'a[data-host], a[data-tip], abbr[data-tip]';
 
     document.querySelectorAll('abbr[title]').forEach((el) => {
         el.dataset.tip = el.title;
@@ -28,10 +28,10 @@
     }
 
     function fill(el) {
-        const url = el.dataset.url;
+        const url = el.dataset.url || (el.dataset.tip && el.dataset.host ? el.href : null);
         tip.classList.toggle('tabbed', !!url);
         if (url) tab.textContent = label(url);
-        box.textContent = el.dataset.host || el.dataset.tip;
+        box.textContent = el.dataset.tip || el.dataset.host;
     }
 
     function place(x, y) {

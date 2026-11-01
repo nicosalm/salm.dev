@@ -8,6 +8,9 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="preload" href="/assets/fonts/rumiko-clear-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ '/styles/styles.css' | versioned }}">
+    {%- if stylesheet %}
+    <link rel="stylesheet" href="{{ stylesheet | versioned }}">
+    {%- endif %}
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
     <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
@@ -37,15 +40,14 @@
     <a href="#main" class="skip-link">Skip to content</a>
     <header class="site-header" id="top">
         <a href="/" class="site-title">salm.dev</a>
-        <nav>
-            <a href="/writing">writing</a><span class="sep">|</span><a
-            href="/now">now</a><span class="sep">|</span><a
-            href="/about">about</a><span class="sep">|</span><a
-            href="/projects">projects</a><span class="sep">|</span><a
-            href="/misc">misc</a>
-        </nav>
         <span class="spacer"></span>
-        <span class="header-right">{% include "email.njk" %}</span>
+        {%- set section = page.url.split("/")[1] %}
+        <nav>
+            {%- for item, href in [["writing", "/writing"], ["now", "/now"], ["about", "/about"], ["projects", "https://github.com/nicosalm"], ["misc", "/misc"]] %}
+            {%- if not loop.first %}<span class="sep">|</span>{% endif -%}
+            <a href="{{ href }}"{% if href.startsWith("http") %} target="_blank"{% endif %}{% if section == item %} aria-current="page"{% endif %}>{{ item }}</a>
+            {%- endfor %}
+        </nav>
     </header>
     <main id="main">
     {{ content | safe }}

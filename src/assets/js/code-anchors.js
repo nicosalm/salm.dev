@@ -28,13 +28,12 @@
             heading.id = id;
             usedIds.add(id);
         }
-        if (heading.querySelector('.heading-anchor')) return;
-        const a = document.createElement('a');
-        a.className = 'heading-anchor';
-        a.href = '#' + heading.id;
-        a.setAttribute('aria-hidden', 'true');
-        a.textContent = '[\u00a7]';
-        heading.appendChild(a);
+        if (heading.querySelector('a')) return;
+        const link = document.createElement('a');
+        link.className = 'heading-link';
+        link.href = '#' + heading.id;
+        link.append(...heading.childNodes);
+        heading.appendChild(link);
     });
 
     const blocks = article.querySelectorAll('pre > code');

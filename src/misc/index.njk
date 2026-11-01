@@ -5,19 +5,18 @@ description: Friends, web pages, and books.
 ---
 <h1>More things!</h1>
 
-<h2 id="friends">Friends</h2>
-These wonderful people have websites and works of their own:
+<h2 id="friends"><a href="#friends" class="heading-link">Friends</a></h2>
+<p>Wonderful people who have websites and works of their own:</p>
 <div class="friend-strip">
     {%- for f in friends %}
     <a href="{{ f.url }}" target="_blank" aria-label="{{ f.name }}: {{ f.desc | escape }}">
         <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" width="48" height="48">
-        <span class="friend-card"><b>{{ f.name }}</b><span class="desc">{{ f.desc }}</span></span>
+<span class="friend-card"><b>{{ f.name }}</b><span class="desc">{{ f.desc }}</span></span>
     </a>
     {%- endfor %}
 </div>
 
-
-<h2 id="pages-talks">Pages &amp; Talks</h2>
+<h2 id="pages-talks"><a href="#pages-talks" class="heading-link">Pages &amp; Talks ({{ links | length}})</a></h2>
 <ul class="post-list link-list">
     {%- for item in links | sort(false, false, 'title') %}
     <li>
@@ -27,10 +26,19 @@ These wonderful people have websites and works of their own:
     {%- endfor %}
 </ul>
 
-<h2 id="books">Books</h2>
-<p>My goal is to read as much of the “CS canon” as possible. I also want to explore a broad range of both contemporary and classic philosophical and historical texts. I'd rather form my own opinions by reading the source material than absorb them secondhand.</p>
+<h2 id="books"><a href="#books" class="heading-link">Books ({{ books | length}})</a></h2>
+<ul class="post-list link-list">
+    {%- for book in books | sort(false, false, 'title') %}
+    <li>
+        {{ book.title }}
+        {% if book.desc %}<span class="desc">{{ book.desc | safe }}</span>{% endif %}
+    </li>
+{% endfor %}
+</ul>
+<p class="post-description">I keep a fuller log on <a href="https://app.thestorygraph.com/profile/nicosalm">StoryGraph</a>. If you've read any of these, you're more than welcome to {% include "email-link.njk" %} me and we can chat about them (or others!!)</p>
 
-<p>Some books that've stuck out ({{ books | length }}): {% for book in books | sort(false, false, 'title') %}<em>{{ book.title }}</em>{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+<h2 id="nerd-stuff"><a href="#nerd-stuff" class="heading-link">Nerd stuff</a></h2>
+<p>I've been into RPGs for over a decade, and over-the-table D&D 5E. I like to draw pen-and-ink and digital maps. More recently, I've also been getting into the Warhammer 40K universe, reading Dan Abnett. I play strategy games on PC, including Total War and Paradox titles. I generally tend towards enjoying older RPGs from studios like Obsidian, CDProjekt, and Bethesda.</p>
 
-<p>I keep a fuller log on <a href="https://app.thestorygraph.com/profile/nicosalm">StoryGraph</a>. If you've read any of these, you're more than welcome to {% include "email-link.njk" %} me and we can chat about them (or others!!)</p>
 {% include "footer.njk" %}
+
