@@ -82,14 +82,21 @@ body[data-status="down"] {
     background: var(--down);
 }
 
-.spinner {
-    font-family: var(--font-mono);
-    color: var(--text-tertiary);
-}
-
 .status-loading {
     text-align: center;
     padding: 1rem 0;
+}
+
+.panel:has(> .status-loading) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.status-loading img {
+    width: 64px;
+    margin: 0 auto -2px;
+    image-rendering: pixelated;
 }
 
 .panel-grid {

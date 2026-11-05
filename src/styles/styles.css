@@ -1055,6 +1055,32 @@ hr::after {
     white-space: nowrap;
 }
 
+.to-top::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 17px);
+    bottom: calc(100% - 4px);
+    width: 52px;
+    height: 42px;
+    background: url("/assets/snep/snep-peek.gif") center 42px / 52px 42px no-repeat;
+    image-rendering: pixelated;
+    pointer-events: none;
+    transition: background-position 0.12s ease-in;
+}
+
+.to-top:hover::after {
+    background-position: center 0;
+    transition: background-position 0.25s ease-out 1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .to-top::after,
+    .to-top:hover::after {
+        background-image: url("/assets/snep/snep-peek.png");
+        transition-duration: 0s;
+    }
+}
+
 .to-top::before {
     content: "";
     display: inline-block;

@@ -2,7 +2,14 @@
 layout: layouts/base.njk
 title: 404
 permalink: /404.html
+stylesheet: /styles/404.css
 ---
-<h1>404 &ndash; Not Found</h1>
-<p>The page you're looking for doesn't exist. <a href="/">Go home</a>.</p>
+<h1 class="heading-snep">
+    <picture>
+        <source srcset="/assets/snep/snep.png" media="(prefers-reduced-motion: reduce)">
+        <img src="/assets/snep/snep.gif" alt="" width="32" height="32" eleventy:ignore>
+    </picture>
+    Error 404 :(
+</h1>
+<p>The page you're looking for doesn't exist; <a href="/">go home</a>.</p>
 {% include "footer.njk" %}

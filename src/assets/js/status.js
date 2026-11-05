@@ -6,11 +6,8 @@
     var analytics = document.getElementById('status-analytics');
 
     var SEP = ' <span class="meta-sep" aria-hidden="true"></span> ';
-    var SPINNER_FRAMES = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
-    var spinTimer = null;
     var lastCheckAt = null;
 
-    startSpinner();
     load(true);
     setInterval(function() { if (!document.hidden) load(false); }, 60000);
     setInterval(tickChecked, 1000);
@@ -21,27 +18,11 @@
                 if (!res.ok) throw new Error(res.status);
                 return res.json();
             })
-            .then(function(data) { stopSpinner(); render(data); })
+            .then(render)
             .catch(function() {
                 if (!first) return;
-                stopSpinner();
                 services.innerHTML = '<p>Failed to load status data.</p>';
             });
-    }
-
-    function startSpinner() {
-        services.innerHTML = '<p class="status-loading text-muted text-small"><span class="spinner" aria-hidden="true">' + SPINNER_FRAMES[0] + '</span> loading</p>';
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var el = services.querySelector('.spinner');
-        var i = 0;
-        spinTimer = setInterval(function() {
-            i = (i + 1) % SPINNER_FRAMES.length;
-            el.textContent = SPINNER_FRAMES[i];
-        }, 80);
-    }
-
-    function stopSpinner() {
-        if (spinTimer) { clearInterval(spinTimer); spinTimer = null; }
     }
 
     function render(data) {

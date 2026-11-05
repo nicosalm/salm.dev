@@ -1,0 +1,10 @@
+.heading-snep {
+    display: flex;
+    align-items: center;
+}
+
+.heading-snep img {
+    width: 64px;
+    margin: -12px 0 -10px -6px;
+    image-rendering: pixelated;
+}

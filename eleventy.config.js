@@ -183,6 +183,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy("src/writing/winning-pokemon-showdown/images/outcome.gif");
   eleventyConfig.addPassthroughCopy("src/assets/88x31");
+  eleventyConfig.addPassthroughCopy("src/assets/snep");
   eleventyConfig.addPassthroughCopy("src/assets/friends");
   eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/assets/logo.png");

@@ -12,7 +12,13 @@ stylesheet: /styles/status.css
 
 <div class="panel-grid">
     <section class="panel" id="status-services">
-        <p class="status-loading text-muted text-small">loading</p>
+        <p class="status-loading text-muted text-small">
+            <picture>
+                <source srcset="/assets/snep/snep.png" media="(prefers-reduced-motion: reduce)">
+                <img src="/assets/snep/snep.gif" alt="" width="32" height="32" eleventy:ignore>
+            </picture>
+            ...loading
+        </p>
         <noscript><style>.status-loading { display: none; }</style><p class="text-muted text-small">live status needs JavaScript</p></noscript>
     </section>
 
