@@ -19,9 +19,6 @@ layout: layouts/base.njk
         {% endif %}
     </div>
     <nav class="now-archive" aria-label="Now pages">
-        {%- set cov = collections.nows | coverage %}
-        {%- set firstNow = collections.nows | first %}
-        <p class="archive-title">Archive{% if cov %} (<abbr title="{{ cov.count }} of {{ cov.total }} months since {{ firstNow.date | monthName }} {{ firstNow.date | year }}">{{ cov.percent }}%</abbr>){% endif %}</p>
         <div class="archive-years">
             {%- for row in collections.nows | monthGrid %}
             <div class="archive-year">

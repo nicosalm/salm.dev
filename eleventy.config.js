@@ -101,7 +101,7 @@ export default function(eleventyConfig) {
     }));
     const now = new Date();
     const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
-    return { months, start: Math.min(...months), end: Math.max(...months, lastEnded) };
+    return { start: Math.min(...months), end: Math.max(...months, lastEnded) };
   };
 
   eleventyConfig.addFilter("monthGrid", (items) => {
@@ -122,13 +122,6 @@ export default function(eleventyConfig) {
           return { name, item: byMonth[i], outside: index < start || index > end };
         }),
       }));
-  });
-
-  eleventyConfig.addFilter("coverage", (items) => {
-    if (!items.length) return null;
-    const { months, start, end } = nowWindow(items);
-    const total = end - start + 1;
-    return { count: months.size, total, percent: Math.round((months.size / total) * 100) };
   });
 
   eleventyConfig.addFilter("obfuscateEmail", (email) => {
