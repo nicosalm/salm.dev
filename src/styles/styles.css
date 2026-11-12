@@ -809,7 +809,6 @@ footer p:last-child {
     position: relative;
 }
 
-.friend-card,
 .post-link[data-description]:hover::after {
     position: absolute;
     top: 100%;
@@ -829,26 +828,8 @@ footer p:last-child {
     pointer-events: none;
 }
 
-.friend-card {
-    display: none;
-}
-
 .post-link[data-description]:hover::after {
     content: attr(data-description);
-}
-
-.friend-card b {
-    color: var(--text);
-}
-
-.friend-card .desc {
-    margin-left: 0.4em;
-    font-style: normal;
-}
-
-.friend-strip a:hover .friend-card,
-.friend-strip a:focus-visible .friend-card {
-    display: block;
 }
 
 .post-date {
@@ -1211,12 +1192,8 @@ a.fnref,
 .friend-strip a,
 .friend-strip picture {
     display: block;
-    width: 48px;
-    height: 48px;
-}
-
-.friend-strip a {
-    position: relative;
+    width: 64px;
+    height: 64px;
 }
 
 .friend-avatar {

@@ -2,20 +2,26 @@
 layout: layouts/base.njk
 title: null
 ---
+<h1>Hello!</h1>
+<figure class="float-right about-photo">
+    <img src="/assets/me.jpeg" alt="Me at Memorial Terrace in graduation regalia.">
+</figure>
 <p>
-    I'm <strong>Nico Salm</strong>. I recently graduated from <a href="/writing/my-wisconsin-experience/">UW-Madison</a>, and now I program professionally. You are welcome to <a href="#" data-email="{{ site.author.emailReversed }}">reach out [<span class="copy-label">copy</span>]</a> for any reason&nbsp;:)
+    I'm Nico from Wisconsin! I'm a software engineer interested in full-stack development, systems performance, and AI.
+    In 2026, I graduated from <a href="/writing/my-wisconsin-experience/">UW-Madison</a> with a B.S. in Computer Sciences and Data Science.
+    Now I work at <a href="https://abbvie.com/" target="_blank">AbbVie</a>, where I develop AI applications for R&D.
+    I like to draw and <a href="https://app.thestorygraph.com/profile/nicosalm" target="_blank">read (paper) books</a>, and I recently started climbing.
+    I post monthly updates to my <a href="/now">now page</a>.
+</p>
+<p>
+    You're welcome to <a href="#" data-email="{{ site.author.emailReversed }}">reach out [<span class="copy-label">copy</span>]</a> for any reason whatsoever!&nbsp;:)
 </p>
 
-<h2>Recent writing</h2>
-<ul class="post-list">
-    {%- for post in collections.posts | head(5) %}
-    <li class="post-item">
-        <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>
-        <span class="dot-leader"></span>
-        <time class="post-date" datetime="{{ post.date | dateFormat }}">{{ post.date | monthYear }}</time>
-    </li>
-    {%- endfor %}
-</ul>
-<p><a href="/writing">All writing -&gt;</a></p>
+<h2 id="buttons"><a href="#buttons" class="heading-link">Buttons</a></h2>
+<p>If you'd like to link back to my site, use my <a href="https://salm.dev/88x31.gif">88x31 button</a>.</p>
+<div class="buttons-container">
+    {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
+    {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
+</div>
 
 {% include "footer.njk" %}

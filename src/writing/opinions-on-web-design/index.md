@@ -25,7 +25,7 @@ Take a look at this page! The header is balanced by the footer, the title by the
 
 I visualize this aesthetic as being almost like a tower of balanced stones, similar to the kinds you see built on beaches or near rivers from time to time. At any given point, the tower doesn't need to be perfectly centered, but the small imbalances accumulate in a way that keeps the whole thing stable.
 
-I do the same for my typography, when it makes sense. On <a href="/about#colophon">this site</a>, the <span style="font-family: var(--font-ui);">sans serif</span> used for an article’s metadata near the top is echoed in the article's footer, creating an ever-so-slight visual correspondence between the beginning and end of the page. Likewise, the bold header type hits at regular intervals and grows smaller like a funnel, drawing the eye downward.
+I do the same for my typography, when it makes sense. On <a href="/misc#colophon">this site</a>, the <span style="font-family: var(--font-ui);">sans serif</span> used for an article’s metadata near the top is echoed in the article's footer, creating an ever-so-slight visual correspondence between the beginning and end of the page. Likewise, the bold header type hits at regular intervals and grows smaller like a funnel, drawing the eye downward.
 
 Negative space is important, too. Having the right amount of it allows a page to breathe[^rule-of-thirds]. If a page is jam-packed every which way, it'll feel claustrophobic and difficult to digest. By contrast, if it's too sparse, everything will feel floaty and unanchored, or just plain unfinished.
 

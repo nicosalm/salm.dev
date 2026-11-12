@@ -39,7 +39,7 @@
         <span class="spacer"></span>
         {%- set section = page.url.split("/")[1] %}
         <nav>
-            {%- for item, href in [["writing", "/writing"], ["now", "/now"], ["about", "/about"], ["projects", "https://github.com/nicosalm"], ["misc", "/misc"]] %}
+            {%- for item, href in [["writing", "/writing"], ["now", "/now"], ["misc", "/misc"], ["projects", "https://github.com/nicosalm"]] %}
             {%- if not loop.first %}<span class="sep">|</span>{% endif -%}
             <a href="{{ href }}"{% if href.startsWith("http") %} target="_blank"{% endif %}{% if section == item %} aria-current="page"{% endif %}>{{ item }}</a>
             {%- endfor %}

@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: misc
-description: Friends, web pages, and books.
+description: Friends, books, web pages, and how this site is built.
 ---
 <h1>More things!</h1>
 
@@ -9,22 +9,14 @@ description: Friends, web pages, and books.
 <p>Wonderful people who have websites and works of their own:</p>
 <div class="friend-strip">
     {%- for f in friends | selectattr("img") %}
-    <a href="{{ f.url }}" target="_blank" aria-label="{{ f.name }}: {{ f.desc | escape }}">
-        <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" width="48" height="48">
-<span class="friend-card"><b>{{ f.name }}</b><span class="desc">{{ f.desc }}</span></span>
+    <a href="{{ f.url }}" target="_blank" data-host="{{ f.url.split('/')[2] | replace('www.', '') }}">
+        <img src="/assets/friends/{{ f.img }}" alt="{{ f.name }}" class="friend-avatar" loading="eager" eleventy:widths="64,128" sizes="64px">
     </a>
     {%- endfor %}
 </div>
 
-<h2 id="pages-talks"><a href="#pages-talks" class="heading-link">Pages &amp; Talks ({{ links | length}})</a></h2>
-<ul class="post-list link-list">
-    {%- for item in links | sort(false, false, 'title') %}
-    <li>
-        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
-        {% if item.desc %}<span class="desc">{{ item.desc | safe }}</span>{% endif %}
-    </li>
-    {%- endfor %}
-</ul>
+<h2 id="nerd-stuff"><a href="#nerd-stuff" class="heading-link">Nerd stuff</a></h2>
+<p>I've been into RPGs for over a decade, playing a lot of over-the-table D&D 5E. I like to draw pen-and-ink and digital maps. More recently, I've also been getting into the Warhammer 40K universe, reading Dan Abnett. I play strategy games on PC, including Total War and Paradox titles. I generally tend towards enjoying older RPGs from studios like Obsidian, CDProjekt, and Bethesda.</p>
 
 <h2 id="books"><a href="#books" class="heading-link">Books ({{ books | length}})</a></h2>
 <ul class="post-list link-list">
@@ -37,8 +29,18 @@ description: Friends, web pages, and books.
 </ul>
 <p class="post-description">I keep a fuller log on <a href="https://app.thestorygraph.com/profile/nicosalm">StoryGraph</a>. If you've read any of these, you're more than welcome to {% include "email-link.njk" %} me and we can chat about them (or others!!)</p>
 
-<h2 id="nerd-stuff"><a href="#nerd-stuff" class="heading-link">Nerd stuff</a></h2>
-<p>I've been into RPGs for over a decade, playing a lot of over-the-table D&D 5E. I like to draw pen-and-ink and digital maps. More recently, I've also been getting into the Warhammer 40K universe, reading Dan Abnett. I play strategy games on PC, including Total War and Paradox titles. I generally tend towards enjoying older RPGs from studios like Obsidian, CDProjekt, and Bethesda.</p>
+<h2 id="pages-talks"><a href="#pages-talks" class="heading-link">Pages &amp; Talks ({{ links | length}})</a></h2>
+<ul class="post-list link-list">
+    {%- for item in links | sort(false, false, 'title') %}
+    <li>
+        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+        {% if item.desc %}<span class="desc">{{ item.desc | safe }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+</ul>
+
+<h2 id="colophon"><a href="#colophon" class="heading-link">Colophon</a></h2>
+<p>This site is <a href="/writing/opinions-on-web-design/">built</a> with <a href="https://www.11ty.dev/" target="_blank">Eleventy</a>, HTML, and CSS. I try to keep the JavaScript light, but it leaks into blog posts to render the table of contents, sidenotes, and category filters, as well as MathJax for pages that need it. Images are converted to AVIF at build, and links prefetch on hover via <a href="https://instant.page/" target="_blank">instant.page</a>. There's an <a href="/rss.xml">RSS feed</a>, a <a href="/sitemap.xml">sitemap</a>, and a <a href="/status">status page</a>. Source <a href="https://github.com/nicosalm/salm.dev/" target="_blank">on GitHub</a>.</p>
 
 {% include "footer.njk" %}
 
