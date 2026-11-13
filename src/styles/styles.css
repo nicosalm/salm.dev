@@ -160,7 +160,7 @@ a[href^="http"]:not(.buttons-container a, .friend-strip a)::after {
     margin-right: 0.12em;
     vertical-align: -0.08em;
     background: currentColor;
-    mask: var(--icon-link) center / contain no-repeat;
+    mask: var(--icon-link) center / 100% 100% no-repeat;
 }
 
 :is(h1, h2, h3, h4) {
@@ -1258,7 +1258,7 @@ a.fnref,
 
     figure.about-photo {
         float: none;
-        max-width: 60%;
+        max-width: 50%;
         margin: 1rem auto;
     }
 }
