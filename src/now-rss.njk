@@ -1,0 +1,24 @@
+---
+permalink: /now/rss.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nico Salm: now</title>
+    <link>{{ site.url }}/now/</link>
+    <atom:link href="{{ site.url }}/now/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>What I'm working on, reading, and thinking about each month</description>
+    <language>en</language>
+    {%- for item in collections.nows | reverse %}
+    <item>
+      <title>Now: {{ item.date | monthName }} {{ item.date | year }}</title>
+      <link>{{ site.url }}{{ item.url }}</link>
+      <description>{{ item.data.description | escape }}</description>
+      <pubDate>{{ item.date | dateToRfc822 }}</pubDate>
+      <dc:creator>{{ site.author.name }}</dc:creator>
+      <guid isPermaLink="false">salm.dev/now/{{ item.date | dateFormat }}</guid>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

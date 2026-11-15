@@ -1044,12 +1044,14 @@ hr::after {
 }
 
 .toc-wrapper>summary::-webkit-details-marker,
-.authors-note>summary::-webkit-details-marker {
+.authors-note>summary::-webkit-details-marker,
+.link-list summary::-webkit-details-marker {
     display: none;
 }
 
 .toc-wrapper>summary::before,
-.authors-note>summary::before {
+.authors-note>summary::before,
+.link-list summary::before {
     content: '›';
     display: inline-block;
     width: 0.6em;
@@ -1058,11 +1060,14 @@ hr::after {
     line-height: 1;
     vertical-align: 0.11em;
     text-align: center;
+    text-indent: 0;
+    font-weight: bold;
     color: var(--text-secondary);
 }
 
 .toc-wrapper[open]>summary::before,
-.authors-note[open]>summary::before {
+.authors-note[open]>summary::before,
+.link-list details[open]>summary::before {
     transform: rotate(90deg);
 }
 
@@ -1211,6 +1216,19 @@ a.fnref,
     padding-left: 1em;
     text-indent: -1em;
     margin-bottom: 0.25rem;
+}
+
+.link-list summary {
+    cursor: pointer;
+    list-style: none;
+    text-indent: -1.9em;
+}
+
+.link-list details p {
+    text-indent: 0;
+    margin: 0.3rem 0;
+    line-height: 1.35;
+    color: var(--text-secondary);
 }
 
 .desc {

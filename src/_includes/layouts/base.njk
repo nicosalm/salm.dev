@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="{{ stylesheet | versioned }}">
     {%- endif %}
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-    <link rel="alternate" type="application/rss+xml" title="rss feed | salm.dev" href="/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="writing | salm.dev" href="/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="now | salm.dev" href="/now/rss.xml">
     <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{{ description | default(site.description) }}">
 
