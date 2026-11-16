@@ -996,7 +996,7 @@ hr::after {
 
 .toc {
     list-style: none;
-    padding-left: 0;
+    padding-left: 0.9em;
     margin: 0.3rem 0 0;
 }
 
@@ -1072,7 +1072,7 @@ hr::after {
 }
 
 .authors-note-content {
-    margin: 0.3rem 0 0;
+    margin: 0.3rem 0 0 0.9em;
 }
 
 .authors-note-content p {
@@ -1103,6 +1103,7 @@ hr::after {
 .archive-year-label {
     color: var(--text-tertiary);
     font-size: var(--fs-xsmall);
+    font-family: var(--font-ui);
     font-variant-numeric: tabular-nums;
     line-height: 2rem;
 }
@@ -1163,8 +1164,8 @@ a.fnref,
 .footnote {
     float: right;
     clear: right;
-    width: 200px;
-    margin-right: -230px;
+    width: 210px;
+    margin-right: -240px;
     margin-bottom: 0.3rem;
     font-size: var(--fs-small);
     line-height: 1.35;
@@ -1226,7 +1227,7 @@ a.fnref,
 
 .link-list details p {
     text-indent: 0;
-    margin: 0.3rem 0;
+    margin: 0.3rem 0 0.3rem -1em;
     line-height: 1.35;
     color: var(--text-secondary);
 }
@@ -1319,7 +1320,7 @@ a.fnref,
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .footnote {
         display: none;
     }
