@@ -15,11 +15,6 @@ body[data-status="down"] {
     --accent: var(--down);
 }
 
-.domain-status {
-    font-family: var(--font-mono);
-    font-size: var(--fs-xsmall);
-}
-
 .domain-active {
     color: var(--up);
 }
@@ -103,8 +98,8 @@ body[data-status="down"] {
 .panel {
     min-width: 0;
     padding: 0.7rem 0.85rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-large);
 }
 
 .panel:empty {
@@ -150,11 +145,6 @@ body[data-status="down"] {
     font-family: var(--font-mono);
     font-size: var(--fs-xsmall);
     color: var(--text-secondary);
-}
-
-.section-note code {
-    padding: 0;
-    background: none;
 }
 
 .panel .dot-leader {

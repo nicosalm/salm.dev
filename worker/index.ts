@@ -105,14 +105,25 @@ async function getIncidents(checks: any[], env: Env) {
 		.slice(0, INCIDENT_LIMIT);
 }
 
-function publicCheck(c: any) {
+async function getUptimes(checks: any[], env: Env) {
+	const from = encodeURIComponent(new Date(Date.now() - UPTIME_DAYS * 86400000).toISOString());
+	return Promise.all(
+		checks.map((c) =>
+			getJson(`${URLS.checks}/${c.token}/metrics?from=${from}`, { headers: updownHeaders(env) }).then(
+				(m) => m?.uptime ?? null,
+			),
+		),
+	);
+}
+
+function publicCheck(c: any, uptime: number | null) {
 	return {
 		url: c.url,
 		alias: c.alias ?? null,
 		down: Boolean(c.down),
 		down_since: c.down_since ?? null,
 		error: c.error ?? null,
-		uptime: c.uptime ?? null,
+		uptime,
 		last_check_at: c.last_check_at ?? null,
 		domain: c.domain ? { remaining_days: c.domain.remaining_days ?? null } : null,
 	};
@@ -142,6 +153,7 @@ function withCors(response: Response, request: Request): Response {
 const CACHE_TTL = 60;
 const PARTIAL_CACHE_TTL = 15;
 const INCIDENT_LIMIT = 3;
+const UPTIME_DAYS = 30;
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -155,10 +167,12 @@ export default {
 		if (cached) return withCors(cached, request);
 
 		try {
-			const [[checksData, incidents], languagesData, editorsData, activityData, stats] = await Promise.all([
+			const [[checksData, incidents, uptimes], languagesData, editorsData, activityData, stats] = await Promise.all([
 				getJson(URLS.checks, { headers: updownHeaders(env) }).then(async (d) => {
 					const checks = Array.isArray(d) ? d : null;
-					return [checks, checks ? await getIncidents(checks, env) : null] as const;
+					if (!checks) return [null, null, null] as const;
+					const [incidents, uptimes] = await Promise.all([getIncidents(checks, env), getUptimes(checks, env)]);
+					return [checks, incidents, uptimes] as const;
 				}),
 				getJson(URLS.languages),
 				getJson(URLS.editors),
@@ -166,12 +180,14 @@ export default {
 				getStats(env).catch(() => null),
 			]);
 
-			const checks = (checksData ?? []).map(publicCheck);
+			const checks = (checksData ?? []).map((c, i) => publicCheck(c, uptimes?.[i] ?? null));
 			const languages = languagesData?.data ?? null;
 			const editors = editorsData?.data ?? null;
 			const activity = activityData?.data ?? null;
 
-			const complete = Boolean(checksData && incidents && languages && editors && activity && stats && !stats.partial);
+			const complete = Boolean(
+				checksData && incidents && uptimes?.every((u) => u != null) && languages && editors && activity && stats && !stats.partial,
+			);
 			const ttl = complete ? CACHE_TTL : PARTIAL_CACHE_TTL;
 
 			const response = new Response(JSON.stringify({ checks, incidents, languages, editors, activity, stats }), {

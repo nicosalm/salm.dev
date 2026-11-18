@@ -1,6 +1,7 @@
 (function() {
     var API = 'https://status.salm.dev';
     var services = document.getElementById('status-services');
+    var renews = document.getElementById('salm-dev-renews');
     var incidentsPanel = document.getElementById('status-incidents');
     var coding = document.getElementById('status-coding');
     var analytics = document.getElementById('status-analytics');
@@ -62,53 +63,58 @@
     }
 
     function renderServices(checks) {
-        var checked = '';
-        lastCheckAt = null;
-        if (checks.length) {
-            var at = Date.parse(checks[0].last_check_at);
-            if (isNaN(at)) {
-                checked = '(last checked <code>' + esc(checks[0].last_check_at) + '</code>)';
-            } else {
-                lastCheckAt = at;
-                checked = '(last checked <code class="checked-ago">' + ago(at) + '</code>)';
-            }
-        }
+        var times = checks.map(function(c) { return Date.parse(c.last_check_at); }).filter(function(t) { return !isNaN(t); });
+        lastCheckAt = times.length ? Math.min.apply(null, times) : null;
+        var checked = lastCheckAt ? ', checked <span class="checked-ago">' + since(lastCheckAt) + '</span> ago' : '';
         var rows = checks.length ? checks.map(serviceRow) : null;
-        services.innerHTML = panelHead('Services', checked) + section(rows);
+        services.innerHTML = panelHead('Services', checks.length ? '(last 30 days' + checked + ')' : '') + section(rows);
+        renderRenewal(checks);
     }
 
-    function ago(at) {
-        return formatDuration((Date.now() - at) / 1000) + ' ago';
+    function renderRenewal(checks) {
+        var site = checks.filter(function(c) { return hostLabel(c.url) === 'salm.dev'; })[0];
+        var days = site && site.domain ? site.domain.remaining_days : null;
+        if (renews && days != null) renews.textContent = 'renews in ' + days + 'd';
+    }
+
+    function since(at) {
+        return formatDuration((Date.now() - at) / 1000);
     }
 
     function tickChecked() {
         var el = lastCheckAt && services.querySelector('.checked-ago');
-        if (el) el.textContent = ago(lastCheckAt);
+        if (el) el.textContent = since(lastCheckAt);
     }
 
     function renderIncidents(incidents) {
-        incidentsPanel.innerHTML = panelHead('Recent incidents') + section(incidents ? incidents.map(incidentRow) : null);
+        incidentsPanel.innerHTML = panelHead('Downtime') + section(incidents ? incidents.map(incidentRow) : null);
     }
 
     function serviceRow(c) {
         var up = !c.down;
         var dot = '<span class="status-dot ' + (up ? 'up' : 'down') + '" title="' + (up ? 'up' : 'down') + '"></span>';
         var name = '<a href="' + esc(c.url) + '" target="_blank">' + esc(c.alias || hostLabel(c.url)) + '</a>';
-        var days = c.domain && c.domain.remaining_days != null ? SEP + '<span class="dim">' + c.domain.remaining_days + 'd</span>' : '';
         var uptime = c.uptime != null ? c.uptime.toFixed(2) + '%' : '-';
-        var html = statRow(dot + name, uptime + days);
+        var html = statRow(dot + name, uptime);
         if (!up) {
             var since = c.down_since ? ' ' + formatDuration((Date.now() - Date.parse(c.down_since)) / 1000) : '';
-            var error = c.error ? SEP + esc(c.error) : '';
+            var error = c.error ? SEP + errorLabel(c.error) : '';
             html += '<div class="stat-row-note">down' + since + error + '</div>';
         }
         return html;
     }
 
     function incidentRow(d) {
-        var length = d.ended_at ? formatDuration(d.duration) : 'ongoing';
-        var error = d.error ? SEP + '<span class="dim">' + esc(d.error) + '</span>' : '';
-        return statRow('<code>' + esc(String(d.started_at).slice(0, 10)) + '</code> ' + esc(hostLabel(d.check)), length + error, 'stat-row-wrap');
+        var start = new Date(d.started_at);
+        var date = isNaN(start) ? esc(String(d.started_at).slice(0, 10)) : start.toLocaleDateString('en-CA');
+        var length = d.ended_at ? formatDuration(d.duration) : formatDuration((Date.now() - start) / 1000) + ' so far';
+        var error = d.error ? SEP + '<span class="dim">' + errorLabel(d.error) + '</span>' : '';
+        return statRow(esc(hostLabel(d.check)), '<span class="dim">' + date + '</span>' + SEP + length + error, 'stat-row-wrap');
+    }
+
+    function errorLabel(error) {
+        var code = /^\d{3}\b/.exec(error);
+        return code ? '<abbr data-tip="' + esc(error) + '">' + code[0] + '</abbr>' : esc(error);
     }
 
     function renderStats(s) {
@@ -153,7 +159,7 @@
         var hours = '';
         if (data.activity) {
             var seconds = data.activity.reduce(function(acc, cur) { return acc + (cur.grand_total ? cur.grand_total.total_seconds : 0); }, 0);
-            hours = '(<code>' + (seconds / 3600).toFixed(2) + 'h</code> in the last 7 days)';
+            hours = '(' + (seconds / 3600).toFixed(2) + 'h in the last 7 days)';
         }
 
         coding.innerHTML = panelHead('Coding', hours) +
@@ -174,10 +180,13 @@
     function formatDuration(seconds) {
         if (seconds == null || isNaN(seconds)) return '-';
         seconds = Math.max(0, seconds);
-        if (seconds < 60) return Math.round(seconds) + 's';
-        if (seconds < 3600) return Math.round(seconds / 60) + 'm';
-        if (seconds < 86400) return Math.round(seconds / 3600) + 'h';
-        return Math.round(seconds / 86400) + 'd';
+        var d = Math.floor(seconds / 86400);
+        var h = Math.floor(seconds % 86400 / 3600);
+        var m = Math.floor(seconds % 3600 / 60);
+        if (d) return d + 'd' + (h ? ' ' + h + 'h' : '');
+        if (h) return h + 'h' + (m ? ' ' + m + 'm' : '');
+        if (m) return m + 'm';
+        return Math.floor(seconds) + 's';
     }
 
     function formatBytes(n) {
@@ -193,6 +202,6 @@
         if (!s) return '';
         var d = document.createElement('div');
         d.textContent = s;
-        return d.innerHTML;
+        return d.innerHTML.replace(/"/g, '&quot;');
     }
 })();
