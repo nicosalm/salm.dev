@@ -12,11 +12,11 @@ site at http://localhost:8080 with live reload. `pnpm build` writes the
 output to `dist/`.
 
 The live status page is backed by a Cloudflare Worker in `worker/`,
-served at status.salm.dev. It combines uptime from updown.io, coding
-activity from WakaTime, traffic from Rybbit, and bandwidth from the
-Cloudflare GraphQL API into a single JSON response, cached for sixty
-seconds. It expects `UPDOWNIO_KEY`, `RYBBIT_API_KEY`, and `CF_API_TOKEN`
-to be set as secrets with `wrangler secret put`.
+served at status.salm.dev. It combines uptime from updown.io, traffic
+from Rybbit, and bandwidth from the Cloudflare GraphQL API into a single
+JSON response, cached for sixty seconds. It expects `UPDOWNIO_KEY`,
+`RYBBIT_API_KEY`, and `CF_API_TOKEN` to be set as secrets with
+`wrangler secret put`.
 
 Every push to `main` builds the site, deploys a preview
 to salm-dev-preview.nicosalm.workers.dev, and then publishes to GitHub

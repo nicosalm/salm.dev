@@ -1,5 +1,5 @@
 (function() {
-    const SEL = 'a[data-host], a[data-tip], abbr[data-tip]';
+    const SEL = 'a[data-host], [data-tip]';
 
     document.querySelectorAll('abbr[title]').forEach((el) => {
         el.dataset.tip = el.title;

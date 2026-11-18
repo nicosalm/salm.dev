@@ -49,11 +49,13 @@
     <main id="main">
     {{ content | safe }}
     </main>
+    {%- if eleventy.env.runMode == "build" %}
     <script
         src="https://rybbit.salm.dev/api/script.js"
         data-site-id="81989c7adfe0"
         defer
     ></script>
+    {%- endif %}
     <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
     <script src="{{ '/assets/js/email.js' | versioned }}" defer></script>
     <script src="{{ '/assets/js/tooltips.js' | versioned }}" defer></script>

@@ -8,9 +8,6 @@ interface Env {
 
 const URLS = {
 	checks: 'https://updown.io/api/checks',
-	languages: 'https://wakatime.com/share/@nicosalm/40b9a962-5e32-4bfe-affa-faa33ba90924.json',
-	editors: 'https://wakatime.com/share/@nicosalm/994e1f21-7f88-45d0-8171-35c673ad47f5.json',
-	activity: 'https://wakatime.com/share/@nicosalm/268fcdb2-fe99-408a-960a-8afde44c6a94.json',
 	rybbit: 'https://rybbit.salm.dev',
 	cloudflare: 'https://api.cloudflare.com/client/v4/graphql',
 };
@@ -38,8 +35,9 @@ async function getStats(env: Env) {
 	const endStr = ymd(end);
 	const tz = encodeURIComponent(TIME_ZONE);
 	const auth = { headers: { Authorization: `Bearer ${env.RYBBIT_API_KEY}` } };
-	const overviewUrl = (s: string) =>
-		`${URLS.rybbit}/api/sites/${env.RYBBIT_SITE_ID}/overview?start_date=${s}&end_date=${endStr}&time_zone=${tz}`;
+	const site = `${URLS.rybbit}/api/sites/${env.RYBBIT_SITE_ID}`;
+	const pastWeeks = (from: number, to: number) => `past_minutes_start=${from * WEEK_MINUTES}&past_minutes_end=${to * WEEK_MINUTES}`;
+	const metricUrl = (parameter: string) => `${site}/metric?parameter=${parameter}&${pastWeeks(1, 0)}&limit=${AUDIENCE_LIMIT}`;
 
 	const cfQuery = `query($zone:String!,$start:String!,$end:String!){
 		viewer { zones(filter:{zoneTag:$zone}) {
@@ -49,17 +47,21 @@ async function getStats(env: Env) {
 		} }
 	}`;
 
-	const [rb, all, cf] = await Promise.all([
-		getJson(overviewUrl(startStr), auth),
-		getJson(overviewUrl(ALL_TIME_START), auth),
+	const [rb, prev, all, cf, pages, countries] = await Promise.all([
+		getJson(`${site}/overview?${pastWeeks(1, 0)}`, auth),
+		getJson(`${site}/overview?${pastWeeks(2, 1)}`, auth),
+		getJson(`${site}/overview?start_date=${ALL_TIME_START}&end_date=${endStr}&time_zone=${tz}`, auth),
 		getJson(URLS.cloudflare, {
 			method: 'POST',
 			headers: { Authorization: `Bearer ${env.CF_API_TOKEN}`, 'Content-Type': 'application/json' },
 			body: JSON.stringify({ query: cfQuery, variables: { zone: env.CF_ZONE_ID, start: startStr, end: endStr } }),
 		}),
+		getJson(metricUrl('pathname'), auth),
+		getJson(metricUrl('country'), auth),
 	]);
 
 	const rbData = rb?.data ?? {};
+	const prevData = prev?.data ?? {};
 	const allData = all?.data ?? {};
 
 	const groups = cf?.data?.viewer?.zones?.[0]?.httpRequests1dGroups;
@@ -73,16 +75,34 @@ async function getStats(env: Env) {
 		)
 		: null;
 
+	const audience = {
+		pages: metricRows(pages),
+		countries: metricRows(countries),
+	};
+
 	return {
 		analytics: {
 			users: rbData.users ?? null,
 			pageviews: rbData.pageviews ?? null,
+			prevUsers: prevData.users ?? null,
+			prevPageviews: prevData.pageviews ?? null,
+			duration: rbData.session_duration ?? null,
+			prevDuration: prevData.session_duration ?? null,
+			pagesPerVisit: rbData.pages_per_session ?? null,
 			allUsers: allData.users ?? null,
 			allPageviews: allData.pageviews ?? null,
 		},
 		cloudflare: cfSum,
-		partial: !rb || !all || !cfSum,
+		audience,
+		partial: !rb || !prev || !all || !cfSum || Object.values(audience).some((r) => !r),
 	};
+}
+
+function metricRows(res: any) {
+	const list = Array.isArray(res?.data) ? res.data : res?.data?.data;
+	return Array.isArray(list)
+		? list.slice(0, AUDIENCE_LIMIT).map((m: any) => ({ value: m.value, percentage: m.percentage ?? null }))
+		: null;
 }
 
 async function getIncidents(checks: any[], env: Env) {
@@ -123,7 +143,7 @@ function publicCheck(c: any, uptime: number | null) {
 		down: Boolean(c.down),
 		down_since: c.down_since ?? null,
 		error: c.error ?? null,
-		uptime,
+		uptime: uptime ?? c.uptime ?? null,
 		last_check_at: c.last_check_at ?? null,
 		domain: c.domain ? { remaining_days: c.domain.remaining_days ?? null } : null,
 	};
@@ -154,6 +174,8 @@ const CACHE_TTL = 60;
 const PARTIAL_CACHE_TTL = 15;
 const INCIDENT_LIMIT = 3;
 const UPTIME_DAYS = 30;
+const AUDIENCE_LIMIT = 5;
+const WEEK_MINUTES = 7 * 24 * 60;
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -162,35 +184,27 @@ export default {
 		}
 
 		const cache = caches.default;
-		const cacheKey = new Request(request.url, { method: 'GET' });
+		const cacheKey = new Request(new URL('/', request.url).toString(), { method: 'GET' });
 		const cached = await cache.match(cacheKey);
 		if (cached) return withCors(cached, request);
 
 		try {
-			const [[checksData, incidents, uptimes], languagesData, editorsData, activityData, stats] = await Promise.all([
+			const [[checksData, incidents, uptimes], stats] = await Promise.all([
 				getJson(URLS.checks, { headers: updownHeaders(env) }).then(async (d) => {
-					const checks = Array.isArray(d) ? d : null;
+					const checks = Array.isArray(d) ? d.filter((c: any) => c.enabled !== false) : null;
 					if (!checks) return [null, null, null] as const;
 					const [incidents, uptimes] = await Promise.all([getIncidents(checks, env), getUptimes(checks, env)]);
 					return [checks, incidents, uptimes] as const;
 				}),
-				getJson(URLS.languages),
-				getJson(URLS.editors),
-				getJson(URLS.activity),
 				getStats(env).catch(() => null),
 			]);
 
 			const checks = (checksData ?? []).map((c, i) => publicCheck(c, uptimes?.[i] ?? null));
-			const languages = languagesData?.data ?? null;
-			const editors = editorsData?.data ?? null;
-			const activity = activityData?.data ?? null;
 
-			const complete = Boolean(
-				checksData && incidents && uptimes?.every((u) => u != null) && languages && editors && activity && stats && !stats.partial,
-			);
+			const complete = Boolean(checksData && incidents && stats && !stats.partial);
 			const ttl = complete ? CACHE_TTL : PARTIAL_CACHE_TTL;
 
-			const response = new Response(JSON.stringify({ checks, incidents, languages, editors, activity, stats }), {
+			const response = new Response(JSON.stringify({ checks, incidents, stats }), {
 				headers: {
 					'Content-Type': 'application/json',
 					'Cache-Control': `public, max-age=${ttl}`,
