@@ -75,7 +75,6 @@ html {
 
     --icon-link: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M4.4 1.6h6v6'/><path d='M10.4 1.6 1.6 10.4'/></svg>");
 
-    --icon-top: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 10.6V2.4'/><path d='M2.3 6.1 6 2.4l3.7 3.7'/></svg>");
     --icon-sep: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M5 .9 8.3 5 5 9.1 1.7 5Z' fill='%23000'/></svg>");
 
     --radius: 0.3rem;
@@ -198,7 +197,8 @@ h4 {
     text-decoration: none;
 }
 
-.heading-link:hover {
+.heading-link:hover,
+.site-header .site-title:hover {
     text-decoration: underline;
 }
 
@@ -947,23 +947,22 @@ hr::after {
     right: 1.5rem;
     bottom: 1.5rem;
     z-index: 10;
-    padding-right: 0.5rem;
-    padding-left: 0.45rem;
+    padding: 0.15rem 0.6rem;
     background: var(--bg);
+    box-shadow: inset 0 0 0 1px var(--border);
     font-family: var(--font-ui);
     font-size: var(--fs-small);
     white-space: nowrap;
+    animation: to-top linear;
+    animation-timeline: scroll();
+    animation-range: 0 100vh;
 }
 
-.to-top::before {
-    content: "";
-    display: inline-block;
-    width: 0.75em;
-    height: 0.75em;
-    margin-right: 0.2em;
-    vertical-align: 0;
-    background: currentColor;
-    mask: var(--icon-top) center / contain no-repeat;
+@keyframes to-top {
+    from,
+    to {
+        visibility: hidden;
+    }
 }
 
 .post-navigation {
@@ -1317,6 +1316,11 @@ a.fnref,
         position: absolute;
         left: -240px;
         width: 210px;
+    }
+
+    .to-top {
+        right: auto;
+        left: calc(50% - 18rem - 240px);
     }
 }
 
