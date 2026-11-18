@@ -6,6 +6,7 @@ export default {
     { href: "https://twitter.com/salmdotdev", src: "/assets/88x31/twitter.gif", alt: "X (f.k.a. Twitter)", external: true },
     { href: "https://www.vim.org/", src: "/assets/88x31/vim_a.gif", alt: "Made with Vim", external: true },
     { href: "https://steamcommunity.com/profiles/76561198163567555/", src: "/assets/88x31/steam.gif", alt: "Steam", external: true },
+    { href: "https://github.com/nicosalm", src: "/assets/88x31/github.gif", alt: "GitHub", external: true },
     { href: "#", src: "/assets/88x31/reply-via-email.gif", alt: "Reply via Email", email: site.author.emailReversed },
     { href: "/rss.xml", src: "/assets/88x31/rss.gif", alt: "RSS Feed", external: true },
     { href: "https://www.upl.cs.wisc.edu/", src: "/assets/88x31/upl.gif", alt: "Undergraduate Projects Lab", external: true },

@@ -73,8 +73,6 @@ html {
     --fs-code: 0.875rem;
     --lh: 1.6;
 
-    --icon-link: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M4.4 1.6h6v6'/><path d='M10.4 1.6 1.6 10.4'/></svg>");
-
     --icon-sep: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M5 .9 8.3 5 5 9.1 1.7 5Z' fill='%23000'/></svg>");
 
     --radius: 0.3rem;
@@ -150,16 +148,6 @@ a {
 
 a:visited {
     color: var(--link-visited);
-}
-
-a[href^="http"]:not(.buttons-container a, .friend-strip a)::after {
-    content: "";
-    padding-left: 0.735em;
-    margin-left: 0.22em;
-    margin-right: 0.12em;
-    vertical-align: -0.08em;
-    background: currentColor;
-    mask: var(--icon-link) center / 100% 100% no-repeat;
 }
 
 :is(h1, h2, h3, h4) {
@@ -515,7 +503,7 @@ figure.float-right figcaption {
 }
 
 .about-photo {
-    max-width: 40%;
+    max-width: 38%;
 }
 
 .figure-row {
