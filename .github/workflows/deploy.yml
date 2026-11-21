@@ -34,6 +34,8 @@ jobs:
           cache: 'pnpm'
       - name: install dependencies
         run: pnpm install --frozen-lockfile
+      - name: check formatting and lint
+        run: pnpm exec biome ci
       - name: build
         run: pnpm build
       - name: check worker bundle

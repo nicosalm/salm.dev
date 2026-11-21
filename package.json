@@ -1,33 +1,36 @@
 {
-  "name": "salm.dev",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "Personal website of Nico Salm",
-  "scripts": {
-    "dev": "eleventy --serve",
-    "build": "eleventy",
-    "clean": "rm -rf dist"
-  },
-  "keywords": [],
-  "author": "Nico Salm",
-  "license": "ISC",
-  "packageManager": "pnpm@12.16.1",
-  "dependencies": {
-    "@11ty/eleventy": "^3.1.2",
-    "@11ty/eleventy-img": "^6.0.4",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
-    "markdown-it": "^14.1.0",
-    "markdown-it-attrs": "^4.3.1",
-    "markdown-it-footnote": "^4.0.0"
-  },
-  "devDependencies": {
-    "@11tyrocks/eleventy-plugin-lightningcss": "^1.6.0",
-    "@cloudflare/workers-types": "^5.20261031.1"
-  },
-  "browserslist": [
-    "> 0.5%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "name": "salm.dev",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Personal website of Nico Salm",
+    "scripts": {
+        "dev": "eleventy --serve",
+        "build": "eleventy",
+        "check": "biome check",
+        "fix": "biome check --write",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [],
+    "author": "Nico Salm",
+    "license": "ISC",
+    "packageManager": "pnpm@12.16.1",
+    "dependencies": {
+        "@11ty/eleventy": "^3.1.2",
+        "@11ty/eleventy-img": "^6.0.4",
+        "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+        "markdown-it": "^14.1.0",
+        "markdown-it-attrs": "^4.3.1",
+        "markdown-it-footnote": "^4.0.0"
+    },
+    "devDependencies": {
+        "@11tyrocks/eleventy-plugin-lightningcss": "^1.6.0",
+        "@biomejs/biome": "2.6.8",
+        "@cloudflare/workers-types": "^5.20261031.1"
+    },
+    "browserslist": [
+        "> 0.5%",
+        "last 2 versions",
+        "not dead",
+        "not ie 11"
+    ]
 }

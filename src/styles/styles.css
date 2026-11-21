@@ -60,12 +60,11 @@ html {
     --tk-variable: #953800;
     --tk-important: #cf222e;
 
-    --font-body: "Rumiko Clear", -apple-system, BlinkMacSystemFont,
+    --font-body: "Rumiko Clear", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    --font-ui:
+        "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
         "Helvetica Neue", sans-serif;
-    --font-ui: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro",
-        Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 
     --fs: 1rem;
     --fs-small: 0.85rem;
@@ -245,7 +244,7 @@ pre {
     counter-reset: source-line 0;
 }
 
-.code-wrap>pre {
+.code-wrap > pre {
     margin: 0;
 }
 
@@ -292,12 +291,12 @@ pre code {
     opacity: 1;
 }
 
-pre code>span {
+pre code > span {
     display: block;
     counter-increment: source-line;
 }
 
-pre code>span>a:first-child {
+pre code > span > a:first-child {
     display: inline-block;
     width: 2.5em;
     text-align: right;
@@ -309,11 +308,11 @@ pre code>span>a:first-child {
     user-select: none;
 }
 
-pre code>span>a:first-child::before {
+pre code > span > a:first-child::before {
     content: counter(source-line);
 }
 
-pre code>span:target {
+pre code > span:target {
     background: var(--highlight);
     outline: none;
 }
@@ -466,7 +465,7 @@ figure img {
     margin: 0 auto;
 }
 
-figure+figure {
+figure + figure {
     margin-top: 2.2rem;
 }
 
@@ -553,6 +552,13 @@ figure.float-right figcaption {
 
 .site-header nav a:visited {
     color: var(--link);
+}
+
+.site-header nav svg {
+    width: 1em;
+    height: 1em;
+    margin-left: 0.3em;
+    vertical-align: middle;
 }
 
 .site-header nav a[aria-current="page"] {
@@ -677,7 +683,7 @@ footer p:last-child {
     color: var(--text-secondary);
 }
 
-.post-list+p {
+.post-list + p {
     margin-top: 0.4rem;
     font-size: var(--fs-small);
 }
@@ -894,7 +900,7 @@ article {
     position: relative;
 }
 
-:is(article, main)> :first-child {
+:is(article, main) > :first-child {
     margin-top: 0;
 }
 
@@ -1023,23 +1029,23 @@ hr::after {
     color: var(--text);
 }
 
-.toc-wrapper>summary,
-.authors-note>summary {
+.toc-wrapper > summary,
+.authors-note > summary {
     cursor: pointer;
     font-weight: bold;
     list-style: none;
 }
 
-.toc-wrapper>summary::-webkit-details-marker,
-.authors-note>summary::-webkit-details-marker,
+.toc-wrapper > summary::-webkit-details-marker,
+.authors-note > summary::-webkit-details-marker,
 .link-list summary::-webkit-details-marker {
     display: none;
 }
 
-.toc-wrapper>summary::before,
-.authors-note>summary::before,
+.toc-wrapper > summary::before,
+.authors-note > summary::before,
 .link-list summary::before {
-    content: '›';
+    content: "›";
     display: inline-block;
     width: 0.6em;
     margin-right: 0.3em;
@@ -1052,9 +1058,9 @@ hr::after {
     color: var(--text-secondary);
 }
 
-.toc-wrapper[open]>summary::before,
-.authors-note[open]>summary::before,
-.link-list details[open]>summary::before {
+.toc-wrapper[open] > summary::before,
+.authors-note[open] > summary::before,
+.link-list details[open] > summary::before {
     transform: rotate(90deg);
 }
 
@@ -1101,7 +1107,7 @@ hr::after {
     gap: 0.25rem;
 }
 
-.archive-months>* {
+.archive-months > * {
     display: grid;
     place-items: center;
     height: 2rem;
@@ -1111,23 +1117,23 @@ hr::after {
     font-size: var(--fs-xsmall);
 }
 
-.archive-months>span {
+.archive-months > span {
     color: var(--border);
 }
 
-.archive-months>.outside {
+.archive-months > .outside {
     border-color: transparent;
 }
 
-.archive-months>a {
+.archive-months > a {
     border-color: var(--border);
 }
 
-.archive-months>a:hover {
+.archive-months > a:hover {
     background: var(--code-bg);
 }
 
-.archive-months>a[aria-current="page"] {
+.archive-months > a[aria-current="page"] {
     border-color: var(--text);
     color: var(--text);
     background: var(--code-bg);
@@ -1270,7 +1276,6 @@ a.fnref,
 }
 
 @media (max-width: 480px) {
-
     .nav-prev,
     .nav-next {
         min-width: 0;
@@ -1292,7 +1297,6 @@ a.fnref,
 }
 
 @media (min-width: 1200px) {
-
     .toc-wrapper {
         position: absolute;
         left: -240px;

@@ -1,6 +1,6 @@
 :root {
-    --up: #23C552;
-    --down: #F84F31;
+    --up: #23c552;
+    --down: #f84f31;
 }
 
 body:not([data-status]) {
@@ -53,7 +53,7 @@ body[data-status="down"] {
     white-space: nowrap;
 }
 
-.stat-label>a,
+.stat-label > a,
 .stat-name {
     min-width: 0;
     overflow: hidden;
@@ -174,7 +174,7 @@ body[data-status="down"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.stat-tiles+.panel-columns {
+.stat-tiles + .panel-columns {
     margin-top: 0.75rem;
 }
 
@@ -190,7 +190,7 @@ body[data-status="down"] {
     padding-left: 0;
 }
 
-.stat-tile+.stat-tile {
+.stat-tile + .stat-tile {
     border-left: 1px solid var(--border-light);
 }
 
@@ -233,7 +233,7 @@ body[data-status="down"] {
         row-gap: 0.6rem;
     }
 
-    .stat-tile:nth-child(2n+1) {
+    .stat-tile:nth-child(2n + 1) {
         border-left: 0;
         padding-left: 0;
     }

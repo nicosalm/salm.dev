@@ -1,191 +1,199 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import lightningCSS from "@11tyrocks/eleventy-plugin-lightningcss";
 import markdownIt from "markdown-it";
-import markdownItFootnote from "markdown-it-footnote";
 import markdownItAttrs from "markdown-it-attrs";
-import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
-import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
-import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
-import { MONTHS, monthName } from "./src/_includes/months.js";
+import markdownItFootnote from "markdown-it-footnote";
 import friends from "./src/_data/friends.js";
-import { join } from "node:path";
-import { readFileSync } from "node:fs";
-import { createHash } from "node:crypto";
+import { MONTHS, monthName } from "./src/_includes/months.js";
+import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
+import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
+import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
 
-export default function(eleventyConfig) {
-  const md = markdownIt({
-    html: true,
-    breaks: false,
-    linkify: true,
-    typographer: true
-  });
-  md.use(markdownItFootnote);
-  md.use(markdownItAttrs);
+export default function (eleventyConfig) {
+    const md = markdownIt({
+        html: true,
+        breaks: false,
+        linkify: true,
+        typographer: true,
+    });
+    md.use(markdownItFootnote);
+    md.use(markdownItAttrs);
 
-  md.renderer.rules.footnote_anchor_name = (tokens, idx, _options, env) => {
-    const { label, id } = tokens[idx].meta;
-    if (label) return "-" + label;
-    const prefix = typeof env.docId === "string" ? "-" + env.docId + "-" : "";
-    return prefix + (id + 1);
-  };
+    md.renderer.rules.footnote_anchor_name = (tokens, idx, _options, env) => {
+        const { label, id } = tokens[idx].meta;
+        if (label) return `-${label}`;
+        const prefix = typeof env.docId === "string" ? `-${env.docId}-` : "";
+        return prefix + (id + 1);
+    };
 
-  eleventyConfig.setLibrary("md", md);
+    eleventyConfig.setLibrary("md", md);
 
-  eleventyConfig.addPlugin(syntaxHighlight);
+    eleventyConfig.addPlugin(syntaxHighlight);
 
-  eleventyConfig.addPlugin(lightningCSS);
+    eleventyConfig.addPlugin(lightningCSS);
 
-  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
-    extensions: "html",
-    formats: ["avif", "jpeg"],
-    widths: [600, 1200],
-    sharpJpegOptions: { quality: 80, mozjpeg: true },
-    sharpAvifOptions: { quality: 55, effort: 3 },
-    defaultAttributes: {
-      loading: "lazy",
-      decoding: "async"
-    }
-  });
+    eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+        extensions: "html",
+        formats: ["avif", "jpeg"],
+        widths: [600, 1200],
+        sharpJpegOptions: { quality: 80, mozjpeg: true },
+        sharpAvifOptions: { quality: 55, effort: 3 },
+        defaultAttributes: {
+            loading: "lazy",
+            decoding: "async",
+        },
+    });
 
-  eleventyConfig.addNunjucksFilter("dateToRfc822", (date) => {
-    return new Date(date).toUTCString();
-  });
+    eleventyConfig.addNunjucksFilter("dateToRfc822", (date) => {
+        return new Date(date).toUTCString();
+    });
 
-  eleventyConfig.addTransform("sidenotes", (content, outputPath) => {
-    if (outputPath?.endsWith(".html")) {
-      return processSidenotes(content);
-    }
-    return content;
-  });
+    eleventyConfig.addTransform("sidenotes", (content, outputPath) => {
+        if (outputPath?.endsWith(".html")) {
+            return processSidenotes(content);
+        }
+        return content;
+    });
 
-  eleventyConfig.addTransform("linkHosts", (content, outputPath) => {
-    if (outputPath?.endsWith(".html")) {
-      return processLinkHosts(content);
-    }
-    return content;
-  });
+    eleventyConfig.addTransform("linkHosts", (content, outputPath) => {
+        if (outputPath?.endsWith(".html")) {
+            return processLinkHosts(content);
+        }
+        return content;
+    });
 
-  eleventyConfig.addTransform("tableScroll", (content, outputPath) => {
-    if (outputPath?.endsWith(".html")) {
-      return processTableScroll(content);
-    }
-    return content;
-  });
+    eleventyConfig.addTransform("tableScroll", (content, outputPath) => {
+        if (outputPath?.endsWith(".html")) {
+            return processTableScroll(content);
+        }
+        return content;
+    });
 
-  eleventyConfig.addCollection("posts", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/writing/*/index.md")
-      .filter((post) => !post.data.unlisted)
-      .sort((a, b) => b.date - a.date);
-  });
+    eleventyConfig.addCollection("posts", (collectionApi) => {
+        return collectionApi
+            .getFilteredByGlob("src/writing/*/index.md")
+            .filter((post) => !post.data.unlisted)
+            .sort((a, b) => b.date - a.date);
+    });
 
-  eleventyConfig.addCollection("nows", (collectionApi) => {
-    return collectionApi.getFilteredByGlob("src/now/*/index.md")
-      .sort((a, b) => a.date - b.date);
-  });
+    eleventyConfig.addCollection("nows", (collectionApi) => {
+        return collectionApi.getFilteredByGlob("src/now/*/index.md").sort((a, b) => a.date - b.date);
+    });
 
-  eleventyConfig.addFilter("dateFormat", (date) => {
-    return new Date(date).toISOString().slice(0, 10);
-  });
+    eleventyConfig.addFilter("dateFormat", (date) => {
+        return new Date(date).toISOString().slice(0, 10);
+    });
 
-  eleventyConfig.addFilter("monthYear", (date) => {
-    return `${monthName(date)}, ${new Date(date).getUTCFullYear()}`;
-  });
+    eleventyConfig.addFilter("monthYear", (date) => {
+        return `${monthName(date)}, ${new Date(date).getUTCFullYear()}`;
+    });
 
-  eleventyConfig.addFilter("monthName", monthName);
+    eleventyConfig.addFilter("monthName", monthName);
 
-  const nowWindow = (items) => {
-    const months = new Set(items.map((item) => {
-      const d = new Date(item.date);
-      return d.getUTCFullYear() * 12 + d.getUTCMonth();
-    }));
-    const now = new Date();
-    const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
-    return { start: Math.min(...months), end: Math.max(...months, lastEnded) };
-  };
+    const nowWindow = (items) => {
+        const months = new Set(
+            items.map((item) => {
+                const d = new Date(item.date);
+                return d.getUTCFullYear() * 12 + d.getUTCMonth();
+            }),
+        );
+        const now = new Date();
+        const lastEnded = now.getUTCFullYear() * 12 + now.getUTCMonth() - 1;
+        return { start: Math.min(...months), end: Math.max(...months, lastEnded) };
+    };
 
-  eleventyConfig.addFilter("monthGrid", (items) => {
-    const { start, end } = nowWindow(items);
-    const years = new Map();
-    for (const item of items) {
-      const d = new Date(item.date);
-      const year = d.getUTCFullYear();
-      if (!years.has(year)) years.set(year, []);
-      years.get(year)[d.getUTCMonth()] = item;
-    }
-    return [...years]
-      .sort(([a], [b]) => b - a)
-      .map(([year, byMonth]) => ({
-        year,
-        months: MONTHS.map((name, i) => {
-          const index = year * 12 + i;
-          return { name, item: byMonth[i], outside: index < start || index > end };
-        }),
-      }));
-  });
+    eleventyConfig.addFilter("monthGrid", (items) => {
+        const { start, end } = nowWindow(items);
+        const years = new Map();
+        for (const item of items) {
+            const d = new Date(item.date);
+            const year = d.getUTCFullYear();
+            if (!years.has(year)) years.set(year, []);
+            years.get(year)[d.getUTCMonth()] = item;
+        }
+        return [...years]
+            .sort(([a], [b]) => b - a)
+            .map(([year, byMonth]) => ({
+                year,
+                months: MONTHS.map((name, i) => {
+                    const index = year * 12 + i;
+                    return { name, item: byMonth[i], outside: index < start || index > end };
+                }),
+            }));
+    });
 
-  eleventyConfig.addFilter("obfuscateEmail", (email) => {
-    return String(email).replace(/[@.]/g, (char) => `${char}<span style="display:none">nospam</span>`);
-  });
+    eleventyConfig.addFilter("obfuscateEmail", (email) => {
+        return String(email).replace(/[@.]/g, (char) => `${char}<span style="display:none">nospam</span>`);
+    });
 
-  eleventyConfig.addFilter("categories", (items) => {
-    if (!Array.isArray(items)) return [];
-    return [...new Set(items.map((i) => i.data.category).filter(Boolean))].sort();
-  });
+    eleventyConfig.addFilter("categories", (items) => {
+        if (!Array.isArray(items)) return [];
+        return [...new Set(items.map((i) => i.data.category).filter(Boolean))].sort();
+    });
 
-  eleventyConfig.addFilter("head", (array, n) => {
-    if (!Array.isArray(array)) return [];
-    return array.slice(0, n);
-  });
+    eleventyConfig.addFilter("head", (array, n) => {
+        if (!Array.isArray(array)) return [];
+        return array.slice(0, n);
+    });
 
-  eleventyConfig.addFilter("year", (date) => {
-    return new Date(date).getUTCFullYear();
-  });
+    eleventyConfig.addFilter("year", (date) => {
+        return new Date(date).getUTCFullYear();
+    });
 
-  eleventyConfig.addFilter("versioned", (url) => {
-    const hash = createHash("sha256").update(readFileSync(join("src", url))).digest("hex").slice(0, 10);
-    return `${url}?v=${hash}`;
-  });
+    eleventyConfig.addFilter("versioned", (url) => {
+        const hash = createHash("sha256")
+            .update(readFileSync(join("src", url)))
+            .digest("hex")
+            .slice(0, 10);
+        return `${url}?v=${hash}`;
+    });
 
-  eleventyConfig.addFilter("currentYear", () => {
-    return new Date().getFullYear();
-  });
+    eleventyConfig.addFilter("currentYear", () => {
+        return new Date().getFullYear();
+    });
 
-  eleventyConfig.addFilter("readingTime", (content) => {
-    if (!content) return "1 minute read";
-    const words = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
-    const minutes = Math.max(1, Math.ceil(words / 200));
-    return `${minutes} minute read`;
-  });
+    eleventyConfig.addFilter("readingTime", (content) => {
+        if (!content) return "1 minute read";
+        const words = content
+            .replace(/<[^>]*>/g, "")
+            .split(/\s+/)
+            .filter((w) => w.length > 0).length;
+        const minutes = Math.max(1, Math.ceil(words / 200));
+        return `${minutes} minute read`;
+    });
 
-  eleventyConfig.addPassthroughCopy("src/assets/js");
-  eleventyConfig.addPassthroughCopy("src/assets/fonts");
-  eleventyConfig.addPassthroughCopy("src/writing/winning-pokemon-showdown/images/outcome.gif");
-  eleventyConfig.addPassthroughCopy("src/assets/88x31");
-  eleventyConfig.addPassthroughCopy("src/assets/friends");
-  eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
-  eleventyConfig.addPassthroughCopy("src/assets/logo.png");
-  eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
-  eleventyConfig.addPassthroughCopy("src/robots.txt");
-  eleventyConfig.addPassthroughCopy("src/.nojekyll");
+    eleventyConfig.addPassthroughCopy("src/assets/js");
+    eleventyConfig.addPassthroughCopy("src/assets/fonts");
+    eleventyConfig.addPassthroughCopy("src/writing/winning-pokemon-showdown/images/outcome.gif");
+    eleventyConfig.addPassthroughCopy("src/assets/88x31");
+    eleventyConfig.addPassthroughCopy("src/assets/friends");
+    eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
+    eleventyConfig.addPassthroughCopy("src/assets/logo.png");
+    eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
+    eleventyConfig.addPassthroughCopy("src/robots.txt");
+    eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
-  eleventyConfig.addWatchTarget("src/styles/");
+    eleventyConfig.addWatchTarget("src/styles/");
 
-  eleventyConfig.addShortcode("friend", (name, text = name) => {
-    const friend = friends.find((f) => f.name === name);
-    if (!friend) throw new Error(`unknown friend: ${name}`);
-    return `<a href="${friend.url}" target="_blank">${text}</a>`;
-  });
-};
+    eleventyConfig.addShortcode("friend", (name, text = name) => {
+        const friend = friends.find((f) => f.name === name);
+        if (!friend) throw new Error(`unknown friend: ${name}`);
+        return `<a href="${friend.url}" target="_blank">${text}</a>`;
+    });
+}
 
 export const config = {
-  dir: {
-    input: "src",
-    output: "dist",
-    includes: "_includes",
-    data: "_data"
-  },
-  markdownTemplateEngine: "njk",
-  htmlTemplateEngine: "njk",
-  templateFormats: ["md", "njk", "html"]
+    dir: {
+        input: "src",
+        output: "dist",
+        includes: "_includes",
+        data: "_data",
+    },
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk",
+    templateFormats: ["md", "njk", "html"],
 };

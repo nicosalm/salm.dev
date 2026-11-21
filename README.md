@@ -9,7 +9,8 @@ sidenotes and images are converted to AVIF and JPEG at two widths.
 
 To run it locally, `pnpm install` followed by `pnpm dev` will serve the
 site at http://localhost:8080 with live reload. `pnpm build` writes the
-output to `dist/`.
+output to `dist/`. `pnpm check` runs Biome over the JS, TS, CSS, and
+JSON, and `pnpm fix` applies its formatting and safe fixes.
 
 The live status page is backed by a Cloudflare Worker in `worker/`,
 served at status.salm.dev. It combines uptime from updown.io, traffic
