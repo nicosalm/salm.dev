@@ -3,9 +3,11 @@ layout: layouts/base.njk
 title: null
 ---
 <h1>Hello!</h1>
+<div data-nosnippet>
 <figure class="float-right about-photo">
     <img src="/assets/me.jpg" alt="Me in a dark quarter-zip in front of a red brick building.">
 </figure>
+</div>
 <p>
     I'm Nico Salm, a software engineer from Wisconsin.
     In 2026, I received my B.S. in Computer Sciences and Data Science from <a href="/writing/my-wisconsin-experience/">UW-Madison</a>; I'm interested in full-stack development, systems performance, and AI.
@@ -19,7 +21,7 @@ title: null
 
 <h2 id="buttons"><a href="#buttons" class="heading-link">Buttons</a></h2>
 <p>If you'd like to link back to my site, use my <a href="https://salm.dev/88x31.gif">88x31 button</a>.</p>
-<div class="buttons-container">
+<div class="buttons-container" data-nosnippet>
     {%- for btn in buttons.common %}{% include "button.njk" %}{% endfor %}
     {%- for btn in buttons.about %}{% include "button.njk" %}{% endfor %}
 </div>
