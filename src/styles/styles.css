@@ -505,6 +505,11 @@ figure.float-right figcaption {
     max-width: 40.5%;
 }
 
+.about-photo img {
+    aspect-ratio: 11 / 15;
+    object-fit: cover;
+}
+
 .figure-row {
     display: flex;
     gap: 1rem;
