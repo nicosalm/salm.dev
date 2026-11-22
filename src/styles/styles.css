@@ -947,16 +947,16 @@ hr::after {
     font-family: var(--font-ui);
     font-size: var(--fs-small);
     white-space: nowrap;
-    animation: to-top linear;
-    animation-timeline: scroll();
-    animation-range: 0 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s,
+        visibility 0.2s;
 }
 
-@keyframes to-top {
-    from,
-    to {
-        visibility: hidden;
-    }
+.to-top.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 .post-navigation {
@@ -1241,10 +1241,6 @@ a.fnref,
     width: 88px;
     height: 31px;
     margin: 0;
-}
-
-.copy-label {
-    font-family: var(--font-mono);
 }
 
 .skip-link {
