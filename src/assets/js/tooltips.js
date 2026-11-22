@@ -83,6 +83,13 @@
         place(r.right, r.bottom);
     });
 
+    document.addEventListener("tip:show", (ev) => {
+        active = ev.target;
+        fill(active);
+        tip.classList.add("visible");
+        place(ev.detail.x, ev.detail.y);
+    });
+
     document.addEventListener("mousedown", () => {
         active = null;
         tip.classList.remove("visible");
