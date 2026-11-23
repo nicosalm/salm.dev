@@ -874,8 +874,6 @@ footer p:last-child {
 
 .post-meta a,
 .post-meta a:visited,
-.to-top,
-.to-top:visited,
 a.fnref,
 .fnref a {
     color: var(--text-secondary);
@@ -886,7 +884,6 @@ a.fnref,
 }
 
 .post-meta a:hover,
-.to-top:hover,
 sup.fnref a:hover,
 sup.fnref a.hover {
     background: var(--code-bg);
@@ -939,29 +936,6 @@ hr::after {
     color: var(--text-secondary);
     font-size: var(--fs-small);
     margin-bottom: 1.2rem;
-}
-
-.to-top {
-    position: fixed;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    z-index: 10;
-    padding: 0.15rem 0.6rem;
-    background: var(--bg);
-    box-shadow: inset 0 0 0 1px var(--border);
-    font-family: var(--font-ui);
-    font-size: var(--fs-small);
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-        opacity 0.2s,
-        visibility 0.2s;
-}
-
-.to-top.visible {
-    opacity: 1;
-    visibility: visible;
 }
 
 .post-navigation {
@@ -1310,11 +1284,6 @@ a.fnref,
         left: -240px;
         width: 210px;
     }
-
-    .to-top {
-        right: auto;
-        left: calc(50% - 18rem - 240px);
-    }
 }
 
 @media (max-width: 1199px) {
@@ -1360,10 +1329,6 @@ a.fnref,
 
     .toc-wrapper {
         margin-bottom: 0.75rem;
-    }
-
-    .to-top {
-        display: none;
     }
 
     .post-meta-bar {
