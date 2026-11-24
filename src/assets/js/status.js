@@ -5,9 +5,13 @@
     const incidentsPanel = document.getElementById("status-incidents");
     const analytics = document.getElementById("status-analytics");
 
+    const STALE_HEADER = "X-Stale";
+    const STALE_RETRY_MS = 2000;
+    const MAX_STALE_RETRIES = 3;
     const SEP = ' <span class="meta-sep" aria-hidden="true"></span> ';
     const regions = window.Intl && Intl.DisplayNames ? new Intl.DisplayNames(["en"], { type: "region" }) : null;
     let lastCheckAt = null;
+    let staleRetries = 0;
 
     load(true);
     setInterval(() => {
@@ -21,6 +25,7 @@
         fetch(API)
             .then((res) => {
                 if (!res.ok) throw new Error(res.status);
+                retryWhileStale(res);
                 return res.json();
             })
             .then(render)
@@ -28,6 +33,17 @@
                 if (!first) return;
                 services.innerHTML = "<p>Failed to load status data.</p>";
             });
+    }
+
+    function retryWhileStale(res) {
+        if (!res.headers.has(STALE_HEADER)) {
+            staleRetries = 0;
+            return;
+        }
+        if (staleRetries < MAX_STALE_RETRIES) {
+            staleRetries++;
+            setTimeout(() => load(false), STALE_RETRY_MS);
+        }
     }
 
     function render(data) {

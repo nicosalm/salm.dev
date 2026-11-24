@@ -8,8 +8,9 @@ import markdownIt from "markdown-it";
 import markdownItAttrs from "markdown-it-attrs";
 import markdownItFootnote from "markdown-it-footnote";
 import friends from "./src/_data/friends.js";
+import site from "./src/_data/site.js";
 import { MONTHS, monthName } from "./src/_includes/months.js";
-import { processLinkHosts } from "./src/_includes/transforms/link-hosts.js";
+import { processExternalLinks } from "./src/_includes/transforms/external-links.js";
 import { processSidenotes } from "./src/_includes/transforms/sidenotes.js";
 import { processTableScroll } from "./src/_includes/transforms/table-scroll.js";
 
@@ -59,9 +60,11 @@ export default function (eleventyConfig) {
         return content;
     });
 
-    eleventyConfig.addTransform("linkHosts", (content, outputPath) => {
+    const siteHost = new URL(site.url).hostname;
+
+    eleventyConfig.addTransform("externalLinks", (content, outputPath) => {
         if (outputPath?.endsWith(".html")) {
-            return processLinkHosts(content);
+            return processExternalLinks(content, siteHost);
         }
         return content;
     });
@@ -135,11 +138,6 @@ export default function (eleventyConfig) {
         return [...new Set(items.map((i) => i.data.category).filter(Boolean))].sort();
     });
 
-    eleventyConfig.addFilter("head", (array, n) => {
-        if (!Array.isArray(array)) return [];
-        return array.slice(0, n);
-    });
-
     eleventyConfig.addFilter("year", (date) => {
         return new Date(date).getUTCFullYear();
     });
@@ -168,11 +166,9 @@ export default function (eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy("src/assets/js");
     eleventyConfig.addPassthroughCopy("src/assets/fonts");
-    eleventyConfig.addPassthroughCopy("src/writing/winning-pokemon-showdown/images/outcome.gif");
+    eleventyConfig.addPassthroughCopy("src/writing/winning-pokemon-showdown/images/outcome.*");
     eleventyConfig.addPassthroughCopy("src/assets/88x31");
-    eleventyConfig.addPassthroughCopy("src/assets/friends");
     eleventyConfig.addPassthroughCopy("src/assets/favicon.svg");
-    eleventyConfig.addPassthroughCopy("src/assets/logo.png");
     eleventyConfig.addPassthroughCopy({ "src/assets/88x31/88x31.gif": "88x31.gif" });
     eleventyConfig.addPassthroughCopy("src/robots.txt");
     eleventyConfig.addPassthroughCopy("src/.nojekyll");

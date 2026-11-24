@@ -156,24 +156,65 @@ function updownHeaders(env: Env) {
 }
 
 const ALLOWED_ORIGINS = ["https://salm.dev", "https://salm-dev-preview.nicosalm.workers.dev", "http://localhost:8080"];
+const STALE_HEADER = "X-Stale";
+const FRESH_UNTIL_HEADER = "X-Fresh-Until";
 
 function corsHeaders(request: Request): Record<string, string> {
     const origin = request.headers.get("Origin");
     return {
         "Access-Control-Allow-Origin": origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
         "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Expose-Headers": STALE_HEADER,
         Vary: "Origin",
     };
 }
 
-function withCors(response: Response, request: Request): Response {
-    const r = new Response(response.body, response);
-    for (const [k, v] of Object.entries(corsHeaders(request))) r.headers.set(k, v);
-    return r;
+async function buildSnapshot(env: Env): Promise<Response> {
+    const [[checksData, incidents, uptimes], stats] = await Promise.all([
+        getJson(URLS.checks, { headers: updownHeaders(env) }).then(async (d) => {
+            const checks = Array.isArray(d) ? d.filter((c: any) => c.enabled !== false) : null;
+            if (!checks) return [null, null, null] as const;
+            const [incidents, uptimes] = await Promise.all([getIncidents(checks, env), getUptimes(checks, env)]);
+            return [checks, incidents, uptimes] as const;
+        }),
+        getStats(env).catch(() => null),
+    ]);
+
+    const checks = (checksData ?? []).map((c, i) => publicCheck(c, uptimes?.[i] ?? null));
+
+    const complete = Boolean(checksData && incidents && stats && !stats.partial);
+    const freshFor = complete ? FRESH_TTL : PARTIAL_FRESH_TTL;
+
+    return new Response(JSON.stringify({ checks, incidents, stats }), {
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": `public, max-age=${STALE_TTL}`,
+            [FRESH_UNTIL_HEADER]: String(Date.now() + freshFor * 1000),
+        },
+    });
 }
 
-const CACHE_TTL = 60;
-const PARTIAL_CACHE_TTL = 15;
+function freshSeconds(snapshot: Response): number {
+    return Math.ceil((Number(snapshot.headers.get(FRESH_UNTIL_HEADER)) - Date.now()) / 1000);
+}
+
+function respond(snapshot: Response, request: Request): Response {
+    const remaining = freshSeconds(snapshot);
+    const response = new Response(snapshot.body, snapshot);
+    response.headers.delete(FRESH_UNTIL_HEADER);
+    if (remaining > 0) {
+        response.headers.set("Cache-Control", `public, max-age=${remaining}`);
+    } else {
+        response.headers.set("Cache-Control", "no-store");
+        response.headers.set(STALE_HEADER, "1");
+    }
+    for (const [k, v] of Object.entries(corsHeaders(request))) response.headers.set(k, v);
+    return response;
+}
+
+const FRESH_TTL = 60;
+const PARTIAL_FRESH_TTL = 15;
+const STALE_TTL = 24 * 60 * 60;
 const INCIDENT_LIMIT = 3;
 const UPTIME_DAYS = 30;
 const AUDIENCE_LIMIT = 5;
@@ -187,37 +228,18 @@ export default {
 
         const cache = caches.default;
         const cacheKey = new Request(new URL("/", request.url).toString(), { method: "GET" });
+        const store = (snapshot: Response) => cache.put(cacheKey, snapshot);
+
         const cached = await cache.match(cacheKey);
-        if (cached) return withCors(cached, request);
+        if (cached) {
+            if (freshSeconds(cached) <= 0) ctx.waitUntil(buildSnapshot(env).then(store));
+            return respond(cached, request);
+        }
 
         try {
-            const [[checksData, incidents, uptimes], stats] = await Promise.all([
-                getJson(URLS.checks, { headers: updownHeaders(env) }).then(async (d) => {
-                    const checks = Array.isArray(d) ? d.filter((c: any) => c.enabled !== false) : null;
-                    if (!checks) return [null, null, null] as const;
-                    const [incidents, uptimes] = await Promise.all([
-                        getIncidents(checks, env),
-                        getUptimes(checks, env),
-                    ]);
-                    return [checks, incidents, uptimes] as const;
-                }),
-                getStats(env).catch(() => null),
-            ]);
-
-            const checks = (checksData ?? []).map((c, i) => publicCheck(c, uptimes?.[i] ?? null));
-
-            const complete = Boolean(checksData && incidents && stats && !stats.partial);
-            const ttl = complete ? CACHE_TTL : PARTIAL_CACHE_TTL;
-
-            const response = new Response(JSON.stringify({ checks, incidents, stats }), {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Cache-Control": `public, max-age=${ttl}`,
-                },
-            });
-
-            ctx.waitUntil(cache.put(cacheKey, response.clone()));
-            return withCors(response, request);
+            const snapshot = await buildSnapshot(env);
+            ctx.waitUntil(store(snapshot.clone()));
+            return respond(snapshot, request);
         } catch {
             return new Response(JSON.stringify({ error: "Failed to fetch status data" }), {
                 status: 502,

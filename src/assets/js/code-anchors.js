@@ -11,6 +11,26 @@
             .replace(/^-+|-+$/g, "");
     }
 
+    const TAG = /<(\/)?([a-z][a-z0-9]*)[^>]*>/gi;
+
+    // highlighter tokens are able to span lines (e.g., docstrings, block comments), so tags
+    // still open at a line break get closed there and reopened on the next line...
+    function splitLines(html) {
+        const open = [];
+        return html.split("\n").map((line) => {
+            const reopened = open.map((tag) => tag.html).join("");
+            for (const [html, closing, name] of line.matchAll(TAG)) {
+                if (closing) open.pop();
+                else open.push({ html, name });
+            }
+            const closed = open
+                .map((tag) => `</${tag.name}>`)
+                .reverse()
+                .join("");
+            return reopened + line + closed;
+        });
+    }
+
     const usedIds = new Set();
     article.querySelectorAll("[id]").forEach((el) => {
         usedIds.add(el.id);
@@ -46,7 +66,7 @@
 
         const rawText = code.textContent.trimEnd();
 
-        const lines = code.innerHTML.split("\n");
+        const lines = splitLines(code.innerHTML);
         if (lines[lines.length - 1] === "") lines.pop();
 
         code.innerHTML = lines

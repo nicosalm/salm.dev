@@ -902,7 +902,7 @@ article {
     position: relative;
 }
 
-:is(article, main) > :first-child {
+:is(article, main, .about-intro) > :first-child {
     margin-top: 0;
 }
 
@@ -1246,7 +1246,20 @@ a.fnref,
     figure.about-photo {
         float: none;
         max-width: 50%;
-        margin: 1rem auto;
+        margin: 0 auto 1rem;
+    }
+
+    main:has(> .about-intro) {
+        text-align: center;
+    }
+
+    .about-intro {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .buttons-container {
+        justify-content: center;
     }
 }
 

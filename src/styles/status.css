@@ -1,6 +1,13 @@
 :root {
-    --up: #23c552;
-    --down: #f84f31;
+    --up: #1a7f37;
+    --down: #cf222e;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --up: #23c552;
+        --down: #f84f31;
+    }
 }
 
 body:not([data-status]) {
