@@ -46,7 +46,7 @@
             {%- endfor %}
         </nav>
     </header>
-    <main id="main">
+    <main id="main"{% if centered %} class="centered"{% endif %}>
     {{ content | safe }}
     </main>
     {%- if eleventy.env.runMode == "build" %}

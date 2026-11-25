@@ -541,7 +541,6 @@ figure.float-right figcaption {
     font-size: 1.05rem;
     text-decoration: none;
     color: var(--text);
-    margin-right: 0.5rem;
     letter-spacing: -0.01em;
 }
 
@@ -1249,7 +1248,8 @@ a.fnref,
         margin: 0 auto 1rem;
     }
 
-    main:has(> .about-intro) {
+    main.centered,
+    .page-title {
         text-align: center;
     }
 
@@ -1333,7 +1333,7 @@ a.fnref,
     .site-header {
         flex-direction: column;
         gap: 0.25rem;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .site-header .spacer {
