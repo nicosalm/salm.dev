@@ -15,19 +15,13 @@ eleventyComputed:
 </div>
 
 {%- set currentYear = null %}
-{%- set firstYear = true %}
 {%- for post in collections.posts %}
     {%- set postYear = post.date | year %}
     {%- if postYear != currentYear %}
         {%- if currentYear != null %}
 </ul>
         {%- endif %}
-        {%- if firstYear %}
-<h4 class="year-heading first-year" data-year="{{ postYear }}">{{ postYear }}</h4>
-            {%- set firstYear = false %}
-        {%- else %}
-<h4 class="year-heading" data-year="{{ postYear }}">{{ postYear }}</h4>
-        {%- endif %}
+<h2 id="{{ postYear }}" data-year="{{ postYear }}"><a href="#{{ postYear }}" class="heading-link">{{ postYear }}</a></h2>
 <ul class="post-list">
         {%- set currentYear = postYear %}
     {%- endif %}

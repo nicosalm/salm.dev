@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="{{ stylesheet | versioned }}">
     {%- endif %}
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-    <link rel="alternate" type="application/rss+xml" title="writing | salm.dev" href="/rss.xml">
-    <link rel="alternate" type="application/rss+xml" title="now | salm.dev" href="/now/rss.xml">
-    <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="alternate" type="application/rss+xml" title="writing | {{ site.author.name }}" href="/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="now | {{ site.author.name }}" href="/now/rss.xml">
+    {%- set pageTitle %}{% if title %}{{ title }} | {{ titleSuffix | default(site.author.name) }}{% else %}{{ site.author.name }} | {{ site.title }}{% endif %}{% endset %}
+    <title>{{ pageTitle | safe }}</title>
     <meta name="description" content="{{ description | default(site.description) }}">
 
-    <meta property="og:title" content="{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:title" content="{{ pageTitle | safe }}">
     <meta property="og:description" content="{{ description | default(site.description) }}">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
     <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">

@@ -29,10 +29,15 @@ const dirs = readdirSync("src/now", { withFileTypes: true })
     });
 const latest = dirs[dirs.length - 1];
 
+const monthAndYear = (date) => {
+    const d = new Date(date);
+    return `${monthName(d)} ${d.getUTCFullYear()}`;
+};
+
 export default {
     layout: "layouts/now.njk",
-    title: "now",
     eleventyComputed: {
+        title: (data) => `now: ${monthAndYear(data.date)}`,
         permalink: (data) => {
             const slug = basename(dirname(data.page.inputPath));
             if (!DATE_DIR.test(slug)) return data.permalink;
@@ -40,8 +45,7 @@ export default {
         },
         description: (data) => {
             if (data.description) return data.description;
-            const d = new Date(data.date);
-            return `What I was working on, reading, and thinking about in ${monthName(d)} ${d.getUTCFullYear()}.`;
+            return `What I was working on, reading, and thinking about in ${monthAndYear(data.date)}.`;
         },
     },
 };

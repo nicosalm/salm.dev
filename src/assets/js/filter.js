@@ -1,7 +1,7 @@
 (() => {
     const filters = document.querySelectorAll(".category-filter");
     const posts = document.querySelectorAll(".post-item");
-    const yearHeadings = document.querySelectorAll(".year-heading");
+    const yearHeadings = document.querySelectorAll("[data-year]");
 
     if (!filters.length) return;
 

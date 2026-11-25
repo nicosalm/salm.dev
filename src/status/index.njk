@@ -1,6 +1,8 @@
 ---
 layout: layouts/base.njk
 title: status
+eleventyComputed:
+  titleSuffix: "{{ site.title }}"
 description: Uptime, traffic, and bandwidth.
 prefetch: https://status.salm.dev
 stylesheet: /styles/status.css

@@ -634,16 +634,6 @@ footer p:last-child {
     color: var(--text);
 }
 
-.year-heading {
-    margin-top: 0.75rem;
-    margin-bottom: 0.25rem;
-    font-size: 0.9375rem;
-}
-
-.year-heading.first-year {
-    margin-top: 0.25rem;
-}
-
 .category-filters {
     display: flex;
     flex-wrap: wrap;
