@@ -725,7 +725,7 @@ footer p:last-child {
     max-width: min(24rem, 78vw);
     color: var(--text-secondary);
     font-family: var(--font-ui);
-    font-size: var(--fs-xsmall);
+    font-size: var(--fs-small);
     line-height: 1.4;
     pointer-events: none;
     opacity: 0;
@@ -790,33 +790,6 @@ footer p:last-child {
 .project-marker {
     color: var(--text-secondary);
     margin-left: 0.15em;
-}
-
-.post-link {
-    position: relative;
-}
-
-.post-link[data-description]:hover::after {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 0.25rem;
-    z-index: 1;
-    width: max-content;
-    max-width: 280px;
-    background: var(--bg);
-    padding: 0.4rem 0.5rem;
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-large);
-    color: var(--text-secondary);
-    font-size: var(--fs-small);
-    line-height: 1.35;
-    text-align: left;
-    pointer-events: none;
-}
-
-.post-link[data-description]:hover::after {
-    content: attr(data-description);
 }
 
 .post-date {

@@ -26,7 +26,7 @@ eleventyComputed:
         {%- set currentYear = postYear %}
     {%- endif %}
     <li class="post-item" data-category="{{ post.data.category }}">
-        <a href="{{ post.url }}" class="post-link" data-description="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %}<span class="favorite">*</span>{% endif %}{% if post.data.project %}<span class="project-marker">^</span>{% endif %}
+        <a href="{{ post.url }}" class="post-link" data-tip="{{ post.data.description | escape }}">{{ post.data.title }}</a>{% if post.data.featured %}<span class="favorite">*</span>{% endif %}{% if post.data.project %}<span class="project-marker">^</span>{% endif %}
         <span class="dot-leader"></span>
         <time class="post-date" datetime="{{ post.date | dateFormat }}">{{ post.date | monthName }}</time>
     </li>
