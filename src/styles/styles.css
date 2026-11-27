@@ -106,6 +106,16 @@ html {
     img {
         opacity: 0.92;
     }
+
+    .light-only {
+        display: none;
+    }
+}
+
+@media not (prefers-color-scheme: dark) {
+    .dark-only {
+        display: none;
+    }
 }
 
 * {

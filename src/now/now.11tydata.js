@@ -45,7 +45,7 @@ export default {
         },
         description: (data) => {
             if (data.description) return data.description;
-            return `What I was working on, reading, and thinking about in ${monthAndYear(data.date)}.`;
+            return `Monthly update on what I have been working on, reading, and thinking about in ${monthAndYear(data.date)}.`;
         },
     },
 };
